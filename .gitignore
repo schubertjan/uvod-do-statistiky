@@ -1,0 +1,12 @@
+Dockerfile
+makefile
+build.log
+.rstudio
+.config
+.ipy*
+.local
+*.ipynb_checkpoints
+*__pycache__
+template_rstudio-prefs.json
+.Rhistory
+.Rproj.user
