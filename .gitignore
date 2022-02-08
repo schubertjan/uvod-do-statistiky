@@ -10,4 +10,4 @@ build.log
 template_rstudio-prefs.json
 .Rhistory
 .Rproj.user
-book/_bookdown_files/*
+book/_bookdown_files/
