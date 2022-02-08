@@ -210,10 +210,10 @@ Příkladem nominální promněnné je například barva. Vezměme si napříkla
 <span id="cb1-5"><a href="desc.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(tabulka)</span></code></pre></div>
 <pre><code>## barvy_aut
 ##     bila  cervena stribrna   zelena    zluta 
-##       26       16       22       19       17</code></pre>
+##       17       20       16       25       22</code></pre>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="desc.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># vratime nazev kategorie, ktera se vyskytuje nejcasteji</span></span>
 <span id="cb3-2"><a href="desc.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(tabulka)[<span class="fu">which.max</span>(tabulka)]</span></code></pre></div>
-<pre><code>## [1] &quot;bila&quot;</code></pre>
+<pre><code>## [1] &quot;zelena&quot;</code></pre>
 <p>Protože budeme modus počítat dále, vytvoříme si funkci, která bude výpočet provádět.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="desc.html#cb5-1" aria-hidden="true" tabindex="-1"></a>modus <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
 <span id="cb5-2"><a href="desc.html#cb5-2" aria-hidden="true" tabindex="-1"></a>  t <span class="ot">&lt;-</span> <span class="fu">table</span>(x)</span>
@@ -233,7 +233,7 @@ U ordinální proměnné, stejně jako u nominální, nemůžeme vypočítat o k
 <span id="cb6-7"><a href="desc.html#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;Typ promenne, po prevedeni na factor: &quot;</span>, <span class="fu">class</span>(vzdelani_vyber)))</span></code></pre></div>
 <pre><code>## [1] &quot;Typ promenne, po prevedeni na factor: factor&quot;</code></pre>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="desc.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(vzdelani_vyber)</span></code></pre></div>
-<pre><code>## [1] zs zs zs zs zs ss ss vs vs
+<pre><code>## [1] zs zs ss ss ss vs vs vs vs
 ## Levels: zs ss vs</code></pre>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="desc.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># vypocitame median</span></span>
 <span id="cb10-2"><a href="desc.html#cb10-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">9</span></span>
@@ -241,10 +241,10 @@ U ordinální proměnné, stejně jako u nominální, nemůžeme vypočítat o k
 <span id="cb10-4"><a href="desc.html#cb10-4" aria-hidden="true" tabindex="-1"></a>median_vzdelani <span class="ot">&lt;-</span> <span class="fu">sort</span>(vzdelani_vyber)[indx]</span>
 <span id="cb10-5"><a href="desc.html#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-6"><a href="desc.html#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;Medián vzdělání je: &quot;</span>, median_vzdelani))</span></code></pre></div>
-<pre><code>## [1] &quot;Medián vzdělání je: zs&quot;</code></pre>
+<pre><code>## [1] &quot;Medián vzdělání je: ss&quot;</code></pre>
 <p>Samozřejmě můžeme u ordinálních proměnných počítat také mód.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="desc.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;Modus proměnné je: &quot;</span>, <span class="fu">modus</span>(vzdelani_vyber)))</span></code></pre></div>
-<pre><code>## [1] &quot;Modus proměnné je: zs&quot;</code></pre>
+<pre><code>## [1] &quot;Modus proměnné je: vs&quot;</code></pre>
 <p>Jak si asi pamatujete z předchozího semestru, u různých proměnných jsme počítali relativní četnosti (četnost je počet pozorování učité hodnoty. Relativní četnost potom počet pozorování děleno počet případů celkem). Například jsme počítali relativní četnost výsledků hodů mincí. Výsledky hodu mincí jsou také nominální proměnnou. Další statistikou, kterou můžete u nominálních a ordinálních proměnných spočítat jsou tedy četnosti. Ty nám řeknou více o rozložení hodnot v proměnné. Pojďme si takový příklad ukázat na našem vzorku se vzděláním.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="desc.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#absolutni cetnost</span></span>
 <span id="cb14-2"><a href="desc.html#cb14-2" aria-hidden="true" tabindex="-1"></a>absolutni_cetnost <span class="ot">&lt;-</span> <span class="fu">table</span>(vzdelani_vyber)</span>
@@ -253,7 +253,7 @@ U ordinální proměnné, stejně jako u nominální, nemůžeme vypočítat o k
 <span id="cb14-5"><a href="desc.html#cb14-5" aria-hidden="true" tabindex="-1"></a>relativni_cetnost</span></code></pre></div>
 <pre><code>## vzdelani_vyber
 ##        zs        ss        vs 
-## 0.5555556 0.2222222 0.2222222</code></pre>
+## 0.2222222 0.3333333 0.4444444</code></pre>
 <p>Nejčastějším způsobem zobrazení četností je sloupcový graf (bar plot).</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="desc.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">table</span>(vzdelani_vyber), </span>
 <span id="cb16-2"><a href="desc.html#cb16-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Sloupcový graf proměnné vzdělání&quot;</span>, </span>
@@ -275,10 +275,10 @@ Kardinální proměnná nám umožňují seřadit hodnoty a říci o kolik jsou 
 <span id="cb18-3"><a href="desc.html#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-4"><a href="desc.html#cb18-4" aria-hidden="true" tabindex="-1"></a>prumer <span class="ot">&lt;-</span> <span class="fu">sum</span>(pocet_deti) <span class="sc">/</span> <span class="fu">length</span>(pocet_deti)</span>
 <span id="cb18-5"><a href="desc.html#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;Průměr proměnné počet dětí je :&quot;</span>, prumer))</span></code></pre></div>
-<pre><code>## [1] &quot;Průměr proměnné počet dětí je :1.882&quot;</code></pre>
+<pre><code>## [1] &quot;Průměr proměnné počet dětí je :1.95&quot;</code></pre>
 <p>Můžeme také požít funckci <code>mean</code></p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="desc.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;Průměr pomocí funkce mean :&quot;</span>, <span class="fu">mean</span>(pocet_deti)))</span></code></pre></div>
-<pre><code>## [1] &quot;Průměr pomocí funkce mean :1.882&quot;</code></pre>
+<pre><code>## [1] &quot;Průměr pomocí funkce mean :1.95&quot;</code></pre>
 <p>Pojďme si ještě vypočítat modus a medián. U číselných proměnných (<code>numeric</code>) můžeme k výpočtu mediánu použít funkci <code>median</code>.</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="desc.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;Modus proměnné počt dětí je: &quot;</span>, <span class="fu">modus</span>(pocet_deti)))</span></code></pre></div>
 <pre><code>## [1] &quot;Modus proměnné počt dětí je: 2&quot;</code></pre>
@@ -288,7 +288,7 @@ Kardinální proměnná nám umožňují seřadit hodnoty a říci o kolik jsou 
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="desc.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">table</span>(pocet_deti))</span></code></pre></div>
 <pre><code>## pocet_deti
 ##   0   1   2   3   4 
-##  86 262 413 162  77</code></pre>
+##  74 256 408 170  92</code></pre>
 <p>nebylo by průměrný počet dětí v datech možné vypočítat pomocí <span class="math inline">\(\overline{x} = (0+1+2+3+4) / 5\)</span>, protože v datech nemáme stejný počet rodin s 0 dětmi, 1 dítětem apod. Musíme jednotlivým hodnotám dát jinou váhu <span class="math inline">\(w_i\)</span> podle toho, kolik jich je v našich datech. V R bychom takovýto vážený průměr mohli vypočítat jako</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="desc.html#cb28-1" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">table</span>(pocet_deti)</span>
 <span id="cb28-2"><a href="desc.html#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co"># prevedeme hodnoty 0,1,2,3,4 do numericke promenne, </span></span>
@@ -297,7 +297,7 @@ Kardinální proměnná nám umožňují seřadit hodnoty a říci o kolik jsou 
 <span id="cb28-5"><a href="desc.html#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-6"><a href="desc.html#cb28-6" aria-hidden="true" tabindex="-1"></a>vazeny_prumer <span class="ot">&lt;-</span> <span class="fu">sum</span>(w <span class="sc">*</span> x_i) <span class="sc">/</span> <span class="fu">sum</span>(w)</span>
 <span id="cb28-7"><a href="desc.html#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;Vážený průměr je: &quot;</span>, vazeny_prumer))</span></code></pre></div>
-<pre><code>## [1] &quot;Vážený průměr je: 1.882&quot;</code></pre>
+<pre><code>## [1] &quot;Vážený průměr je: 1.95&quot;</code></pre>
 <p>Cože je stejné číslo, jaké jsme dostali, když jsme měli k dispozici všech 1000 pozorování proměnné.</p>
 <p>U kardinálních spojitých proměnných používáme k vizuálnímu ověření rozložení hodnot proměnné <strong>histogram</strong>. Histogram je jako sloupcový graf absolutních/relativních četností. Protože u spojitých proměnných neexistuje přirozená hranice pro sloupec, funkce <code>hist</code> vytvoří základní hranice pro sloupce. Ty ale můžete upravit pomocí argumentu <code>breaks</code>.</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="desc.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(pocet_deti, <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>), <span class="at">probability =</span> <span class="cn">TRUE</span>, </span>
@@ -313,14 +313,14 @@ Jak jsme uvedli na začátku, úkolem popisné statistiky není pouze přiblíž
 <span id="cb31-2"><a href="desc.html#cb31-2" aria-hidden="true" tabindex="-1"></a>rozptyl <span class="ot">&lt;-</span> <span class="fu">sum</span>(vzdalenost_od_prumeru) <span class="sc">/</span> <span class="fu">length</span>(pocet_deti)</span>
 <span id="cb31-3"><a href="desc.html#cb31-3" aria-hidden="true" tabindex="-1"></a>smerodatna_odchylka <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(rozptyl)</span>
 <span id="cb31-4"><a href="desc.html#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;Rozptyl je:&quot;</span>, rozptyl))</span></code></pre></div>
-<pre><code>## [1] &quot;Rozptyl je:1.062076&quot;</code></pre>
+<pre><code>## [1] &quot;Rozptyl je:1.0875&quot;</code></pre>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="desc.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;Směrodatná odchylka je:&quot;</span>, smerodatna_odchylka))</span></code></pre></div>
-<pre><code>## [1] &quot;Směrodatná odchylka je:1.03057071567166&quot;</code></pre>
+<pre><code>## [1] &quot;Směrodatná odchylka je:1.04283268073071&quot;</code></pre>
 <p>V R můžeme roztyl a směrodatnou odchylku vypočítat pomocí funkcí <code>var</code> a <code>sd</code>. Vzorec, který se v R používá počítá výběrový roztyl a směrodatnou odchylku, ve jmenovateli tedy používá <span class="math inline">\(n - 1\)</span>. Rozdíl v těchto přístupech teď není důležitý a ukážeme si ho na dalších cvičeních. Uvádíme ho zde jenom, abychom rozuměli proč jsu výsledky jiné než ty, které jsme spočítali my.</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="desc.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;Rozptyl pomocí funkce var je:&quot;</span>, <span class="fu">var</span>(pocet_deti)))</span></code></pre></div>
-<pre><code>## [1] &quot;Rozptyl pomocí funkce var je:1.06313913913914&quot;</code></pre>
+<pre><code>## [1] &quot;Rozptyl pomocí funkce var je:1.08858858858859&quot;</code></pre>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="desc.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;Směrodatná odchylka pomoci funkce sd je:&quot;</span>, <span class="fu">sd</span>(pocet_deti)))</span></code></pre></div>
-<pre><code>## [1] &quot;Směrodatná odchylka pomoci funkce sd je:1.03108638781585&quot;</code></pre>
+<pre><code>## [1] &quot;Směrodatná odchylka pomoci funkce sd je:1.0433544884595&quot;</code></pre>
 <p>Ukažme si princip rozptylu/směrodatné odchylky na imaginárních datech. Na ukázku si vytvoříme proměnnou, která má 10 pozorování a zobrazíme je do grafu jako body. Červená čára označuje průměr těchto bodů. Horizontální čáry potom označují vzdálenost každého pozorování od průměrné hodnoty. Nejdříve si ukážeme příklad s menším rozptylem hodnot a pod ním příklad rozložení s větším rozptylem hodnot. Protože mají oba příklady stejný počet pozorování (10), můžete si rozdíl v jejich rozptylu představit jako rozdíl jejich</p>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="desc.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>))</span>
 <span id="cb39-2"><a href="desc.html#cb39-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">5</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
