@@ -1,0 +1,11 @@
+úvod
+desc
+nominální-proměnná
+ordinální-proměnná
+kardinální-proměnná
+literature
+methods
+applications
+example-one
+example-two
+final-words

@@ -10,6 +10,10 @@ link-citations: yes
 description: "Tato kniha obsahuje materiál ke cvičení kurzu Úvod do statistiky (JSB535)."
 ---
 
+# Úvod
+
+Tato kniha navazuje na kurz Základy logiky a matematiky (JSB536), ale jeho absolvování není nutné k pochopení látky. 
+
 ```{r include=FALSE}
 # automatically create a bib database for R packages
 knitr::write_bib(c(

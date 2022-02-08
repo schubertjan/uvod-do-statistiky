@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Kapitola 2 Popisná statistika | Úvod do statistiky</title>
+  <meta name="description" content="Tato kniha obsahuje materiál ke cvičení kurzu Úvod do statistiky (JSB535)." />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Kapitola 2 Popisná statistika | Úvod do statistiky" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Tato kniha obsahuje materiál ke cvičení kurzu Úvod do statistiky (JSB535)." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Kapitola 2 Popisná statistika | Úvod do statistiky" />
+  
+  <meta name="twitter:description" content="Tato kniha obsahuje materiál ke cvičení kurzu Úvod do statistiky (JSB535)." />
+  
+
+<meta name="author" content="Jan Schubert" />
+
+
+<meta name="date" content="2022-02-08" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="literature.html"/>
+<script src="libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Úvod do statistiky</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Úvod</a></li>
+<li class="chapter" data-level="2" data-path="desc.html"><a href="desc.html"><i class="fa fa-check"></i><b>2</b> Popisná statistika</a>
+<ul>
+<li class="chapter" data-level="2.0.1" data-path="desc.html"><a href="desc.html#nominální-proměnná"><i class="fa fa-check"></i><b>2.0.1</b> Nominální proměnná</a></li>
+<li class="chapter" data-level="2.0.2" data-path="desc.html"><a href="desc.html#ordinální-proměnná"><i class="fa fa-check"></i><b>2.0.2</b> Ordinální proměnná</a></li>
+<li class="chapter" data-level="2.0.3" data-path="desc.html"><a href="desc.html#kardinální-proměnná"><i class="fa fa-check"></i><b>2.0.3</b> Kardinální proměnná</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i><b>3</b> Literature</a></li>
+<li class="chapter" data-level="4" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>4</b> Methods</a></li>
+<li class="chapter" data-level="5" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>5</b> Applications</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="applications.html"><a href="applications.html#example-one"><i class="fa fa-check"></i><b>5.1</b> Example one</a></li>
+<li class="chapter" data-level="5.2" data-path="applications.html"><a href="applications.html#example-two"><i class="fa fa-check"></i><b>5.2</b> Example two</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>6</b> Final Words</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Úvod do statistiky</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="desc" class="section level1" number="2">
+<h1><span class="header-section-number">Kapitola 2</span> Popisná statistika</h1>
+<p>Klíčové pojmy:</p>
+<ul>
+<li>popisná x inferenční statistika</li>
+<li>absolutní a relativní četnost</li>
+<li>mód, medián, průměr</li>
+<li>rozptyl, směrodatná odhylka</li>
+</ul>
+<p>Co je to statistika? Existuje mnoho různých definic. Můžeme říci, že statistika je nástroj, který aplikuje matematicku na poznání informace o nějakých datech. Je důležité si uvědomit, že statistika je nástroj k testování vědeckých hypotéz pomocí dat (evidence). Statistika není dobrá k vytváření hypotéz nebo dokonce vědeckých teorií.</p>
+<p>Statistika je užitečná na dva úkoly:</p>
+<ol style="list-style-type: decimal">
+<li><p>Popisování většího množství dat (popisná statistika)</p></li>
+<li><p>Předpovídání nějakého fenomenu (inferenční statistika)</p></li>
+</ol>
+<p>V této přednášce se budeme věnovat popisné statistice. Statistika popisná nám popisuje nějaký soubor čísel. Například, kolik pozorujeme na určitém cvičení Úvodu do statistiky žen a mužů. Statistika inferenční nám pak pomáhá na základě naměřených dat dělat úsudky o celé populaci studentů statistiky, tedy včetně cvičení, které jsme přímo neměřili.</p>
+<p>Úkolem popisné statistiky je shrnout informace o našem výběru do pár čísel, které nám pomohou pochopit jaké má náš výběr vlastnosti. Hlavními vlastnostmi, které nás zajímají je:</p>
+<ol style="list-style-type: decimal">
+<li><p>Jakáje typická hodnota měřené proměnné</p></li>
+<li><p>Na kolik se liší hodnoty jendotlivých pozorování (jak jsou rozptýlené)</p></li>
+</ol>
+<p>Výběr popisné statistiky záleží na typu proměnné, kterou měříme. Z předchozí přednášky víme, že existují 3 typy proměnných:
+1) Nominální
+2) Ordinální
+3) Kardinální</p>
+<p>Dále víme, že nominální proměnné nemůžeme seřadit, ordinální můžeme seřadit a kardinální můžeme seřadit a zároveň říci o kolik je nějaká hodnota větší než jiná.</p>
+<div id="nominální-proměnná" class="section level3" number="2.0.1">
+<h3><span class="header-section-number">2.0.1</span> Nominální proměnná</h3>
+<p><br />
+Příkladem nominální promněnné je například barva. Vezměme si například situaci, v kterém bychom zjišťovali informace o barvě auta na nějakém konkrétním parkovišti. Na parkovišti parkuje 100 aut. Všechna auta bychom obešli a barvu zaznamenali. Jaký je nejlepší způsob, jak se něco dozvědět o všech 100 autech? Mohli bychom si všechny barvy přečíst a snažit se je zapomatovat tak. To by ale bylo obtížné. A právě proto na to nám slouží popisná statistika. Pomocí jednoho čísla můžeme vystihnout nejpočetnější barvu. Takové popisné statistice říkáme <strong>modus</strong>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="desc.html#cb1-1" aria-hidden="true" tabindex="-1"></a>barvy <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;cervena&quot;</span>, <span class="st">&quot;stribrna&quot;</span>, <span class="st">&quot;zelena&quot;</span>, <span class="st">&quot;zluta&quot;</span>, <span class="st">&quot;bila&quot;</span>)</span>
+<span id="cb1-2"><a href="desc.html#cb1-2" aria-hidden="true" tabindex="-1"></a>barvy_aut <span class="ot">&lt;-</span> <span class="fu">sample</span>(barvy, <span class="at">size =</span> <span class="dv">100</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-3"><a href="desc.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># vytvorime tabulku relativnich cetnosti</span></span>
+<span id="cb1-4"><a href="desc.html#cb1-4" aria-hidden="true" tabindex="-1"></a>tabulka <span class="ot">&lt;-</span> <span class="fu">table</span>(barvy_aut)</span>
+<span id="cb1-5"><a href="desc.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(tabulka)</span></code></pre></div>
+<pre><code>## barvy_aut
+##     bila  cervena stribrna   zelena    zluta 
+##       13       23       27       16       21</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="desc.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># vratime nazev kategorie, ktera se vyskytuje nejcasteji</span></span>
+<span id="cb3-2"><a href="desc.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(tabulka)[<span class="fu">which.max</span>(tabulka)]</span></code></pre></div>
+<pre><code>## [1] &quot;stribrna&quot;</code></pre>
+<p>Protože budeme modus počítat dále, vytvoříme si funkci, která bude výpočet provádět.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="desc.html#cb5-1" aria-hidden="true" tabindex="-1"></a>modus <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb5-2"><a href="desc.html#cb5-2" aria-hidden="true" tabindex="-1"></a>  t <span class="ot">&lt;-</span> <span class="fu">table</span>(x)</span>
+<span id="cb5-3"><a href="desc.html#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span> (<span class="fu">names</span>(t)[<span class="fu">which.max</span>(t)])</span>
+<span id="cb5-4"><a href="desc.html#cb5-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="ordinální-proměnná" class="section level3" number="2.0.2">
+<h3><span class="header-section-number">2.0.2</span> Ordinální proměnná</h3>
+<p><br />
+U ordinální proměnné, stejně jako u nominální, nemůžeme vypočítat o kolik je nějaká hodnota větší než druhá. Můžeme ale hodnoty seřadit. Toho se využívá k vypočítání popisné statistiky zvané <strong>medián</strong>. Medián nám značí prostžední hodnotu nějaké proměnné. Můžete si pro představit tak, že hodnoty proměnné seřadíte od nejmenší po největší a vyberete hodnotu, která bude přesně uprostřed. No a tato hodnota je medián. Matematicky se medián u proměnné <span class="math inline">\(x\)</span> vypočítá jako <span class="math inline">\(median(x) = x_{(n + 1)/2}\)</span>. Pokud má naše proměnná sudý počet čísel, vypočítá se medián zpravidla jako průměr dvou prostředních hodnot, tedy <span class="math inline">\(median(x) = \frac{x_{n/2} + x_{n/2+1}}{2}\)</span>. Ukážeme si její výpočet na příkladu vzdělání. V našich datech máme 3 stupně vzdělání - zš, sš a vš. Nasimulume příklad, v kterém budeme mít 9 dat.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="desc.html#cb6-1" aria-hidden="true" tabindex="-1"></a>vzdelani <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;zs&quot;</span>, <span class="st">&quot;ss&quot;</span>, <span class="st">&quot;vs&quot;</span>)</span>
+<span id="cb6-2"><a href="desc.html#cb6-2" aria-hidden="true" tabindex="-1"></a>vzdelani_vyber <span class="ot">&lt;-</span> <span class="fu">sample</span>(vzdelani, <span class="at">size =</span> <span class="dv">9</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb6-3"><a href="desc.html#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="desc.html#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#udelame z character faktor (abychom mohli mit serazene hodnoty)</span></span>
+<span id="cb6-5"><a href="desc.html#cb6-5" aria-hidden="true" tabindex="-1"></a>vzdelani_vyber <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="at">x =</span> vzdelani_vyber, <span class="at">levels =</span> vzdelani)</span>
+<span id="cb6-6"><a href="desc.html#cb6-6" aria-hidden="true" tabindex="-1"></a>vzdelani_vyber <span class="ot">&lt;-</span> <span class="fu">sort</span>(vzdelani_vyber)</span>
+<span id="cb6-7"><a href="desc.html#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;Typ promenne, po prevedeni na factor: &quot;</span>, <span class="fu">class</span>(vzdelani_vyber)))</span></code></pre></div>
+<pre><code>## [1] &quot;Typ promenne, po prevedeni na factor: factor&quot;</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="desc.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(vzdelani_vyber)</span></code></pre></div>
+<pre><code>## [1] zs zs zs zs ss ss ss vs vs
+## Levels: zs ss vs</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="desc.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># vypocitame median</span></span>
+<span id="cb10-2"><a href="desc.html#cb10-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">9</span></span>
+<span id="cb10-3"><a href="desc.html#cb10-3" aria-hidden="true" tabindex="-1"></a>indx <span class="ot">&lt;-</span> (n <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">/</span> <span class="dv">2</span></span>
+<span id="cb10-4"><a href="desc.html#cb10-4" aria-hidden="true" tabindex="-1"></a>median_vzdelani <span class="ot">&lt;-</span> <span class="fu">sort</span>(vzdelani_vyber)[indx]</span>
+<span id="cb10-5"><a href="desc.html#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="desc.html#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;Median vzdelani je: &quot;</span>, median_vzdelani))</span></code></pre></div>
+<pre><code>## [1] &quot;Median vzdelani je: ss&quot;</code></pre>
+<p>Samozřejmě můžeme u ordinálních proměnných počítat také mód.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="desc.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;Modus promenne je: &quot;</span>, <span class="fu">modus</span>(vzdelani_vyber)))</span></code></pre></div>
+<pre><code>## [1] &quot;Modus promenne je: zs&quot;</code></pre>
+<p>Jak si asi pamatujete z předchozího semestru, u různých proměnných jsme počítali relativní četnosti (četnost je počet pozorování učité hodnoty. Relativní četnost potom počet pozorování děleno počet případů celkem). Například jsme počítali relativní četnost výsledků hodů mincí. Výsledky hodu mincí jsou také nominální proměnnou. Další statistikou, kterou můžete u nominálních a ordinálních proměnných spočítat jsou tedy četnosti. Ty nám řeknou více o rozložení hodnot v proměnné. Pojďme si takový příklad ukázat na našem vzorku se vzděláním.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="desc.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#absolutni cetnost</span></span>
+<span id="cb14-2"><a href="desc.html#cb14-2" aria-hidden="true" tabindex="-1"></a>absolutni_cetnost <span class="ot">&lt;-</span> <span class="fu">table</span>(vzdelani_vyber)</span>
+<span id="cb14-3"><a href="desc.html#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">#relativni cetnost</span></span>
+<span id="cb14-4"><a href="desc.html#cb14-4" aria-hidden="true" tabindex="-1"></a>relativni_cetnost <span class="ot">&lt;-</span> <span class="fu">table</span>(vzdelani_vyber) <span class="sc">/</span> <span class="fu">length</span>(vzdelani_vyber)</span>
+<span id="cb14-5"><a href="desc.html#cb14-5" aria-hidden="true" tabindex="-1"></a>relativni_cetnost</span></code></pre></div>
+<pre><code>## vzdelani_vyber
+##        zs        ss        vs 
+## 0.4444444 0.3333333 0.2222222</code></pre>
+<p>Nejčastějším způsobem zobrazení četností je sloupcový graf (bar plot).</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="desc.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">table</span>(vzdelani_vyber), </span>
+<span id="cb16-2"><a href="desc.html#cb16-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Sloupcovy graf promenne vzdelani&quot;</span>, </span>
+<span id="cb16-3"><a href="desc.html#cb16-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">&quot;Cetnost&quot;</span>)</span></code></pre></div>
+<p><img src="book_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="desc.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">table</span>(vzdelani_vyber) <span class="sc">/</span> <span class="fu">length</span>(vzdelani_vyber), </span>
+<span id="cb17-2"><a href="desc.html#cb17-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Sloupcovy graf promenne vzdelani&quot;</span>, </span>
+<span id="cb17-3"><a href="desc.html#cb17-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">&quot;Relativní cetnost&quot;</span>)</span></code></pre></div>
+<p><img src="book_files/figure-html/unnamed-chunk-7-2.png" width="672" /></p>
+</div>
+<div id="kardinální-proměnná" class="section level3" number="2.0.3">
+<h3><span class="header-section-number">2.0.3</span> Kardinální proměnná</h3>
+<p><br />
+Kardinální proměnná nám umožňují seřadit hodnoty a říci o kolik jsou větší. Kardinální proměnné jsou tedy číselné. Rozlišujeme mezi <strong>diskrétní</strong> a <strong>spojitou</strong>. Diskrétní nabývá celých čísel (1,2,3,4 etc., například počet dětí), tedy <span class="math inline">\(\in Z\)</span>. Spojitá proměnná pak teoreticky nebývá nekonečně mnoho hodnot, prakticky je ale omezena tím, jak přesně dokážeme danou metriku měřit. Platí ale, že spojité proměnné nabývají racionálních čísel, tedy <span class="math inline">\(\in R\)</span>. Stejně jako u ordinální proměnné, můžeme vypočítat modus a medián. Další popisnou statistikou, která nám prozradí něco o velikosti hodnot vnašich datech je <strong>průměr</strong>. Průměr proměnné <span class="math inline">\(x\)</span> vypočítáme jako <span class="math inline">\(\overline{x} = \frac{1}{n}\sum_{i=1}^{n} x_i\)</span>. Pojďme si ukázat, jak průměr vypočítat na datech o počtu dětí.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="desc.html#cb18-1" aria-hidden="true" tabindex="-1"></a>rodiny <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">0</span>)</span>
+<span id="cb18-2"><a href="desc.html#cb18-2" aria-hidden="true" tabindex="-1"></a>pocet_deti <span class="ot">&lt;-</span> <span class="fu">sample</span>(rodiny, <span class="at">size =</span> <span class="dv">1000</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb18-3"><a href="desc.html#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="desc.html#cb18-4" aria-hidden="true" tabindex="-1"></a>prumer <span class="ot">&lt;-</span> <span class="fu">sum</span>(pocet_deti) <span class="sc">/</span> <span class="fu">length</span>(pocet_deti)</span>
+<span id="cb18-5"><a href="desc.html#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;Prumer promenne pocet deti je :&quot;</span>, prumer))</span></code></pre></div>
+<pre><code>## [1] &quot;Prumer promenne pocet deti je :1.834&quot;</code></pre>
+<p>Můžeme také požít funckci <code>mean</code></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="desc.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;Prumer pomoci funkce mean :&quot;</span>, <span class="fu">mean</span>(pocet_deti)))</span></code></pre></div>
+<pre><code>## [1] &quot;Prumer pomoci funkce mean :1.834&quot;</code></pre>
+<p>Pojďme si ještě vypočítat modus a medián. U číselných proměnných (<code>numeric</code>) můžeme k výpočtu mediánu použít funkci <code>median</code>.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="desc.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;Modus promenne pocet deti je: &quot;</span>, <span class="fu">modus</span>(pocet_deti)))</span></code></pre></div>
+<pre><code>## [1] &quot;Modus promenne pocet deti je: 2&quot;</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="desc.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;Media promenne pocet deti je: &quot;</span>, <span class="fu">median</span>(pocet_deti)))</span></code></pre></div>
+<pre><code>## [1] &quot;Media promenne pocet deti je: 2&quot;</code></pre>
+<p>Někdy nechceme všem pozorováním při výpočtu průměru dát stejnou váhu. V takovém případě vypočítáme <strong>vážený průměr</strong>. Jeho vzorec je<span class="math inline">\(\overline{x} = \frac{\sum_{i=1}^{n} w_ix_i}{\sum_{i=1}^{n}w_i}\)</span>. Pokud bychom například měli pouze informace o četnosti počtu dětí, tedy:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="desc.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">table</span>(pocet_deti))</span></code></pre></div>
+<pre><code>## pocet_deti
+##   0   1   2   3   4 
+## 107 254 407 162  70</code></pre>
+<p>nebylo by průměrný počet dětí v datech možné vypočítat pomocí <span class="math inline">\(\overline{x} = (0+1+2+3+4) / 5\)</span>, protože v datech nemáme stejný počet rodin s 0 dětmi, 1 dítětem apod. Musíme jednotlivým hodnotám dát jinou váhu <span class="math inline">\(w_i\)</span> podle toho, kolik jich je v našich datech. V R bychom takovýto vážený průměr mohli vypočítat jako</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="desc.html#cb28-1" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">table</span>(pocet_deti)</span>
+<span id="cb28-2"><a href="desc.html#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co"># prevedeme hodnoty 0,1,2,3,4 do numericke promenne, </span></span>
+<span id="cb28-3"><a href="desc.html#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># abychom mohli nasobit a scitat</span></span>
+<span id="cb28-4"><a href="desc.html#cb28-4" aria-hidden="true" tabindex="-1"></a>x_i <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">names</span>(<span class="fu">table</span>(pocet_deti)))</span>
+<span id="cb28-5"><a href="desc.html#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-6"><a href="desc.html#cb28-6" aria-hidden="true" tabindex="-1"></a>vazeny_prumer <span class="ot">&lt;-</span> <span class="fu">sum</span>(w <span class="sc">*</span> x_i) <span class="sc">/</span> <span class="fu">sum</span>(w)</span>
+<span id="cb28-7"><a href="desc.html#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;Vážený průměr je: &quot;</span>, vazeny_prumer))</span></code></pre></div>
+<pre><code>## [1] &quot;Vážený průměr je: 1.834&quot;</code></pre>
+<p>Cože je stejné číslo, jaké jsme dostali, když jsme měli k dispozici všech 1000 pozorování proměnné.</p>
+<p>U kardinálních spojitých proměnných používáme k vizuálnímu ověření rozložení hodnot proměnné <strong>histogram</strong>. Histogram je jako sloupcový graf absolutních/relativních četností. Protože u spojitých proměnných neexistuje přirozená hranice pro sloupec, funkce <code>hist</code> vytvoří základní hranice pro sloupce. Ty ale můžete upravit pomocí argumentu <code>breaks</code>.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="desc.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(pocet_deti, <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>), <span class="at">probability =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb30-2"><a href="desc.html#cb30-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Pocet deti&quot;</span>, </span>
+<span id="cb30-3"><a href="desc.html#cb30-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Relativní cetnost&quot;</span>,</span>
+<span id="cb30-4"><a href="desc.html#cb30-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Histogram poctu deti&quot;</span>)</span></code></pre></div>
+<p><img src="book_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><br />
+<br />
+Jak jsme uvedli na začátku, úkolem popisné statistiky není pouze přiblížit, jak vypadá typická hodnota naší proměnné, ale také přiblížit, jak jsou od sebe odlišné. K tomu nám slouží metrika, kterou nazýváme rozptyl. <strong>Rozptyl</strong> vypočítáme tak, že každou hodnotu odečteme od průměru a umocníme. Tyto hodnoty sečteme a vydělíme počtem pozorování. Matematicky bychom rozptyl <span class="math inline">\(\sigma^2\)</span> proměnné <span class="math inline">\(x\)</span> vypočítali jako <span class="math inline">\(\sigma^2 = \frac{1}{n}\sum_{i=1}^n (x_i - \overline{x})^2\)</span>. Ve statistice se také používá pro výpočet rozptýlenosti <strong>směrodatná odchylka</strong> <span class="math inline">\(\sigma\)</span>, které se vypočítá jako <span class="math inline">\(\sigma = \sqrt{\sigma^2}\)</span> Pojďme vypočítat rozptyl a směrodatnou odchylku u naší proměnné počet dětí.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="desc.html#cb31-1" aria-hidden="true" tabindex="-1"></a>vzdalenost_od_prumeru <span class="ot">&lt;-</span> (pocet_deti <span class="sc">-</span> <span class="fu">mean</span>(pocet_deti))<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb31-2"><a href="desc.html#cb31-2" aria-hidden="true" tabindex="-1"></a>rozptyl <span class="ot">&lt;-</span> <span class="fu">sum</span>(vzdalenost_od_prumeru) <span class="sc">/</span> <span class="fu">length</span>(pocet_deti)</span>
+<span id="cb31-3"><a href="desc.html#cb31-3" aria-hidden="true" tabindex="-1"></a>smerodatna_odchylka <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(rozptyl)</span>
+<span id="cb31-4"><a href="desc.html#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;Rozptyl je:&quot;</span>, rozptyl))</span></code></pre></div>
+<pre><code>## [1] &quot;Rozptyl je:1.096444&quot;</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="desc.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;Smerodatna odchylka je:&quot;</span>, smerodatna_odchylka))</span></code></pre></div>
+<pre><code>## [1] &quot;Smerodatna odchylka je:1.04711221939198&quot;</code></pre>
+<p>V R můžeme roztyl a směrodatnou odchylku vypočítat pomocí funkcí <code>var</code> a <code>sd</code>. Vzorec, který se v R používá počítá výběrový roztyl a směrodatnou odchylku, ve jmenovateli tedy používá <span class="math inline">\(n - 1\)</span>. Rozdíl v těchto přístupech teď není důležitý a ukážeme si ho na dalších cvičeních. Uvádíme ho zde jenom, abychom rozuměli proč jsu výsledky jiné než ty, které jsme spočítali my.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="desc.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;Rozptyl pomoci funkce var je:&quot;</span>, <span class="fu">var</span>(pocet_deti)))</span></code></pre></div>
+<pre><code>## [1] &quot;Rozptyl pomoci funkce var je:1.09754154154154&quot;</code></pre>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="desc.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;Smerodatna odchylka pomoci funkce sd je:&quot;</span>, <span class="fu">sd</span>(pocet_deti)))</span></code></pre></div>
+<pre><code>## [1] &quot;Smerodatna odchylka pomoci funkce sd je:1.04763616849627&quot;</code></pre>
+<p>Ukažme si princip rozptylu/směrodatné odchylky na imaginárních datech. Na ukázku si vytvoříme proměnnou, která má 10 pozorování a zobrazíme je do grafu jako body. Červená čára označuje průměr těchto bodů. Horizontální čáry potom označují vzdálenost každého pozorování od průměrné hodnoty. Nejdříve si ukážeme příklad s menším rozptylem hodnot a pod ním příklad rozložení s větším rozptylem hodnot. Protože mají oba příklady stejný počet pozorování (10), můžete si rozdíl v jejich rozptylu představit jako rozdíl jejich</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="desc.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>))</span>
+<span id="cb39-2"><a href="desc.html#cb39-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">5</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb39-3"><a href="desc.html#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-4"><a href="desc.html#cb39-4" aria-hidden="true" tabindex="-1"></a>prumer <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)</span>
+<span id="cb39-5"><a href="desc.html#cb39-5" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="fu">length</span>(x)) </span>
+<span id="cb39-6"><a href="desc.html#cb39-6" aria-hidden="true" tabindex="-1"></a>smerodatna_odchylka <span class="ot">&lt;-</span> <span class="fu">sum</span>((x <span class="sc">-</span> <span class="fu">mean</span>(x))<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> (<span class="fu">length</span>(x))</span>
+<span id="cb39-7"><a href="desc.html#cb39-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-8"><a href="desc.html#cb39-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, n, </span>
+<span id="cb39-9"><a href="desc.html#cb39-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">paste0</span>(<span class="st">&quot;Smerodatna odchylka: &quot;</span>, <span class="fu">round</span>(smerodatna_odchylka, <span class="dv">2</span>)),</span>
+<span id="cb39-10"><a href="desc.html#cb39-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">10</span>), </span>
+<span id="cb39-11"><a href="desc.html#cb39-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Cislo pozorovani&quot;</span>, <span class="at">pch =</span> <span class="dv">20</span>)</span>
+<span id="cb39-12"><a href="desc.html#cb39-12" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> prumer, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb39-13"><a href="desc.html#cb39-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> n) {</span>
+<span id="cb39-14"><a href="desc.html#cb39-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(<span class="fu">c</span>(prumer, x[i]), <span class="fu">c</span>(i,i), <span class="at">col =</span> <span class="st">&quot;black&quot;</span>)</span>
+<span id="cb39-15"><a href="desc.html#cb39-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb39-16"><a href="desc.html#cb39-16" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, </span>
+<span id="cb39-17"><a href="desc.html#cb39-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;Prumer&quot;</span>, <span class="st">&quot;Vzdal. od prumeru&quot;</span>), </span>
+<span id="cb39-18"><a href="desc.html#cb39-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;black&quot;</span>), </span>
+<span id="cb39-19"><a href="desc.html#cb39-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">cex =</span> <span class="fl">0.7</span>)</span>
+<span id="cb39-20"><a href="desc.html#cb39-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-21"><a href="desc.html#cb39-21" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>,<span class="dv">5</span>, <span class="at">sd =</span> <span class="dv">2</span>)</span>
+<span id="cb39-22"><a href="desc.html#cb39-22" aria-hidden="true" tabindex="-1"></a>prumer <span class="ot">&lt;-</span> <span class="fu">mean</span>(x2)</span>
+<span id="cb39-23"><a href="desc.html#cb39-23" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="fu">length</span>(x2)) </span>
+<span id="cb39-24"><a href="desc.html#cb39-24" aria-hidden="true" tabindex="-1"></a>smerodatna_odchylka <span class="ot">&lt;-</span> <span class="fu">sum</span>((x2 <span class="sc">-</span> <span class="fu">mean</span>(x2))<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> (<span class="fu">length</span>(x))</span>
+<span id="cb39-25"><a href="desc.html#cb39-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-26"><a href="desc.html#cb39-26" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x2, n, </span>
+<span id="cb39-27"><a href="desc.html#cb39-27" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">paste0</span>(<span class="st">&quot;Smerodatna odchylka: &quot;</span>, <span class="fu">round</span>(smerodatna_odchylka, <span class="dv">2</span>)),</span>
+<span id="cb39-28"><a href="desc.html#cb39-28" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">10</span>), </span>
+<span id="cb39-29"><a href="desc.html#cb39-29" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Cislo pozorovani&quot;</span>, <span class="at">pch =</span> <span class="dv">20</span>)</span>
+<span id="cb39-30"><a href="desc.html#cb39-30" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> prumer, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb39-31"><a href="desc.html#cb39-31" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> n) {</span>
+<span id="cb39-32"><a href="desc.html#cb39-32" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(<span class="fu">c</span>(prumer, x2[i]), <span class="fu">c</span>(i,i), <span class="at">col =</span> <span class="st">&quot;black&quot;</span>)</span>
+<span id="cb39-33"><a href="desc.html#cb39-33" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb39-34"><a href="desc.html#cb39-34" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, </span>
+<span id="cb39-35"><a href="desc.html#cb39-35" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;Prumer&quot;</span>, <span class="st">&quot;Vzdal. od prumeru&quot;</span>), </span>
+<span id="cb39-36"><a href="desc.html#cb39-36" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;black&quot;</span>), </span>
+<span id="cb39-37"><a href="desc.html#cb39-37" aria-hidden="true" tabindex="-1"></a>       <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">cex =</span> <span class="fl">0.7</span>)</span></code></pre></div>
+<p><img src="book_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p>Zkuste si zobrazit histrogram obou proměnných, abyste si udělali lepší představu o tom, jak vypadá jejich rozložení.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="literature.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["book.pdf", "book.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
