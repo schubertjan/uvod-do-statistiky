@@ -36,7 +36,7 @@ Výběr popisné statistiky záleží na typu proměnné, kterou měříme. Z p�
 Dále víme, že nominální proměnné nemůžeme seřadit, ordinální můžeme seřadit a kardinální můžeme seřadit a zároveň říci o kolik je nějaká hodnota větší než jiná. 
 
 
-### Nominální proměnná
+## Nominální proměnná
 \
 Příkladem nominální promněnné je například barva. Vezměme si například situaci, v kterém bychom zjišťovali informace o barvě auta na nějakém konkrétním parkovišti. Na parkovišti parkuje 100 aut. Všechna auta bychom obešli a barvu zaznamenali. Jaký je nejlepší způsob, jak se něco dozvědět o všech 100 autech? Mohli bychom si všechny barvy přečíst a snažit se je zapomatovat tak. To by ale bylo obtížné. A právě proto na to nám slouží popisná statistika. Pomocí jednoho čísla můžeme vystihnout nejpočetnější barvu. Takové popisné statistice říkáme **modus**.
 ```{r}
@@ -58,7 +58,7 @@ modus <- function(x) {
 ```
 
 
-### Ordinální proměnná
+## Ordinální proměnná
 \
 U ordinální proměnné, stejně jako u nominální, nemůžeme vypočítat o kolik je nějaká hodnota větší než druhá. Můžeme ale hodnoty seřadit. Toho se využívá k vypočítání popisné statistiky zvané **medián**. Medián nám značí prostžední hodnotu nějaké proměnné. Můžete si pro představit tak, že hodnoty proměnné seřadíte od nejmenší po největší a vyberete hodnotu, která bude přesně uprostřed. No a tato hodnota je medián. Matematicky se medián u proměnné $x$ vypočítá jako $median(x) = x_{(n + 1)/2}$. Pokud má naše proměnná sudý počet čísel, vypočítá se medián zpravidla jako průměr dvou prostředních hodnot, tedy $median(x) = \frac{x_{n/2} + x_{n/2+1}}{2}$. Ukážeme si její výpočet na příkladu vzdělání. V našich datech máme 3 stupně vzdělání - zš, sš a vš. Nasimulume příklad, v kterém budeme mít 9 dat.
 
@@ -77,13 +77,13 @@ n <- 9
 indx <- (n + 1) / 2
 median_vzdelani <- sort(vzdelani_vyber)[indx]
 
-print(paste0("Median vzdelani je: ", median_vzdelani))
+print(paste0("Medián vzdělání je: ", median_vzdelani))
 ```
 
 
 Samozřejmě můžeme u ordinálních proměnných počítat také mód.
 ```{r}
-print(paste0("Modus promenne je: ", modus(vzdelani_vyber)))
+print(paste0("Modus proměnné je: ", modus(vzdelani_vyber)))
 ```
 
 Jak si asi pamatujete z předchozího semestru, u různých proměnných jsme počítali relativní četnosti (četnost je počet pozorování učité hodnoty. Relativní četnost potom počet pozorování děleno počet případů celkem). Například jsme počítali relativní četnost výsledků hodů mincí. Výsledky hodu mincí jsou také nominální proměnnou. Další statistikou, kterou můžete u nominálních a ordinálních proměnných spočítat jsou tedy četnosti. Ty nám řeknou více o rozložení hodnot v proměnné. Pojďme si takový příklad ukázat na našem vzorku se vzděláním.
@@ -100,14 +100,16 @@ Nejčastějším způsobem zobrazení četností je sloupcový graf (bar plot).
 
 ```{r}
 barplot(table(vzdelani_vyber), 
-        main = "Sloupcovy graf promenne vzdelani", 
-        ylab = "Cetnost")
+        main = "Sloupcový graf proměnné vzdělání", 
+        ylab = "Četnost",
+        col = "#1f77b4")
 barplot(table(vzdelani_vyber) / length(vzdelani_vyber), 
-        main = "Sloupcovy graf promenne vzdelani", 
-        ylab = "Relativní cetnost")
+        main = "Sloupcový graf proměnné vzdělání", 
+        ylab = "Relativní četnost",
+        col = "#1f77b4")
 ```
 
-### Kardinální proměnná
+## Kardinální proměnná
 \
 Kardinální proměnná nám umožňují seřadit hodnoty a říci o kolik jsou větší. Kardinální proměnné jsou tedy číselné. Rozlišujeme mezi **diskrétní** a **spojitou**. Diskrétní nabývá celých čísel (1,2,3,4 etc., například počet dětí), tedy $\in Z$. Spojitá proměnná pak teoreticky nebývá nekonečně mnoho hodnot, prakticky je ale omezena tím, jak přesně dokážeme danou metriku měřit. Platí ale, že spojité proměnné nabývají racionálních čísel, tedy $\in R$. Stejně jako u ordinální proměnné, můžeme vypočítat modus a medián. Další popisnou statistikou, která nám prozradí něco o velikosti hodnot vnašich datech je **průměr**. Průměr proměnné $x$ vypočítáme jako $\overline{x} = \frac{1}{n}\sum_{i=1}^{n} x_i$. Pojďme si ukázat, jak průměr vypočítat na datech o počtu dětí.
 
@@ -116,23 +118,23 @@ rodiny <- c(2,2,2,2,2,1,1,1,3,3,4,0)
 pocet_deti <- sample(rodiny, size = 1000, replace = TRUE)
 
 prumer <- sum(pocet_deti) / length(pocet_deti)
-print(paste0("Prumer promenne pocet deti je :", prumer))
+print(paste0("Průměr proměnné počet dětí je :", prumer))
 ```
 
 Můžeme také požít funckci `mean`
 ```{r}
-print(paste0("Prumer pomoci funkce mean :", mean(pocet_deti)))
+print(paste0("Průměr pomocí funkce mean :", mean(pocet_deti)))
 ```
 
 
 Pojďme si ještě vypočítat modus a medián. U číselných proměnných (`numeric`) můžeme k výpočtu mediánu použít funkci `median`.
 ```{r}
-print(paste0("Modus promenne pocet deti je: ", modus(pocet_deti)))
-print(paste0("Media promenne pocet deti je: ", median(pocet_deti)))
+print(paste0("Modus proměnné počt dětí je: ", modus(pocet_deti)))
+print(paste0("Median proměnné počt dětí je: ", median(pocet_deti)))
 ```
 
 
-Někdy nechceme všem pozorováním při výpočtu průměru dát stejnou váhu. V takovém případě vypočítáme **vážený průměr**. Jeho vzorec je$\overline{x} = \frac{\sum_{i=1}^{n} w_ix_i}{\sum_{i=1}^{n}w_i}$. Pokud bychom například měli pouze informace o četnosti počtu dětí, tedy:
+Někdy nechceme všem pozorováním při výpočtu průměru dát stejnou váhu. V takovém případě vypočítáme **vážený průměr**. Jeho vzorec je $\overline{x} = \frac{\sum_{i=1}^{n} w_ix_i}{\sum_{i=1}^{n}w_i}$. Pokud bychom například měli pouze informace o četnosti počtu dětí, tedy:
 ```{r}
 print(table(pocet_deti))
 ```
@@ -153,9 +155,10 @@ Cože je stejné číslo, jaké jsme dostali, když jsme měli k dispozici všec
 U kardinálních spojitých proměnných používáme k vizuálnímu ověření rozložení hodnot proměnné **histogram**. Histogram je jako sloupcový graf absolutních/relativních četností. Protože u spojitých proměnných neexistuje přirozená hranice pro sloupec, funkce `hist` vytvoří základní hranice pro sloupce. Ty ale můžete upravit pomocí argumentu `breaks`.
 ```{r}
 hist(pocet_deti, breaks = c(0,1,2,3,4,5), probability = TRUE, 
-     xlab = "Pocet deti", 
-     ylab = "Relativní cetnost",
-     main = "Histogram poctu deti")
+     xlab = "Počet dětí", 
+     ylab = "Relativní četnost",
+     main = "Histogram poštu děti",
+     col = "#1f77b4")
 ```
 
 \
@@ -166,13 +169,13 @@ vzdalenost_od_prumeru <- (pocet_deti - mean(pocet_deti))^2
 rozptyl <- sum(vzdalenost_od_prumeru) / length(pocet_deti)
 smerodatna_odchylka <- sqrt(rozptyl)
 print(paste0("Rozptyl je:", rozptyl))
-print(paste0("Smerodatna odchylka je:", smerodatna_odchylka))
+print(paste0("Směrodatná odchylka je:", smerodatna_odchylka))
 ```
 
 V R můžeme roztyl a směrodatnou odchylku vypočítat pomocí funkcí `var` a `sd`. Vzorec, který se v R používá počítá výběrový roztyl a směrodatnou odchylku, ve jmenovateli tedy používá $n - 1$. Rozdíl v těchto přístupech teď není důležitý a ukážeme si ho na dalších cvičeních. Uvádíme ho zde jenom, abychom rozuměli proč jsu výsledky jiné než ty, které jsme spočítali my. 
 ```{r}
-print(paste0("Rozptyl pomoci funkce var je:", var(pocet_deti)))
-print(paste0("Smerodatna odchylka pomoci funkce sd je:", sd(pocet_deti)))
+print(paste0("Rozptyl pomocí funkce var je:", var(pocet_deti)))
+print(paste0("Směrodatná odchylka pomoci funkce sd je:", sd(pocet_deti)))
 ```
 
 
@@ -186,16 +189,18 @@ n <- seq(1, length(x))
 smerodatna_odchylka <- sum((x - mean(x))^2) / (length(x))
 
 plot(x, n, 
-     main = paste0("Smerodatna odchylka: ", round(smerodatna_odchylka, 2)),
+     main = paste0("Směrodatná odchylka: ", round(smerodatna_odchylka, 2)),
      xlim = c(0,10), 
-     xlab = "", ylab = "Cislo pozorovani", pch = 20)
+     xlab = "", ylab = "Číslo pozorovaní", 
+     pch = 19,
+     col = "#1f77b4")
 abline(v = prumer, col = "red")
 for(i in n) {
-	lines(c(prumer, x[i]), c(i,i), col = "black")
+	lines(c(prumer, x[i]), c(i,i), col = "#1f77b4")
 }
 legend("topright", 
-        legend = c("Prumer", "Vzdal. od prumeru"), 
-       col = c("red", "black"), 
+        legend = c("Průměr", "Vzdal. od průměru"), 
+       col = c("red", "#1f77b4"), 
        lty = c(1,1), cex = 0.7)
 
 x2 <- rnorm(10,5, sd = 2)
@@ -204,16 +209,18 @@ n <- seq(1, length(x2))
 smerodatna_odchylka <- sum((x2 - mean(x2))^2) / (length(x))
 
 plot(x2, n, 
-     main = paste0("Smerodatna odchylka: ", round(smerodatna_odchylka, 2)),
+     main = paste0("Směrodatná odchylka: ", round(smerodatna_odchylka, 2)),
      xlim = c(0,10), 
-     xlab = "", ylab = "Cislo pozorovani", pch = 20)
+     xlab = "", ylab = "Číslo pozorovan9", 
+     pch = 19,
+     col = "#1f77b4")
 abline(v = prumer, col = "red")
 for(i in n) {
-	lines(c(prumer, x2[i]), c(i,i), col = "black")
+	lines(c(prumer, x2[i]), c(i,i), col = "#1f77b4")
 }
 legend("topright", 
-       legend = c("Prumer", "Vzdal. od prumeru"), 
-       col = c("red", "black"), 
+       legend = c("Průměr", "Vzdal. od průměru"), 
+       col = c("red", "#1f77b4"), 
        lty = c(1,1), cex = 0.7)
 ```
 
