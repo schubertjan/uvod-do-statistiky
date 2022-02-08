@@ -8,15 +8,6 @@ Klíčové pojmy:
  * rozptyl, směrodatná odhylka
 
 
-Co je to statistika? Existuje mnoho různých definic. Můžeme říci, že statistika je nástroj, který aplikuje matematicku na poznání informace o nějakých datech. Je důležité si uvědomit, že statistika je nástroj k testování vědeckých hypotéz pomocí dat (evidence). Statistika není dobrá k vytváření hypotéz nebo dokonce vědeckých teorií. 
-
-
-Statistika je užitečná na dva úkoly:
-
-1) Popisování většího množství dat (popisná statistika) 
-
-2) Předpovídání nějakého fenomenu (inferenční statistika)
-
 
 V této přednášce se budeme věnovat popisné statistice. Statistika popisná nám popisuje nějaký soubor čísel. Například, kolik pozorujeme na určitém cvičení Úvodu do statistiky žen a mužů. Statistika inferenční nám pak pomáhá na základě naměřených dat dělat úsudky o celé populaci studentů statistiky, tedy včetně cvičení, které jsme přímo neměřili.
 
@@ -40,6 +31,7 @@ Dále víme, že nominální proměnné nemůžeme seřadit, ordinální můžem
 \
 Příkladem nominální promněnné je například barva. Vezměme si například situaci, v kterém bychom zjišťovali informace o barvě auta na nějakém konkrétním parkovišti. Na parkovišti parkuje 100 aut. Všechna auta bychom obešli a barvu zaznamenali. Jaký je nejlepší způsob, jak se něco dozvědět o všech 100 autech? Mohli bychom si všechny barvy přečíst a snažit se je zapomatovat tak. To by ale bylo obtížné. A právě proto na to nám slouží popisná statistika. Pomocí jednoho čísla můžeme vystihnout nejpočetnější barvu. Takové popisné statistice říkáme **modus**.
 ```{r}
+set.seed(42)
 barvy <- c("cervena", "stribrna", "zelena", "zluta", "bila")
 barvy_aut <- sample(barvy, size = 100, replace = TRUE)
 # vytvorime tabulku relativnich cetnosti
@@ -63,8 +55,9 @@ modus <- function(x) {
 U ordinální proměnné, stejně jako u nominální, nemůžeme vypočítat o kolik je nějaká hodnota větší než druhá. Můžeme ale hodnoty seřadit. Toho se využívá k vypočítání popisné statistiky zvané **medián**. Medián nám značí prostžední hodnotu nějaké proměnné. Můžete si pro představit tak, že hodnoty proměnné seřadíte od nejmenší po největší a vyberete hodnotu, která bude přesně uprostřed. No a tato hodnota je medián. Matematicky se medián u proměnné $x$ vypočítá jako $median(x) = x_{(n + 1)/2}$. Pokud má naše proměnná sudý počet čísel, vypočítá se medián zpravidla jako průměr dvou prostředních hodnot, tedy $median(x) = \frac{x_{n/2} + x_{n/2+1}}{2}$. Ukážeme si její výpočet na příkladu vzdělání. V našich datech máme 3 stupně vzdělání - zš, sš a vš. Nasimulume příklad, v kterém budeme mít 9 dat.
 
 ```{r}
+n <- 13
 vzdelani <- c("zs", "ss", "vs")
-vzdelani_vyber <- sample(vzdelani, size = 9, replace = TRUE)
+vzdelani_vyber <- sample(vzdelani, size = n, replace = TRUE)
 
 #udelame z character faktor (abychom mohli mit serazene hodnoty)
 vzdelani_vyber <- factor(x = vzdelani_vyber, levels = vzdelani)
@@ -73,7 +66,6 @@ print(paste0("Typ promenne, po prevedeni na factor: ", class(vzdelani_vyber)))
 print(vzdelani_vyber)
 
 # vypocitame median
-n <- 9
 indx <- (n + 1) / 2
 median_vzdelani <- sort(vzdelani_vyber)[indx]
 
@@ -93,16 +85,21 @@ Jak si asi pamatujete z předchozího semestru, u různých proměnných jsme po
 absolutni_cetnost <- table(vzdelani_vyber)
 #relativni cetnost
 relativni_cetnost <- table(vzdelani_vyber) / length(vzdelani_vyber)
-relativni_cetnost
+```
+```{r}
+knitr::kable(relativni_cetnost, caption = "Relativní četnost kategorie vzdělání")
 ```
 
 Nejčastějším způsobem zobrazení četností je sloupcový graf (bar plot). 
 
-```{r}
+```{r, fig.cap="Sloupcový graf proměnné vzdělání - absolutní četnost", fig.align='center'}
 barplot(table(vzdelani_vyber), 
         main = "Sloupcový graf proměnné vzdělání", 
         ylab = "Četnost",
         col = "#1f77b4")
+```
+
+```{r, fig.cap="Sloupcový graf proměnné vzdělání - relativní četnost", fig.align='center'}
 barplot(table(vzdelani_vyber) / length(vzdelani_vyber), 
         main = "Sloupcový graf proměnné vzdělání", 
         ylab = "Relativní četnost",

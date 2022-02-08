@@ -4,3 +4,6 @@ output_dir: "../docs"
 language:
   ui:
     chapter_name: "Kapitola "
+  label:
+    fig: 'Graf '
+    tab: 'Tabulka '

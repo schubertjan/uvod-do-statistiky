@@ -10,13 +10,84 @@ link-citations: yes
 description: "Tato kniha obsahuje materiál ke cvičení kurzu Úvod do statistiky (JSB535)."
 ---
 
-# Úvod
-
-Tato kniha navazuje na kurz Základy logiky a matematiky (JSB536), ale jeho absolvování není nutné k pochopení látky. 
-
 ```{r include=FALSE}
+set.seed(42)
 # automatically create a bib database for R packages
 knitr::write_bib(c(
   .packages(), "bookdown", "knitr", "rmarkdown"
 ), "packages.bib")
 ```
+
+# Úvod
+
+Tato kniha navazuje na kurz Základy logiky a matematiky (JSB536), ale jeho absolvování není nutné k pochopení látky. 
+
+Statistika je nástroj, který aplikuje matematiku na získání užitečných informací z dat.
+
+Roli statistiky je možné rozdělit na dva úkoly:
+
+1) Popisování většího množství dat (popisná statistika) 
+
+2) Předpovídání nějakého fenomenu/určení míry nejistoty (inferenční statistika)
+
+## Příklad popisné statistiky 
+
+Mnoho fenomenů v každodenním světě je možné vyjádřit pomocí dat. Fotka se dá vyjádřit jako 3D matice (red, green, blue) řádků a sloupců, která vyjadřuje jednotlivé pixely.
+
+```{r, fig.cap='bert de boer, CC BY 2.0 <https://creativecommons.org/licenses/by/2.0>, via Wikimedia Commons', fig.align='center'}
+obrazek <- jpeg::readJPEG("../imgs/img1.1.jpg")
+plot(0:1, 0:1, ann = FALSE, axes = FALSE, type = "n")
+rasterImage(obrazek, 0.1, 0, 0.9, 1)
+```
+
+```{r}
+dim(obrazek)
+```
+
+Můžeme například zobrazit hodnoty červené barvy prvních 5x5 pixelů.
+```{r}
+obrazek[1:5, 1:5, 1]
+```
+
+Můžeme zobrazit pouze nějaké řádky a sloupce:
+```{r, fig.align='center', fig.width=5, fig.height=5}
+plot(0:1,0:1,type="n",ann=FALSE,axes=FALSE)
+rasterImage(obrazek[1:500, 1:500, ] ,0,0,1,1)
+```
+
+Protože obrázek je matice dat, můžeme na ni uplatnit různé statistické metody, jako například extrahovat 5 typů barev pomocí shlukovacího algoritmu. 
+```{r}
+k <- 5
+cervena <- as.vector(obrazek[, , 1])
+zelena <- as.vector(obrazek[, , 2])
+modra <- as.vector(obrazek[, , 3])
+
+m <- kmeans(cbind(cervena, zelena, modra), centers = k)
+barvy <- m$centers
+
+barvy_rgb <- rep(NA, k)
+plot(seq(1, k*10+10, length.out = 10), seq(1, 10, length.out = 10), 
+     axes = FALSE, ann = FALSE, type = "n")
+for(i in 1:5) {
+  barvy_rgb[i] <- rgb(barvy[i, 1], barvy[i, 2], barvy[i, 3])
+  rect(i*10, 1, i*10+10, 8, col = barvy_rgb[i])
+  text(i*10+5, 9, labels = barvy_rgb[i])
+}
+```
+
+
+## Příklad inferenční statistiky 
+Většina jevů okolo nás je ovlivněna náhodou, ať už z důvodu náhodného výběru nebo protože jsou součástí nějakého komplikovaného systému, který ovliňuje hodnoty jevu, který nás zajímá. Počet aut, které projedou na mostě, délka toaletního paríru, který je vyrobený v továrně, to jsou některé příklady jevů, které jsou ovlivněny náhodou. Statistika nám poskytuje soubor nástrojů, jak tuto náhodu (nejistotu) kvantifikovat. Pohlaví dětí je určeno náhodou a nově narozené dítě má zhruba stejnou pravděpodobnost, že bude děvče nebo chlapec. Řekněme, že z důvodu kapacitního plánování nás zajímá, kolik chlapců se narodí, pokud se v porodnoci denně narodí 25 dětí (sám počet narozených dětí by se dal modelovat jako náhodná proměnná). 
+```{r, fig.cap='Rozložení počtu chlapců z 25 narozených dětí'}
+n <- 25
+p <- 0.5
+pocet_chlapcu <- rbinom(1000, n, p)
+t <- table(pocet_chlapcu)
+plot(t, type = "h", 
+     xlab = "Počet chlapců z 25 narozených dětí", ylab = "Četnost",
+     lwd = 15,
+     col = "#1f77b4")
+```
+
+## Simulace
+K pochopení statistiky budeme používat programovací jazyk. Ten nám umožní, abychom si statistické koncepty osahali detailně. Budeme simulovat data, u kterých budeme vědět pravé hodnoty a sledovat, jak (ne)úspěšně různé statistické postupy pravé hodnoty odhadují. Cílem je, abychom statistiku pochopili tak, že ji budeme moci použít na konkrétní problém. Chceme dosáhnout toho, aby statistika byla jazykem, který můžeme použít na různé datové problémy. 
