@@ -78,13 +78,25 @@ pocet_slov <- sapply(prezident_clean, length)
 
 Velmi dobrým zvykem je si rozložení hodnot proměnné zobrazit graficky. Grafické zobrzení nám vždy poví nejenom o typické hodnotě proměnné, ale i o tom, jak se hodnoty liší (viz Míry rozptýlenosti \@ref(#desc-vars)). Pokud máme číselnou proměnnou je nejčastějším způsobem, jak zobrazit hodnoty proměnné histogram. Histogram je:
 
-> "...je to grafické znázornění distribuce dat pomocí sloupcového grafu se sloupci stejné šířky, vyjadřující šířku intervalů 
-> (tříd), přičemž výška sloupců vyjadřuje četnost sledované veličiny v daném intervalu."
+> ...je to grafické znázornění distribuce dat pomocí sloupcového grafu se sloupci stejné šířky, vyjadřující šířku intervalů 
+> (tříd), přičemž výška sloupců vyjadřuje četnost sledované veličiny v daném intervalu.
 Zdroj: [Wikipedia](https://cs.wikipedia.org/wiki/Histogram)
 
 Můžeme ho vytvořit pomocí funkce `hist`. Vidíme, že nejvíce nejčastěji věta obsahuje mezi 5 až 25 slovy, ale některé věty obsahují i více než 35 slov. 
 ```{r, fig.cap='Příklad histogramu na číselné (kardinální) proměnné'}
-hist(pocet_slov, col = "#1f77b4", xlab = "Počet slov ve větě", ylab = "Četnost", main = "Histogram počtu slov ve větě")
+hist(pocet_slov, 
+     col = "#1f77b4", 
+     xlab = "Počet slov ve větě", ylab = "Četnost", 
+     main = "Histogram počtu slov ve větě")
+```
+Funkce `hist` automaticky zvolí vhodné intervaly pro sloupce v grafu. Pokud byste je chtěli změnit, můžete tak udělat pomocí argumentu `breaks`.
+
+```{r}
+hist(pocet_slov, 
+     col = "#1f77b4", 
+     xlab = "Počet slov ve větě", ylab = "Četnost", 
+     main = "Histogram počtu slov ve větě",
+     breaks = 15)
 ```
 
 Medián můžeme vypočítat pomocí funkce `median`. Mediánový počet slov ve větě je tedy 15.5.
@@ -124,7 +136,7 @@ legend("topleft",
 ```
 
 
-Asi nejčastější mírou centrální tendence, která se používá je průměr. Průměr je možné vypočítat pouze pro kardinální proměnné. Technicky kardinální proměnné rozlišujeme na **diskrétní** a **spojitou**. Diskrétní nabývá celých čísel (1,2,3,4 etc., například počet dětí), tedy $\in Z$. Spojitá proměnná pak teoreticky nebývá nekonečně mnoho hodnot, prakticky je ale omezena tím, jak přesně dokážeme danou metriku měřit. Platí ale, že spojité proměnné nabývají racionálních čísel, tedy $\in R$. Průměr proměnné $x$ vypočítáme jako $\overline{x} = \frac{1}{n}\sum_{i=1}^{n} x_i$. Pojďme tedy vypočítat průměrný počet slov ve větě. V `R` můžeme použít funkci `mean`.
+Asi nejčastější mírou centrální tendence, která se používá je průměr. Průměr je možné vypočítat pouze pro kardinální proměnné. Technicky kardinální proměnné rozlišujeme na diskrétní a spojitou. Diskrétní nabývá celých čísel (1,2,3,4 etc., například počet dětí), tedy $\in Z$. Spojitá proměnná pak teoreticky nebývá nekonečně mnoho hodnot, prakticky je ale omezena tím, jak přesně dokážeme danou metriku měřit. Platí ale, že spojité proměnné nabývají racionálních čísel, tedy $\in R$. **Průměr** proměnné $x$ vypočítáme jako $\overline{x} = \frac{1}{n}\sum_{i=1}^{n} x_i$. Pojďme tedy vypočítat průměrný počet slov ve větě. V `R` můžeme použít funkci `mean`.
 ```{r}
 sum(pocet_slov) / length(pocet_slov)
 ```
@@ -135,42 +147,172 @@ w <- 1:length(pocet_slov)
 sum(w * pocet_slov) / sum(w)
 ```
 
+Důležitý rozdíl mezi mediánem a průměr nastává pokud nejsou data symetricky rozdělena. Symetricky rozdělená data jsou taková, která mají podobný počet hodnot nalevo a napravo od průměru. V našem případě rozložení počtu slov ve větě je medián menší než průměr. To je typické pro rozložení, která mají delší konec napravo od průměru. Průměr je totiž náchylný na extrémní pozorování. Medián je založený na pořadí, takže ho extrémní pozorování tolik neovlivní. Většína proměnných, která je ohraničená zleva (nemůže mít nemší hodnotu nežnějaká hranice) má asymetrické rozložení s více hodnotami napravo od průměru, např. příjem. V takových případech může být medián lepší mírou centrální tendence, ale výběr bude vždy záležet na otázce, kterou daty chceme zodpovědět.    
 
+
+I pomocí mír centrální tendence se dají dělat zajívé analýzy. Řekněme, že nás zajímá rozdíl v relativní četnosti slov v projevu prezidenta a premiéra.
+```{r}
+# nacteme text projevu premiera
+premier <- readLines("../dats/vlada.txt")
+premier_clean <- vycistit_text(premier)
+
+# extrahujeme slova z vet do vektoru
+slova_premier <- unlist(premier_clean)
+
+# nacteme a odstranime stopwords
+stopwords <- readLines("https://raw.githubusercontent.com/stopwords-iso/stopwords-cs/master/stopwords-cs.txt", encoding = "UTF-8")
+# vybereme pouze slova, ktera nejsou ve stopwords
+slova_premier <- slova_premier[!slova_premier %in% stopwords]
+slova <- slova[!slova %in% stopwords]
+
+# vypocitame absolutni cetnost slov
+cetnost_premier <- table(slova_premier) 
+cetnost_prezident <- table(slova)
+
+# vypocitame relativni cetnost
+cetnost_premier <- cetnost_premier / sum(cetnost_premier)
+cetnost_prezident <- cetnost_prezident / sum(cetnost_prezident)
+
+# vypocitame relativni cetnost
+
+# ted slouzime obe tabulky 
+rel_cetnost <- merge(data.frame(cetnost_premier), data.frame(cetnost_prezident), by.x = "slova_premier", by.y = "slova")
+# prejmenuje sloupce, aby davaly vice smysl
+colnames(rel_cetnost) <- c("slova", "premier", "prezident")
+head(rel_cetnost)
+
+# vybereme nejcastejsich 20 slov pro každého 
+top_premier <- order(rel_cetnost$premier, decreasing = TRUE)[1:20]
+top_prezident <-order(rel_cetnost$prezident, decreasing = TRUE)[1:20]
+# vyfiltrujeme 
+top_index <- unique(c(top_premier, top_prezident))
+rel_cetnost_top <- rel_cetnost[top_index, ]
+```
+
+```{r, fig.cap='Top 20 slov podle relativní četnosti v projevu prezidenta a premiéra', fig.align='center'}
+x <- 1:nrow(rel_cetnost_top)
+plot(x,
+     rel_cetnost_top$premier, 
+     type = "h",
+     xaxt = "n",
+     xlab = "",
+     ylab = "Relativní četnost",
+     col = "#1f77b4", lwd = 3)
+lines(x+0.3,
+      rel_cetnost_top$prezident, 
+      type = "h",
+      col = "black", lwd = 3)
+axis(1, at=x, labels=rel_cetnost_top$slova, las = 3, cex.axis = 0.8)
+legend("topright", legend = c("Premiér", "Prezident"), col = c("#1f77b4", "black"), lwd = c(3,3), cex = 0.8)
+```
 
 ## Míry rozptýlenosti {#desc-vars}
-
-
-Na tomto grafu se můžete podívat co se stane z daty, která jsou normálně rozdělena (viz Kapitola Pravděpodobnostní rozložení) s průměrem 0 a směrodatnou odchylkou 10, 20, 30 a 40.
-```{r, warning=FALSE, message=FALSE}
-library(plotly)
-```
+Míry centrální tendence nám udávájí hodnotu typického pozorování proměnné. Míry rozptýlenosti nám říkají, jak jsou hodnoty rozptýleny daleko od nějaké typické hodnoty. Pro kardinální proměnné se nejčastěji používá **rozptyl**, který vypočítáme tak, že každou hodnotu proměnné odečteme od průměru a umocníme. Tyto hodnoty sečteme a vydělíme počtem pozorování. Matematicky bychom rozptyl $\sigma^2$ proměnné $x$ vypočítali jako $\sigma^2 = \frac{1}{n}\sum_{i=1}^n (x_i - \overline{x})^2$. Ve statistice se také používá pro výpočet rozptýlenosti **směrodatná odchylka** $\sigma$, které se vypočítá jako $\sigma = \sqrt{\sigma^2}$. Ukažme si příklad na počtu slov.
 ```{r}
+n<- length(pocet_slov)
+rozptyl <- sum((pocet_slov - mean(pocet_slov))^2) / n
+# nebo v R pomoci var
+rozptyl
 
-# vytvorime data, ktera chceme zobrazit
-n <- 1000
-mu <- 0
-stds <- seq(10, 40, by = 10)
-dats <- list()
-
-for(step in 1:length(stds)) {
-  dats[[step]] <- list(visible = TRUE,
-                        name = paste0('sd = ', stds[step]),
-                        x=rnorm(n, mu, stds[step]))
-}
-
-
-# do grafu pridame nase data
-fig <- plotly::plot_ly(alpha = 0.3)
-for(i in 1:length(stds)) {
-  fig  <- fig %>% plotly::add_histogram(x = dats[[i]][["x"]], 
-                        visible = dats[[i]][["visible"]], 
-                        showlegend = TRUE,
-                        name = dats[[i]][["name"]]) 
-}
-# upravime nastaveni
-fig <- fig %>% plotly::layout(barmode = "overlay",
-                      xaxis = list(title = "X", range = c(-100,100)))
-
-# zobrazime
-fig
+smerodatna_odchylka <- sqrt(rozptyl)
+# nebo v R pomoci sd
+smerodatna_odchylka
 ```
+
+Ukažme si princip rozptylu/směrodatné odchylky na imaginárních datech. Na ukázku si vytvoříme proměnnou, která má 10 pozorování a zobrazíme je do grafu jako body. Červená čára označuje průměr těchto bodů. Horizontální čáry potom označují vzdálenost každého pozorování od průměrné hodnoty. Nejdříve si ukážeme příklad s menším rozptylem hodnot a pod ním příklad rozložení s větším rozptylem hodnot. Protože mají oba příklady stejný počet pozorování (10), můžete si rozdíl v jejich směrodatné odhylce představit jako rozdíl vertikálních úseček, které vedou od průměru.  
+```{r, fig.cap='Ukázka výpočtu směrodatné odchylky', fig.align='center', fig.height=10}
+par(mfrow = c(2, 1))
+x <- rnorm(1e4, mean = 5, sd = 1)
+prumer <- mean(x)
+n <- seq(1, 10) 
+smerodatna_odchylka <- sd(x)
+ 
+# prvni graf
+plot(x[n], n, 
+     main = paste0("Směrodatná odchylka: ", round(smerodatna_odchylka, 2)),
+     xlim = c(0,10), 
+     xlab = "", ylab = "Číslo pozorovaní", 
+     pch = 19,
+     col = "#1f77b4")
+abline(v = prumer, col = "black", lwd = 2)
+for(i in n) {
+	lines(c(prumer, x[i]), c(i,i), col = "#1f77b4", lwd = 2)
+}
+legend("topright", 
+        legend = c("Průměr", "Vzdal. od průměru"), 
+       col = c("black", "#1f77b4"), 
+       lwd = c(2,2), cex = 0.7)
+
+# druhy graf
+x2 <- rnorm(1e4, mean = 5, sd = 2.5)
+prumer <- mean(x2)
+smerodatna_odchylka <- sd(x2)
+
+plot(x2[n], n, 
+     main = paste0("Směrodatná odchylka: ", round(smerodatna_odchylka, 2)),
+     xlim = c(0,10), 
+     xlab = "", ylab = "Číslo pozorovaní", 
+     pch = 19,
+     col = "#1f77b4")
+abline(v = prumer, col = "black", lwd = 2)
+for(i in n) {
+	lines(c(prumer, x2[i]), c(i,i), col = "#1f77b4",lwd = 2)
+}
+legend("topright", 
+       legend = c("Průměr", "Vzdal. od průměru"), 
+       col = c("black", "#1f77b4"), 
+       lwd = c(2,2), cex = 0.7)
+```
+
+
+Pro úplnost, jak by vypadal histogram rozložení obou proměnných. V tomto případě jsme data generovali z normálního rozložení (viz kapitola Pravděpodobnostní rozložení).  
+```{r, fig.cap='Histogram bodů z normálního rozložení o průměru 5 a směrodatné odchylce 1 (modrá) a 2.5 (černá)'}
+hist(x, 
+     col = adjustcolor("#1f77b4", 0.9), 
+     breaks = 20, 
+     xlab = "", ylab = "Četnost", main = "",
+     xlim = c(0,10))
+hist(x2, 
+     col = adjustcolor("black", 0.4), 
+     breaks = 40, 
+     add = TRUE)
+```
+
+
+Poslední mírou rozptylu, kteru si ukážeme je **kvantil**. Kvantile je:
+
+> je ve statistice čísla (hodnoty), která dělí soubor seřazených (například naměřených) hodnot na několik zhruba stejně velkých částí. Kvantil je tedy míra polohy rozdělení pravděpodobnosti náhodné veličiny.
+>
+> Zdroj: [Wikipedia](https://cs.wikipedia.org/wiki/Kvantil). 
+
+Rozdělit data na stejný počet velkých částí lze různě. Proto jsou různé typy rozdělení různě nazvány:
+
+>**Medián**
+>Kvantil rozdělující statistický soubor na dvě stejně početné množiny se nazývá medián, tzn. jedná se o kvantil $Q_{0.5}$.
+>
+>**Tercil**
+>Dva tercily rozdělují statistický soubor na třetiny. 1/3 prvků má hodnoty menší nebo rovné hodnotě prvního tercilu $Q_{1/3}$, 2/3 prvků mají hodnoty menší nebo rovné hodnotě tercilu druhého $Q_{2/3}$.
+>
+>**Kvartil**
+>Tři kvartily rozdělují statistický soubor na čtvrtiny. 25 % prvků má hodnoty menší než dolní kvartil $Q_{0.25}$ a 75 % prvků hodnoty menší než horní kvartil $Q_{0.75}$; někdy se označují $Q_1$ a $Q_3$.
+>
+>**Kvintil**
+>Čtyři kvintily dělí statistický soubor na pět stejných dílů. 20 % prvků souboru má hodnoty menší (nebo rovné) hodnotě prvního kvintilu, 80 % hodnoty větší (nebo >rovné).
+>
+>**Decil**
+>Decil dělí statistický soubor na desetiny. Jako k-tý decil označujeme $Q_{10/k}$.
+>
+>**Percentil**
+>Percentil dělí statistický soubor na setiny. Jako k-tý percentil označujeme $Q_{100/k}$. Používá se například při vyhodnocení testů: Pokud má účastník umístění na 85. percentilu, znamená to, že 85 % účastníků mělo horší výsledek (a 15 % účastníků je lepších nebo stejných jako on [včetně jeho samého]). Znamená to, že účastník s nejlepším umístěním nebude mít percentil 100 %, ale nižší (o část vyjadřující procento jeho vlastního >podílu na výsledku). Percentil tak vypočteme:
+> $PR = \frac{CF - (0.5 * F)}{N} * 100$. 
+> Kde PR je hodnota percentilu, CF je kumulativní počet výsledků a F je počet výskytů počítaného výsledku (percentilu).
+>
+>Zdroj: [Wikipedia](https://cs.wikipedia.org/wiki/Kvantil)
+
+
+V `R` můžeme kvantily vypočítat pomocí funkce `quantile`. V argumentu `prob` stanovíme jakou pravděpodobnost (percentil) chceme vypočítat. Například vypočítejme  kvartily počtu slov. Vidíme, že 25% vět má méně než 9 slov a že 25% vět má více než 23 slov (nebo že 75% vět má méně než 23 slov).
+```{r}
+quantile(pocet_slov, prob = c(0.25, 0.5, 0.75))
+```
+
+Percentil a mezikvantilove a rozpětí

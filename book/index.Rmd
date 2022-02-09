@@ -79,7 +79,7 @@ for(i in 1:5) {
 ## Příklad inferenční statistiky 
 Většina jevů okolo nás je ovlivněna náhodou, ať už z důvodu náhodného výběru nebo protože jsou součástí nějakého komplikovaného systému, který ovliňuje hodnoty jevu, který nás zajímá. Počet aut, které projedou na mostě, délka toaletního paríru, který je vyrobený v továrně, to jsou některé příklady jevů, které jsou ovlivněny náhodou. Statistika nám poskytuje soubor nástrojů, jak tuto náhodu (nejistotu) kvantifikovat. Pohlaví dětí je určeno náhodou a nově narozené dítě má zhruba stejnou pravděpodobnost, že bude děvče nebo chlapec. Řekněme, že z důvodu kapacitního plánování nás zajímá, kolik chlapců se narodí, pokud se v porodnoci denně narodí 25 dětí (sám počet narozených dětí by se dal modelovat jako náhodná proměnná). Vidíme, že nejpravděpodobněji se narodí 12 nebo 13 chlapců (v 30% případů). Můžeme také z grafu vypočítat, že více než 15 chlapců se narodí zhruba v 11% případů, tedy zhruba 42 dní v roce (0.11 * 365).
 
-```{r, fig.cap='Rozložení počtu chlapců z 25 narozených dětí'}
+```{r, fig.cap='Pravděpodobnostní rozložení počtu chlapců z 25 narozených dětí'}
 n <- 25
 p <- 0.5
 x <- c(0:25)
