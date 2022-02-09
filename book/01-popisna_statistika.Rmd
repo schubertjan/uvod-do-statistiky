@@ -1,0 +1,163 @@
+# Popisná statistika
+
+Jak jsme zmínili v úvodu popisná statistika je jeden z hlavních cílů statistiky. Úkolem popisné statistiky je shrnout informace o našem výběru do pár čísel, které nám pomohou pochopit jaké má náš výběr vlastnosti. Hlavními vlastnostmi, které nás zajímají je:
+
+1) Jaká je typická hodnota měřené proměnné (míra centrální tendence)
+
+2) Na kolik se liší hodnoty jendotlivých pozorování (míra rozptýlenosti)
+
+Abychom si popisnou statistiku představili, budeme používat Novoroční/Vánoční projev prezidenta republiky.
+
+Nejdříve si data načteme. Text můžeme načíst různými způsoby, my použijeme funkci `readLines`, která vrátí zpět vektor.
+```{r}
+prezident <- readLines("../dats/prezident.txt", encoding = "UTF-8")
+```
+
+Nejdříve text očistíme o mezery a čárky, přeneseme vše do malých písmen, rozdělíme na věty a potom na slova. Protože tuto proceduru budeme dělat vícekrát uděláme si na to funkci. Výstupem této funkce bude list, jehož každý element reprezentuje jednu větu a v rámci této věty jaká obsahuje slova.  
+```{r}
+vycistit_text <- function(.text) {
+  # vse malym pismem
+  .text <- tolower(.text)
+  
+  # odstranime prazdne radky
+  .text <- .text[.text != ""]
+  
+  # odstranime carky
+  .text <- gsub(pattern = ",", replacement = "", x = .text)
+  
+  # rozdelit na vety, pokud najdeme "." nebo "!" nebo "?"
+  .text <- unlist(strsplit(.text, split = "\\.|\\!|\\?"))
+  
+  # vymazeme mezery na zacatku a konci
+  .text <- trimws(.text, which = c("left"))
+  .text <- trimws(.text, which = c("right"))
+  
+  # odstranime prazdne prvky, ktere vznikly protoze po tecce neni zadny text
+  .text <- .text[.text != ""] 
+  
+  # rozdelime na slova
+  slova <- list()
+  for( i in 1:length(.text)) {
+    slova[[i]] <- unlist(strsplit(.text[i], split = " "))
+  }
+  return(slova)
+}
+```
+
+```{r}
+prezident_clean <- vycistit_text(prezident)
+```
+
+## Míry centrální tendence
+Míry centrální tendence se snaží popsat nějakou typickou hodnotu proměnné. My si představíme modus, medián, průměr, absolutní a relativní četnost. Jaké míry centrální tendence můžeme na proměnné vypočítat se liší podle typu proměnné. Nominální proměnná je taková proměnná, u které nemůžeme hodnoty seřadit od nejmenšího po největší a nemůžeme ani určit o kolik je jedna hodnota větší než jiná. Tou nejzákladnější popisnou statistikou je četnost nějakého jevu a z ní odvozená míra centrální tendence **modus**. Modus je tedy nejčastější hodnota proměnné. Když se zamyslíte, tak u proměnné u které nemůžeme hodnoty seřadit ani jinak matematicky porovnat je nejčastější hodnota nejvíce vypovídající o typické hodnotě proměnné. Pojďme si jako příklad vypočítat nejčastější slovo z projevu.  
+
+```{r}
+# nejprve prevedeme list na vekor
+slova <- unlist(prezident_clean)
+tabulka_slov <- table(slova)
+```
+
+Jak je vidět, naše tabulka četností je velká, obsahuje 651 hodnot. To mimo jiné znamená, že v projevu bylo použito 651 slov. Abychom získali nejčastější hodnotu musíme si tabulku seřadit od největší četnost po nejmenší a zobrazit prvních 10 hodnot.  
+```{r}
+dim(tabulka_slov)
+```
+```{r}
+tabulka_slov_serazena <- sort(tabulka_slov, decreasing = TRUE)
+head(tabulka_slov_serazena, 10)
+```
+
+Modus této proměnné by byla hodnota "a", která se vyskytla 45x. To je v textové analýze typické a tato slova se označují jako "stopwords" a jsou zpravidla a textové analýzy vyřazena.
+
+
+Další měrou centrální tendence je **median**. Medián nám značí prostřední hodnotu nějaké proměnné. Můžeme si jeho výpočet představit tak, že hodnoty proměnné seřadíme od nejmenší po největší a vyberete hodnotu, která bude přesně uprostřed. Tato hodnota je medián. Matematicky se medián u proměnné $x$ vypočítá jako $median(x) = x_{(n + 1)/2}$. Pokud má naše proměnná sudý počet čísel, vypočítá se medián zpravidla jako průměr dvou prostředních hodnot, tedy $median(x) = \frac{x_{n/2} + x_{n/2+1}}{2}$. 
+
+Řekněme, že bychom chtěli vědět medián počtu slov ve větě. Nejdříve si musíme pro každou větu (prvek listu `prezident_clean`) vypočítat počet slov. 
+```{r}
+pocet_slov <- sapply(prezident_clean, length)
+```
+
+Velmi dobrým zvykem je si rozložení hodnot proměnné zobrazit graficky. Grafické zobrzení nám vždy poví nejenom o typické hodnotě proměnné, ale i o tom, jak se hodnoty liší (viz Míry rozptýlenosti \@ref(#desc-vars)). Pokud máme číselnou proměnnou je nejčastějším způsobem, jak zobrazit hodnoty proměnné histogram. Histogram je:
+
+> "...je to grafické znázornění distribuce dat pomocí sloupcového grafu se sloupci stejné šířky, vyjadřující šířku intervalů 
+> (tříd), přičemž výška sloupců vyjadřuje četnost sledované veličiny v daném intervalu."
+Zdroj: [Wikipedia](https://cs.wikipedia.org/wiki/Histogram)
+
+Můžeme ho vytvořit pomocí funkce `hist`. Vidíme, že nejvíce nejčastěji věta obsahuje mezi 5 až 25 slovy, ale některé věty obsahují i více než 35 slov. 
+```{r, fig.cap='Příklad histogramu na číselné (kardinální) proměnné'}
+hist(pocet_slov, col = "#1f77b4", xlab = "Počet slov ve větě", ylab = "Četnost", main = "Histogram počtu slov ve větě")
+```
+
+Medián můžeme vypočítat pomocí funkce `median`. Mediánový počet slov ve větě je tedy 15.5.
+
+```{r}
+n <- length(pocet_slov)
+# protoze mame sudy pocet slov vypocitame prumer dvou prostrednich hodnot
+i1 <- n / 2
+i2 <- i1 + 1
+.median <- mean(pocet_slov[c(i1,i2)])
+# nebo pomoci funkce median(pocet_slov)
+.median
+```
+
+Pojďme si výpočet zobrazit graficky a seřadit si počet slov od nejmenšího po největší a zobrazit si medián na grafu
+```{r, fig.cap='Příklad histogramu na číselné (kardinální) proměnné'}
+plot(1:n,
+     sort(pocet_slov), 
+     col = "#1f77b4", 
+     ylab = "Počet slov ve větě", xlab = "Pořadí", main = "Počet slov ve větě seřazený podle velikosti",
+     type = "h",
+     lwd = 5)
+# pridame prostredni hodnoty
+lines(i1, pocet_slov[i1], col = "grey", type = "h", lwd = 5)
+lines(i2, pocet_slov[i2], col = "grey", type = "h", lwd = 5)
+
+# pridame median
+lines(mean(c(i1, i2)), .median, col = "red", type = "h", lwd = 1, lty = 2)
+lines(c(-2, mean(c(i1, i2))), c(.median, .median), col = "red", type = "l", lwd = 1, lty = 2)
+legend("topleft", 
+       col = c("grey", "red"), 
+       lwd = c(4, 4),
+       legend = c("Prostřední hodnoty", "Median"), 
+       cex = 0.7)
+```
+
+Průměr.
+
+
+## Míry rozptýlenosti {#desc-vars}
+```{r}
+library(plotly)
+x <- seq(0,10, length.out = 1000)
+
+# create data
+aval <- list()
+for(step in 1:11){
+  aval[[step]] <-list(visible = FALSE,
+                      name = paste0('v = ', step),
+                      x=x,
+                      y=sin(step*x))
+}
+aval[3][[1]]$visible = TRUE
+
+# create steps and plot all traces
+steps <- list()
+fig <- plot_ly()
+for (i in 1:11) {
+ fig <- add_lines(fig,x=aval[i][[1]]$x,  y=aval[i][[1]]$y, visible = aval[i][[1]]$visible, 
+                 name = aval[i][[1]]$name, type = 'scatter', mode = 'lines', hoverinfo = 'name', 
+                 line=list(color='##1f77b4'), showlegend = FALSE)
+
+  step <- list(args = list('visible', rep(FALSE, length(aval))),
+               method = 'restyle')
+  step$args[[2]][i] = TRUE  
+  steps[[i]] = step 
+}  
+
+# add slider control to plot
+fig <- fig %>%
+  layout(sliders = list(list(active = 3,
+                             currentvalue = list(prefix = "Frequency: "),
+                             steps = steps)))
+
+fig
+```
