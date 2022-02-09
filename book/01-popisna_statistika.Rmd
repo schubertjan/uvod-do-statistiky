@@ -18,26 +18,26 @@ Nejdříve text očistíme o mezery a čárky, přeneseme vše do malých písme
 vycistit_text <- function(.text) {
   # vse malym pismem
   .text <- tolower(.text)
-  
+
   # odstranime prazdne radky
   .text <- .text[.text != ""]
-  
+
   # odstranime carky
   .text <- gsub(pattern = ",", replacement = "", x = .text)
-  
+
   # rozdelit na vety, pokud najdeme "." nebo "!" nebo "?"
   .text <- unlist(strsplit(.text, split = "\\.|\\!|\\?"))
-  
+
   # vymazeme mezery na zacatku a konci
   .text <- trimws(.text, which = c("left"))
   .text <- trimws(.text, which = c("right"))
-  
+
   # odstranime prazdne prvky, ktere vznikly protoze po tecce neni zadny text
-  .text <- .text[.text != ""] 
-  
+  .text <- .text[.text != ""]
+
   # rozdelime na slova
   slova <- list()
-  for( i in 1:length(.text)) {
+  for (i in 1:length(.text)) {
     slova[[i]] <- unlist(strsplit(.text[i], split = " "))
   }
   return(slova)
@@ -94,19 +94,20 @@ n <- length(pocet_slov)
 # protoze mame sudy pocet slov vypocitame prumer dvou prostrednich hodnot
 i1 <- n / 2
 i2 <- i1 + 1
-.median <- mean(pocet_slov[c(i1,i2)])
+.median <- mean(pocet_slov[c(i1, i2)])
 # nebo pomoci funkce median(pocet_slov)
 .median
 ```
 
 Pojďme si výpočet zobrazit graficky a seřadit si počet slov od nejmenšího po největší a zobrazit si medián na grafu
-```{r, fig.cap='Příklad histogramu na číselné (kardinální) proměnné'}
+```{r, fig.cap='Seřazení proměnné pro ilustraci výpočtu mediánu'}
 plot(1:n,
-     sort(pocet_slov), 
-     col = "#1f77b4", 
-     ylab = "Počet slov ve větě", xlab = "Pořadí", main = "Počet slov ve větě seřazený podle velikosti",
-     type = "h",
-     lwd = 5)
+  sort(pocet_slov),
+  col = "#1f77b4",
+  ylab = "Počet slov ve větě", xlab = "Pořadí", main = "Počet slov ve větě seřazený podle velikosti",
+  type = "h",
+  lwd = 5
+)
 # pridame prostredni hodnoty
 lines(i1, pocet_slov[i1], col = "grey", type = "h", lwd = 5)
 lines(i2, pocet_slov[i2], col = "grey", type = "h", lwd = 5)
@@ -114,50 +115,62 @@ lines(i2, pocet_slov[i2], col = "grey", type = "h", lwd = 5)
 # pridame median
 lines(mean(c(i1, i2)), .median, col = "red", type = "h", lwd = 1, lty = 2)
 lines(c(-2, mean(c(i1, i2))), c(.median, .median), col = "red", type = "l", lwd = 1, lty = 2)
-legend("topleft", 
-       col = c("grey", "red"), 
-       lwd = c(4, 4),
-       legend = c("Prostřední hodnoty", "Median"), 
-       cex = 0.7)
+legend("topleft",
+  col = c("grey", "red"),
+  lwd = c(4, 4),
+  legend = c("Prostřední hodnoty", "Median"),
+  cex = 0.7
+)
 ```
 
-Průměr.
+
+Asi nejčastější mírou centrální tendence, která se používá je průměr. Průměr je možné vypočítat pouze pro kardinální proměnné. Technicky kardinální proměnné rozlišujeme na **diskrétní** a **spojitou**. Diskrétní nabývá celých čísel (1,2,3,4 etc., například počet dětí), tedy $\in Z$. Spojitá proměnná pak teoreticky nebývá nekonečně mnoho hodnot, prakticky je ale omezena tím, jak přesně dokážeme danou metriku měřit. Platí ale, že spojité proměnné nabývají racionálních čísel, tedy $\in R$. Průměr proměnné $x$ vypočítáme jako $\overline{x} = \frac{1}{n}\sum_{i=1}^{n} x_i$. Pojďme tedy vypočítat průměrný počet slov ve větě. V `R` můžeme použít funkci `mean`.
+```{r}
+sum(pocet_slov) / length(pocet_slov)
+```
+
+Někdy nechceme všem pozorováním při výpočtu průměru dát stejnou váhu. V takovém případě vypočítáme **vážený průměr**. Jeho vzorec je $\overline{x} = \frac{\sum_{i=1}^{n} w_ix_i}{\sum_{i=1}^{n}w_i}$. Řekněme například, že bychom průměrný počet slov chtěli vážit pozicí v textu a dát slovům v první větě menší váhu, než slovům, které se objevily později v textu.
+```{r}
+w <- 1:length(pocet_slov)
+sum(w * pocet_slov) / sum(w)
+```
+
 
 
 ## Míry rozptýlenosti {#desc-vars}
-```{r}
+
+
+Na tomto grafu se můžete podívat co se stane z daty, která jsou normálně rozdělena (viz Kapitola Pravděpodobnostní rozložení) s průměrem 0 a směrodatnou odchylkou 10, 20, 30 a 40.
+```{r, warning=FALSE, message=FALSE}
 library(plotly)
-x <- seq(0,10, length.out = 1000)
+```
+```{r}
 
-# create data
-aval <- list()
-for(step in 1:11){
-  aval[[step]] <-list(visible = FALSE,
-                      name = paste0('v = ', step),
-                      x=x,
-                      y=sin(step*x))
+# vytvorime data, ktera chceme zobrazit
+n <- 1000
+mu <- 0
+stds <- seq(10, 40, by = 10)
+dats <- list()
+
+for(step in 1:length(stds)) {
+  dats[[step]] <- list(visible = TRUE,
+                        name = paste0('sd = ', stds[step]),
+                        x=rnorm(n, mu, stds[step]))
 }
-aval[3][[1]]$visible = TRUE
 
-# create steps and plot all traces
-steps <- list()
-fig <- plot_ly()
-for (i in 1:11) {
- fig <- add_lines(fig,x=aval[i][[1]]$x,  y=aval[i][[1]]$y, visible = aval[i][[1]]$visible, 
-                 name = aval[i][[1]]$name, type = 'scatter', mode = 'lines', hoverinfo = 'name', 
-                 line=list(color='##1f77b4'), showlegend = FALSE)
 
-  step <- list(args = list('visible', rep(FALSE, length(aval))),
-               method = 'restyle')
-  step$args[[2]][i] = TRUE  
-  steps[[i]] = step 
-}  
+# do grafu pridame nase data
+fig <- plotly::plot_ly(alpha = 0.3)
+for(i in 1:length(stds)) {
+  fig  <- fig %>% plotly::add_histogram(x = dats[[i]][["x"]], 
+                        visible = dats[[i]][["visible"]], 
+                        showlegend = TRUE,
+                        name = dats[[i]][["name"]]) 
+}
+# upravime nastaveni
+fig <- fig %>% plotly::layout(barmode = "overlay",
+                      xaxis = list(title = "X", range = c(-100,100)))
 
-# add slider control to plot
-fig <- fig %>%
-  layout(sliders = list(list(active = 3,
-                             currentvalue = list(prefix = "Frequency: "),
-                             steps = steps)))
-
+# zobrazime
 fig
 ```

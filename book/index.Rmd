@@ -77,9 +77,8 @@ for(i in 1:5) {
 
 
 ## Příklad inferenční statistiky 
-Většina jevů okolo nás je ovlivněna náhodou, ať už z důvodu náhodného výběru nebo protože jsou součástí nějakého komplikovaného systému, který ovliňuje hodnoty jevu, který nás zajímá. Počet aut, které projedou na mostě, délka toaletního paríru, který je vyrobený v továrně, to jsou některé příklady jevů, které jsou ovlivněny náhodou. Statistika nám poskytuje soubor nástrojů, jak tuto náhodu (nejistotu) kvantifikovat. Pohlaví dětí je určeno náhodou a nově narozené dítě má zhruba stejnou pravděpodobnost, že bude děvče nebo chlapec. Řekněme, že z důvodu kapacitního plánování nás zajímá, kolik chlapců se narodí, pokud se v porodnoci denně narodí 25 dětí (sám počet narozených dětí by se dal modelovat jako náhodná proměnná). 
+Většina jevů okolo nás je ovlivněna náhodou, ať už z důvodu náhodného výběru nebo protože jsou součástí nějakého komplikovaného systému, který ovliňuje hodnoty jevu, který nás zajímá. Počet aut, které projedou na mostě, délka toaletního paríru, který je vyrobený v továrně, to jsou některé příklady jevů, které jsou ovlivněny náhodou. Statistika nám poskytuje soubor nástrojů, jak tuto náhodu (nejistotu) kvantifikovat. Pohlaví dětí je určeno náhodou a nově narozené dítě má zhruba stejnou pravděpodobnost, že bude děvče nebo chlapec. Řekněme, že z důvodu kapacitního plánování nás zajímá, kolik chlapců se narodí, pokud se v porodnoci denně narodí 25 dětí (sám počet narozených dětí by se dal modelovat jako náhodná proměnná). Vidíme, že nejpravděpodobněji se narodí 12 nebo 13 chlapců (v 30% případů). Můžeme také z grafu vypočítat, že více než 15 chlapců se narodí zhruba v 11% případů, tedy zhruba 42 dní v roce (0.11 * 365).
 
-K pochopení statistiky budeme používat programovací jazyk `R`. Našim cílem je ale koncepty vysvětlovat a kódovat obecně tak, aby postupy byly lehko přenositelné do jiného programovacího jazyka. Vždy si tedy vysvětlíme konkétní výpočet nebo proceduru do podrobna a to i když existuje balíček ebo funkce, která by daný výpočet provedla za nás.  
 ```{r, fig.cap='Rozložení počtu chlapců z 25 narozených dětí'}
 n <- 25
 p <- 0.5
@@ -94,3 +93,5 @@ plot(x, pocet_chlapcu,
 
 ## Simulace
 K pochopení statistiky budeme používat programovací jazyk. Ten nám umožní, abychom si statistické koncepty osahali detailně. Budeme simulovat data, u kterých budeme vědět pravé hodnoty a sledovat, jak (ne)úspěšně různé statistické postupy pravé hodnoty odhadují. Cílem je, abychom statistiku pochopili tak, že ji budeme moci použít na konkrétní problém. Chceme dosáhnout toho, aby statistika byla jazykem, který můžeme použít na různé datové problémy. 
+
+K pochopení statistiky budeme používat programovací jazyk `R`. Našim cílem je ale koncepty vysvětlovat a kódovat obecně tak, aby postupy byly lehko přenositelné do jiného programovacího jazyka. Vždy si tedy vysvětlíme konkétní výpočet nebo proceduru do podrobna a to i když existuje balíček nebo funkce, která by daný výpočet provedla za nás.  

@@ -2,9 +2,9 @@ fig:unnamed-chunk-2
 fig:unnamed-chunk-7
 fig:unnamed-chunk-15
 fig:unnamed-chunk-17
-tab:unnamed-chunk-24
-fig:unnamed-chunk-25
-fig:unnamed-chunk-26
+tab:unnamed-chunk-27
+fig:unnamed-chunk-28
+fig:unnamed-chunk-29
 úvod
 příklad-popisné-statistiky
 příklad-inferenční-statistiky
