@@ -57,21 +57,16 @@ slova <- unlist(prezident_clean)
 tabulka_slov <- table(slova)
 ```
 
-Jak je vidět, naše tabulka četností je velká, obsahuje 651 hodnot. To mimo jiné znamená, že v projevu bylo použito 651 slov. Abychom získali nejčastější hodnotu musíme si tabulku seřadit od největší četnost po nejmenší a zobrazit prvních 10 hodnot.  
-```{r}
-dim(tabulka_slov)
-```
+Naše tabulka četností je velká, obsahuje `r dim(tabulka_slov)` hodnot. To mimo jiné znamená, že v projevu bylo použito `r dim(tabulka_slov)` slov. Abychom získali nejčastější hodnotu musíme si tabulku seřadit od největší četnost po nejmenší a zobrazit prvních 10 hodnot.  
+
 ```{r}
 tabulka_slov_serazena <- sort(tabulka_slov, decreasing = TRUE)
-head(tabulka_slov_serazena, 10)
 ```
 
-Modus této proměnné by byla hodnota "a", která se vyskytla 45x. To je v textové analýze typické a tato slova se označují jako "stopwords" a jsou zpravidla a textové analýzy vyřazena.
+Modus této proměnné by byla hodnota "`r names(tabulka_slov_serazena)[1]`", která se vyskytla `r as.numeric(tabulka_slov_serazena[1])`x. To je v textové analýze typické a tato slova se označují jako "stopwords" a jsou zpravidla a textové analýzy vyřazena.
 
 
-Další měrou centrální tendence je **median**. Medián nám značí prostřední hodnotu nějaké proměnné. Můžeme si jeho výpočet představit tak, že hodnoty proměnné seřadíme od nejmenší po největší a vyberete hodnotu, která bude přesně uprostřed. Tato hodnota je medián. Matematicky se medián u proměnné $x$ vypočítá jako $median(x) = x_{(n + 1)/2}$. Pokud má naše proměnná sudý počet čísel, vypočítá se medián zpravidla jako průměr dvou prostředních hodnot, tedy $median(x) = \frac{x_{n/2} + x_{n/2+1}}{2}$. 
-
-Řekněme, že bychom chtěli vědět medián počtu slov ve větě. Nejdříve si musíme pro každou větu (prvek listu `prezident_clean`) vypočítat počet slov. 
+Další měrou centrální tendence je **median**. Medián nám značí prostřední hodnotu nějaké proměnné. Můžeme si jeho výpočet představit tak, že hodnoty proměnné seřadíme od nejmenší po největší a vyberete hodnotu, která bude přesně uprostřed. Tato hodnota je medián. Matematicky se medián u proměnné $x$ vypočítá jako $$median(x) = x_{(n + 1)/2}$$ Pokud má naše proměnná sudý počet čísel, vypočítá se medián zpravidla jako průměr dvou prostředních hodnot, tedy $$median(x) = \frac{x_{n/2} + x_{n/2+1}}{2}$$ Řekněme, že bychom chtěli vědět medián počtu slov ve větě. Nejdříve si musíme pro každou větu (prvek listu `prezident_clean`) vypočítat počet slov. 
 ```{r}
 pocet_slov <- sapply(prezident_clean, length)
 ```
@@ -99,8 +94,6 @@ hist(pocet_slov,
      breaks = 15)
 ```
 
-Medián můžeme vypočítat pomocí funkce `median`. Mediánový počet slov ve větě je tedy 15.5.
-
 ```{r}
 n <- length(pocet_slov)
 # protoze mame sudy pocet slov vypocitame prumer dvou prostrednich hodnot
@@ -108,10 +101,13 @@ i1 <- n / 2
 i2 <- i1 + 1
 .median <- mean(pocet_slov[c(i1, i2)])
 # nebo pomoci funkce median(pocet_slov)
-.median
 ```
 
-Pojďme si výpočet zobrazit graficky a seřadit si počet slov od nejmenšího po největší a zobrazit si medián na grafu
+Medián můžeme také vypočítat pomocí funkce `median`. Mediánový počet slov ve větě je tedy `r .median`.
+
+
+
+Pojďme si výpočet zobrazit graficky a seřadit si počet slov od nejmenšího po největší a zobrazit si medián na grafu.
 ```{r, fig.cap='Seřazení proměnné pro ilustraci výpočtu mediánu'}
 plot(1:n,
   sort(pocet_slov),
@@ -136,12 +132,12 @@ legend("topleft",
 ```
 
 
-Asi nejčastější mírou centrální tendence, která se používá je průměr. Průměr je možné vypočítat pouze pro kardinální proměnné. Technicky kardinální proměnné rozlišujeme na diskrétní a spojitou. Diskrétní nabývá celých čísel (1,2,3,4 etc., například počet dětí), tedy $\in Z$. Spojitá proměnná pak teoreticky nebývá nekonečně mnoho hodnot, prakticky je ale omezena tím, jak přesně dokážeme danou metriku měřit. Platí ale, že spojité proměnné nabývají racionálních čísel, tedy $\in R$. **Průměr** proměnné $x$ vypočítáme jako $\overline{x} = \frac{1}{n}\sum_{i=1}^{n} x_i$. Pojďme tedy vypočítat průměrný počet slov ve větě. V `R` můžeme použít funkci `mean`.
+Asi nejčastější mírou centrální tendence, která se používá je průměr. Průměr je možné vypočítat pouze pro kardinální proměnné. Technicky kardinální proměnné rozlišujeme na diskrétní a spojitou. Diskrétní nabývá celých čísel (1,2,3,4 etc., například počet dětí), tedy $\in Z$. Spojitá proměnná pak teoreticky nebývá nekonečně mnoho hodnot, prakticky je ale omezena tím, jak přesně dokážeme danou metriku měřit. Platí ale, že spojité proměnné nabývají racionálních čísel, tedy $\in R$. **Průměr** proměnné $x$ vypočítáme jako $$\overline{x} = \frac{1}{n}\sum_{i=1}^{n} x_i$$ Pojďme tedy vypočítat průměrný počet slov ve větě. V `R` můžeme použít funkci `mean`.
 ```{r}
 sum(pocet_slov) / length(pocet_slov)
 ```
 
-Někdy nechceme všem pozorováním při výpočtu průměru dát stejnou váhu. V takovém případě vypočítáme **vážený průměr**. Jeho vzorec je $\overline{x} = \frac{\sum_{i=1}^{n} w_ix_i}{\sum_{i=1}^{n}w_i}$. Řekněme například, že bychom průměrný počet slov chtěli vážit pozicí v textu a dát slovům v první větě menší váhu, než slovům, které se objevily později v textu.
+Někdy nechceme všem pozorováním při výpočtu průměru dát stejnou váhu. V takovém případě vypočítáme **vážený průměr**. Jeho vzorec je $$\overline{x} = \frac{\sum_{i=1}^{n} w_ix_i}{\sum_{i=1}^{n}w_i}$$ Řekněme například, že bychom průměrný počet slov chtěli vážit pozicí v textu a dát slovům v první větě menší váhu, než slovům, které se objevily později v textu.
 ```{r}
 w <- 1:length(pocet_slov)
 sum(w * pocet_slov) / sum(w)
@@ -207,7 +203,7 @@ legend("topright", legend = c("Premiér", "Prezident"), col = c("#1f77b4", "blac
 ```
 
 ## Míry rozptýlenosti {#desc-vars}
-Míry centrální tendence nám udávájí hodnotu typického pozorování proměnné. Míry rozptýlenosti nám říkají, jak jsou hodnoty rozptýleny daleko od nějaké typické hodnoty. Pro kardinální proměnné se nejčastěji používá **rozptyl**, který vypočítáme tak, že každou hodnotu proměnné odečteme od průměru a umocníme. Tyto hodnoty sečteme a vydělíme počtem pozorování. Matematicky bychom rozptyl $\sigma^2$ proměnné $x$ vypočítali jako $\sigma^2 = \frac{1}{n}\sum_{i=1}^n (x_i - \overline{x})^2$. Ve statistice se také používá pro výpočet rozptýlenosti **směrodatná odchylka** $\sigma$, které se vypočítá jako $\sigma = \sqrt{\sigma^2}$. Ukažme si příklad na počtu slov.
+Míry centrální tendence nám udávájí hodnotu typického pozorování proměnné. Míry rozptýlenosti nám říkají, jak jsou hodnoty rozptýleny daleko od nějaké typické hodnoty. Pro kardinální proměnné se nejčastěji používá **rozptyl**, který vypočítáme tak, že každou hodnotu proměnné odečteme od průměru a umocníme. Tyto hodnoty sečteme a vydělíme počtem pozorování. Matematicky bychom rozptyl $\sigma^2$ proměnné $x$ vypočítali jako $$\sigma^2 = \frac{1}{n}\sum_{i=1}^n (x_i - \overline{x})^2$$ Ve statistice se také používá pro výpočet rozptýlenosti **směrodatná odchylka** $\sigma$, které se vypočítá jako $$\sigma = \sqrt{\sigma^2}$$ Ukažme si příklad na počtu slov.
 ```{r}
 n<- length(pocet_slov)
 rozptyl <- sum((pocet_slov - mean(pocet_slov))^2) / n
@@ -309,10 +305,15 @@ Rozdělit data na stejný počet velkých částí lze různě. Proto jsou různ
 >
 >Zdroj: [Wikipedia](https://cs.wikipedia.org/wiki/Kvantil)
 
-
-V `R` můžeme kvantily vypočítat pomocí funkce `quantile`. V argumentu `prob` stanovíme jakou pravděpodobnost (percentil) chceme vypočítat. Například vypočítejme  kvartily počtu slov. Vidíme, že 25% vět má méně než 9 slov a že 25% vět má více než 23 slov (nebo že 75% vět má méně než 23 slov).
+V `R` můžeme kvantily vypočítat pomocí funkce `quantile`. V argumentu `prob` stanovíme jakou pravděpodobnost (percentil) chceme vypočítat. Například vypočítejme  kvartily počtu slov.
 ```{r}
-quantile(pocet_slov, prob = c(0.25, 0.5, 0.75))
+kvartil <- quantile(pocet_slov, prob = c(0.25, 0.5, 0.75))
+kvartil
 ```
+Vidíme, že 25% vět má méně než `r round(kvartil[1], 0)` slov a že 25% vět má více než `r round(kvartil[3], 0)` slov (nebo že 75% vět má méně než 23 slov).
 
-Percentil a mezikvantilove a rozpětí
+Někdy se hodnoty kvantilů používají k výpočtu mezikvantilových rozpětí tak, že se honodty kvantilů odečtou mezi sebou. Například mazikvartilové rozpětí se vypočítá jako $Q_{0.75} - Q_{0.25}$.   
+
+
+## Cvičení 
+Vytvořte funkci na výpočet percentilu.

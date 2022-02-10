@@ -77,21 +77,27 @@ for(i in 1:5) {
 
 
 ## Příklad inferenční statistiky 
-Většina jevů okolo nás je ovlivněna náhodou, ať už z důvodu náhodného výběru nebo protože jsou součástí nějakého komplikovaného systému, který ovliňuje hodnoty jevu, který nás zajímá. Počet aut, které projedou na mostě, délka toaletního paríru, který je vyrobený v továrně, to jsou některé příklady jevů, které jsou ovlivněny náhodou. Statistika nám poskytuje soubor nástrojů, jak tuto náhodu (nejistotu) kvantifikovat. Pohlaví dětí je určeno náhodou a nově narozené dítě má zhruba stejnou pravděpodobnost, že bude děvče nebo chlapec. Řekněme, že z důvodu kapacitního plánování nás zajímá, kolik chlapců se narodí, pokud se v porodnoci denně narodí 25 dětí (sám počet narozených dětí by se dal modelovat jako náhodná proměnná). Vidíme, že nejpravděpodobněji se narodí 12 nebo 13 chlapců (v 30% případů). Můžeme také z grafu vypočítat, že více než 15 chlapců se narodí zhruba v 11% případů, tedy zhruba 42 dní v roce (0.11 * 365).
+Většina jevů okolo nás je ovlivněna náhodou, ať už z důvodu náhodného výběru nebo protože jsou součástí nějakého komplikovaného systému, který ovliňuje hodnoty jevu, který nás zajímá. Počet aut, které projedou na mostě, délka toaletního paríru, který je vyrobený v továrně, to jsou některé příklady jevů, které jsou ovlivněny náhodou. Statistika nám poskytuje soubor nástrojů, jak tuto náhodu (nejistotu) kvantifikovat. Pohlaví dětí je určeno náhodou a nově narozené dítě má zhruba stejnou pravděpodobnost, že bude děvče nebo chlapec. Řekněme, že z důvodu kapacitního plánování nás zajímá, kolik chlapců se narodí, pokud se v porodnoci denně narodí 25 dětí (sám počet narozených dětí by se dal modelovat jako náhodná proměnná). 
 
 ```{r, fig.cap='Pravděpodobnostní rozložení počtu chlapců z 25 narozených dětí'}
 n <- 25
 p <- 0.5
 x <- c(0:25)
-pocet_chlapcu <- dbinom(x = x, size = n, p)
-plot(x, pocet_chlapcu, 
+pmf <- dbinom(x = x, size = n, p)
+plot(x, pmf, 
      type = "h", 
      xlab = "Počet chlapců z 25 narozených dětí", ylab = "Pravděpodobnost",
      lwd = 15,
      col = "#1f77b4")
 ```
 
+Vidíme, že nejpravděpodobněji se narodí `r x[which.max(pmf)]` chlapců (v `r round(sum(pmf[x %in% c(12, 13)])*100, 0)`% případů). Můžeme také z grafu vypočítat, že více než 15 chlapců se narodí zhruba v `r round(sum(pmf[x > 15])*100, 0)`% případů, tedy zhruba `r round(sum(pmf[x > 15]) * 365, 0)` dní v roce.
+
 ## Simulace
 K pochopení statistiky budeme používat programovací jazyk. Ten nám umožní, abychom si statistické koncepty osahali detailně. Budeme simulovat data, u kterých budeme vědět pravé hodnoty a sledovat, jak (ne)úspěšně různé statistické postupy pravé hodnoty odhadují. Cílem je, abychom statistiku pochopili tak, že ji budeme moci použít na konkrétní problém. Chceme dosáhnout toho, aby statistika byla jazykem, který můžeme použít na různé datové problémy. 
 
 K pochopení statistiky budeme používat programovací jazyk `R`. Našim cílem je ale koncepty vysvětlovat a kódovat obecně tak, aby postupy byly lehko přenositelné do jiného programovacího jazyka. Vždy si tedy vysvětlíme konkétní výpočet nebo proceduru do podrobna a to i když existuje balíček nebo funkce, která by daný výpočet provedla za nás.  
+
+
+## O modelech
+Modely jsou reprezentaci reality. Jsou (někdy) užitečné, protože zjednodušeně ukazují vlastnosti toho, co nás zajímá. Glóbus je příkladem modelu planety země. Glóbus nevystihuje přesně to, jak planeta vypadá. Nejsou na něm zaznamenány všechny ostrovy, jeho tvar neodpovídá přesně tvaru naší planety. Přesto jsou glóbusy užitečné k pochopení toho, jak plaeta vypadá. Dalším příkladem modelu je mapa. Mapa je ještě více zkresleným modelem terénu než glóbus (mapa musí vněstnat 3D svět do 2D modelu). Mnoho map dokonce velmi nepřesně reprezentuje terén, přesto jsou ale mapy nesmírně užitečné když se potřebujeme dostat z bodu A do bodu B. Stejně je tomu s modely statistickými. Nejsou přesným vyjádřením reality, ale mohou být užitečným vyjádřením reality. Jejich užitečnost bude záviset na činnosti, pro který jsme tento model stvořili. Důležité je dodat, že naše modely (ne)fungují na datech, které jsme jim dodali. Model, který je užitečný na jedněch datech může být bezcenný na jiných datech. Je tedy vždy potřeba přemýšlet o tom, zda je náš model vhodný pro data a situaci, na kterou se ho snažíme použít.

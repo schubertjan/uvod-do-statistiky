@@ -1,0 +1,18 @@
+# Pravděpodobnostní rozložení
+
+Pokud si z této knihy máte odnést jednu kapitolu, pak by to měla být takot :). Pra
+
+## Normální
+
+## T
+location
+
+## Uniformní
+
+## Binomické 
+
+## Poisson
+dispersed poisson
+
+
+## Chi-kvadrát

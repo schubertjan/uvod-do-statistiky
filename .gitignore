@@ -1,4 +1,3 @@
-Dockerfile
 makefile
 build.log
 .rstudio
@@ -7,7 +6,6 @@ build.log
 .local
 *.ipynb_checkpoints
 *__pycache__
-template_rstudio-prefs.json
 .Rhistory
 .Rproj.user
 book/_bookdown_files/
