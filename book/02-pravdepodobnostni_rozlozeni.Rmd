@@ -1,23 +1,133 @@
 # Pravděpodobnostní rozložení
 
-Pokud si z této knihy máte odnést jednu kapitolu, pak by to měla být takot :). Pra
+Tuto kapitolu začneme videm. 
+
+![](https://upload.wikimedia.org/wikipedia/commons/d/dc/Galton_box.webm){width="640" height="360"}
+
+Zdroj: [Matemateca (IME/USP)](https://commons.wikimedia.org/wiki/File:Galton_box.webm)
+
+Proč kuličky v tomto videu skončí v určitém množství v určitém sloupci? A proč skončí podobné množství kuliček v každém sloupci, pokud bychom kuličky pustili znova? Jak by se počet kuliček ve soupcích lišil?
+
+
+Pokud si z této knihy máte odnést jednu kapitolu, pak by to měla být tako :). Jak jsme zmínili v úvodu knihy, většina proměnných okolo nás se chová náhodně. To znamená, že může nabývat náhodných hodnot podle nějakého klíče (procesu). Náhodnost může vycházet z faktu, že měříme jenom nějakou část populace (např. výběrové šetření), z fyzikálních vlastností (např. váha součástky vyrobená v továrně nebude vždy stejná) nebo z chyby měření (např. teploměr nezměří stejnou teplotu vždy stejně, ale hodnoty měření budou kolísat okolo nějakého čísla). Pravděpodobnostní rozložení nám pomáhají kvantifikovat a predikovat míru nahodilosti. Typ pravděpodobnostního rozložení, který na popsání náhodnosti uplatníme vychází z našeho porumění vlastnostní rozložení a jeho vhodnosti na daný problém. A vlastnosti pravděpodobnostních rozložení je to, co si v této kapitole ukážeme.
+
+Na začátku jsme řekli, že budeme používat statistické modely a že tyto modely nejsou přesným vyjádřením reality, ale mohou být užitečným popsáním reality. V této kapitole začneme modely používat.
 
 ## Normální
+Vraťme se k videu ze začátku kapitolu. Tomuto přístroji se říká Galton Box.
+
 
 ## T
+
 location
 
 ## Uniformní
 
-## Binomické 
+## Binomické
+
+Model Země
+
+```{r, fig.cap='Model Země', fig.align='center', echo=FALSE, message=FALSE, warning=FALSE}
+library(plotly)
+
+df <- read.csv("https://raw.githubusercontent.com/plotly/datasets/master/globe_contours.csv")
+df$id <- seq_len(nrow(df))
+
+library(tidyr)
+d <- df %>%
+  gather(key, value, -id) %>%
+  separate(key, c("l", "line"), "\\.") %>%
+  spread(l, value)
+
+geo <- list(
+  showland = TRUE,
+  showlakes = TRUE,
+  showcountries = TRUE,
+  showocean = TRUE,
+  countrywidth = 0.5,
+  landcolor = "rgb(230, 145, 56)",
+  lakecolor = "rgb(0, 255, 255)",
+  oceancolor = "rgb(0, 255, 255)",
+  projection = list(
+    type = "orthographic",
+    rotation = list(
+      lon = -100,
+      lat = 40,
+      roll = 0
+    )
+  ),
+  lonaxis = list(
+    showgrid = TRUE,
+    gridcolor = toRGB("gray40"),
+    gridwidth = 0.5
+  ),
+  lataxis = list(
+    showgrid = TRUE,
+    gridcolor = toRGB("gray40"),
+    gridwidth = 0.5
+  )
+)
+
+
+# sliders
+lon_range <- data.frame(seq(-180, 180, 10))
+lat_range <- data.frame(seq(-90, 90, 10))
+colnames(lon_range) <- "x"
+colnames(lat_range) <- "x"
+
+all_lat <- list()
+for (i in 1:length(lat_range[, ])) {
+  all_lat[[i]] <- list(
+    method = "relayout",
+    args = list(list(geo.projection.rotation.lat = lat_range$x[i])),
+    label = lat_range$x[i]
+  )
+}
+
+all_lon <- list()
+for (i in 1:length(lon_range[, ])) {
+  all_lon[[i]] <- list(
+    method = "relayout",
+    args = list(list(geo.projection.rotation.lon = lon_range$x[i])),
+    label = lon_range$x[i]
+  )
+}
+
+
+# original d3-globe with contours
+fig <- plot_geo(d)
+fig <- fig %>% layout(
+  showlegend = FALSE, geo = geo
+)
+
+# plot with custom events
+fig <- fig
+fig <- fig %>% layout(sliders = list(
+  list(
+    active = (length(lon_range[, ]) - 1) / 2,
+    currentvalue = list(prefix = "Longitude: "),
+    pad = list(t = 20),
+    steps = all_lon
+  ),
+  list(
+    active = (length(lat_range[, ]) - 1) / 2,
+    currentvalue = list(prefix = "Latitude: "),
+    pad = list(t = 100),
+    steps = all_lat
+  )
+))
+
+fig
+```
 
 ## Poisson
-dispersed poisson
 
+dispersed poisson
 
 ## Chi-kvadrát
 
 ## Věrohodnost
+
 ```{r, message=FALSE, warning=FALSE}
 library(leaflet)
 ```
@@ -29,12 +139,14 @@ v2_location$label <- paste(paste(v2_location$landing_site, v2_location$date, sep
 
 leaflet(data = v2_location) %>%
   addProviderTiles(providers$CartoDB.Positron) %>%
-  addCircleMarkers(lng = ~lon,
-             lat = ~lat, color = "#000000", 
-             opacity = 0.2, 
-             fillOpacity = 0.2, 
-             fillColor = "#000000", 
-             radius = 2.5,
-             stroke = FALSE, 
-             label = ~label)
+  addCircleMarkers(
+    lng = ~lon,
+    lat = ~lat, color = "#000000",
+    opacity = 0.2,
+    fillOpacity = 0.2,
+    fillColor = "#000000",
+    radius = 2.5,
+    stroke = FALSE,
+    label = ~label
+  )
 ```

@@ -1,6 +1,6 @@
 # This dockerfile will install Rocker with the standard R developent environment
 
-FROM rocker/rstudio:4.1.0
+FROM rocker/rstudio:4.1.2
 
 ARG PKG_NAME
 ENV DEBIAN_FRONTEND=noninteractive
@@ -28,7 +28,7 @@ RUN apt-get update \
 RUN echo "Install Dependencies for ${PKG_NAME}" \
     && R -e "install.packages(c('png', 'jpeg', 'git2r','devtools', 'zoo', 'lubridate', 'testthat', 'roxygen2', 'bookdown'))" \ 
     && R -e "install.packages(c('data.table', 'haven', 'corrplot', 'knitr', 'rmarkdown', 'DT', 'lme4', 'rvest', 'httr'))" \
-    && R -e "install.packages(c('plotly', 'gifski', 'leaflet'))"
+    && R -e "install.packages(c('plotly', 'gifski', 'leaflet', 'animation'))"
     # && R -e "install.packages(c('RCzechia','ggplot2'))"
 
 # Run the Shiny App in the right directory

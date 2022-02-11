@@ -5,7 +5,8 @@ fig:unnamed-chunk-17
 fig:unnamed-chunk-21
 fig:unnamed-chunk-23
 fig:unnamed-chunk-24
-fig:unnamed-chunk-28
+fig:unnamed-chunk-26
+fig:unnamed-chunk-29
 úvod
 příklad-popisné-statistiky
 příklad-inferenční-statistiky
@@ -24,7 +25,3 @@ poisson
 chi-kvadrát
 věrohodnost
 centrální-limitní-věta
-applications
-example-one
-example-two
-final-words
