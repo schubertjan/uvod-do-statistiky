@@ -24,7 +24,7 @@
 <meta name="author" content="Jan Schubert" />
 
 
-<meta name="date" content="2022-02-10" />
+<meta name="date" content="2022-02-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,6 +53,16 @@
 
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.4.1/leaflet.js"></script>
+<script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.0.4.1/leaflet-providers-plugin.js"></script>
 
 
 <style type="text/css">
@@ -158,6 +168,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.4" data-path="pravděpodobnostní-rozložení.html"><a href="pravděpodobnostní-rozložení.html#binomické"><i class="fa fa-check"></i><b>3.4</b> Binomické</a></li>
 <li class="chapter" data-level="3.5" data-path="pravděpodobnostní-rozložení.html"><a href="pravděpodobnostní-rozložení.html#poisson"><i class="fa fa-check"></i><b>3.5</b> Poisson</a></li>
 <li class="chapter" data-level="3.6" data-path="pravděpodobnostní-rozložení.html"><a href="pravděpodobnostní-rozložení.html#chi-kvadrát"><i class="fa fa-check"></i><b>3.6</b> Chi-kvadrát</a></li>
+<li class="chapter" data-level="3.7" data-path="pravděpodobnostní-rozložení.html"><a href="pravděpodobnostní-rozložení.html#věrohodnost"><i class="fa fa-check"></i><b>3.7</b> Věrohodnost</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="centrální-limitní-věta.html"><a href="centrální-limitní-věta.html"><i class="fa fa-check"></i><b>4</b> Centrální limitní věta</a></li>
 <li class="chapter" data-level="5" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>5</b> Applications</a>
@@ -190,33 +201,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="centrální-limitní-věta" class="section level1" number="4">
 <h1><span class="header-section-number">Kapitola 4</span> Centrální limitní věta</h1>
 <p>Následující animace ukazuje princip centrálního limitní věty.</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="centrální-limitní-věta.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
-<span id="cb37-2"><a href="centrální-limitní-věta.html#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="co"># pocet vyberu</span></span>
-<span id="cb37-3"><a href="centrální-limitní-věta.html#cb37-3" aria-hidden="true" tabindex="-1"></a>S <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">^</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
-<span id="cb37-4"><a href="centrální-limitní-věta.html#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ulozeni dat</span></span>
-<span id="cb37-5"><a href="centrální-limitní-věta.html#cb37-5" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="cn">NA</span>, <span class="at">nrow =</span> <span class="dv">0</span>, <span class="at">ncol =</span> <span class="dv">2</span>)</span>
-<span id="cb37-6"><a href="centrální-limitní-věta.html#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(X) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;frame&quot;</span>)</span>
-<span id="cb37-7"><a href="centrální-limitní-věta.html#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="co"># vyber o velikosti n</span></span>
-<span id="cb37-8"><a href="centrální-limitní-věta.html#cb37-8" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">50</span></span>
-<span id="cb37-9"><a href="centrální-limitní-věta.html#cb37-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-10"><a href="centrální-limitní-věta.html#cb37-10" aria-hidden="true" tabindex="-1"></a><span class="co"># simulace</span></span>
-<span id="cb37-11"><a href="centrální-limitní-věta.html#cb37-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(S)) {</span>
-<span id="cb37-12"><a href="centrální-limitní-věta.html#cb37-12" aria-hidden="true" tabindex="-1"></a>  s <span class="ot">&lt;-</span> S[i]</span>
-<span id="cb37-13"><a href="centrální-limitní-věta.html#cb37-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(n <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>s) {</span>
-<span id="cb37-14"><a href="centrální-limitní-věta.html#cb37-14" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">runif</span>(N, <span class="at">min =</span> <span class="sc">-</span><span class="dv">10</span>, <span class="at">max =</span> <span class="dv">10</span>))</span>
-<span id="cb37-15"><a href="centrální-limitní-věta.html#cb37-15" aria-hidden="true" tabindex="-1"></a>    X <span class="ot">&lt;-</span> <span class="fu">rbind</span>(X, <span class="fu">c</span>(mu, s))</span>
-<span id="cb37-16"><a href="centrální-limitní-věta.html#cb37-16" aria-hidden="true" tabindex="-1"></a>  }  </span>
-<span id="cb37-17"><a href="centrální-limitní-věta.html#cb37-17" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb37-18"><a href="centrální-limitní-věta.html#cb37-18" aria-hidden="true" tabindex="-1"></a><span class="co"># zobrazeni dat</span></span>
-<span id="cb37-19"><a href="centrální-limitní-věta.html#cb37-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(s <span class="cf">in</span> S) {</span>
-<span id="cb37-20"><a href="centrální-limitní-věta.html#cb37-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hist</span>(X[X[, <span class="dv">2</span>] <span class="sc">==</span> s, <span class="dv">1</span>],</span>
-<span id="cb37-21"><a href="centrální-limitní-věta.html#cb37-21" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>,</span>
-<span id="cb37-22"><a href="centrální-limitní-věta.html#cb37-22" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylab =</span> <span class="st">&quot;Četnost&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Průměr U ~ (-10, 10)&quot;</span>, <span class="at">main =</span> <span class="fu">paste0</span>(<span class="st">&quot;Počet výběrů: &quot;</span>, s),</span>
-<span id="cb37-23"><a href="centrální-limitní-věta.html#cb37-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>), </span>
-<span id="cb37-24"><a href="centrální-limitní-věta.html#cb37-24" aria-hidden="true" tabindex="-1"></a>       <span class="at">breaks =</span> <span class="dv">10</span>)</span>
-<span id="cb37-25"><a href="centrální-limitní-věta.html#cb37-25" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-26"></span>
-<img src="book_files/figure-html/unnamed-chunk-26-.gif" alt="Princip centrálního limitní věty" width="672" />
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="centrální-limitní-věta.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb39-2"><a href="centrální-limitní-věta.html#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="co"># pocet vyberu</span></span>
+<span id="cb39-3"><a href="centrální-limitní-věta.html#cb39-3" aria-hidden="true" tabindex="-1"></a>S <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">^</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
+<span id="cb39-4"><a href="centrální-limitní-věta.html#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ulozeni dat</span></span>
+<span id="cb39-5"><a href="centrální-limitní-věta.html#cb39-5" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="cn">NA</span>, <span class="at">nrow =</span> <span class="dv">0</span>, <span class="at">ncol =</span> <span class="dv">2</span>)</span>
+<span id="cb39-6"><a href="centrální-limitní-věta.html#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(X) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;frame&quot;</span>)</span>
+<span id="cb39-7"><a href="centrální-limitní-věta.html#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="co"># vyber o velikosti n</span></span>
+<span id="cb39-8"><a href="centrální-limitní-věta.html#cb39-8" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb39-9"><a href="centrální-limitní-věta.html#cb39-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-10"><a href="centrální-limitní-věta.html#cb39-10" aria-hidden="true" tabindex="-1"></a><span class="co"># simulace</span></span>
+<span id="cb39-11"><a href="centrální-limitní-věta.html#cb39-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(S)) {</span>
+<span id="cb39-12"><a href="centrální-limitní-věta.html#cb39-12" aria-hidden="true" tabindex="-1"></a>  s <span class="ot">&lt;-</span> S[i]</span>
+<span id="cb39-13"><a href="centrální-limitní-věta.html#cb39-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(n <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>s) {</span>
+<span id="cb39-14"><a href="centrální-limitní-věta.html#cb39-14" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">runif</span>(N, <span class="at">min =</span> <span class="sc">-</span><span class="dv">10</span>, <span class="at">max =</span> <span class="dv">10</span>))</span>
+<span id="cb39-15"><a href="centrální-limitní-věta.html#cb39-15" aria-hidden="true" tabindex="-1"></a>    X <span class="ot">&lt;-</span> <span class="fu">rbind</span>(X, <span class="fu">c</span>(mu, s))</span>
+<span id="cb39-16"><a href="centrální-limitní-věta.html#cb39-16" aria-hidden="true" tabindex="-1"></a>  }  </span>
+<span id="cb39-17"><a href="centrální-limitní-věta.html#cb39-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb39-18"><a href="centrální-limitní-věta.html#cb39-18" aria-hidden="true" tabindex="-1"></a><span class="co"># zobrazeni dat</span></span>
+<span id="cb39-19"><a href="centrální-limitní-věta.html#cb39-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(s <span class="cf">in</span> S) {</span>
+<span id="cb39-20"><a href="centrální-limitní-věta.html#cb39-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hist</span>(X[X[, <span class="dv">2</span>] <span class="sc">==</span> s, <span class="dv">1</span>],</span>
+<span id="cb39-21"><a href="centrální-limitní-věta.html#cb39-21" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>,</span>
+<span id="cb39-22"><a href="centrální-limitní-věta.html#cb39-22" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylab =</span> <span class="st">&quot;Četnost&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Průměr U ~ (-10, 10)&quot;</span>, <span class="at">main =</span> <span class="fu">paste0</span>(<span class="st">&quot;Počet výběrů: &quot;</span>, s),</span>
+<span id="cb39-23"><a href="centrální-limitní-věta.html#cb39-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>), </span>
+<span id="cb39-24"><a href="centrální-limitní-věta.html#cb39-24" aria-hidden="true" tabindex="-1"></a>       <span class="at">breaks =</span> <span class="dv">10</span>)</span>
+<span id="cb39-25"><a href="centrální-limitní-věta.html#cb39-25" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-28"></span>
+<img src="book_files/figure-html/unnamed-chunk-28-.gif" alt="Princip centrálního limitní věty" width="672" />
 <p class="caption">
 Graf 4.1: Princip centrálního limitní věty
 </p>
@@ -272,7 +283,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["book.pdf", "book.epub"],
+"download": ["book.pdf"],
 "toc": {
 "collapse": "subsection"
 }

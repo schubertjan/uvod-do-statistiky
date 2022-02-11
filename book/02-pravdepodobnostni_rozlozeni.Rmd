@@ -16,3 +16,25 @@ dispersed poisson
 
 
 ## Chi-kvadrát
+
+## Věrohodnost
+```{r, message=FALSE, warning=FALSE}
+library(leaflet)
+```
+
+```{r}
+v2_location <- read.csv("../dats/v2_location.csv")
+v2_location <- v2_location[complete.cases(v2_location), ]
+v2_location$label <- paste(paste(v2_location$landing_site, v2_location$date, sep = ", "))
+
+leaflet(data = v2_location) %>%
+  addProviderTiles(providers$CartoDB.Positron) %>%
+  addCircleMarkers(lng = ~lon,
+             lat = ~lat, color = "#000000", 
+             opacity = 0.2, 
+             fillOpacity = 0.2, 
+             fillColor = "#000000", 
+             radius = 2.5,
+             stroke = FALSE, 
+             label = ~label)
+```

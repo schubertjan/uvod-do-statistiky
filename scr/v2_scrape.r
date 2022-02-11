@@ -17,7 +17,7 @@ get_location <- function(place) {
       GET("https://nominatim.openstreetmap.org/search?", query = query_params)
     }, error = function(e) 404)
     # respect the limit
-    Sys.sleep(2)
+    Sys.sleep(3)
     n_request <- n_request + 1
     
     if(.response$status_code == 200) {
@@ -69,12 +69,18 @@ df <- data.frame(matrix(NA, ncol = 4))
 colnames(df) <- c("lat", "lon", "display_name", "importance")
 
 # call the api 
-for(i in 1:20) {
+for(i in 1:nrow(v2_location)) {
   .df <- get_location(place = v2_location$landing_site[i])
   df <- rbind.data.frame(df, .df)
 }
 # remove fisrt missing observation
 df <- df[-1, ]
+
+
+
+df_location <- cbind.data.frame(v2_location, df)
+write.csv(df_location, "../dats/v2_location.csv", row.names = FALSE)
+
 
 # london sites
 london_sites <- c("London Bridge", "Buckingham Palace", "Big Ben", "Kensington Palace", "St. Paul's Cathedral", "Tower of London")
