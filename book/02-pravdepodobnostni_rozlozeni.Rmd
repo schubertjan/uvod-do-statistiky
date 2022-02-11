@@ -1,6 +1,6 @@
 # Pravděpodobnostní rozložení
 
-Tuto kapitolu začneme videm. 
+Tuto kapitolu začneme videm.
 
 ![](https://upload.wikimedia.org/wikipedia/commons/d/dc/Galton_box.webm){width="640" height="360"}
 
@@ -8,22 +8,84 @@ Zdroj: [Matemateca (IME/USP)](https://commons.wikimedia.org/wiki/File:Galton_box
 
 Proč kuličky v tomto videu skončí v určitém množství v určitém sloupci? A proč skončí podobné množství kuliček v každém sloupci, pokud bychom kuličky pustili znova? Jak by se počet kuliček ve soupcích lišil?
 
-
 Pokud si z této knihy máte odnést jednu kapitolu, pak by to měla být tako :). Jak jsme zmínili v úvodu knihy, většina proměnných okolo nás se chová náhodně. To znamená, že může nabývat náhodných hodnot podle nějakého klíče (procesu). Náhodnost může vycházet z faktu, že měříme jenom nějakou část populace (např. výběrové šetření), z fyzikálních vlastností (např. váha součástky vyrobená v továrně nebude vždy stejná) nebo z chyby měření (např. teploměr nezměří stejnou teplotu vždy stejně, ale hodnoty měření budou kolísat okolo nějakého čísla). Pravděpodobnostní rozložení nám pomáhají kvantifikovat a predikovat míru nahodilosti. Typ pravděpodobnostního rozložení, který na popsání náhodnosti uplatníme vychází z našeho porumění vlastnostní rozložení a jeho vhodnosti na daný problém. A vlastnosti pravděpodobnostních rozložení je to, co si v této kapitole ukážeme.
 
 Na začátku jsme řekli, že budeme používat statistické modely a že tyto modely nejsou přesným vyjádřením reality, ale mohou být užitečným popsáním reality. V této kapitole začneme modely používat.
 
-## Normální
-Vraťme se k videu ze začátku kapitolu. Tomuto přístroji se říká Galton Box.
+## Pravděpodobnostní rozložení jako jazyk statistiky
 
+V této kapitole si ukážeme spoustu nových značení, která se stanou našim jazykem, kterým budeme ve statistice komunikovat. Budeme je používat k tomu, abychom popsali očekávané chování náhodné proměnné. Každé rozložení má svoje **parametry**, pomocí kterým ho můžeme popsat. Každé rozložení má taky svoje **míry centrální tendence** (**očekávanou hodnotu**) a svoje **míry rozptýlenosti**. To, kolik hodnot náhodné proměnné nabývá určitých hodnot popisuje **hustota pravděpodobnosti**. V angličtině se u spojitých proměnných (která nabývají reálných čísel) vyjadřuje hustota pravděpodobnosti jako **probability density function** (PMF). U diskrétních proměnných (nabývají celých čísel) se hustota pravděpodobnosti nazývá **probability density function** (PMF). Integrál hustoty pravděpodobnosti je vždy rovný nule. To tedy znamá, že kdybychom sečetli všechny hodnoty hustoty pravděpodobnosti (pro spojité proměnné integrovali), tak by se výsledek rovnal jedné. To plyne z toho, že pravděpodobnost jevu nemůže být vyšší než jedna.
+
+## Binomické
+
+Vraťme se k videu ze začátku kapitoly. Tomuto přístroji se říká Galton Box. Míčky jsou puštěny do přístroje z jednoho stejného bodu a procházejí několika vrstvami (ve videu 10 vrstvami). V každé vrstvě míček narazí na bod, který ho může poslat na levou nebo na pravou stranu (zhruba se stejnou pravděpodobností 0.5). To, na jakou stranu se míček vydá je určeno náhodou. Kdybyste nechali všechny míčky spadnout, posbírali je a znovu spustili, tak skoro stejné množství míčků skončí v každém sloupci. Jak je možné, že když spustíme tisíce míčků, každý se může 10x odrazit nalevo nebo napravo, tak výsledný počet míčků v každém sloupci je skoro stejný? Příčinou je pravděpodovnoství rozložení. Prvním rozložením, které si ukážeme je binomické rozložení. Jevy mohou být generovany procesem, který vede k binomickému rozložení, pokud máme pokus, jehož výsledkem je **úspěch nebo neúspěch**, pokusy jsou **nezávislé** a mají **konstantní pravděpodobnost** úspěchu $p$ (konstantní pro všechny pokusy). Obecně platí, že proměnná $X_i$ pochází z binomického rozložení, kde $$X_i \sim B(n, p)$$ a kde $n$ značí počet pokusů a $p$ pravděpodobnost úspěchu. Proměnná $X_i$ je potom **diskrétní**. Pojďme si ukázat, jak se binomické rozložení vztahuje ke Galtonově boxu. Každý míček prochází 10 pokusy, kde výsledek může být buď úspěch (řekněme, že míček spadne napravo) nebo neúspěch (řeknemě, že míček spadne nalevo). Míčky jsou na sobě relativně nezávislé a všechny mají při každém pokusu relativně konstatní pravděpodobnost. Opět je nutné si uvědomit, že náš model dat (binomické rozložení) není přesnou reprezentací procesu, který se snažíme popsat. Míčky nejsou ve skutečnosti kompletně nezávislé, mohou do sebe narazit a tím se ovlivnit. Ne každý míček má přesně 10 pokusů, některé se odrazí zpět nahoru, než spadnout opět dolů. Důležité je, jestli jsou předpoklady našeho modelu splněny dostatečně na to, aby jeho matematické vyjádření bylo validní pro reálný process, který se snažíme popsat.
+
+Pojďme si nyní ukázat, jak se Galtonův box dá připodobnit binomickým rozložením. Náhodný process z binomického rozložení můžeme generovat pomocí funkce `rbinom`. Ta jako argumenty předpokládá `n` počet pozorování, která chceme generovat, `size` počet pokusů a `p` pravděpodobnost úspěchu.
+
+```{r}
+# pocet micku
+n <- 10000
+# pravdepodobnost uspechu (napravo)
+p <- 0.5
+s <- 10
+
+vysledek <- rbinom(n = n , size = s, prob = p)
+hist(vysledek,
+     xlab = "",
+     ylab = "Četnost",
+     main = paste0("Galtonův box s ", n, " míčky"),
+     col = "#1f77b4",
+     breaks = 11)
+
+```
+
+A ještě ukázka, že počet míčků v každém sloupci je zhruba stejný při opakování pokusu. Provedeme 10 pokusu.
+
+```{r, animation.hook='gifski'}
+N <- 10
+for(i in 1:N) {
+  vysledek <- rbinom(n = n , size = s, prob = p)
+  hist(vysledek,
+       xlab = "X",
+       ylab = "Četnost",
+       main = paste0("Galtonův box s ", n, " míčky; pokus #", i),
+       col = "#1f77b4",
+       breaks = 11,
+       ylim = c(0, 2500),
+       xlim = c(0, 10))
+}
+```
+
+Jak jsme zmínili v \@ref(pravděpodobnostní-rozložení-jako-jazyk-statistiky) frekvenci hodnot diskrétní náhodné proměnné můžeme popsat matematicky pomocí hustoty pravděpodobnosti (PMF). U binomického rozložení můžeme PMF vypočítat jako $$PMF = \binom{n}{k}p^kq^{n-k}$$ kde $k$ je počet úspěšných pokusů a $q=1-p$. V praxi můžeme využít funkce `dbinom`, která PMF vypočítá. Tato funkce argument `x` kam dosadíme hodnoty proměnné $X_i$, pro které chceme PMF vypočítat. Argumenty `size` a `prob` jsou stejné jako u `rbinom`. Protože PMF je vypočítáno deterministicky (není tam žádná náhoda jako u generování náhodných čísel nahoře, čísla pouze dosadíme do vzorce), bude jeho výpočet stejný pokaždé, když zadáme stejné argumenty funkce.
+
+```{r}
+# muze padnou minimalne 0 a maximalne 10 z 10 pokusu
+x <- 0:10
+s <- 10
+p <- 0.5
+
+pmf <- dbinom(x = x, size = s, prob = p)
+plot(x, pmf, 
+     xlab = "X",
+     ylab = "PMF",
+     type = "h", # jedna se o diskretni promennou
+     lwd = 15,
+     main = paste0("Galtonův box"),
+     col = "#1f77b4")
+
+```
+
+Protože hodnoty $X_i$ mohou nabývat pouze celých čísel, je PMF vyjádřením pravděpodobnosti toho, že náhodná proměnná $X_i$ nabyde nějaké hodnoty. Například pravěpodobnost, že se míček odrazí z 10 pokusů 8x doleva je `r pmf[x==1]`.
+
+**Očekávanou hodnotu** proměnné pocházející z binomické proměnné můžeme vypočítat jako $$E(X_i) = np$$, **variabilitu** jako $$Var(X_i) = npq$$ a **směrodatbou odchylku** jako $$Sd(X_i) = \sqrt{Var(X_i)}$$. V našem případě, kdy máme `r n` míčků je tedy očekávaná hodnota `r n*p` a směrodatná odchylka `r n*p*(1-p)`.
+
+## Normální
 
 ## T
 
 location
 
 ## Uniformní
-
-## Binomické
 
 Model Země
 
