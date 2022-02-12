@@ -34,13 +34,10 @@ Roli statistiky je možné rozdělit na dva úkoly:
 
 Mnoho fenomenů v každodenním světě je možné vyjádřit pomocí dat. Fotka se dá vyjádřit jako 3D matice (red, green, blue) řádků a sloupců, která vyjadřuje jednotlivé pixely.
 
-```{r, fig.cap='bert de boer, CC BY 2.0 <https://creativecommons.org/licenses/by/2.0>, via Wikimedia Commons', fig.align='center'}
-obrazek <- jpeg::readJPEG("../imgs/img1.1.jpg")
-plot(0:1, 0:1, ann = FALSE, axes = FALSE, type = "n")
-rasterImage(obrazek, 0.1, 0, 0.9, 1)
-```
+![bert de boer, CC BY 2.0 <https://creativecommons.org/licenses/by/2.0>, via Wikimedia Commons](https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/2015_Tour_de_France_team_presentation_%2819173924090%29.jpg/640px-2015_Tour_de_France_team_presentation_%2819173924090%29.jpg)
 
 ```{r}
+obrazek <- jpeg::readJPEG("../imgs/img1.1.jpg")
 dim(obrazek)
 ```
 

@@ -66,7 +66,7 @@ tabulka_slov_serazena <- sort(tabulka_slov, decreasing = TRUE)
 Modus této proměnné by byla hodnota "`r names(tabulka_slov_serazena)[1]`", která se vyskytla `r as.numeric(tabulka_slov_serazena[1])`x. To je v textové analýze typické a tato slova se označují jako "stopwords" a jsou zpravidla a textové analýzy vyřazena.
 
 
-Další měrou centrální tendence je **median**. Medián nám značí prostřední hodnotu nějaké proměnné. Můžeme si jeho výpočet představit tak, že hodnoty proměnné seřadíme od nejmenší po největší a vyberete hodnotu, která bude přesně uprostřed. Tato hodnota je medián. Matematicky se medián u proměnné $x$ vypočítá jako $$median(x) = x_{(n + 1)/2}$$ Pokud má naše proměnná sudý počet čísel, vypočítá se medián zpravidla jako průměr dvou prostředních hodnot, tedy $$median(x) = \frac{x_{n/2} + x_{n/2+1}}{2}$$ Řekněme, že bychom chtěli vědět medián počtu slov ve větě. Nejdříve si musíme pro každou větu (prvek listu `prezident_clean`) vypočítat počet slov. 
+Další měrou centrální tendence je **median**. Medián nám značí prostřední hodnotu nějaké proměnné. Můžeme si jeho výpočet představit tak, že hodnoty proměnné seřadíme od nejmenší po největší a vyberete hodnotu, která bude přesně uprostřed. Tato hodnota je medián. Matematicky se medián u proměnné $x_i$ vypočítá jako $$median(x) = x_{(n + 1)/2}$$ Pokud má naše proměnná sudý počet čísel, vypočítá se medián zpravidla jako průměr dvou prostředních hodnot, tedy $$median(x) = \frac{x_{n/2} + x_{n/2+1}}{2}$$ Řekněme, že bychom chtěli vědět medián počtu slov ve větě. Nejdříve si musíme pro každou větu (prvek listu `prezident_clean`) vypočítat počet slov. 
 ```{r}
 pocet_slov <- sapply(prezident_clean, length)
 ```
@@ -132,7 +132,7 @@ legend("topleft",
 ```
 
 
-Asi nejčastější mírou centrální tendence, která se používá je průměr. Průměr je možné vypočítat pouze pro kardinální proměnné. Technicky kardinální proměnné rozlišujeme na diskrétní a spojitou. Diskrétní nabývá celých čísel (1,2,3,4 etc., například počet dětí), tedy $\in Z$. Spojitá proměnná pak teoreticky nebývá nekonečně mnoho hodnot, prakticky je ale omezena tím, jak přesně dokážeme danou metriku měřit. Platí ale, že spojité proměnné nabývají racionálních čísel, tedy $\in R$. **Průměr** proměnné $x$ vypočítáme jako $$\overline{x} = \frac{1}{n}\sum_{i=1}^{n} x_i$$ Pojďme tedy vypočítat průměrný počet slov ve větě. V `R` můžeme použít funkci `mean`.
+Asi nejčastější mírou centrální tendence, která se používá je průměr. Průměr je možné vypočítat pouze pro kardinální proměnné. Technicky kardinální proměnné rozlišujeme na diskrétní a spojitou. Diskrétní nabývá celých čísel (1,2,3,4 etc., například počet dětí), tedy $\in Z$. Spojitá proměnná pak teoreticky nebývá nekonečně mnoho hodnot, prakticky je ale omezena tím, jak přesně dokážeme danou metriku měřit. Platí ale, že spojité proměnné nabývají racionálních čísel, tedy $\in R$. **Průměr** proměnné $x_i$ vypočítáme jako $$\overline{x} = \frac{1}{n}\sum_{i=1}^{n} x_i$$ Pojďme tedy vypočítat průměrný počet slov ve větě. V `R` můžeme použít funkci `mean`.
 ```{r}
 sum(pocet_slov) / length(pocet_slov)
 ```
@@ -143,7 +143,7 @@ w <- 1:length(pocet_slov)
 sum(w * pocet_slov) / sum(w)
 ```
 
-Důležitý rozdíl mezi mediánem a průměr nastává pokud nejsou data symetricky rozdělena. Symetricky rozdělená data jsou taková, která mají podobný počet hodnot nalevo a napravo od průměru. V našem případě rozložení počtu slov ve větě je medián menší než průměr. To je typické pro rozložení, která mají delší konec napravo od průměru. Průměr je totiž náchylný na extrémní pozorování. Medián je založený na pořadí, takže ho extrémní pozorování tolik neovlivní. Většína proměnných, která je ohraničená zleva (nemůže mít nemší hodnotu nežnějaká hranice) má asymetrické rozložení s více hodnotami napravo od průměru, např. příjem. V takových případech může být medián lepší mírou centrální tendence, ale výběr bude vždy záležet na otázce, kterou daty chceme zodpovědět.    
+Důležitý rozdíl mezi mediánem a průměr nastává pokud nejsou data symetricky rozdělena. Symetricky rozdělená data jsou taková, která mají podobný počet hodnot nalevo a napravo od průměru. V našem případě rozložení počtu slov ve větě je medián menší než průměr. To je typické pro rozložení, která mají delší konec napravo od průměru. Průměr je totiž náchylný na extrémní pozorování. Medián je založený na pořadí, takže ho extrémní pozorování tolik neovlivní. Většína proměnných, která je ohraničená zleva (nemůže mít menší hodnotu než nějaká hranice) má asymetrické rozložení s více hodnotami napravo od průměru, např. příjem. V takových případech může být medián lepší mírou centrální tendence, ale výběr bude vždy záležet na otázce, kterou daty chceme zodpovědět.    
 
 
 I pomocí mír centrální tendence se dají dělat zajívé analýzy. Řekněme, že nás zajímá rozdíl v relativní četnosti slov v projevu prezidenta a premiéra.
@@ -156,7 +156,8 @@ premier_clean <- vycistit_text(premier)
 slova_premier <- unlist(premier_clean)
 
 # nacteme a odstranime stopwords
-stopwords <- readLines("https://raw.githubusercontent.com/stopwords-iso/stopwords-cs/master/stopwords-cs.txt", encoding = "UTF-8")
+stopwords <- readLines("../dats/stopwords.txt", encoding = "UTF-8")
+
 # vybereme pouze slova, ktera nejsou ve stopwords
 slova_premier <- slova_premier[!slova_premier %in% stopwords]
 slova <- slova[!slova %in% stopwords]
@@ -172,7 +173,9 @@ cetnost_prezident <- cetnost_prezident / sum(cetnost_prezident)
 # vypocitame relativni cetnost
 
 # ted slouzime obe tabulky 
-rel_cetnost <- merge(data.frame(cetnost_premier), data.frame(cetnost_prezident), by.x = "slova_premier", by.y = "slova")
+rel_cetnost <- merge(data.frame(cetnost_premier), 
+                     data.frame(cetnost_prezident), 
+                     by.x = "slova_premier", by.y = "slova")
 # prejmenuje sloupce, aby davaly vice smysl
 colnames(rel_cetnost) <- c("slova", "premier", "prezident")
 head(rel_cetnost)
@@ -205,17 +208,15 @@ legend("topright", legend = c("Premiér", "Prezident"), col = c("#1f77b4", "blac
 ## Míry rozptýlenosti {#desc-vars}
 Míry centrální tendence nám udávájí hodnotu typického pozorování proměnné. Míry rozptýlenosti nám říkají, jak jsou hodnoty rozptýleny daleko od nějaké typické hodnoty. Pro kardinální proměnné se nejčastěji používá **rozptyl**, který vypočítáme tak, že každou hodnotu proměnné odečteme od průměru a umocníme. Tyto hodnoty sečteme a vydělíme počtem pozorování. Matematicky bychom rozptyl $\sigma^2$ proměnné $x$ vypočítali jako $$\sigma^2 = \frac{1}{n}\sum_{i=1}^n (x_i - \overline{x})^2$$ Ve statistice se také používá pro výpočet rozptýlenosti **směrodatná odchylka** $\sigma$, které se vypočítá jako $$\sigma = \sqrt{\sigma^2}$$ Ukažme si příklad na počtu slov.
 ```{r}
-n<- length(pocet_slov)
+n <- length(pocet_slov)
 rozptyl <- sum((pocet_slov - mean(pocet_slov))^2) / n
 # nebo v R pomoci var
-rozptyl
 
 smerodatna_odchylka <- sqrt(rozptyl)
 # nebo v R pomoci sd
-smerodatna_odchylka
 ```
 
-Ukažme si princip rozptylu/směrodatné odchylky na imaginárních datech. Na ukázku si vytvoříme proměnnou, která má 10 pozorování a zobrazíme je do grafu jako body. Červená čára označuje průměr těchto bodů. Horizontální čáry potom označují vzdálenost každého pozorování od průměrné hodnoty. Nejdříve si ukážeme příklad s menším rozptylem hodnot a pod ním příklad rozložení s větším rozptylem hodnot. Protože mají oba příklady stejný počet pozorování (10), můžete si rozdíl v jejich směrodatné odhylce představit jako rozdíl vertikálních úseček, které vedou od průměru.  
+Variability počtu slov ve větě je tedy `r rozptyl` a směrodatná odchylka je `r smerodatna_odchylka`. Ukažme si princip rozptylu/směrodatné odchylky na imaginárních datech. Na ukázku si vytvoříme proměnnou, která má 10 pozorování a zobrazíme je do grafu jako body. Červená čára označuje průměr těchto bodů. Horizontální čáry potom označují vzdálenost každého pozorování od průměrné hodnoty. Nejdříve si ukážeme příklad s menším rozptylem hodnot a pod ním příklad rozložení s větším rozptylem hodnot. Protože mají oba příklady stejný počet pozorování (10), můžete si rozdíl v jejich směrodatné odhylce představit jako rozdíl vertikálních úseček, které vedou od průměru.  
 ```{r, fig.cap='Ukázka výpočtu směrodatné odchylky', fig.align='center', fig.height=10}
 par(mfrow = c(2, 1))
 x <- rnorm(1e4, mean = 5, sd = 1)

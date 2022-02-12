@@ -24,7 +24,7 @@
 <meta name="author" content="Jan Schubert" />
 
 
-<meta name="date" content="2022-02-11" />
+<meta name="date" content="2022-02-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -181,6 +181,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
 </ul>
 
       </nav>
@@ -201,7 +202,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Úvod do statistiky</h1>
 <p class="author"><em>Jan Schubert</em></p>
-<p class="date"><em>2022-02-11</em></p>
+<p class="date"><em>2022-02-12</em></p>
 </div>
 <div id="úvod" class="section level1" number="1">
 <h1><span class="header-section-number">Kapitola 1</span> Úvod</h1>
@@ -215,19 +216,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="příklad-popisné-statistiky" class="section level2" number="1.1">
 <h2><span class="header-section-number">1.1</span> Příklad popisné statistiky</h2>
 <p>Mnoho fenomenů v každodenním světě je možné vyjádřit pomocí dat. Fotka se dá vyjádřit jako 3D matice (red, green, blue) řádků a sloupců, která vyjadřuje jednotlivé pixely.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" aria-hidden="true" tabindex="-1"></a>obrazek <span class="ot">&lt;-</span> jpeg<span class="sc">::</span><span class="fu">readJPEG</span>(<span class="st">&quot;../imgs/img1.1.jpg&quot;</span>)</span>
-<span id="cb1-2"><a href="index.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, <span class="at">ann =</span> <span class="cn">FALSE</span>, <span class="at">axes =</span> <span class="cn">FALSE</span>, <span class="at">type =</span> <span class="st">&quot;n&quot;</span>)</span>
-<span id="cb1-3"><a href="index.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rasterImage</span>(obrazek, <span class="fl">0.1</span>, <span class="dv">0</span>, <span class="fl">0.9</span>, <span class="dv">1</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-2"></span>
-<img src="book_files/figure-html/unnamed-chunk-2-1.png" alt="bert de boer, CC BY 2.0 &lt;https://creativecommons.org/licenses/by/2.0&gt;, via Wikimedia Commons" width="672" />
-<p class="caption">
-Graf 1.1: bert de boer, CC BY 2.0 <a href="https://creativecommons.org/licenses/by/2.0" class="uri">https://creativecommons.org/licenses/by/2.0</a>, via Wikimedia Commons
-</p>
+<div class="figure">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/2015_Tour_de_France_team_presentation_%2819173924090%29.jpg/640px-2015_Tour_de_France_team_presentation_%2819173924090%29.jpg" alt="" />
+<p class="caption">bert de boer, CC BY 2.0 <a href="https://creativecommons.org/licenses/by/2.0" class="uri">https://creativecommons.org/licenses/by/2.0</a>, via Wikimedia Commons</p>
 </div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="index.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(obrazek)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" aria-hidden="true" tabindex="-1"></a>obrazek <span class="ot">&lt;-</span> jpeg<span class="sc">::</span><span class="fu">readJPEG</span>(<span class="st">&quot;../imgs/img1.1.jpg&quot;</span>)</span>
+<span id="cb1-2"><a href="index.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(obrazek)</span></code></pre></div>
 <pre><code>## [1]  683 1024    3</code></pre>
 <p>Můžeme například zobrazit hodnoty červené barvy prvních 5x5 pixelů.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="index.html#cb4-1" aria-hidden="true" tabindex="-1"></a>obrazek[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="index.html#cb3-1" aria-hidden="true" tabindex="-1"></a>obrazek[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span>]</span></code></pre></div>
 <pre><code>##           [,1]      [,2]      [,3]      [,4]      [,5]
 ## [1,] 0.3568627 0.3490196 0.3411765 0.3333333 0.3294118
 ## [2,] 0.3607843 0.3529412 0.3450980 0.3372549 0.3294118
@@ -235,44 +232,44 @@ Graf 1.1: bert de boer, CC BY 2.0 <a href="https://creativecommons.org/licenses/
 ## [4,] 0.3686275 0.3607843 0.3490196 0.3411765 0.3294118
 ## [5,] 0.3686275 0.3607843 0.3490196 0.3411765 0.3333333</code></pre>
 <p>Můžeme zobrazit pouze nějaké řádky a sloupce:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="index.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>,<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>,<span class="at">type=</span><span class="st">&quot;n&quot;</span>,<span class="at">ann=</span><span class="cn">FALSE</span>,<span class="at">axes=</span><span class="cn">FALSE</span>)</span>
-<span id="cb6-2"><a href="index.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rasterImage</span>(obrazek[<span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>, ] ,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>)</span></code></pre></div>
-<p><img src="book_files/figure-html/unnamed-chunk-5-1.png" width="480" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="index.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>,<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>,<span class="at">type=</span><span class="st">&quot;n&quot;</span>,<span class="at">ann=</span><span class="cn">FALSE</span>,<span class="at">axes=</span><span class="cn">FALSE</span>)</span>
+<span id="cb5-2"><a href="index.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rasterImage</span>(obrazek[<span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>, ] ,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>)</span></code></pre></div>
+<p><img src="book_files/figure-html/unnamed-chunk-4-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>Protože obrázek je matice dat, můžeme na ni uplatnit různé statistické metody, jako například extrahovat 5 typů barev pomocí shlukovacího algoritmu.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="index.html#cb7-1" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">5</span></span>
-<span id="cb7-2"><a href="index.html#cb7-2" aria-hidden="true" tabindex="-1"></a>cervena <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(obrazek[, , <span class="dv">1</span>])</span>
-<span id="cb7-3"><a href="index.html#cb7-3" aria-hidden="true" tabindex="-1"></a>zelena <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(obrazek[, , <span class="dv">2</span>])</span>
-<span id="cb7-4"><a href="index.html#cb7-4" aria-hidden="true" tabindex="-1"></a>modra <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(obrazek[, , <span class="dv">3</span>])</span>
-<span id="cb7-5"><a href="index.html#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="index.html#cb7-6" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(<span class="fu">cbind</span>(cervena, zelena, modra), <span class="at">centers =</span> k)</span>
-<span id="cb7-7"><a href="index.html#cb7-7" aria-hidden="true" tabindex="-1"></a>barvy <span class="ot">&lt;-</span> m<span class="sc">$</span>centers</span>
-<span id="cb7-8"><a href="index.html#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-9"><a href="index.html#cb7-9" aria-hidden="true" tabindex="-1"></a>barvy_rgb <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, k)</span>
-<span id="cb7-10"><a href="index.html#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">seq</span>(<span class="dv">1</span>, k<span class="sc">*</span><span class="dv">10</span><span class="sc">+</span><span class="dv">10</span>, <span class="at">length.out =</span> <span class="dv">10</span>), <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="at">length.out =</span> <span class="dv">10</span>), </span>
-<span id="cb7-11"><a href="index.html#cb7-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">axes =</span> <span class="cn">FALSE</span>, <span class="at">ann =</span> <span class="cn">FALSE</span>, <span class="at">type =</span> <span class="st">&quot;n&quot;</span>)</span>
-<span id="cb7-12"><a href="index.html#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) {</span>
-<span id="cb7-13"><a href="index.html#cb7-13" aria-hidden="true" tabindex="-1"></a>  barvy_rgb[i] <span class="ot">&lt;-</span> <span class="fu">rgb</span>(barvy[i, <span class="dv">1</span>], barvy[i, <span class="dv">2</span>], barvy[i, <span class="dv">3</span>])</span>
-<span id="cb7-14"><a href="index.html#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rect</span>(i<span class="sc">*</span><span class="dv">10</span>, <span class="dv">1</span>, i<span class="sc">*</span><span class="dv">10</span><span class="sc">+</span><span class="dv">10</span>, <span class="dv">8</span>, <span class="at">col =</span> barvy_rgb[i])</span>
-<span id="cb7-15"><a href="index.html#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(i<span class="sc">*</span><span class="dv">10</span><span class="sc">+</span><span class="dv">5</span>, <span class="dv">9</span>, <span class="at">labels =</span> barvy_rgb[i])</span>
-<span id="cb7-16"><a href="index.html#cb7-16" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<p><img src="book_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="index.html#cb6-1" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb6-2"><a href="index.html#cb6-2" aria-hidden="true" tabindex="-1"></a>cervena <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(obrazek[, , <span class="dv">1</span>])</span>
+<span id="cb6-3"><a href="index.html#cb6-3" aria-hidden="true" tabindex="-1"></a>zelena <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(obrazek[, , <span class="dv">2</span>])</span>
+<span id="cb6-4"><a href="index.html#cb6-4" aria-hidden="true" tabindex="-1"></a>modra <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(obrazek[, , <span class="dv">3</span>])</span>
+<span id="cb6-5"><a href="index.html#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="index.html#cb6-6" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(<span class="fu">cbind</span>(cervena, zelena, modra), <span class="at">centers =</span> k)</span>
+<span id="cb6-7"><a href="index.html#cb6-7" aria-hidden="true" tabindex="-1"></a>barvy <span class="ot">&lt;-</span> m<span class="sc">$</span>centers</span>
+<span id="cb6-8"><a href="index.html#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="index.html#cb6-9" aria-hidden="true" tabindex="-1"></a>barvy_rgb <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, k)</span>
+<span id="cb6-10"><a href="index.html#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">seq</span>(<span class="dv">1</span>, k<span class="sc">*</span><span class="dv">10</span><span class="sc">+</span><span class="dv">10</span>, <span class="at">length.out =</span> <span class="dv">10</span>), <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="at">length.out =</span> <span class="dv">10</span>), </span>
+<span id="cb6-11"><a href="index.html#cb6-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">axes =</span> <span class="cn">FALSE</span>, <span class="at">ann =</span> <span class="cn">FALSE</span>, <span class="at">type =</span> <span class="st">&quot;n&quot;</span>)</span>
+<span id="cb6-12"><a href="index.html#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) {</span>
+<span id="cb6-13"><a href="index.html#cb6-13" aria-hidden="true" tabindex="-1"></a>  barvy_rgb[i] <span class="ot">&lt;-</span> <span class="fu">rgb</span>(barvy[i, <span class="dv">1</span>], barvy[i, <span class="dv">2</span>], barvy[i, <span class="dv">3</span>])</span>
+<span id="cb6-14"><a href="index.html#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rect</span>(i<span class="sc">*</span><span class="dv">10</span>, <span class="dv">1</span>, i<span class="sc">*</span><span class="dv">10</span><span class="sc">+</span><span class="dv">10</span>, <span class="dv">8</span>, <span class="at">col =</span> barvy_rgb[i])</span>
+<span id="cb6-15"><a href="index.html#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(i<span class="sc">*</span><span class="dv">10</span><span class="sc">+</span><span class="dv">5</span>, <span class="dv">9</span>, <span class="at">labels =</span> barvy_rgb[i])</span>
+<span id="cb6-16"><a href="index.html#cb6-16" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><img src="book_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 </div>
 <div id="příklad-inferenční-statistiky" class="section level2" number="1.2">
 <h2><span class="header-section-number">1.2</span> Příklad inferenční statistiky</h2>
 <p>Většina jevů okolo nás je ovlivněna náhodou, ať už z důvodu náhodného výběru nebo protože jsou součástí nějakého komplikovaného systému, který ovliňuje hodnoty jevu, který nás zajímá. Počet aut, které projedou na mostě, délka toaletního paríru, který je vyrobený v továrně, to jsou některé příklady jevů, které jsou ovlivněny náhodou. Statistika nám poskytuje soubor nástrojů, jak tuto náhodu (nejistotu) kvantifikovat. Pohlaví dětí je určeno náhodou a nově narozené dítě má zhruba stejnou pravděpodobnost, že bude děvče nebo chlapec. Řekněme, že z důvodu kapacitního plánování nás zajímá, kolik chlapců se narodí, pokud se v porodnoci denně narodí 25 dětí (sám počet narozených dětí by se dal modelovat jako náhodná proměnná).</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="index.html#cb8-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">25</span></span>
-<span id="cb8-2"><a href="index.html#cb8-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
-<span id="cb8-3"><a href="index.html#cb8-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">25</span>)</span>
-<span id="cb8-4"><a href="index.html#cb8-4" aria-hidden="true" tabindex="-1"></a>pmf <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(<span class="at">x =</span> x, <span class="at">size =</span> n, p)</span>
-<span id="cb8-5"><a href="index.html#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, pmf, </span>
-<span id="cb8-6"><a href="index.html#cb8-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">&quot;h&quot;</span>, </span>
-<span id="cb8-7"><a href="index.html#cb8-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Počet chlapců z 25 narozených dětí&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Pravděpodobnost&quot;</span>,</span>
-<span id="cb8-8"><a href="index.html#cb8-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="dv">15</span>,</span>
-<span id="cb8-9"><a href="index.html#cb8-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>)</span></code></pre></div>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-7"></span>
-<img src="book_files/figure-html/unnamed-chunk-7-1.png" alt="Pravděpodobnostní rozložení počtu chlapců z 25 narozených dětí" width="672" />
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="index.html#cb7-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">25</span></span>
+<span id="cb7-2"><a href="index.html#cb7-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
+<span id="cb7-3"><a href="index.html#cb7-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">25</span>)</span>
+<span id="cb7-4"><a href="index.html#cb7-4" aria-hidden="true" tabindex="-1"></a>pmf <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(<span class="at">x =</span> x, <span class="at">size =</span> n, p)</span>
+<span id="cb7-5"><a href="index.html#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, pmf, </span>
+<span id="cb7-6"><a href="index.html#cb7-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">&quot;h&quot;</span>, </span>
+<span id="cb7-7"><a href="index.html#cb7-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Počet chlapců z 25 narozených dětí&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Pravděpodobnost&quot;</span>,</span>
+<span id="cb7-8"><a href="index.html#cb7-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="dv">15</span>,</span>
+<span id="cb7-9"><a href="index.html#cb7-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-6"></span>
+<img src="book_files/figure-html/unnamed-chunk-6-1.png" alt="Pravděpodobnostní rozložení počtu chlapců z 25 narozených dětí" width="672" />
 <p class="caption">
-Graf 1.2: Pravděpodobnostní rozložení počtu chlapců z 25 narozených dětí
+Graf 1.1: Pravděpodobnostní rozložení počtu chlapců z 25 narozených dětí
 </p>
 </div>
 <p>Vidíme, že nejpravděpodobněji se narodí 12 chlapců (v 31% případů). Můžeme také z grafu vypočítat, že více než 15 chlapců se narodí zhruba v 11% případů, tedy zhruba 42 dní v roce.</p>
@@ -342,7 +339,8 @@ gitbook.start({
 "options": null
 },
 "toc": {
-"collapse": "subsection"
+"collapse": "subsection",
+"download": false
 }
 });
 });

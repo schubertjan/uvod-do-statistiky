@@ -2,9 +2,7 @@
 
 Tuto kapitolu začneme videm.
 
-![](https://upload.wikimedia.org/wikipedia/commons/d/dc/Galton_box.webm){width="640" height="360"}
-
-Zdroj: [Matemateca (IME/USP)](https://commons.wikimedia.org/wiki/File:Galton_box.webm)
+![Matemateca (IME USP) / name of the photographer when stated, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons](https://upload.wikimedia.org/wikipedia/commons/d/dc/Galton_box.webm){width="640" height="360"}
 
 Proč kuličky v tomto videu skončí v určitém množství v určitém sloupci? A proč skončí podobné množství kuliček v každém sloupci, pokud bychom kuličky pustili znova? Jak by se počet kuliček ve soupcích lišil?
 
@@ -14,59 +12,70 @@ Na začátku jsme řekli, že budeme používat statistické modely a že tyto m
 
 ## Pravděpodobnostní rozložení jako jazyk statistiky
 
-V této kapitole si ukážeme spoustu nových značení, která se stanou našim jazykem, kterým budeme ve statistice komunikovat. Budeme je používat k tomu, abychom popsali očekávané chování náhodné proměnné. Každé rozložení má svoje **parametry**, pomocí kterým ho můžeme popsat. Každé rozložení má taky svoje **míry centrální tendence** (**očekávanou hodnotu**) a svoje **míry rozptýlenosti**. To, kolik hodnot náhodné proměnné nabývá určitých hodnot popisuje **hustota pravděpodobnosti**. V angličtině se u spojitých proměnných (která nabývají reálných čísel) vyjadřuje hustota pravděpodobnosti jako **probability density function** (PMF). U diskrétních proměnných (nabývají celých čísel) se hustota pravděpodobnosti nazývá **probability density function** (PMF). Integrál hustoty pravděpodobnosti je vždy rovný nule. To tedy znamá, že kdybychom sečetli všechny hodnoty hustoty pravděpodobnosti (pro spojité proměnné integrovali), tak by se výsledek rovnal jedné. To plyne z toho, že pravděpodobnost jevu nemůže být vyšší než jedna.
+V této kapitole si ukážeme spoustu nových značení, která se stanou našim jazykem, kterým budeme ve statistice komunikovat. Budeme je používat k tomu, abychom popsali očekávané chování náhodné proměnné. Každé rozložení má svoje **parametry**, pomocí kterým ho můžeme popsat. Každé rozložení má taky svoje **míry centrální tendence** (**očekávanou hodnotu**) a svoje **míry rozptýlenosti**. To, kolik hodnot náhodné proměnné nabývá určitých hodnot popisuje **hustota pravděpodobnosti**. V angličtině se u spojitých proměnných (která nabývají reálných čísel) vyjadřuje hustota pravděpodobnosti jako **probability density function** (PMF). U diskrétních proměnných (nabývají celých čísel) se hustota pravděpodobnosti nazývá **probability density function** (PMF). Integrál hustoty pravděpodobnosti je vždy rovný nule. To tedy znamá, že kdybychom sečetli všechny hodnoty hustoty pravděpodobnosti (pro spojité proměnné integrovali), tak by se výsledek rovnal jedné. To plyne z toho, že pravděpodobnost jevu nemůže být vyšší než jedna. Nakonec ještě trocha **terminologie**, které budeme používat. Náhodnou proměnnou budeme označovat jako $x_i$. Budeme používat malá písmena, pokud výsledkem procesu bude vektor a velká písmena, pokud výsledkem bude matice. $i$ označuje jednotlivá pozorování. Teda první hodnota náhodné proměnné, by se označovala jako $x_1$. $n$ označuje zpravidla počet pozorování proměnné.
 
 ## Binomické
 
-Vraťme se k videu ze začátku kapitoly. Tomuto přístroji se říká Galton Box. Míčky jsou puštěny do přístroje z jednoho stejného bodu a procházejí několika vrstvami (ve videu 10 vrstvami). V každé vrstvě míček narazí na bod, který ho může poslat na levou nebo na pravou stranu (zhruba se stejnou pravděpodobností 0.5). To, na jakou stranu se míček vydá je určeno náhodou. Kdybyste nechali všechny míčky spadnout, posbírali je a znovu spustili, tak skoro stejné množství míčků skončí v každém sloupci. Jak je možné, že když spustíme tisíce míčků, každý se může 10x odrazit nalevo nebo napravo, tak výsledný počet míčků v každém sloupci je skoro stejný? Příčinou je pravděpodovnoství rozložení. Prvním rozložením, které si ukážeme je binomické rozložení. Jevy mohou být generovany procesem, který vede k binomickému rozložení, pokud máme pokus, jehož výsledkem je **úspěch nebo neúspěch**, pokusy jsou **nezávislé** a mají **konstantní pravděpodobnost** úspěchu $p$ (konstantní pro všechny pokusy). Obecně platí, že proměnná $X_i$ pochází z binomického rozložení, kde $$X_i \sim B(n, p)$$ a kde $n$ značí počet pokusů a $p$ pravděpodobnost úspěchu. Proměnná $X_i$ je potom **diskrétní**. Pojďme si ukázat, jak se binomické rozložení vztahuje ke Galtonově boxu. Každý míček prochází 10 pokusy, kde výsledek může být buď úspěch (řekněme, že míček spadne napravo) nebo neúspěch (řeknemě, že míček spadne nalevo). Míčky jsou na sobě relativně nezávislé a všechny mají při každém pokusu relativně konstatní pravděpodobnost. Opět je nutné si uvědomit, že náš model dat (binomické rozložení) není přesnou reprezentací procesu, který se snažíme popsat. Míčky nejsou ve skutečnosti kompletně nezávislé, mohou do sebe narazit a tím se ovlivnit. Ne každý míček má přesně 10 pokusů, některé se odrazí zpět nahoru, než spadnout opět dolů. Důležité je, jestli jsou předpoklady našeho modelu splněny dostatečně na to, aby jeho matematické vyjádření bylo validní pro reálný process, který se snažíme popsat.
+Vraťme se k videu ze začátku kapitoly. Tomuto přístroji se říká Galton Box. Míčky jsou puštěny do přístroje z jednoho stejného bodu a procházejí několika vrstvami (ve videu 10 vrstvami). V každé vrstvě míček narazí na bod, který ho může poslat na levou nebo na pravou stranu (zhruba se stejnou pravděpodobností 0.5). To, na jakou stranu se míček vydá je určeno náhodou. Míčky potom spadnou do jednoho ze sloupců (ve videu 13 sloupců). Kdybysme nechali všechny míčky spadnout, posbírali je a znovu spustili, tak skoro stejné množství míčků skončí v každém sloupci. Jak je možné, že když spustíme tisíce míčků, každý se může 10x odrazit nalevo nebo napravo, tak výsledný počet míčků v každém sloupci je skoro stejný? Příčinou je pravděpodovnoství rozložení. 
 
-Pojďme si nyní ukázat, jak se Galtonův box dá připodobnit binomickým rozložením. Náhodný process z binomického rozložení můžeme generovat pomocí funkce `rbinom`. Ta jako argumenty předpokládá `n` počet pozorování, která chceme generovat, `size` počet pokusů a `p` pravděpodobnost úspěchu.
+Prvním rozložením, které si ukážeme je binomické rozložení. Jevy mohou být generovany procesem, který vede k binomickému rozložení, pokud máme pokus, jehož výsledkem je **úspěch nebo neúspěch**, pokusy jsou **nezávislé** a mají **konstantní pravděpodobnost** úspěchu $p$ (konstantní pro všechny pokusy). Obecně platí, že proměnná $x_i$ pochází z binomického rozložení, kde $$x_i \sim B(n, p)$$ a kde $n$ značí počet pokusů a $p$ pravděpodobnost úspěchu. Proměnná $x_i$ je potom **diskrétní**. Pojďme si ukázat, jak se binomické rozložení vztahuje ke Galtonově boxu. Každý míček prochází 10 pokusy, kde výsledek může být buď úspěch (řekněme, že míček spadne napravo) nebo neúspěch (řeknemě, že míček spadne nalevo). Výsledkem je potom zařazení do jednoho ze 13 sloupců. V extrému může náš proces skončit tak, že všechny míčky budou nalevo nebo že všechny míčky budou napravo. Míčky jsou na sobě relativně nezávislé a všechny mají při každém pokusu relativně konstatní pravděpodobnost. Opět je nutné si uvědomit, že náš model dat (binomické rozložení) není přesnou reprezentací procesu, který se snažíme popsat. Míčky nejsou ve skutečnosti kompletně nezávislé, mohou do sebe narazit a tím se ovlivnit. Protože ale prochazí zhruba 10 pokusy (i když to se může lišit, některé míčky se mohou odrazit po nárazu znovu nahoru), bereme proces jako dostatečně náhodný a nezávislý. Důležité je, jestli jsou předpoklady našeho modelu splněny dostatečně na to, aby jeho matematické vyjádření bylo validní pro reálný process, který se snažíme popsat.
 
-```{r}
+Pojďme si nyní ukázat, jak se Galtonův box dá připodobnit binomickým rozložením. Náhodný process z binomického rozložení můžeme generovat pomocí funkce `rbinom`. Ta jako argumenty předpokládá `n` počet pozorování, která chceme generovat, `size` počet pokusů (způsobů, jak může proces skončit) a `p` pravděpodobnost úspěchu. Budeme uvaživat, že spustíme 10 000 míčků, tedy $$x_i \sim B(10000, 0.5)$$
+
+```{r, fig.cap='Simulace Galtonova boxu s 13 sloupci'}
+set.seed(4)
 # pocet micku
 n <- 10000
 # pravdepodobnost uspechu (napravo)
 p <- 0.5
-s <- 10
+# 0 by znamenalo všechny míčky nalevo, 12 všechny míčky napravo,
+# celkem 13 možností, jak mohou míčku skončit
+s <- 12
 
 vysledek <- rbinom(n = n , size = s, prob = p)
 hist(vysledek,
-     xlab = "",
+     xlab = "x",
      ylab = "Četnost",
      main = paste0("Galtonův box s ", n, " míčky"),
      col = "#1f77b4",
-     breaks = 11)
+     breaks = 13)
 
 ```
 
-A ještě ukázka, že počet míčků v každém sloupci je zhruba stejný při opakování pokusu. Provedeme 10 pokusu.
+**Očekávanou hodnotu** proměnné pocházející z binomické proměnné můžeme vypočítat jako $$E(x_i) = np$$ **variabilitu** jako $$Var(x_i) = npq$$ a **směrodatbou odchylku** jako $$Sd(x_i) = \sqrt{Var(X_i)}$$V našem případě, kdy máme `r n` míčků je tedy očekávaná hodnota `r n*p` a směrodatná odchylka `r n*p*(1-p)`.
 
-```{r, animation.hook='gifski'}
-N <- 10
+A ještě ukázka, že počet míčků v každém sloupci je zhruba stejný, pokud bychom je pustili znova, řekněme 11x.
+
+```{r, animation.hook='gifski', fig.cap='Opakované spuštění míčků v Galtonově boxu'}
+N <- 11
 for(i in 1:N) {
   vysledek <- rbinom(n = n , size = s, prob = p)
-  hist(vysledek,
-       xlab = "X",
+  micek <- vysledek[1]
+  cetnosti <- table(vysledek)
+  # pouzijeme funkci plot, abychom mohli pridat micek
+  plot(cetnosti,
+       xlab = "x",
        ylab = "Četnost",
        main = paste0("Galtonův box s ", n, " míčky; pokus #", i),
        col = "#1f77b4",
-       breaks = 11,
+       lwd = 15,
        ylim = c(0, 2500),
-       xlim = c(0, 10))
+       xlim = c(0, 12))
+  points(x = micek, y = 2, pch = 19, col = "red")
 }
 ```
 
-Jak jsme zmínili v \@ref(pravděpodobnostní-rozložení-jako-jazyk-statistiky) frekvenci hodnot diskrétní náhodné proměnné můžeme popsat matematicky pomocí hustoty pravděpodobnosti (PMF). U binomického rozložení můžeme PMF vypočítat jako $$PMF = \binom{n}{k}p^kq^{n-k}$$ kde $k$ je počet úspěšných pokusů a $q=1-p$. V praxi můžeme využít funkce `dbinom`, která PMF vypočítá. Tato funkce argument `x` kam dosadíme hodnoty proměnné $X_i$, pro které chceme PMF vypočítat. Argumenty `size` a `prob` jsou stejné jako u `rbinom`. Protože PMF je vypočítáno deterministicky (není tam žádná náhoda jako u generování náhodných čísel nahoře, čísla pouze dosadíme do vzorce), bude jeho výpočet stejný pokaždé, když zadáme stejné argumenty funkce.
+Jak jsme zmínili v \@ref(pravděpodobnostní-rozložení-jako-jazyk-statistiky) frekvenci hodnot diskrétní náhodné proměnné můžeme popsat matematicky pomocí hustoty pravděpodobnosti (PMF). U binomického rozložení můžeme PMF vypočítat jako $$PMF(x_i) = \binom{n}{k}p^kq^{n-k}$$ kde $k$ je počet úspěšných pokusů a $q=1-p$. V praxi můžeme využít funkce `dbinom`, která PMF vypočítá. Tato funkce argument `x` kam dosadíme hodnoty proměnné $x_i$, pro které chceme PMF vypočítat. Argumenty `size` a `prob` jsou stejné jako u `rbinom`. Protože PMF je vypočítáno deterministicky (není tam žádná náhoda jako u generování náhodných čísel nahoře, čísla pouze dosadíme do vzorce), bude jeho výpočet stejný pokaždé, když zadáme stejné argumenty funkce.
 
-```{r}
-# muze padnou minimalne 0 a maximalne 10 z 10 pokusu
-x <- 0:10
-s <- 10
+```{r, fig.cap='PMF pro Galtonův box s 13 sloupci'}
+# muze padnou minimalne 0 (uplne nalevo) a maximalne 12 (uplne napravo)
+x <- 0:12
+s <- 12
 p <- 0.5
 
 pmf <- dbinom(x = x, size = s, prob = p)
 plot(x, pmf, 
-     xlab = "X",
+     xlab = "x",
      ylab = "PMF",
      type = "h", # jedna se o diskretni promennou
      lwd = 15,
@@ -75,11 +84,53 @@ plot(x, pmf,
 
 ```
 
-Protože hodnoty $X_i$ mohou nabývat pouze celých čísel, je PMF vyjádřením pravděpodobnosti toho, že náhodná proměnná $X_i$ nabyde nějaké hodnoty. Například pravěpodobnost, že se míček odrazí z 10 pokusů 8x doleva je `r pmf[x==1]`.
+Protože hodnoty $x_i$ mohou nabývat pouze celých čísel, je PMF vyjádřením pravděpodobnosti toho, že náhodná proměnná $x_i$ nabyde nějaké hodnoty. Například pravěpodobnost, že se míček skončí v 4 sloupci zleva je $Pr(x_i = 2)$=`r pmf[x==3]`. Stejně tak můžeme spočítat pravděpodobnost, že skončí v 7 sloupci a více napravo, tedy $Pr(x \ge 7)$=`r sum(pmf[x>=7])`. Nejpravděpodobněji skončí míček ve sloupci `r x[which.max(pmf)]`.
 
-**Očekávanou hodnotu** proměnné pocházející z binomické proměnné můžeme vypočítat jako $$E(X_i) = np$$, **variabilitu** jako $$Var(X_i) = npq$$ a **směrodatbou odchylku** jako $$Sd(X_i) = \sqrt{Var(X_i)}$$. V našem případě, kdy máme `r n` míčků je tedy očekávaná hodnota `r n*p` a směrodatná odchylka `r n*p*(1-p)`.
+To, že dokážeme predikovat, kolik míčků skončí v jakém sloupci, ještě neznamená, že víme, kde skončí jeden konkrétní míček. V animaci nahoře si všimněte červené tečky. Ta reprezentuje první míček, který jsme vhodili. Jak je vidět míček cestuje mezi sloupci. To s jakou pravděpobností skončí v daném sloupci nám říká právě PMF. 
+
 
 ## Normální
+Normální rozložení popisuje náhodný proces **spojitých** proměnných. Za určitých podmínek (velký výběr a $p$ neblížící se 0 nebo 1) se binomické rozdělení bude podobat normálnímu. Normální rozložení popisuje proces, kterým jsou generované náhodné spojité proměnné, které nejsou ohraničené zleva ani zprava. Protože mnoho fyzikálních jevů je spojitých^[Např. teplota, hmotnost, výška. Naše schonost tyto jevy měřit je ale často diskrétní, hmotnost můžeme měřit na mg apod. Protože jsou ale jednotky míry často malé, bereme je jako spojitou proměnnou.] a nejsou ohraničeny^[Teoreticky jsou ohraničené, ale prakticky se v přírodě extrémy často nevyskutují. Například teplota neklesá k absolutní nule. Váha zvířat je zpravidla větší než 0 mg apod.], normální rozložení se často vyskuteje v přírodě. Normální rozložení má dva parametry, které určují jeho tvar, průměr $\mu$ a směrodatnou odchylku $\sigma$. Náhodná proměnná $x_i$ pocházející z normálního rozložení se zapíše jako $$x_i \sim N(\mu, \sigma)$$Parameter $\mu$ ovlivňuje polohu rozložení a parameter $\sigma$ jeho roztaženost nalevo a napravo od $\mu$. Protože náhodná proměnná $x_i$ je spojitá, nabývá reálných čísel, může mít  nekonečně mnoho hodnot. To představuje problém, pokud chceme vypočítat hustotu pravděpodobnosti (PDF). Aby byly zachovány vlastnosti pravděpodobnosti ($p \in [0, 1]$), je integrál PDF rovný jedné To ale znamená, že hodnota PDF už nevyjadřuje pravděpodobnost nějakého jevu. V angličtině se proto používá pojem density (odtud probability density function PDF). Vzorec pro PDF je
+$$PDF(x_i) = \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{1}{2} (\frac{x - \mu}{\sigma})^2}$$
+v `R` můžeme pro výpočet PDF normálného rozložení použít funkci `dnorm`, které má argumenty `x` hodnoty náhodné proměnné $x_i$, pro které chceme PDF vypočítat, `mean` průměr a `sd` standardní odchylku. Pojďme si ukázat, jak by vypadala PDF pro tyto náhodné proměnné:
+$$x_i \sim N(0, 1)$$
+$$y_i \sim N(3, 2)$$
+$$z_i \sim N(-2, 3)$$
+
+
+
+```{r, fig.cap='Ukázka vlivu průměru a směrodatné odchylky na tvar normálního rozložení'}
+# definujeme si parametry
+mu <- c(0, 3, -2)
+s <- c(1, 2, 3)
+# definuje hodnoty nahodne promenne, pro kterou budeme chtit vypocitat pdf
+x <- seq(-12, 12, length.out = 1000)
+
+# vypocitame pdf
+pdf_x <- dnorm(x = x, mean = mu[1], sd = s[1])
+pdf_y <- dnorm(x = x, mean = mu[2], sd = s[2])
+pdf_z <- dnorm(x = x, mean = mu[3], sd = s[3])
+
+# zobrazime
+plot(x, pdf_x, 
+     col = "#1f77b4", 
+     lwd = 2, type = "l", 
+     xlab = "", ylab = "PDF",
+     xlim = c(-12, 12))
+lines(x, pdf_y, col = "black", lwd = 2)
+lines(x, pdf_z, col = "orange", lwd = 2)
+legend("topright", 
+       legend = c("x ~ N(0, 1)", "y ~ N(3, 2)", "z ~ N(-2, 3)"), 
+       lwd = rep(2, 3), 
+       col = c("#1f77b4", "black", "orange"), 
+       cex = 0.7)
+```
+
+Normální rozložení je symetrické. To znamená, že se nachází stejně hodnot nalevo a napravo od průměru. Podle hodnoty směrodatné odchylky dokážeme určit kolik případů bychom a jak daleko bychom očekávali, že budou ležet od průměru. Následující obrázek ukazuje, že zhruba 68% hodnot náhodné proměnné bude ležet +/- jednu směrodatnou odchylku od průměru a zhruba 95% hodnot bude ležet +/- dvě směrodatnou odchylku od průměru a 99% hodnot +/- tři směrodatné odchylky od průměru.
+
+![M. W. Toews, CC BY 2.5 <https://creativecommons.org/licenses/by/2.5>, via Wikimedia Commons](https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Standard_deviation_diagram.svg/700px-Standard_deviation_diagram.svg.png)
+
+Kumulativní rozložení
 
 ## T
 
