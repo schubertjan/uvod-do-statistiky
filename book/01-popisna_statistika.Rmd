@@ -196,13 +196,13 @@ plot(x,
      xaxt = "n",
      xlab = "",
      ylab = "Relativní četnost",
-     col = "#1f77b4", lwd = 3)
+     col = "black", lwd = 3)
 lines(x+0.3,
       rel_cetnost_top$prezident, 
       type = "h",
-      col = "black", lwd = 3)
+      col = "#1f77b4", lwd = 3)
 axis(1, at=x, labels=rel_cetnost_top$slova, las = 3, cex.axis = 0.8)
-legend("topright", legend = c("Premiér", "Prezident"), col = c("#1f77b4", "black"), lwd = c(3,3), cex = 0.8)
+legend("topright", legend = c("Premiér", "Prezident"), col = c("black", "#1f77b4"), lwd = c(3,3), cex = 0.8)
 ```
 
 ## Míry rozptýlenosti {#desc-vars}

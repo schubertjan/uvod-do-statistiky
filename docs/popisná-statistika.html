@@ -24,7 +24,7 @@
 <meta name="author" content="Jan Schubert" />
 
 
-<meta name="date" content="2022-02-12" />
+<meta name="date" content="2022-02-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -175,7 +175,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.5" data-path="pravděpodobnostní-rozložení.html"><a href="pravděpodobnostní-rozložení.html#uniformní"><i class="fa fa-check"></i><b>3.5</b> Uniformní</a></li>
 <li class="chapter" data-level="3.6" data-path="pravděpodobnostní-rozložení.html"><a href="pravděpodobnostní-rozložení.html#poisson"><i class="fa fa-check"></i><b>3.6</b> Poisson</a></li>
 <li class="chapter" data-level="3.7" data-path="pravděpodobnostní-rozložení.html"><a href="pravděpodobnostní-rozložení.html#chi-kvadrát"><i class="fa fa-check"></i><b>3.7</b> Chi-kvadrát</a></li>
-<li class="chapter" data-level="3.8" data-path="pravděpodobnostní-rozložení.html"><a href="pravděpodobnostní-rozložení.html#věrohodnost"><i class="fa fa-check"></i><b>3.8</b> Věrohodnost</a></li>
+<li class="chapter" data-level="3.8" data-path="pravděpodobnostní-rozložení.html"><a href="pravděpodobnostní-rozložení.html#shrnutí"><i class="fa fa-check"></i><b>3.8</b> Shrnutí</a></li>
+<li class="chapter" data-level="3.9" data-path="pravděpodobnostní-rozložení.html"><a href="pravděpodobnostní-rozložení.html#věrohodnost"><i class="fa fa-check"></i><b>3.9</b> Věrohodnost</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="centrální-limitní-věta.html"><a href="centrální-limitní-věta.html"><i class="fa fa-check"></i><b>4</b> Centrální limitní věta</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -367,13 +368,13 @@ Graf 2.2: Seřazení proměnné pro ilustraci výpočtu mediánu
 <span id="cb25-5"><a href="popisná-statistika.html#cb25-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xaxt =</span> <span class="st">&quot;n&quot;</span>,</span>
 <span id="cb25-6"><a href="popisná-statistika.html#cb25-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>,</span>
 <span id="cb25-7"><a href="popisná-statistika.html#cb25-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Relativní četnost&quot;</span>,</span>
-<span id="cb25-8"><a href="popisná-statistika.html#cb25-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb25-8"><a href="popisná-statistika.html#cb25-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
 <span id="cb25-9"><a href="popisná-statistika.html#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x<span class="fl">+0.3</span>,</span>
 <span id="cb25-10"><a href="popisná-statistika.html#cb25-10" aria-hidden="true" tabindex="-1"></a>      rel_cetnost_top<span class="sc">$</span>prezident, </span>
 <span id="cb25-11"><a href="popisná-statistika.html#cb25-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">type =</span> <span class="st">&quot;h&quot;</span>,</span>
-<span id="cb25-12"><a href="popisná-statistika.html#cb25-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb25-12"><a href="popisná-statistika.html#cb25-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
 <span id="cb25-13"><a href="popisná-statistika.html#cb25-13" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at=</span>x, <span class="at">labels=</span>rel_cetnost_top<span class="sc">$</span>slova, <span class="at">las =</span> <span class="dv">3</span>, <span class="at">cex.axis =</span> <span class="fl">0.8</span>)</span>
-<span id="cb25-14"><a href="popisná-statistika.html#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;Premiér&quot;</span>, <span class="st">&quot;Prezident&quot;</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;#1f77b4&quot;</span>, <span class="st">&quot;black&quot;</span>), <span class="at">lwd =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>), <span class="at">cex =</span> <span class="fl">0.8</span>)</span></code></pre></div>
+<span id="cb25-14"><a href="popisná-statistika.html#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;Premiér&quot;</span>, <span class="st">&quot;Prezident&quot;</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;#1f77b4&quot;</span>), <span class="at">lwd =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>), <span class="at">cex =</span> <span class="fl">0.8</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-20"></span>
 <img src="book_files/figure-html/unnamed-chunk-20-1.png" alt="Top 20 slov podle relativní četnosti v projevu prezidenta a premiéra" width="672" />
 <p class="caption">
