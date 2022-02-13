@@ -16,7 +16,9 @@ fig:unnamed-chunk-33
 fig:unnamed-chunk-34
 fig:unnamed-chunk-35
 fig:unnamed-chunk-36
-fig:unnamed-chunk-41
+fig:unnamed-chunk-37
+fig:unnamed-chunk-38
+fig:unnamed-chunk-43
 úvod
 příklad-popisné-statistiky
 příklad-inferenční-statistiky
@@ -30,6 +32,7 @@ pravděpodobnostní-rozložení
 pravděpodobnostní-rozložení-jako-jazyk-statistiky
 binomické
 normální
+standardizované-normální
 t
 uniformní
 poisson
@@ -37,3 +40,7 @@ chi-kvadrát
 shrnutí
 věrohodnost
 centrální-limitní-věta
+průměr
+směrodatná-odchylka
+bootstrap
+poznámky

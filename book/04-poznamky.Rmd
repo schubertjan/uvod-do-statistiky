@@ -1,0 +1,3 @@
+# Poznámky
+
+Přidat multivariate normal kdyžese bude probírat covariance.
