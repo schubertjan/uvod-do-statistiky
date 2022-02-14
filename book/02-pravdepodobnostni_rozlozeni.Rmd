@@ -1,6 +1,6 @@
 # Pravděpodobnostní rozložení
 
-Tuto kapitolu začneme videm.
+Tuto kapitolu začneme [videm](https://upload.wikimedia.org/wikipedia/commons/d/dc/Galton_box.webm).
 
 ![Matemateca (IME USP) / name of the photographer when stated, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons](https://upload.wikimedia.org/wikipedia/commons/d/dc/Galton_box.webm){width="640" height="360"}
 
@@ -10,13 +10,13 @@ Pokud si z této knihy máte odnést jednu kapitolu, pak by to měla být tako :
 
 Na začátku jsme řekli, že budeme používat statistické modely a že tyto modely nejsou přesným vyjádřením reality, ale mohou být užitečným popsáním reality. V této kapitole začneme modely používat.
 
-## Pravděpodobnostní rozložení jako jazyk statistiky
+## Pravděpodobnostní rozložení jako jazyk statistiky{#stats-lang}
 
 V této kapitole si ukážeme spoustu nových značení, která se stanou našim jazykem, kterým budeme ve statistice komunikovat. Budeme je používat k tomu, abychom popsali očekávané chování náhodné proměnné. Každé rozložení má svoje **parametry**, pomocí kterým ho můžeme popsat. Každé rozložení má taky svoje **míry centrální tendence** (**očekávanou hodnotu**) a svoje **míry rozptýlenosti**. To, kolik hodnot náhodné proměnné nabývá určitých hodnot popisuje **hustota pravděpodobnosti**. V angličtině se u spojitých proměnných (která nabývají reálných čísel) vyjadřuje hustota pravděpodobnosti jako **probability density function** (PMF). U diskrétních proměnných (nabývají celých čísel) se hustota pravděpodobnosti nazývá **probability density function** (PMF). Integrál hustoty pravděpodobnosti je vždy rovný nule. To tedy znamá, že kdybychom sečetli všechny hodnoty hustoty pravděpodobnosti (pro spojité proměnné integrovali), tak by se výsledek rovnal jedné. To plyne z toho, že pravděpodobnost jevu nemůže být vyšší než jedna. Nakonec ještě trocha **terminologie**, které budeme používat. Náhodnou proměnnou budeme označovat jako $x_i$. Budeme používat malá písmena, pokud výsledkem procesu bude vektor a velká písmena, pokud výsledkem bude matice. $i$ označuje jednotlivá pozorování. Teda první hodnota náhodné proměnné, by se označovala jako $x_1$. $n$ označuje zpravidla počet pozorování proměnné.
 
 ## Binomické
 
-Vraťme se k videu ze začátku kapitoly. Tomuto přístroji se říká Galton Box. Míčky jsou puštěny do přístroje z jednoho stejného bodu a procházejí několika vrstvami (ve videu 10 vrstvami). V každé vrstvě míček narazí na bod, který ho může poslat na levou nebo na pravou stranu (zhruba se stejnou pravděpodobností 0.5). To, na jakou stranu se míček vydá je určeno náhodou. Míčky potom spadnou do jednoho ze sloupců (ve videu 13 sloupců). Kdybysme nechali všechny míčky spadnout, posbírali je a znovu spustili, tak skoro stejné množství míčků skončí v každém sloupci. Jak je možné, že když spustíme tisíce míčků, každý se může 10x odrazit nalevo nebo napravo, tak výsledný počet míčků v každém sloupci je skoro stejný? Příčinou je pravděpodovnoství rozložení. 
+Vraťme se k videu ze začátku kapitoly. Tomuto přístroji se říká Galton Box. Míčky jsou puštěny do přístroje z jednoho stejného bodu a procházejí několika vrstvami (ve videu 10 vrstvami). V každé vrstvě míček narazí na bod, který ho může poslat na levou nebo na pravou stranu (zhruba se stejnou pravděpodobností 0.5). To, na jakou stranu se míček vydá je určeno náhodou. Míčky potom spadnou do jednoho ze sloupců (ve videu 13 sloupců). Kdybysme nechali všechny míčky spadnout, posbírali je a znovu spustili, tak skoro stejné množství míčků skončí v každém sloupci. Jak je možné, že když spustíme tisíce míčků, každý se může 10x odrazit nalevo nebo napravo, tak výsledný počet míčků v každém sloupci je skoro stejný? Příčinou je pravděpodovnoství rozložení.
 
 Prvním rozložením, které si ukážeme je binomické rozložení. Jevy mohou být generovany procesem, který vede k binomickému rozložení, pokud máme pokus, jehož výsledkem je **úspěch nebo neúspěch**, pokusy jsou **nezávislé** a mají **konstantní pravděpodobnost** úspěchu $p$ (konstantní pro všechny pokusy). Obecně platí, že proměnná $x_i$ pochází z binomického rozložení, kde $$x_i \sim B(n, p)$$ a kde $n$ značí počet pokusů a $p$ pravděpodobnost úspěchu. Proměnná $x_i$ je potom **diskrétní**. Pojďme si ukázat, jak se binomické rozložení vztahuje ke Galtonově boxu. Každý míček prochází 10 pokusy, kde výsledek může být buď úspěch (řekněme, že míček spadne napravo) nebo neúspěch (řeknemě, že míček spadne nalevo). Výsledkem je potom zařazení do jednoho ze 13 sloupců. V extrému může náš proces skončit tak, že všechny míčky budou nalevo nebo že všechny míčky budou napravo. Míčky jsou na sobě relativně nezávislé a všechny mají při každém pokusu relativně konstatní pravděpodobnost. Opět je nutné si uvědomit, že náš model dat (binomické rozložení) není přesnou reprezentací procesu, který se snažíme popsat. Míčky nejsou ve skutečnosti kompletně nezávislé, mohou do sebe narazit a tím se ovlivnit. Protože ale prochazí zhruba 10 pokusy (i když to se může lišit, některé míčky se mohou odrazit po nárazu znovu nahoru), bereme proces jako dostatečně náhodný a nezávislý. Důležité je, jestli jsou předpoklady našeho modelu splněny dostatečně na to, aby jeho matematické vyjádření bylo validní pro reálný process, který se snažíme popsat.
 
@@ -32,15 +32,16 @@ p <- 0.5
 # celkem 13 možností, jak mohou míčku skončit
 s <- 12
 
-vysledek <- rbinom(n = n , size = s, prob = p)
+vysledek <- rbinom(n = n, size = s, prob = p)
 cetnost <- table(vysledek)
 plot(cetnost,
-     xlab = "x",
-     ylab = "Četnost",
-     main = paste0("Galtonův box s ", n, " míčky"),
-     col = "#1f77b4",
-     type= "h", lwd = 15, 
-     xlim = c(0, 12))
+  xlab = "x",
+  ylab = "Četnost",
+  main = paste0("Galtonův box s ", n, " míčky"),
+  col = "#1f77b4",
+  type = "h", lwd = 15,
+  xlim = c(0, 12)
+)
 # vzdy ukazat vsechny moznosti i kdyz tam nejsou zadne micky
 axis(1, 1:13, 1:13)
 ```
@@ -51,26 +52,27 @@ A ještě ukázka, že počet míčků v každém sloupci je zhruba stejný, pok
 
 ```{r, animation.hook='gifski', fig.cap='Opakované spuštění míčků v Galtonově boxu'}
 N <- 11
-for(i in 1:N) {
-  vysledek <- rbinom(n = n , size = s, prob = p)
+for (i in 1:N) {
+  vysledek <- rbinom(n = n, size = s, prob = p)
   micek <- vysledek[1]
   cetnosti <- table(vysledek)
   # pouzijeme funkci plot, abychom mohli pridat micek
   plot(cetnosti,
-       xlab = "x",
-       ylab = "Četnost",
-       main = paste0("Galtonův box s ", n, " míčky; pokus #", i),
-       col = "#1f77b4",
-       lwd = 15,
-       ylim = c(0, 2500),
-       xlim = c(0, 12))
+    xlab = "x",
+    ylab = "Četnost",
+    main = paste0("Galtonův box s ", n, " míčky; pokus #", i),
+    col = "#1f77b4",
+    lwd = 15,
+    ylim = c(0, 2500),
+    xlim = c(0, 12)
+  )
   # vzdy ukazat vsechny moznosti i kdyz tam nejsou zadne micky
   axis(1, 1:13, 1:13)
   points(x = micek, y = 2, pch = 19, col = "red")
 }
 ```
 
-Jak jsme zmínili v \@ref(pravděpodobnostní-rozložení-jako-jazyk-statistiky) frekvenci hodnot diskrétní náhodné proměnné můžeme popsat matematicky pomocí hustoty pravděpodobnosti (PMF). U binomického rozložení můžeme PMF vypočítat jako $$PMF(x_i) = \binom{n}{k}p^kq^{n-k}$$ kde $k$ je počet úspěšných pokusů a $q=1-p$. V praxi můžeme využít funkce `dbinom`, která PMF vypočítá. Tato funkce argument `x` kam dosadíme hodnoty proměnné $x_i$, pro které chceme PMF vypočítat. Argumenty `size` a `prob` jsou stejné jako u `rbinom`. Protože PMF je vypočítáno deterministicky (není tam žádná náhoda jako u generování náhodných čísel nahoře, čísla pouze dosadíme do vzorce), bude jeho výpočet stejný pokaždé, když zadáme stejné argumenty funkce.
+Jak jsme zmínili v \@ref(stats-lang) frekvenci hodnot diskrétní náhodné proměnné můžeme popsat matematicky pomocí hustoty pravděpodobnosti (PMF). U binomického rozložení můžeme PMF vypočítat jako $$PMF(x_i) = \binom{n}{k}p^kq^{n-k}$$ kde $k$ je počet úspěšných pokusů a $q=1-p$. V praxi můžeme využít funkce `dbinom`, která PMF vypočítá. Tato funkce argument `x` kam dosadíme hodnoty proměnné $x_i$, pro které chceme PMF vypočítat. Argumenty `size` a `prob` jsou stejné jako u `rbinom`. Protože PMF je vypočítáno deterministicky (není tam žádná náhoda jako u generování náhodných čísel nahoře, čísla pouze dosadíme do vzorce), bude jeho výpočet stejný pokaždé, když zadáme stejné argumenty funkce.
 
 ```{r, fig.cap='PMF pro Galtonův box s 13 sloupci'}
 # muze padnou minimalne 0 (uplne nalevo) a maximalne 12 (uplne napravo)
@@ -79,89 +81,91 @@ s <- 12
 p <- 0.5
 
 pmf <- dbinom(x = x, size = s, prob = p)
-plot(x, pmf, 
-     xlab = "x",
-     ylab = "PMF",
-     type = "h", # jedna se o diskretni promennou
-     lwd = 15,
-     main = paste0("Galtonův box"),
-     col = "#1f77b4")
+plot(x, pmf,
+  xlab = "x",
+  ylab = "PMF",
+  type = "h", # jedna se o diskretni promennou
+  lwd = 15,
+  main = paste0("Galtonův box"),
+  col = "#1f77b4"
+)
 # vzdy ukazat vsechny moznosti i kdyz tam nejsou zadne micky
- axis(1, 1:13, 1:13)
+axis(1, 1:13, 1:13)
 ```
 
 Protože hodnoty $x_i$ mohou nabývat pouze celých čísel, je PMF vyjádřením pravděpodobnosti toho, že náhodná proměnná $x_i$ nabyde nějaké hodnoty. Nejpravděpodobněji skončí míček ve sloupci `r x[which.max(pmf)]` s pravděpodobností `r which.max(pmf)`, nebo matematickým zápisem $P(x_i=$ `r x[which.max(pmf)]` $)=$ `r max(pmf)`. Pravěpodobnost, že míček skončí v 4 sloupci zleva je $P(x_i = 2)$=`r pmf[x==3]`. To, že dokážeme predikovat, kolik míčků skončí v jakém sloupci, ještě neznamená, že víme, kde skončí jeden konkrétní míček. V animaci nahoře si všimněte červené tečky. Ta reprezentuje první míček, který jsme vhodili. Jak je vidět míček cestuje mezi sloupci. To s jakou pravděpobností skončí v daném sloupci nám říká právě PMF.
 
+Stejně tak můžeme spočítat pravděpodobnost, že skončí v 7 sloupci a více napravo, tedy $P(x \ge 7)$=`r sum(pmf[x>=7])`. Tomuto typu úlohy, kdy nás zajímá, zda náhodná proměnná $x_i$ bude mít hodnotu menší/větší než nějaká hodnota $q$, říkáme **kumulativní pravděpodobnosti** (anglicky cumulative distribution function CDF). Matematicky bychom tento typ úlohy označili jako $P(x_i < q)$ pokud by nás zajímala pravděpodobnost, že náhodné proměnné $x_i$ bude menší než nějaká hodnota $q$ a $P(x_i > q)$, pokud by nás zajímala pravděpodobnost, že hodnota náhodné proměnné $x_i$ bude větší než nějaká hodnota $q$. `R` můžeme na výpočet CDF u binomického rozložení použít funkci `pbinom`. Jako argumenty očekává tato funkce `q` hodnota náhodné proměnné vůči které porovnáváme, `size` a `prob` mají stejný význam jako u funkcí nahoře a argument `lower.tail` vyjadřující, zda chceme zjistit pravděpodobnost, že $x_i$ bude menší nebo větší a rovno než $q$. Pokud má argument `lower.tail` hodnotu `TRUE`, pak počítáme $P(x_i \le q)$, pokud má hodnotu `FALSE`, pak počítáme $P(x_i > q)$. Pojďme si ukázat různé výpočty a jejich zobrazení na grafu. Začneme $P(x > 7)$.
 
-Stejně tak můžeme spočítat pravděpodobnost, že skončí v 7 sloupci a více napravo, tedy $P(x \ge 7)$=`r sum(pmf[x>=7])`. Tomuto typu úlohy, kdy nás zajímá, zda náhodná proměnná $x_i$ bude mít hodnotu menší/větší než nějaká hodnota $q$, říkáme **kumulativní pravděpodobnosti** (anglicky cumulative distribution function CDF). Matematicky bychom tento typ úlohy označili jako $P(x_i < q)$ pokud by nás zajímala pravděpodobnost, že náhodné proměnné $x_i$ bude menší než nějaká hodnota $q$ a $P(x_i > q)$, pokud by nás zajímala pravděpodobnost, že hodnota  náhodné proměnné $x_i$ bude větší než nějaká hodnota $q$. `R` můžeme na výpočet CDF u binomického rozložení použít funkci `pbinom`. Jako argumenty očekává tato funkce `q` hodnota náhodné proměnné vůči které porovnáváme, `size` a `prob` mají stejný význam jako u funkcí nahoře a argument `lower.tail` vyjadřující, zda chceme zjistit pravděpodobnost, že $x_i$ bude menší nebo větší a rovno než $q$. Pokud má argument `lower.tail` hodnotu `TRUE`, pak počítáme $P(x_i \le q)$, pokud má hodnotu `FALSE`, pak počítáme $P(x_i > q)$. Pojďme si ukázat různé výpočty a jejich zobrazení na grafu. Začneme $P(x > 7)$.
 ```{r, fig.cap='Ukázka výpočtu P(x > 7) pomocí PMF'}
 # P(x > 7)
 p_x7 <- pbinom(q = 7, size = s, prob = p, lower.tail = FALSE)
-plot(x, pmf, 
-     xlab = "x",
-     ylab = "PMF",
-     type = "h", # jedna se o diskretni promennou
-     lwd = 15,
-     main = paste0("P(x > 7)=", round(p_x7, 2)),
-     col = "grey")
+plot(x, pmf,
+  xlab = "x",
+  ylab = "PMF",
+  type = "h", # jedna se o diskretni promennou
+  lwd = 15,
+  main = paste0("P(x > 7)=", round(p_x7, 2)),
+  col = "grey"
+)
 axis(1, 1:13, 1:13)
-# zobrazime graficky P(x > 7)  
-lines(x[x>7], pmf[x>7], 
-      type = "h", # jedna se o diskretni promennou, 
-      lwd = 15,
-      col = "#1f77b4")
+# zobrazime graficky P(x > 7)
+lines(x[x > 7], pmf[x > 7],
+  type = "h", # jedna se o diskretni promennou,
+  lwd = 15,
+  col = "#1f77b4"
+)
 ```
 
-Dále si ukažme jak vypočítat $P(x \le 5)$. 
+Dále si ukažme jak vypočítat $P(x \le 5)$.
+
 ```{r, fig.cap='Ukázka výpočtu P(x <= 5) pomocí PMF'}
 # P(x <= 5)
 p_x5 <- pbinom(q = 5, size = s, prob = p, lower.tail = TRUE)
-plot(x, pmf, 
-     xlab = "x",
-     ylab = "PMF",
-     type = "h", # jedna se o diskretni promennou
-     lwd = 15,
-     main = paste0("P(x <= 5)=", round(p_x5, 2)),
-     col = "grey")
+plot(x, pmf,
+  xlab = "x",
+  ylab = "PMF",
+  type = "h", # jedna se o diskretni promennou
+  lwd = 15,
+  main = paste0("P(x <= 5)=", round(p_x5, 2)),
+  col = "grey"
+)
 axis(1, 1:13, 1:13)
-# zobrazime graficky P(x > 7)  
-lines(x[x<=5], pmf[x<=5], 
-      type = "h", # jedna se o diskretni promennou, 
-      lwd = 15,
-      col = "#1f77b4")
+# zobrazime graficky P(x > 7)
+lines(x[x <= 5], pmf[x <= 5],
+  type = "h", # jedna se o diskretni promennou,
+  lwd = 15,
+  col = "#1f77b4"
+)
 ```
 
 A nakonec $P(x_i \ge 6)$.
+
 ```{r, fig.cap='Ukázka výpočtu P(x >= 6) pomocí PMF'}
 # P(x >= 6)
 # pouzijeme FALSE na vypocet upper tail a za 1 dosadime 5, protoze...
 # ...lower.tail = FALSE pocita P(x_i > q)
 p_x6 <- pbinom(q = 5, size = s, prob = p, lower.tail = FALSE)
-plot(x, pmf, 
-     xlab = "x",
-     ylab = "PMF",
-     type = "h", # jedna se o diskretni promennou
-     lwd = 15,
-     main = paste0("P(x >= 6)=", round(p_x6, 2)),
-     col = "grey")
+plot(x, pmf,
+  xlab = "x",
+  ylab = "PMF",
+  type = "h", # jedna se o diskretni promennou
+  lwd = 15,
+  main = paste0("P(x >= 6)=", round(p_x6, 2)),
+  col = "grey"
+)
 axis(1, 1:13, 1:13)
-# zobrazime graficky P(x > 7)  
-lines(x[x>=6], pmf[x>=6], 
-      type = "h", # jedna se o diskretni promennou, 
-      lwd = 15,
-      col = "#1f77b4")
+# zobrazime graficky P(x > 7)
+lines(x[x >= 6], pmf[x >= 6],
+  type = "h", # jedna se o diskretni promennou,
+  lwd = 15,
+  col = "#1f77b4"
+)
 ```
 
+## Normální{#norm-dist}
 
-## Normální
-Normální rozložení popisuje náhodný proces **spojitých** proměnných. Za určitých podmínek (velký výběr a $p$ neblížící se 0 nebo 1) se binomické rozdělení bude podobat normálnímu. Normální rozložení popisuje proces, kterým jsou generované náhodné spojité proměnné, které nejsou ohraničené zleva ani zprava. Jednotlivá pozorování jsou potom opět na sobě nezávislá. Protože mnoho fyzikálních jevů je spojitých^[Např. teplota, hmotnost, výška. Naše schonost tyto jevy měřit je ale často diskrétní, hmotnost můžeme měřit na mg apod. Protože jsou ale jednotky míry často malé, bereme je jako spojitou proměnnou.] a nejsou ohraničeny^[Teoreticky jsou ohraničené, ale prakticky se v přírodě extrémy často nevyskutují. Například teplota neklesá k absolutní nule. Váha zvířat je zpravidla větší než 0 mg apod.], normální rozložení se často vyskuteje v přírodě. Normální rozložení má dva parametry, které určují jeho tvar, průměr $\mu$ a směrodatnou odchylku $\sigma$. Náhodná proměnná $x_i$ pocházející z normálního rozložení se zapíše jako $$x_i \sim N(\mu, \sigma)$$Parameter $\mu$ ovlivňuje polohu rozložení a parameter $\sigma$ jeho roztaženost nalevo a napravo od $\mu$. Protože náhodná proměnná $x_i$ je spojitá, nabývá reálných čísel, může mít  nekonečně mnoho hodnot. To představuje problém, pokud chceme vypočítat hustotu pravděpodobnosti (PDF). Aby byly zachovány vlastnosti pravděpodobnosti ($p \in [0, 1]$), je integrál PDF rovný jedné To ale znamená, že hodnota PDF už nevyjadřuje pravděpodobnost nějakého jevu. V angličtině se proto používá pojem density (odtud probability density function PDF). Vzorec pro PDF je
-$$PDF(x_i) = \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{1}{2} (\frac{x - \mu}{\sigma})^2}$$
-v `R` můžeme pro výpočet PDF normálného rozložení použít funkci `dnorm`, které má argumenty `x` hodnoty náhodné proměnné $x_i$, pro které chceme PDF vypočítat, `mean` průměr a `sd` standardní odchylku. Pojďme si ukázat, jak by vypadala PDF pro tyto náhodné proměnné:
-$$x_i \sim N(0, 1)$$
-$$y_i \sim N(3, 2)$$
-$$z_i \sim N(-2, 3)$$
-
-
+Normální rozložení popisuje náhodný proces **spojitých** proměnných. Za určitých podmínek (velký výběr a $p$ neblížící se 0 nebo 1) se binomické rozdělení bude podobat normálnímu. Normální rozložení popisuje proces, kterým jsou generované náhodné spojité proměnné, které nejsou ohraničené zleva ani zprava. Jednotlivá pozorování jsou potom opět na sobě nezávislá. Protože mnoho fyzikálních jevů je spojitých^[Např. teplota, hmotnost, výška. Naše schonost tyto jevy měřit je ale často diskrétní, hmotnost můžeme měřit na mg apod. Protože jsou ale jednotky míry často malé, bereme je jako spojitou proměnnou]. a nejsou ohraničeny^[Teoreticky jsou ohraničené, ale prakticky se v přírodě extrémy často nevyskutují. Například teplota neklesá k absolutní nule. Váha zvířat je zpravidla větší než 0 mg apod.], normální rozložení se často vyskuteje v přírodě. Normální rozložení má dva parametry, které určují jeho tvar, průměr $\mu$ a směrodatnou odchylku $\sigma$. Náhodná proměnná $x_i$ pocházející z normálního rozložení se zapíše jako $$x_i \sim N(\mu, \sigma)$$Parameter $\mu$ ovlivňuje polohu rozložení a parameter $\sigma$ jeho roztaženost nalevo a napravo od $\mu$. Protože náhodná proměnná $x_i$ je spojitá, nabývá reálných čísel, může mít nekonečně mnoho hodnot. To představuje problém, pokud chceme vypočítat hustotu pravděpodobnosti (PDF). Aby byly zachovány vlastnosti pravděpodobnosti ($p \in [0, 1]$), je integrál PDF rovný jedné To ale znamená, že hodnota PDF už nevyjadřuje pravděpodobnost nějakého jevu. V angličtině se proto používá pojem density (odtud probability density function PDF). Vzorec pro PDF je $$PDF(x_i) = \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{1}{2} (\frac{x - \mu}{\sigma})^2}$$ v `R` můžeme pro výpočet PDF normálného rozložení použít funkci `dnorm`, které má argumenty `x` hodnoty náhodné proměnné $x_i$, pro které chceme PDF vypočítat, `mean` průměr a `sd` standardní odchylku. Pojďme si ukázat, jak by vypadala PDF pro tyto náhodné proměnné: $$x_i \sim N(0, 1)$$ $$y_i \sim N(3, 2)$$ $$z_i \sim N(-2, 3)$$
 
 ```{r, fig.cap='Ukázka vlivu průměru a směrodatné odchylky na tvar normálního rozložení'}
 # definujeme si parametry
@@ -176,27 +180,30 @@ pdf_y <- dnorm(x = x, mean = mu[2], sd = s[2])
 pdf_z <- dnorm(x = x, mean = mu[3], sd = s[3])
 
 # zobrazime
-plot(x, pdf_x, 
-     col = "#1f77b4", 
-     lwd = 2, type = "l", 
-     xlab = "", ylab = "PDF",
-     xlim = c(-12, 12))
+plot(x, pdf_x,
+  col = "#1f77b4",
+  lwd = 2, type = "l",
+  xlab = "", ylab = "PDF",
+  xlim = c(-12, 12)
+)
 lines(x, pdf_y, col = "black", lwd = 2)
 lines(x, pdf_z, col = "orange", lwd = 2)
-legend("topright", 
-       legend = c("x ~ N(0, 1)", "y ~ N(3, 2)", "z ~ N(-2, 3)"), 
-       lwd = rep(2, 3), 
-       col = c("#1f77b4", "black", "orange"), 
-       cex = 0.7)
+legend("topright",
+  legend = c("x ~ N(0, 1)", "y ~ N(3, 2)", "z ~ N(-2, 3)"),
+  lwd = rep(2, 3),
+  col = c("#1f77b4", "black", "orange"),
+  cex = 0.7
+)
 ```
 
 Normální rozložení je symetrické. To znamená, že se nachází stejně hodnot nalevo a napravo od průměru. Podle hodnoty směrodatné odchylky dokážeme určit kolik případů bychom a jak daleko bychom očekávali, že budou ležet od průměru. Následující obrázek ukazuje, že zhruba 68% hodnot náhodné proměnné bude ležet +/- jednu směrodatnou odchylku od průměru a zhruba 95% hodnot bude ležet +/- dvě směrodatnou odchylku od průměru a 99% hodnot +/- tři směrodatné odchylky od průměru.
 
-![M. W. Toews, CC BY 2.5 <https://creativecommons.org/licenses/by/2.5>, via Wikimedia Commons](https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Standard_deviation_diagram.svg/700px-Standard_deviation_diagram.svg.png)
+![(#fig:z-norm) M. W. Toews, CC BY 2.5 <https://creativecommons.org/licenses/by/2.5>, via Wikimedia Commons](https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Standard_deviation_diagram.svg/700px-Standard_deviation_diagram.svg.png)
 
-**Očekávanou hodnotou** normálního rozložení je průměr, tedy $E(x_i)=\mu$ a **variabilitou** je $Var(x_i) = \sigma^2$, tedy směrodatnou odchylkou je $\sigma = \sqrt{\sigma^2}$.
+**Očekávanou hodnotou** normálního rozložení je průměr, tedy $E(x_i)=\mu$ a **variabilitou** je $var(x_i) = \sigma^2$, tedy směrodatnou odchylkou je $\sigma = \sqrt{\sigma^2}$.
 
 Pojďme se nyní podívat, co se stane s funkcí normálního rozložení, pokud k náhodné proměnné $x_i$ **přičteme skalár**. Podíváme se na následující proměnnou $h_i \sim N(178, 8)$, tedy proměnnou, která pochází z normálního rozložení s průměrem 178 a směrodatnou odchylkou 8. K této náhodné proměnné přičteme 20, tedy $h'_i = h_i + 20$ a spočítáme průměr a směrodatnou odchylku. Ke generování náhodných čísel z normálního rozložení použijeme funkci `rnorm`, který má argumenty `n` počet pozorování, které chceme generovat, `mean` průměr rozložení, z kterého chceme generovat a `sd` směrodatnou odchylku rozložení, z kterého chceme generovat.
+
 ```{r, fig.height=7, fig.cap='Efekt přičtení skalaru na rozložení proměnné'}
 n <- 1e5
 h <- rnorm(n, mean = 178, sd = 8)
@@ -204,145 +211,284 @@ h. <- h + 20
 par(mfrow = c(2, 1))
 
 hist(h,
-     col = "#1f77b4", 
-     xlab = "", ylab = "Četnost",
-     xlim = c(130, 240),
-     main = paste0("h~N(", round(mean(h), 0), 
-                   ", ", round(sd(h), 0), ")")
-     )
+  col = "#1f77b4",
+  xlab = "", ylab = "Četnost",
+  xlim = c(130, 240),
+  main = paste0(
+    "h~N(", round(mean(h), 0),
+    ", ", round(sd(h), 0), ")"
+  )
+)
 hist(h.,
-     col = "#1f77b4", 
-     xlab = "", ylab = "Četnost",
-     xlim = c(130, 240),
-     main = paste0("h'~N(", round(mean(h.), 0), 
-                   ", ", round(sd(h.), 0), ")")
-     )
+  col = "#1f77b4",
+  xlab = "", ylab = "Četnost",
+  xlim = c(130, 240),
+  main = paste0(
+    "h'~N(", round(mean(h.), 0),
+    ", ", round(sd(h.), 0), ")"
+  )
+)
 ```
+
 Jak je vidět přičtení (nebo odečtění) má vliv pouze na průměr a tedy polohu rozložení. V případě přičtení čísla $a$ se celé rozložení posune doprava o $a$, v případě odečtení se potom posune celé rozložení doleva. Přičtení/odečtení nemá vliv na směrodatnou odchylku, tedy na šířku rozložení od průměru. Tento fakt můžeme zapsat jako $$h'_i \sim N(\mu_h \pm a, \sigma_h)$$
 
 V dalších několika řádcích si představíme některé základní početní operace s náhodnými proměnnými pocházejícími z normálního rozložení. Začneme tím, co se stane s rozložením stejné náhodné proměnné $h_i \sim N(178, 8)$ pokud ji **vynásobíme skalarem**. Náhodnou proměnnou $h_i$ vynásobíme číslem 0.66, tedy $h'_i = h_i * 0.66$ a spočítáme průměr a směrodatnou odchylku. Jak je vidět vynásobení (nebo jako v našem případě dělení) má vliv na průměr i směrodatnou odchylku. Oba parametry normálního rozložení se změní o faktor $a$ , kterým původní náhodnou proměnnou násobíme, tedy v našem případě se zmenší o třetinu. Tento fakt můžeme zapsat jako $$h'_i \sim N(\mu_h * a, \sigma_h * a)$$
 
 ```{r, fig.height=7, fig.cap='Efekt vynásobení skalarem na rozložení proměnné'}
-h. <- h * 2/3
+h. <- h * 2 / 3
 par(mfrow = c(2, 1))
 
 hist(h,
-     col = "#1f77b4", 
-     xlab = "", ylab = "Četnost",
-     xlim = c(80, 230),
-     main = paste0("h~N(", round(mean(h), 0), 
-                   ", ", round(sd(h), 0), ")")
-     )
+  col = "#1f77b4",
+  xlab = "", ylab = "Četnost",
+  xlim = c(80, 230),
+  main = paste0(
+    "h~N(", round(mean(h), 0),
+    ", ", round(sd(h), 0), ")"
+  )
+)
 hist(h.,
-     col = "#1f77b4", 
-     xlab = "", ylab = "Četnost",
-     xlim = c(80, 230),
-     main = paste0("h'~N(", round(mean(h.), 0), 
-                   ", ", round(sd(h.), 0), ")")
-     )
+  col = "#1f77b4",
+  xlab = "", ylab = "Četnost",
+  xlim = c(80, 230),
+  main = paste0(
+    "h'~N(", round(mean(h.), 0),
+    ", ", round(sd(h.), 0), ")"
+  )
+)
 ```
 
-Dále se podíváme, co se stane s průměrem a směrodatnou odchylkou, pokud k sobě **přičteme dvě náhodné proměnné pocházející z normálního rozložení**. Budeme mít dvě náhodné proměnné, které pocházejí z normálního rozložení 
-$h_i \sim N(178, 8)$ a $l_i \sim N(80, 10)$. Budeme sledovat, co se stane s průměrem a směrodatnou odchylkou nové proměnné $k_i$, která vznikne sečtením $h_i$ a $l_i$, tedy $k_i = h_i + l_i$. Jak vidíme na grafu dole, nová proměnná má průměr rovný $\mu_k = \mu_h + \mu_l$ a $\sigma_k = \sqrt{\sigma_h^2 + \sigma_l^2}$, tedy $$k_i \sim N(\mu_h + \mu_l, \sqrt{\sigma_h^2 + \sigma_l^2})$$
+Dále se podíváme, co se stane s průměrem a směrodatnou odchylkou, pokud k sobě **přičteme dvě náhodné proměnné pocházející z normálního rozložení**. Budeme mít dvě náhodné proměnné, které pocházejí z normálního rozložení $h_i \sim N(178, 8)$ a $l_i \sim N(80, 10)$. Budeme sledovat, co se stane s průměrem a směrodatnou odchylkou nové proměnné $k_i$, která vznikne sečtením $h_i$ a $l_i$, tedy $k_i = h_i + l_i$. Jak vidíme na grafu dole, nová proměnná má průměr rovný $\mu_k = \mu_h + \mu_l$ a $\sigma_k = \sqrt{\sigma_h^2 + \sigma_l^2}$, tedy $$k_i \sim N(\mu_h + \mu_l, \sqrt{\sigma_h^2 + \sigma_l^2})$$
 
 ```{r, fig.height=7, fig.cap='Efekt přičtení dvou normálně rozložených náhodných proměnných na rozložení nové proměnné'}
-l <- rnorm(n = n , mean = 80, sd = 10)
+l <- rnorm(n = n, mean = 80, sd = 10)
 k <- h + l
 par(mfrow = c(3, 1))
 
 hist(h,
-     col = "#1f77b4", 
-     xlab = "h", ylab = "Četnost",
-     xlim = c(20, 330),
-     main = paste0("h~N(", round(mean(h), 0), 
-                   ", ", round(sd(h), 0), ")")
-     )
+  col = "#1f77b4",
+  xlab = "h", ylab = "Četnost",
+  xlim = c(20, 330),
+  main = paste0(
+    "h~N(", round(mean(h), 0),
+    ", ", round(sd(h), 0), ")"
+  )
+)
 hist(l,
-     col = "#1f77b4", 
-     xlab = "l", ylab = "Četnost",
-     xlim = c(20, 330),
-     main = paste0("l~N(", round(mean(l), 0), 
-                   ", ", round(sd(l), 0), ")")
-     )
+  col = "#1f77b4",
+  xlab = "l", ylab = "Četnost",
+  xlim = c(20, 330),
+  main = paste0(
+    "l~N(", round(mean(l), 0),
+    ", ", round(sd(l), 0), ")"
+  )
+)
 
 hist(k,
-     col = "#1f77b4", 
-     xlab = "k", ylab = "Četnost",
-     xlim = c(20, 330),
-     main = paste0("k~N(", round(mean(k), 0), 
-                   ", ", round(sd(k), 0), ")")
-     )
+  col = "#1f77b4",
+  xlab = "k", ylab = "Četnost",
+  xlim = c(20, 330),
+  main = paste0(
+    "k~N(", round(mean(k), 0),
+    ", ", round(sd(k), 0), ")"
+  )
+)
 ```
 
-Jako poslední výpočetní operaci náhodných proměnných pocházejících z normálního rozložení si ukážeme, co se stane pokud od sebe **odečteme dvě náhodné proměnné pocházející z normálního rozložení**. Budeme opět uvažovat náhodné proměnné $h_i \sim N(178, 8)$ a $l_i \sim N(80, 10)$ a budeme počítat $k_i = h_i - l_i$. Jak je vidět z grafu dole, nový průměr má hodnotu $\mu_k = \mu_h - \mu_l$, ale směrodatná odchylka je stále rovna $\sigma_k = \sqrt{\sigma_h^2 + \sigma_l^2}$. To je důležitý poznatek o odečtu dvou normálně rozložených proměnných. Směrodatná odchylka nové proměnné tedy bude vždy součtem směrodatných odchylek původních proměnných, protože variabilita v datech se sčítá (jinak bychom mohli dosáhnout negativní $\sigma$, což není definováno, protože $\sigma \in [0, \infty)$. Tento jev se dá zapsat jako $$k_i \sim N(\mu_h - \mu_l, \sqrt{\sigma_h^2 + \sigma_l^2})$$
+Jako další výpočetní operaci náhodných proměnných pocházejících z normálního rozložení si ukážeme, co se stane pokud od sebe **odečteme dvě náhodné proměnné pocházející z normálního rozložení**. Budeme opět uvažovat náhodné proměnné $h_i \sim N(178, 8)$ a $l_i \sim N(80, 10)$ a budeme počítat $k_i = h_i - l_i$. Jak je vidět z grafu dole, nový průměr má hodnotu $\mu_k = \mu_h - \mu_l$, ale směrodatná odchylka je stále rovna $\sigma_k = \sqrt{\sigma_h^2 + \sigma_l^2}$. To je důležitý poznatek o odečtu dvou normálně rozložených proměnných. Směrodatná odchylka nové proměnné tedy bude vždy součtem směrodatných odchylek původních proměnných, protože variabilita v datech se sčítá (jinak bychom mohli dosáhnout negativní $\sigma$, což není definováno, protože $\sigma \in [0, \infty)$. Tento jev se dá zapsat jako $$k_i \sim N(\mu_h - \mu_l, \sqrt{\sigma_h^2 + \sigma_l^2})$$
 
 ```{r, fig.height=7, fig.cap='Efekt odečtení dvou normálně rozložených náhodných proměnných na rozložení nové proměnné'}
-k <- h  - l
+k <- h - l
 par(mfrow = c(3, 1))
 
 hist(h,
-     col = "#1f77b4", 
-     xlab = "h", ylab = "Četnost",
-     xlim = c(20, 330),
-     main = paste0("h~N(", round(mean(h), 0), 
-                   ", ", round(sd(h), 0), ")")
-     )
+  col = "#1f77b4",
+  xlab = "h", ylab = "Četnost",
+  xlim = c(20, 330),
+  main = paste0(
+    "h~N(", round(mean(h), 0),
+    ", ", round(sd(h), 0), ")"
+  )
+)
 hist(l,
-     col = "#1f77b4", 
-     xlab = "l", ylab = "Četnost",
-     xlim = c(20, 330),
-     main = paste0("l~N(", round(mean(l), 0), 
-                   ", ", round(sd(l), 0), ")")
-     )
+  col = "#1f77b4",
+  xlab = "l", ylab = "Četnost",
+  xlim = c(20, 330),
+  main = paste0(
+    "l~N(", round(mean(l), 0),
+    ", ", round(sd(l), 0), ")"
+  )
+)
 
 hist(k,
-     col = "#1f77b4", 
-     xlab = "k", ylab = "Četnost",
-     xlim = c(20, 330),
-     main = paste0("k~N(", round(mean(k), 0), 
-                   ", ", round(sd(k), 0), ")")
-     )
+  col = "#1f77b4",
+  xlab = "k", ylab = "Četnost",
+  xlim = c(20, 330),
+  main = paste0(
+    "k~N(", round(mean(k), 0),
+    ", ", round(sd(k), 0), ")"
+  )
+)
 ```
 
-Jak jsme zmínili, protože spojitá proměnná může nabývat nekonečně mnoho hodnot, nevyjadřuje PDF v nějakém konkrétním bodě pravděpodobnost tak, jako tomu je u PMF (např. u binomického rozložení). Platí ale, že integrál PDF je rovný jedné. To znamená, že můžeme použít **kumulativní pravděpodobnost (CDF)** k výpočtu $P(x_i > q)$ nebo $P(x_i \le q)$. Funkce na výpočet CDF se jmenuje `pnorm` a stejně jako `pbinom` má argument `q`, který vyjadřuje hodnotu náhodné proměnné vůči které porovnáváme, parametr `lower.tail`, který opět vyjadřuje pro jaký konec rozložení chceme pravděpodobnost vypočítat (`TRUE` $P(x_i \le q)$, `FALSE` $P(x_i > q)$)  a potom parametry normálního rozložení, tedy `mean` a `sd`, které udávají tvar rozložení a mají stejný význam jako ve funkci `rnorm` a `dnorm`. Vraťme se zpátky k náhodné proměnné $h_i \sim N(178, 8)$. Ta představuje rozložení výšky mužů v dospělé populaci. Řekněme, že by nás zajímalo, jaká je pravděpodobnost, že muž pocházející z této populace bude 180cm a vyšší, tedy $P(x_i \ge 180)$. Pro úplnost si opět tuto pravděpodobnost^[Jedná se o pravděpodobnost, protože počítáme PDF v nějakém intervalu CDF] zobrazíme v grafu.
+Poslední výpočetní operaci, kterou si ukážeme náhodnou proměnnou **standardizuje** tak, že její průměr bude rovný nule a směrodatná odchylka bude rovná jedné. Tento typ transformace je možné provést s proměnnou pocházející z jakéhokoliv rozložení, ale my si ho zmiňujeme v kontextu normálního rozložení, protože zde jej budem vídat nejčastěji. Tuto transformaci lze provést následujícím způsobem: $$z_i = \frac{(x_i - \mu_x)}{sd(x_i)}$$přičemž tedy platí, že pokud pochází $x_i$ z normálního rozložení, tak $z_i \sim N(0, 1)$. Pojďme si ukázat, jak by tato transofrmace vypadala pro náhodnou proměnnou $x_i \sim N(178, 8)$. Vzhledem k vlastnostem normálního rozložení je tedy pro standardizovanou náhodnou proměnnou pocházející z normálního rozložení snadné vypočítat kvantily (viz \@ref(fig:z-norm)):
 
-```{r, fig.cap='Ukázka výpočtu P(x >= 180) pomocí PDF'}
+* $Q_{0.023} = -2$
+* $Q_{0.159} = -1$
+* $Q_{0.5} = 0$
+* $Q_{0.841} = 1$
+* $Q_{0.977} = 2$ 
+
+
+```{r, fig.cap='Standardizovaná proměnná pocházející z normálního rozložení', fig.height=7}
+z <- (h - mean(h)) / sd(h)
+
+par(mfrow = c(2, 1))
+
+hist(h,
+  col = "#1f77b4",
+  xlab = "h", ylab = "Četnost",
+  # urcime intrval od - 4 sd do + 4 sd
+  xlim = c(178-4*8, 178+4*8),
+  main = paste0(
+    "h~N(", round(mean(h), 0),
+    ", ", round(sd(h), 0), ")"
+  )
+)
+hist(z,
+  col = "#1f77b4",
+  xlab = "l", ylab = "Četnost",
+  # urcime intrval od - 4 sd do + 4 sd
+  xlim = c(-4, 4),
+  main = paste0(
+    "z~N(", round(mean(z), 0),
+    ", ", round(sd(z), 0), ")"
+  )
+)
+```
+
+Jak jsme zmínili, protože spojitá proměnná může nabývat nekonečně mnoho hodnot, nevyjadřuje PDF v nějakém konkrétním bodě pravděpodobnost tak, jako tomu je u PMF (např. u binomického rozložení). Platí ale, že integrál PDF je rovný jedné. To znamená, že můžeme použít **kumulativní pravděpodobnost (CDF)** k výpočtu $P(x_i > q)$ nebo $P(x_i \le q)$. Funkce na výpočet CDF se jmenuje `pnorm` a stejně jako `pbinom` má argument `q`, který vyjadřuje hodnotu náhodné proměnné vůči které porovnáváme, parametr `lower.tail`, který opět vyjadřuje pro jaký konec rozložení chceme pravděpodobnost vypočítat (`TRUE` $P(x_i \le q)$, `FALSE` $P(x_i > q)$) a potom parametry normálního rozložení, tedy `mean` a `sd`, které udávají tvar rozložení a mají stejný význam jako ve funkci `rnorm` a `dnorm`. Vraťme se zpátky k náhodné proměnné $h_i \sim N(178, 8)$. Ta představuje rozložení výšky mužů v dospělé populaci. Řekněme, že by nás zajímalo, jaká je pravděpodobnost, že muž pocházející z této populace bude 180cm a vyšší, tedy $P(x_i \ge 185)$. Pro úplnost si opět tuto pravděpodobnost^[Jedná se o pravděpodobnost, protože počítáme PDF v nějakém intervalu CDF] zobrazíme v grafu.
+
+```{r, fig.cap='Ukázka výpočtu P(x >= 185) pomocí PDF'}
 x <- seq(145, 210, length.out = 1000)
-q <- 180
+q <- 185
 # vypoceteme si PDF, abychom ji mohli zobrazit v grafu
 pdf <- dnorm(x = x, mean = 178, sd = 8)
-cdf_x180 <- pnorm(q = q, mean = 178, sd = 8, lower.tail = FALSE)
+cdf <- pnorm(q = q, mean = 178, sd = 8, lower.tail = FALSE)
 
 plot(x, pdf,
-     type = "l", lwd = 2,
-     col = "grey", 
-     xlab = "h", 
-     ylab = "PDF",
-     main = paste0("P(x >= ", q, ")=", round(cdf_x180, 2)))
+  type = "l", lwd = 2,
+  col = "grey",
+  xlab = "h",
+  ylab = "PDF",
+  main = paste0("P(x >= ", q, ")=", round(cdf, 2))
+)
 # zvoline type = "h" abychom zobrazili integral
-lines(x[x>=q], pdf[x>=q], col = "#1f77b4", type = "h")
+lines(x[x >= q], pdf[x >= q], col = "#1f77b4", type = "h")
 ```
 
 Pro úplnost, ještě vypočítáme příklad kdy nás zajímá pravděpodobnost, že muž pocházející z této populace bude menší než 164cm, tedy $P(x_i < 164)$.
+
 ```{r, fig.cap='Ukázka výpočtu P(x < 164) pomocí PDF'}
 q <- 164
-cdf_x164 <- pnorm(q = q, mean = 178, sd = 8, lower.tail = TRUE)
+cdf <- pnorm(q = q, mean = 178, sd = 8, lower.tail = TRUE)
 
 plot(x, pdf,
-     type = "l", lwd = 2,
-     col = "grey", 
-     xlab = "h", 
-     ylab = "PDF",
-     main = paste0("P(x < ", q, ")=", round(cdf_x164, 2)))
+  type = "l", lwd = 2,
+  col = "grey",
+  xlab = "h",
+  ylab = "PDF",
+  main = paste0("P(x < ", q, ")=", round(cdf, 2))
+)
 # zvoline type = "h" abychom zobrazili integral
-lines(x[x<q], pdf[x<q], col = "#1f77b4", type = "h")
+lines(x[x < q], pdf[x < q], col = "#1f77b4", type = "h")
 ```
 
-## Standardizované normální
-
 ## T
+Dalším z rozložení, které si představíme je tzv. t-rozložení, nebo také někdy nazývané studentovo. Toto rozložení vychází z normálního rozložení, ale má větší varibilitu. PDF normálního rozložení rapidně klesá se vzdáleností od průměru (viz \@ref(fig:z-norm)). Pokud potřebujeme popsat jev, který má více hodnot vzdálených od průměru, než bychom čekali u normálního rozložení, je toho možné dosáhnout pomocí t-rozložení. T-rozložení je automaticky standardizované na $\mu = 0$ a má pouze jeden paramater - stupně volnosti (degrees of freedom) $\nu$, který určuje jak pravděpodobné jsou hodnoty více vzdálené od průměru. Čím je $\nu$ menší, tím je rozložení více široké a naopak. Pokud je $\nu$ větší než 50, je t-rozdělení skoro totožné se standardizovaným normálním rozložením $N(1, 0)$. Pojďme si nyní ukázat PDF při různých stupních volnosti $\nu$ a jejich podobnost k $N(1, 0)$. Ukážeme si $T(2)$, $T(4)$, $T(8)$, $T(16)$, $T(34)$ a $T(64)$. Jak je vidět z grafu \@ref(fig:t-dist), s rostoucím počtem stupňů volnosti se t-rozložení přibližuje $N(1,0)$, $T(64)$ už skoro překrývá křivku PDF pro $N(1,0)$
 
-location
+```{r t-dist, fig.cap='Podobnost t-rozdělení k N(1,0)'}
+# stupne volnost
+sv <- 2^c(1:6)
+# x pro ktere pocitame pdf
+x <- seq(-5, 5, length.out = 1000)
+
+pdf_n <- dnorm(x, mean = 0, sd = 1)
+pdf_t <- lapply(sv, dt, x = x)
+
+# vybereme barvy pouzijeme nejsvetlejsi pro vetsi sv...
+# ...proto funkce rev, ktera obrati hodnoty 
+cols <- rev(RColorBrewer::brewer.pal(n = length(sv), name = "Blues"))
+
+# zobrazime pdf N(1,0)
+plot(x, pdf_n,
+     xlab = "x", ylab = "PDF",
+     type= "l", lwd = 3,
+     col = "black")
+# zobrazime pdf vsech T
+for(i in 1:length(sv)) {
+  lines(x, pdf_t[[i]], type = "l", lwd = 2, col = cols[i])
+}
+legend("topright", 
+       legend = c("N(1,0)", paste0("T(", sv, ")")),
+       col = c("black", cols),
+       lwd = rep(2, length(sv) + 1),
+       cex = 0.7
+       )
+```
+
+K výpočtu PDF t-rozdělení jsme použili funkci `dt`, která má argument `x` hodnoty proměnné x, pro které chci PDF vypočítat a `df`, počet stupňů volnosti. Pokud bychom chtěli generovat náhodnou proměnnou z t-rozložení, můžeme tak učinit pomocí funkce `rt`. Stejně tak CDF t-rozložení můžeme vypočítat pomocí funkce `pt`.
+
+**Očekávaná hodnota** t-rozdělení je 0, tedy $E(x_i) = 0$ a **variabilita** je rovna $var(x_i) = \frac{\nu}{\nu-2}$.
+
+`R` obsahuje pouze tradiční t-rozdělení, které je definováno pouze stupni volnosti $\nu$. Pokud bychom chtěli pomocí t-rozdělení popsat rozložení, která mají jiný průměr a variabilita, museli bychom **t-rozdělení zobecnit**. Pokud bychom tedy chtěli stanovit t-rozdělení s průměrem $\mu$ a směrodatnou odchylkou $\sigma$ pro náhodnou proměnnou $x_i$, pak bude platit $$x_i = \mu + \sigma T$$**Očekávaná hodnota** náhodné proměnné pocházející z zobecněného t-rozdělení je $E(x_i) = \mu$ a **variabilita** $var(x_i) = \sigma^2 \frac{\nu}{\nu-2}$. 
+
+PDF tohoto rozdělení bychom vypočítali jako: $$PDF(x_i) = \frac{1}{\sigma} PDF_T(\frac{x_i - \mu}{\sigma}, \nu)$$Všimněme si, že vlastně počítáme PDF t-rozdělení pro standardizovanou proměnnou a toto PDF násobíme faktorem $\frac{1}{\sigma}$. Na grafu \@ref(fig:g-tdist) ukazuje příklad PDF zobecněného t-rozdělení pro rozložení s průměrem 178, směrodatnou odchylkou 8 a 5 stupni volnosti. Náhodnou proměnnou $x_i$ pocházející z tohoto rozložení bychom mohli zapsat jako $x_i \sim T(178, 8, 5)$. Jak je vidět menší stupně volnosti znamenají, že hodnoty více vzdálené od průměru jsou u takové náhodné proměnné více pravděpodobné, než u normálního rozložení. 
+```{r g-tdist, fig.cap='Zobecněné t-rozdělení'}
+# definujeme si parametry rozlozeni
+mu <- 178
+s <- 8
+sv <- 5
+# vytvorime x pro ktere chceme vypocitat pdf
+x <- seq(178-5*s, 178+5*s, length.out = 1000)
+
+# vypocteme pdf N(178,8) pro porovnani
+pdf_n <- dnorm(x, mean = mu, sd = s)
+# vypocteme pdf T(178,8,5)
+pdf_t <- dt((x - mu)/s, df = 5)
+pdf_t. <- 1/s*pdf_t
+
+plot(x, pdf_n,
+     type = "l", lwd = 2,
+     xlab = "x", ylab = "PDF", col = "grey")
+lines(x, pdf_t.,
+     type = "l", lwd = 2,
+     col = "#1f77b4")
+legend("topright", 
+       legend = c("N(178,8)", "T(178,8,5)"),
+       col = c("black", "#1f77b4"),
+       lwd = c(2, 2),
+       cex = 0.7
+       )
+```
+
+Pro úplnost ještě dodáme, že CDF náhodné proměnné $x_i$ zobecněného t-rozdělení se vypočítá jako $$CDF(x_i) = CDF_T(\frac{x_i - \mu}{\sigma}, \nu)$$Zajímá nás jaká je pravdědobnost, zda hodnota náhodné proměnné pocházející z $x_i \sim T(178,8,5)$ bude mít hodnotu větší nebo rovnou než 185, tedy $P(x_i \ge 185)$. Porovnejte tuto pravděpodobnost se stejným výpočtem pro náhodnou proměnnou pocházející z $N(178,8)$.
+```{r, fig.cap='CDF zobecněného t-rozdělení pro P(x >= 185)'}
+q <- 185
+cdf_t. <- pt((q - mu)/s, df = sv, lower.tail = FALSE)
+  
+plot(x, pdf_t.,
+  type = "l", lwd = 2,
+  col = "grey",
+  xlab = "x",
+  ylab = "PDF",
+  main = paste0("P(x >= ", q, ")=", round(cdf_t., 2))
+)
+# zvoline type = "h" abychom zobrazili integral
+lines(x[x >= q], pdf_t.[x >= q], col = "#1f77b4", type = "h")
+```
+
+
 
 ## Uniformní
 
@@ -447,14 +593,15 @@ dispersed poisson
 
 ## Chi-kvadrát
 
-## Shrnutí 
+## Shrnutí
 
 Pomocí této aplikace si můžete vyzkoušet, jak různé parametry ovlivňují tvar rozložení nebo vypočítat pravděpodobnost, že náhodná proměnná $x_i$ nabyde určitých hodnot $a$.
+
 ```{r, echo=FALSE}
 knitr::include_app("https://gallery.shinyapps.io/dist_calc/")
 ```
 
-Zdroj: https://github.com/ShinyEd/intro-stats/tree/master/dist_calc
+Zdroj: <https://github.com/ShinyEd/intro-stats/tree/master/dist_calc>
 
 ## Věrohodnost
 
@@ -467,8 +614,8 @@ v2_location <- read.csv("../dats/v2_location.csv")
 v2_location <- v2_location[complete.cases(v2_location), ]
 v2_location$label <- paste(paste(v2_location$landing_site, v2_location$date, sep = ", "))
 
-v2_location$lat <- v2_location$lat + rnorm(nrow(v2_location), 0 , 0.01)
-v2_location$lon <- v2_location$lon + rnorm(nrow(v2_location), 0 , 0.05)
+v2_location$lat <- v2_location$lat + rnorm(nrow(v2_location), 0, 0.01)
+v2_location$lon <- v2_location$lon + rnorm(nrow(v2_location), 0, 0.05)
 # greater london area
 mu <- c(51.5072178, -0.1275862)
 lon <- c(-0.492267, 0.362430)
@@ -494,22 +641,35 @@ leaflet(data = v2_london) %>%
     label = ~label
   )
 ```
+
 ```{r}
 # simulujeme nemoznost mireni
 n <- nrow(v2_london)
-v2_uni <- data.frame(lon = runif(n = n, 
-                                 min = lon[1], 
-                                 max = lon[2]),
-                     lat = runif(n = n, 
-                                 min = lat[1], 
-                                 max = lat[2]))
+v2_uni <- data.frame(
+  lon = runif(
+    n = n,
+    min = lon[1],
+    max = lon[2]
+  ),
+  lat = runif(
+    n = n,
+    min = lat[1],
+    max = lat[2]
+  )
+)
 
-v2_norm <- data.frame(lon = rnorm(n = n, 
-                                  mean = mean(v2_london$lon), 
-                                  sd = sd(v2_london$lon)),
-                     lat = rnorm(n = n, 
-                                 mean = mean(v2_london$lat), 
-                                 sd = sd(v2_london$lat)))
+v2_norm <- data.frame(
+  lon = rnorm(
+    n = n,
+    mean = mean(v2_london$lon),
+    sd = sd(v2_london$lon)
+  ),
+  lat = rnorm(
+    n = n,
+    mean = mean(v2_london$lat),
+    sd = sd(v2_london$lat)
+  )
+)
 
 fig <- leaflet(data = v2_london) %>%
   addProviderTiles(providers$CartoDB.Positron) %>%
@@ -524,15 +684,16 @@ fig <- leaflet(data = v2_london) %>%
     label = ~label
   )
 
-fig <- addCircleMarkers(map = fig,
-    lng = v2_norm$lon,
-    lat = v2_norm$lat, color = "#1f77b4",
-    opacity = 0.2,
-    fillOpacity = 0.2,
-    fillColor = "",
-    radius = 2.5,
-    stroke = FALSE,
-    label = "Uniform"
-  )
+fig <- addCircleMarkers(
+  map = fig,
+  lng = v2_norm$lon,
+  lat = v2_norm$lat, color = "#1f77b4",
+  opacity = 0.2,
+  fillOpacity = 0.2,
+  fillColor = "",
+  radius = 2.5,
+  stroke = FALSE,
+  label = "Uniform"
+)
 fig
 ```

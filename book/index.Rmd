@@ -11,7 +11,6 @@ description: "Tato kniha obsahuje materiál ke cvičení kurzu Úvod do statisti
 ---
 
 ```{r include=FALSE}
-set.seed(42)
 # automatically create a bib database for R packages
 knitr::write_bib(c(
   .packages(), "bookdown", "knitr", "rmarkdown"
@@ -48,8 +47,8 @@ obrazek[1:5, 1:5, 1]
 
 Můžeme zobrazit pouze nějaké řádky a sloupce:
 ```{r, fig.align='center', fig.width=5, fig.height=5}
-plot(0:1,0:1,type="n",ann=FALSE,axes=FALSE)
-rasterImage(obrazek[1:500, 1:500, ] ,0,0,1,1)
+plot(0:1, 0:1, type = "n", ann = FALSE, axes = FALSE)
+rasterImage(obrazek[1:500, 1:500, ], 0, 0, 1, 1)
 ```
 
 Protože obrázek je matice dat, můžeme na ni uplatnit různé statistické metody, jako například extrahovat 5 typů barev pomocí shlukovacího algoritmu. 
@@ -63,12 +62,13 @@ m <- kmeans(cbind(cervena, zelena, modra), centers = k)
 barvy <- m$centers
 
 barvy_rgb <- rep(NA, k)
-plot(seq(1, k*10+10, length.out = 10), seq(1, 10, length.out = 10), 
-     axes = FALSE, ann = FALSE, type = "n")
-for(i in 1:5) {
+plot(seq(1, k * 10 + 10, length.out = 10), seq(1, 10, length.out = 10),
+  axes = FALSE, ann = FALSE, type = "n"
+)
+for (i in 1:5) {
   barvy_rgb[i] <- rgb(barvy[i, 1], barvy[i, 2], barvy[i, 3])
-  rect(i*10, 1, i*10+10, 8, col = barvy_rgb[i])
-  text(i*10+5, 9, labels = barvy_rgb[i])
+  rect(i * 10, 1, i * 10 + 10, 8, col = barvy_rgb[i])
+  text(i * 10 + 5, 9, labels = barvy_rgb[i])
 }
 ```
 
@@ -81,11 +81,12 @@ n <- 25
 p <- 0.5
 x <- c(0:25)
 pmf <- dbinom(x = x, size = n, p)
-plot(x, pmf, 
-     type = "h", 
-     xlab = "Počet chlapců z 25 narozených dětí", ylab = "Pravděpodobnost",
-     lwd = 15,
-     col = "#1f77b4")
+plot(x, pmf,
+  type = "h",
+  xlab = "Počet chlapců z 25 narozených dětí", ylab = "Pravděpodobnost",
+  lwd = 15,
+  col = "#1f77b4"
+)
 ```
 
 Vidíme, že nejpravděpodobněji se narodí `r x[which.max(pmf)]` chlapců (v `r round(sum(pmf[x %in% c(12, 13)])*100, 0)`% případů). Můžeme také z grafu vypočítat, že více než 15 chlapců se narodí zhruba v `r round(sum(pmf[x > 15])*100, 0)`% případů, tedy zhruba `r round(sum(pmf[x > 15]) * 365, 0)` dní v roce.
