@@ -33,10 +33,10 @@ Roli statistiky je možné rozdělit na dva úkoly:
 
 Mnoho fenomenů v každodenním světě je možné vyjádřit pomocí dat. Fotka se dá vyjádřit jako 3D matice (red, green, blue) řádků a sloupců, která vyjadřuje jednotlivé pixely.
 
-![bert de boer, CC BY 2.0 <https://creativecommons.org/licenses/by/2.0>, via Wikimedia Commons](https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/2015_Tour_de_France_team_presentation_%2819173924090%29.jpg/640px-2015_Tour_de_France_team_presentation_%2819173924090%29.jpg)
+![Lidl Stiftung & Co. KG, Public domain, via Wikimedia Commons](https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Lidl-Logo.svg/480px-Lidl-Logo.svg.png)
 
 ```{r}
-obrazek <- jpeg::readJPEG("../imgs/img1.1.jpg")
+obrazek <- png::readPNG("../imgs/img1.1.svg.png")
 dim(obrazek)
 ```
 
@@ -48,12 +48,40 @@ obrazek[1:5, 1:5, 1]
 Můžeme zobrazit pouze nějaké řádky a sloupce:
 ```{r, fig.align='center', fig.width=5, fig.height=5}
 plot(0:1, 0:1, type = "n", ann = FALSE, axes = FALSE)
-rasterImage(obrazek[1:500, 1:500, ], 0, 0, 1, 1)
+rasterImage(obrazek[125:325, 100:300, ], 0, 0, 1, 1)
 ```
 
-Protože obrázek je matice dat, můžeme na ni uplatnit různé statistické metody, jako například extrahovat 5 typů barev pomocí shlukovacího algoritmu. 
+Můžeme vypočítat průměrnou nebo medianovou barvu.
 ```{r}
-k <- 5
+# vypocitame prumer pro kazdou barvu (cervena, zelena, modra)
+prumerna_barva <- sapply(1:3, function(i) mean(obrazek[, , i]))
+# vypocitame barvu na rgb skale
+prumerna_barva <- rgb(prumerna_barva[1], prumerna_barva[2], prumerna_barva[3])
+
+
+# vypocitame median pro kazdou barvu (cervena, zelena, modra)
+median_barva <- sapply(1:3, function(i) median(obrazek[, , i]))
+# vypocitame barvu na rgb skale
+median_barva <- rgb(median_barva[1], median_barva[2], median_barva[3])
+
+
+# zobrazime v grafu
+plot(1,1, 
+     type = "n", axes = FALSE, ann = FALSE, 
+     xlim = c(0, 2), ylim = c(0, 1))
+rect(0, 0, 1, 0.9, 
+     col = prumerna_barva)
+text(0.45, 1, labels = paste0("Průměrná barva: ", prumerna_barva))
+rect(1, 0, 2, 0.9, 
+     col = median_barva)
+text(1.45, 1,labels = paste0("Mediánová barva: ", median_barva))
+```
+
+
+Protože obrázek je matice dat, můžeme na ni uplatnit různé statistické metody. Zajímá nás například, jaké odstiny barev jsou použité v tomto logu. Vidíme, že logo se skládá ze tří barev a můžeme extrahovat 3 barevy pomocí shlukovacího algoritmu. 
+```{r}
+set.seed(42)
+k <- 3
 cervena <- as.vector(obrazek[, , 1])
 zelena <- as.vector(obrazek[, , 2])
 modra <- as.vector(obrazek[, , 3])
@@ -65,7 +93,7 @@ barvy_rgb <- rep(NA, k)
 plot(seq(1, k * 10 + 10, length.out = 10), seq(1, 10, length.out = 10),
   axes = FALSE, ann = FALSE, type = "n"
 )
-for (i in 1:5) {
+for (i in 1:k) {
   barvy_rgb[i] <- rgb(barvy[i, 1], barvy[i, 2], barvy[i, 3])
   rect(i * 10, 1, i * 10 + 10, 8, col = barvy_rgb[i])
   text(i * 10 + 5, 9, labels = barvy_rgb[i])
