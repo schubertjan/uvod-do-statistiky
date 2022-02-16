@@ -491,101 +491,76 @@ lines(x[x >= q], pdf_t.[x >= q], col = "#1f77b4", type = "h")
 
 
 ## Uniformní
+Uniformní rozložení popisuje náhodný proces, v kterém mají všechny hodnoty v nějakém intervalu stejnou pravděpodobnost, že budou vybrány. Uniformní rozložení je definováno jak pro **diskrétní**, tak pro **spojité** proměnné. S diskrétním uniformním rozložením jsme se setkali minulý rok při hodu kostkou nebo hodu mincí. Pokud náhodná proměnná $x_i$ pochází z uniformního rozložení, pak platí, že $$x_i \sim U(a,b)$$Uniformní rozložení je tedy možná vyjádřit pomocí dvou parametrů $a$ a $b$, které vyjadřují minimální a maximální možné hodnoty proměnné. PMF diskrétního uniformního rozložení rozložení lze vyjádřit jako $$PMF(x_i) = \frac{1}{n}$$U spojitého uniformního rozložení lze PDF vyjádřit jako $$PDF(x_i) = \frac{1}{b-a}; x_i \in [a,b]$$Pokud je hodnota $x_i$ mimo $[a,b]$, pak je jeho PDF rovná nule (nebo jinak taková hodnota není možná). **Očekávaná hodnota** diskrétního i spojitéhouniformního rozložení se spočítá jako $E(x_i) = \frac{1}{2}(a+b)$. **Variabilita** u spojitého uniformního rozložení se spočítá jako $Var(x_i) = \frac{1}{12}(b-a)^2$ a u diskrétního jako $Var(x_i) = \frac{n^2-1}{12}$. Protože generování čísel z diskrétního uniformního rozložení můžeme použít funkci `sample`, kterou jsme používali při simulacích některých klasických pravděpodobnostních problémů. Pro generování hodnot náhodné proměnné pocházející ze spojitého uniformního rozložení můžeme použít funkci `runif`. PDF poté vypočítáme pomocí funkce `dunif` a CDF pomocí `punif`. Jako příklad uniformního rozložení si ukážeme čekání na tramvaj. Řekněme, že přijdeme na zastávku a máme se rozhodnout, zda se nám vyplatí čekat nebo jít pěšky. Čekání na tramvaj v takovém případě můžeme modelovat (připodobnit) uniformním rozložením. Nevíme, kdy tramvaj přijede (v našem příkladu nejsou jízdní řády, nebo alespoň nejsou spolehlivé jízdní řády :). Může přijet hned (tedy za 0min), může přijet za 8min. Pravděpodobnost, za jak dlouho přijede (respektive, v jakém momentu jsme my přisli na zastávku) je rovnoměrně rozložena v celém intervalu. Pojďme si tento proces vyjádřit v animaci. Červená tečka reprezentuje nás čekající na zastávce. Modrý čtverec reprezentuje tramvaj blížící se k zastávce. Jak je vidět, někdy přijdeme na zastávku a tramvaj je blízko. Někdy přijdeme a tramvaj je stále daleko. 
 
-Model Země
+```{r, animation.hook='gifski', fig.cap='Ukázka čekání na tramvaj jako náhodný proces z uniformního rozložení'}
+# muzeme cekat 0 minut az 8 minut
+a <- 0
+b <- 8
+# pocet simulaci
+N <- 5
+# kde bude tram, kdyz prijdeme na zastavku
+x <- seq(0, 8, by = 0.5)
 
-```{r, fig.cap='Model Země', fig.align='center', echo=FALSE, message=FALSE, warning=FALSE}
-library(plotly)
-
-df <- read.csv("https://raw.githubusercontent.com/plotly/datasets/master/globe_contours.csv")
-df$id <- seq_len(nrow(df))
-
-library(tidyr)
-d <- df %>%
-  gather(key, value, -id) %>%
-  separate(key, c("l", "line"), "\\.") %>%
-  spread(l, value)
-
-geo <- list(
-  showland = TRUE,
-  showlakes = TRUE,
-  showcountries = TRUE,
-  showocean = TRUE,
-  countrywidth = 0.5,
-  landcolor = "rgb(230, 145, 56)",
-  lakecolor = "rgb(0, 255, 255)",
-  oceancolor = "rgb(0, 255, 255)",
-  projection = list(
-    type = "orthographic",
-    rotation = list(
-      lon = -100,
-      lat = 40,
-      roll = 0
-    )
-  ),
-  lonaxis = list(
-    showgrid = TRUE,
-    gridcolor = toRGB("gray40"),
-    gridwidth = 0.5
-  ),
-  lataxis = list(
-    showgrid = TRUE,
-    gridcolor = toRGB("gray40"),
-    gridwidth = 0.5
-  )
-)
-
-
-# sliders
-lon_range <- data.frame(seq(-180, 180, 10))
-lat_range <- data.frame(seq(-90, 90, 10))
-colnames(lon_range) <- "x"
-colnames(lat_range) <- "x"
-
-all_lat <- list()
-for (i in 1:length(lat_range[, ])) {
-  all_lat[[i]] <- list(
-    method = "relayout",
-    args = list(list(geo.projection.rotation.lat = lat_range$x[i])),
-    label = lat_range$x[i]
-  )
+# pro kazdy pokus
+for (n in 1:N) {
+  tramvaj <- runif(1, min = a, max = b)
+  my <- 8
+  # dokud neni tramvaj u nas
+  while(tramvaj < my){
+    # zobrazime kazdych 0.5 minuty
+    tramvaj <- tramvaj + 0.5
+    # protoze pridavame kazdych 0.5 min ...
+    # ...abychom zobrazili tramvaj u nas na zastavce
+    if(tramvaj > my) tramvaj <- my
+    plot(tramvaj, 1, 
+         xlab = "", ylab = "",
+         yaxt = "n", xaxt = "n",
+         xlim = c(-1, 9), ylim = c(0, 2),
+         pch = 22, col = "#1f77b4",
+         main = paste0("Pokus: ", n),
+         sub = paste0("Zbývající doba čekání: ", round(my - tramvaj, 1), "min"))
+    # zobrazime nas
+    points(my, 1, pch = 19, col = "red")
+    # otocime labely cekani 8-0
+    axis(1, at = x, labels = rev(x))
+    # pridame popisek
+    text(4, 0, "Vdálenost tramvaje od naší zastávky")
+    legend("topright", 
+           legend = c("my", "tramvaj"), 
+           col = c("red", "#1f77b4"), 
+           pch = c(19, 22), 
+           cex = 0.7)
+  }
 }
-
-all_lon <- list()
-for (i in 1:length(lon_range[, ])) {
-  all_lon[[i]] <- list(
-    method = "relayout",
-    args = list(list(geo.projection.rotation.lon = lon_range$x[i])),
-    label = lon_range$x[i]
-  )
-}
-
-
-# original d3-globe with contours
-fig <- plot_geo(d)
-fig <- fig %>% layout(
-  showlegend = FALSE, geo = geo
-)
-
-# plot with custom events
-fig <- fig
-fig <- fig %>% layout(sliders = list(
-  list(
-    active = (length(lon_range[, ]) - 1) / 2,
-    currentvalue = list(prefix = "Longitude: "),
-    pad = list(t = 20),
-    steps = all_lon
-  ),
-  list(
-    active = (length(lat_range[, ]) - 1) / 2,
-    currentvalue = list(prefix = "Latitude: "),
-    pad = list(t = 100),
-    steps = all_lat
-  )
-))
-
-fig
 ```
+  
+Pěšky je to do našeho cíle 6min. Tramvají 1min. Tramvaj jezdí jednou za 8min, tedy $t_i \sim U(0, 8)$. Vyplatí se nám čekat?  
+
+```{r}
+ocekavana_hodnota <- (a+b)/2
+```
+
+Očekávané hodnota našeho čekání je `r ocekavana_hodnota`. Když k tomu přičteme 1min cesty tramvají, pak očekávaná hodnota naší cesty tramvají je `r ocekavana_hodnota+1`min. Řekněme, že je velmi důležité, abychom nedorazili pozdě. Jaká je pravděpodobnost, že tramvají do cíle dorazíme za dobu delší než 6min (tedy, že nám bude cesta trvat déle, než pěšky)?
+```{r, fig.cap='Příklad PDF pro t ~ U(0, 8) a CDF pro P(t > 5)'}
+x <- seq(-1, 9, length.out = 1000)
+q <- 5
+pdf <- dunif(x = x, min = a, max = b)
+cdf <- punif(q, min = a, max = b, lower.tail = FALSE)
+plot(x, pdf,
+  type = "l", lwd = 2,
+  col = "grey",
+  xlab = "t",
+  ylab = "PDF",
+  xlim = c(-1,9),
+  main = paste0("P(x > ", q, ")=", round(cdf, 2))
+  )
+# type "h", abychom vyjadrili integral
+lines(x[x>q], pdf[x>q], col = "#1f77b4", type = "h")
+```
+
+Jak je vidět, pravděpodobnost, že tramvaj přijede za 5 a více minut (musíme si nechat 1 minutu na cestu tramvají, proto chceme vědět $P(t_i > 5)$) je `r round(cdf, 2)`, tedy docela vysoká. Tato situace by nastala zhruba 1 ze 3 případů. Pravděděpodobně bychom tedy v takovém případě šli pěšky.
+
 
 ## Poisson
 
@@ -603,7 +578,7 @@ knitr::include_app("https://gallery.shinyapps.io/dist_calc/")
 
 Zdroj: <https://github.com/ShinyEd/intro-stats/tree/master/dist_calc>
 
-## Věrohodnost
+## Jak vybrat rozložení
 
 ```{r, message=FALSE, warning=FALSE}
 library(leaflet)
