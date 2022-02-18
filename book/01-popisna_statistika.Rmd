@@ -10,7 +10,7 @@ Abychom si popisnou statistiku představili, budeme používat Novoroční/Váno
 
 Nejdříve si data načteme. Text můžeme načíst různými způsoby, my použijeme funkci `readLines`, která vrátí zpět vektor.
 ```{r}
-prezident <- readLines("../dats/prezident.txt", encoding = "UTF-8")
+prezident <- readLines("https://raw.githubusercontent.com/schubertjan/uvod-do-statistiky/master/dats/prezident.txt", encoding = "UTF-8")
 ```
 
 Nejdříve text očistíme o mezery a čárky, přeneseme vše do malých písmen, rozdělíme na věty a potom na slova. Protože tuto proceduru budeme dělat vícekrát uděláme si na to funkci. Výstupem této funkce bude list, jehož každý element reprezentuje jednu větu a v rámci této věty jaká obsahuje slova.  
@@ -149,14 +149,14 @@ Důležitý rozdíl mezi mediánem a průměr nastává pokud nejsou data symetr
 I pomocí mír centrální tendence se dají dělat zajívé analýzy. Řekněme, že nás zajímá rozdíl v relativní četnosti slov v projevu prezidenta a premiéra.
 ```{r}
 # nacteme text projevu premiera
-premier <- readLines("../dats/vlada.txt")
+premier <- readLines("https://raw.githubusercontent.com/schubertjan/uvod-do-statistiky/master/dats/vlada.txt")
 premier_clean <- vycistit_text(premier)
 
 # extrahujeme slova z vet do vektoru
 slova_premier <- unlist(premier_clean)
 
 # nacteme a odstranime stopwords
-stopwords <- readLines("../dats/stopwords.txt", encoding = "UTF-8")
+stopwords <- readLines("https://raw.githubusercontent.com/schubertjan/uvod-do-statistiky/master/dats/stopwords.txt", encoding = "UTF-8")
 
 # vybereme pouze slova, ktera nejsou ve stopwords
 slova_premier <- slova_premier[!slova_premier %in% stopwords]
@@ -216,7 +216,7 @@ smerodatna_odchylka <- sqrt(rozptyl)
 # nebo v R pomoci sd
 ```
 
-Variability počtu slov ve větě je tedy `r rozptyl` a směrodatná odchylka je `r smerodatna_odchylka`. Ukažme si princip rozptylu/směrodatné odchylky na imaginárních datech. Na ukázku si vytvoříme proměnnou, která má 10 pozorování a zobrazíme je do grafu jako body. Červená čára označuje průměr těchto bodů. Horizontální čáry potom označují vzdálenost každého pozorování od průměrné hodnoty. Nejdříve si ukážeme příklad s menším rozptylem hodnot a pod ním příklad rozložení s větším rozptylem hodnot. Protože mají oba příklady stejný počet pozorování (10), můžete si rozdíl v jejich směrodatné odhylce představit jako rozdíl vertikálních úseček, které vedou od průměru.  
+Rozptyl počtu slov ve větě je tedy `r rozptyl` a směrodatná odchylka je `r smerodatna_odchylka`. Ukažme si princip rozptylu/směrodatné odchylky na imaginárních datech. Na ukázku si vytvoříme proměnnou, která má 10 pozorování a zobrazíme je do grafu jako body. Červená čára označuje průměr těchto bodů. Horizontální čáry potom označují vzdálenost každého pozorování od průměrné hodnoty. Nejdříve si ukážeme příklad s menším rozptylem hodnot a pod ním příklad rozložení s větším rozptylem hodnot. Protože mají oba příklady stejný počet pozorování (10), můžete si rozdíl v jejich směrodatné odhylce představit jako rozdíl vertikálních úseček, které vedou od průměru.  
 ```{r, fig.cap='Ukázka výpočtu směrodatné odchylky', fig.align='center', fig.height=10}
 par(mfrow = c(2, 1))
 x <- rnorm(1e4, mean = 5, sd = 1)

@@ -31,6 +31,8 @@ fig:poisson-pred
 fig:log-example
 fig:log-data
 fig:density-sample-norm
+fig:x2-chart
+fig:x2-pdf
 úvod
 příklad-popisné-statistiky
 příklad-inferenční-statistiky
@@ -47,4 +49,5 @@ norm-dist
 t
 uniformní
 poisson
-shrnutí
+chi-kvadrát
+jak-vybrat-správný-model-pro-data

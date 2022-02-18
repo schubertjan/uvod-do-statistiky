@@ -1,7 +1,7 @@
 # Poznámky
 
 Kapitola 3
-## Chi-kvadrát
+
 ## Jak vybrat rozložení
 
 ```{r, message=FALSE, warning=FALSE}
