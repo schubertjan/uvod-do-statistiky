@@ -24,7 +24,7 @@
 <meta name="author" content="Jan Schubert" />
 
 
-<meta name="date" content="2022-02-16" />
+<meta name="date" content="2022-02-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="index.html"/>
-
+<link rel="next" href="pravděpodobnostní-rozložení.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -146,9 +146,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="2" data-path="popisná-statistika.html"><a href="popisná-statistika.html"><i class="fa fa-check"></i><b>2</b> Popisná statistika</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="popisná-statistika.html"><a href="popisná-statistika.html#míry-centrální-tendence"><i class="fa fa-check"></i><b>2.1</b> Míry centrální tendence</a></li>
+<li class="chapter" data-level="2.1" data-path="popisná-statistika.html"><a href="popisná-statistika.html#central-tend"><i class="fa fa-check"></i><b>2.1</b> Míry centrální tendence</a></li>
 <li class="chapter" data-level="2.2" data-path="popisná-statistika.html"><a href="popisná-statistika.html#desc-vars"><i class="fa fa-check"></i><b>2.2</b> Míry rozptýlenosti</a></li>
 <li class="chapter" data-level="2.3" data-path="popisná-statistika.html"><a href="popisná-statistika.html#cvičení"><i class="fa fa-check"></i><b>2.3</b> Cvičení</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="pravděpodobnostní-rozložení.html"><a href="pravděpodobnostní-rozložení.html"><i class="fa fa-check"></i><b>3</b> Pravděpodobnostní rozložení</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="pravděpodobnostní-rozložení.html"><a href="pravděpodobnostní-rozložení.html#stats-lang"><i class="fa fa-check"></i><b>3.1</b> Pravděpodobnostní rozložení jako jazyk statistiky</a></li>
+<li class="chapter" data-level="3.2" data-path="pravděpodobnostní-rozložení.html"><a href="pravděpodobnostní-rozložení.html#binomické"><i class="fa fa-check"></i><b>3.2</b> Binomické</a></li>
+<li class="chapter" data-level="3.3" data-path="pravděpodobnostní-rozložení.html"><a href="pravděpodobnostní-rozložení.html#norm-dist"><i class="fa fa-check"></i><b>3.3</b> Normální</a></li>
+<li class="chapter" data-level="3.4" data-path="pravděpodobnostní-rozložení.html"><a href="pravděpodobnostní-rozložení.html#t"><i class="fa fa-check"></i><b>3.4</b> T</a></li>
+<li class="chapter" data-level="3.5" data-path="pravděpodobnostní-rozložení.html"><a href="pravděpodobnostní-rozložení.html#uniformní"><i class="fa fa-check"></i><b>3.5</b> Uniformní</a></li>
+<li class="chapter" data-level="3.6" data-path="pravděpodobnostní-rozložení.html"><a href="pravděpodobnostní-rozložení.html#poisson"><i class="fa fa-check"></i><b>3.6</b> Poisson</a></li>
+<li class="chapter" data-level="3.7" data-path="pravděpodobnostní-rozložení.html"><a href="pravděpodobnostní-rozložení.html#shrnutí"><i class="fa fa-check"></i><b>3.7</b> Shrnutí</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -209,7 +219,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb10-26"><a href="popisná-statistika.html#cb10-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(slova)</span>
 <span id="cb10-27"><a href="popisná-statistika.html#cb10-27" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="popisná-statistika.html#cb11-1" aria-hidden="true" tabindex="-1"></a>prezident_clean <span class="ot">&lt;-</span> <span class="fu">vycistit_text</span>(prezident)</span></code></pre></div>
-<div id="míry-centrální-tendence" class="section level2" number="2.1">
+<div id="central-tend" class="section level2" number="2.1">
 <h2><span class="header-section-number">2.1</span> Míry centrální tendence</h2>
 <p>Míry centrální tendence se snaží popsat nějakou typickou hodnotu proměnné. My si představíme modus, medián, průměr, absolutní a relativní četnost. Jaké míry centrální tendence můžeme na proměnné vypočítat se liší podle typu proměnné. Nominální proměnná je taková proměnná, u které nemůžeme hodnoty seřadit od nejmenšího po největší a nemůžeme ani určit o kolik je jedna hodnota větší než jiná. Tou nejzákladnější popisnou statistikou je četnost nějakého jevu a z ní odvozená míra centrální tendence <strong>modus</strong>. Modus je tedy nejčastější hodnota proměnné. Když se zamyslíte, tak u proměnné u které nemůžeme hodnoty seřadit ani jinak matematicky porovnat je nejčastější hodnota nejvíce vypovídající o typické hodnotě proměnné. Pojďme si jako příklad vypočítat nejčastější slovo z projevu.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="popisná-statistika.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># nejprve prevedeme list na vekor</span></span>
@@ -467,8 +477,8 @@ Kde PR je hodnota percentilu, CF je kumulativní počet výsledků a F je počet
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="pravděpodobnostní-rozložení.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

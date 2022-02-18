@@ -48,7 +48,7 @@ vycistit_text <- function(.text) {
 prezident_clean <- vycistit_text(prezident)
 ```
 
-## Míry centrální tendence
+## Míry centrální tendence{#central-tend}
 Míry centrální tendence se snaží popsat nějakou typickou hodnotu proměnné. My si představíme modus, medián, průměr, absolutní a relativní četnost. Jaké míry centrální tendence můžeme na proměnné vypočítat se liší podle typu proměnné. Nominální proměnná je taková proměnná, u které nemůžeme hodnoty seřadit od nejmenšího po největší a nemůžeme ani určit o kolik je jedna hodnota větší než jiná. Tou nejzákladnější popisnou statistikou je četnost nějakého jevu a z ní odvozená míra centrální tendence **modus**. Modus je tedy nejčastější hodnota proměnné. Když se zamyslíte, tak u proměnné u které nemůžeme hodnoty seřadit ani jinak matematicky porovnat je nejčastější hodnota nejvíce vypovídající o typické hodnotě proměnné. Pojďme si jako příklad vypočítat nejčastější slovo z projevu.  
 
 ```{r}

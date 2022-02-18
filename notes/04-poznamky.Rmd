@@ -1,5 +1,102 @@
 # Poznámky
 
+Kapitola 3
+## Chi-kvadrát
+## Jak vybrat rozložení
+
+```{r, message=FALSE, warning=FALSE}
+library(leaflet)
+```
+
+```{r}
+v2_location <- read.csv("../dats/v2_location.csv")
+v2_location <- v2_location[complete.cases(v2_location), ]
+v2_location$label <- paste(paste(v2_location$landing_site, v2_location$date, sep = ", "))
+
+v2_location$lat <- v2_location$lat + rnorm(nrow(v2_location), 0, 0.01)
+v2_location$lon <- v2_location$lon + rnorm(nrow(v2_location), 0, 0.05)
+# greater london area
+mu <- c(51.5072178, -0.1275862)
+lon <- c(-0.492267, 0.362430)
+lat <- c(51.274614, 51.73982)
+
+# index
+i <- (v2_location$lat >= lat[1] & v2_location$lat <= lat[2]) & (
+  v2_location$lon >= lon[1] & v2_location$lon <= lon[2]
+)
+
+v2_london <- v2_location[i, ]
+
+leaflet(data = v2_london) %>%
+  addProviderTiles(providers$CartoDB.Positron) %>%
+  addCircleMarkers(
+    lng = ~lon,
+    lat = ~lat, color = "#000000",
+    opacity = 0.2,
+    fillOpacity = 0.2,
+    fillColor = "#000000",
+    radius = 2.5,
+    stroke = FALSE,
+    label = ~label
+  )
+```
+
+```{r}
+# simulujeme nemoznost mireni
+n <- nrow(v2_london)
+v2_uni <- data.frame(
+  lon = runif(
+    n = n,
+    min = lon[1],
+    max = lon[2]
+  ),
+  lat = runif(
+    n = n,
+    min = lat[1],
+    max = lat[2]
+  )
+)
+
+v2_norm <- data.frame(
+  lon = rnorm(
+    n = n,
+    mean = mean(v2_london$lon),
+    sd = sd(v2_london$lon)
+  ),
+  lat = rnorm(
+    n = n,
+    mean = mean(v2_london$lat),
+    sd = sd(v2_london$lat)
+  )
+)
+
+fig <- leaflet(data = v2_london) %>%
+  addProviderTiles(providers$CartoDB.Positron) %>%
+  addCircleMarkers(
+    lng = ~lon,
+    lat = ~lat, color = "#000000",
+    opacity = 0.2,
+    fillOpacity = 0.2,
+    fillColor = "#000000",
+    radius = 2.5,
+    stroke = FALSE,
+    label = ~label
+  )
+
+fig <- addCircleMarkers(
+  map = fig,
+  lng = v2_norm$lon,
+  lat = v2_norm$lat, color = "#1f77b4",
+  opacity = 0.2,
+  fillOpacity = 0.2,
+  fillColor = "",
+  radius = 2.5,
+  stroke = FALSE,
+  label = "Uniform"
+)
+fig
+```
+
 Přidat multivariate normal kdyžese bude probírat covariance.
 
 

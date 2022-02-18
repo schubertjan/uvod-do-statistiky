@@ -563,13 +563,182 @@ Jak je vidět, pravděpodobnost, že tramvaj přijede za 5 a více minut (musím
 
 
 ## Poisson
+Poissonovo rozložení popisuje chování **diskrétních** náhodných proměnných v **nějakém daném časovém intervalu**. Od binomického rozložení se liší tím, že popisuje proměnné, které nemají pevně stanovený počet pozorování, tedy $x_i \in [0, \infty)$. Toto rozložení má jediný parametr $\lambda$, který je zároveň **očekávanou hodnotou** a **variabilitou**. Stejně jako u binomického, normálního, t a uniformního rozložení předpokládáme, že jednotlivé hodnoty náhodné proměnné jsou na sobě **nezávislé**. Náhodnou proměnnou $x_i$ pocházející z tohoto rozložení značíme jako $x_i \sim Poisson(\lambda)$. Mnoho každodenních jevů, jejichž hodnoty jsou celé čísla se dají popsat poissonových rozložením. U mnoha jevů totiže neznáme $n$ a tedy nedokážeme říct, jaká je největší očekávaná hodnota. Jako příklady jevů, které je možné approximovat (připodobnit) poissonových rozložením je například počet telefonátů za den, počet aut, které projedou silnicí za hodinu, počet gólů za zápas apod. Vrátíme se zpět do kapitoly popisné statistiky \@ref(central-tend), kde jsme vypočítali počet slov ve větě v projevu prezideta republiky. Pro připomenutí ukážeme četnosti počtu slov ve větě.
+```{r ch2-hist-pocet-slov, echo=FALSE, fig.cap='Četnost počtu slov ve větě v projevu prezidenta republiky'}
+prezident <- readLines("../dats/prezident.txt", encoding = "UTF-8")
+vycistit_text <- function(.text) {
+  # vse malym pismem
+  .text <- tolower(.text)
 
-dispersed poisson
+  # odstranime prazdne radky
+  .text <- .text[.text != ""]
 
-## Chi-kvadrát
+  # odstranime carky
+  .text <- gsub(pattern = ",", replacement = "", x = .text)
+
+  # rozdelit na vety, pokud najdeme "." nebo "!" nebo "?"
+  .text <- unlist(strsplit(.text, split = "\\.|\\!|\\?"))
+
+  # vymazeme mezery na zacatku a konci
+  .text <- trimws(.text, which = c("left"))
+  .text <- trimws(.text, which = c("right"))
+
+  # odstranime prazdne prvky, ktere vznikly protoze po tecce neni zadny text
+  .text <- .text[.text != ""]
+
+  # rozdelime na slova
+  slova <- list()
+  for (i in 1:length(.text)) {
+    slova[[i]] <- unlist(strsplit(.text[i], split = " "))
+  }
+  return(slova)
+}
+prezident_clean <- vycistit_text(prezident)
+pocet_slov <- sapply(prezident_clean, length)
+cetnost <- table(pocet_slov)
+plot(names(cetnost), cetnost, 
+     col = "#1f77b4", 
+     xlab = "Počet slov ve větě", ylab = "Četnost", 
+     type = "h", lwd = 5,
+     ylim = c(0, 6),
+     xlim = c(0, 45))
+# aby y osa zdy vyjadrovala vsechna cisla
+axis(2, at = c(0:6), labels = c(0:6))
+```
+Řekněme, že bychom chtěli predikovat počet slov ve větě v nějaké prezidentově dalším projevu a chtěli bychom to udělat tak, že bychom se snažili zjistit parametry procesu, který počet slov vyprodukoval. Víme, že minimálně můžeme mít ve větě jedno slovo. Maximální počet slov je sice prakticky ohraničen, ale my neznáme žádnou hranici, kterou bychom mohli uplatnit. Budeme tedy předpokládat, že ohraničený není^[PMF poissonova rozložení klesá s rostoucí hodnotou $x_i$ rychle k zanedbatelné hodnotě, takže bude nepravděpodobné, že bychom generovali věty s nadpřirozenými počty slov.]. Zároveň předpokládáme, že hodnoty náhodné proměnné vygenerované z poissonova rozložení jsou nezávislé. V našem případě jsou hodnoty spíše silně závislé. Počet slov v jedné větě bude určitě ovlivňovat počet slov v následující(ch) větách. Jak je vidět na \@ref(fig:pocet-slov-zavislost) po hodně dlouhých větách, častěji následují kratší věty. Málokdy je více krátkých vět za sebou a naopak.
+```{r pocet-slov-zavislost, fig.cap='Zkoumání závislosti jednotlivých hodnot proměnné počet slov'}
+plot(pocet_slov, 
+     type = "l", 
+     lwd = 2,
+     ylab = "Počet slov", xlab = "Pořadí",
+      col = "#1f77b4")
+```
+
+```{r}
+lambda <- mean(pocet_slov)
+```
+
+Průměrný počet slov ve větě je `r round(lambda, 2)`, což je $\lambda$ našeho rozložení. Modelujeme tedy počet slov $s_i$ ve větě $s_i \sim Poisson($ `r round(lambda, 2)` $)$.Graf \@ref(fig:poisson-base) vyjadřuje PMF tohoto rozložení. Jak je vidět tento model na naše data moc nesedí. Náš model má moc malou variabilitu v porovnání s daty. Protože poissonovo rozložení má pouze jeden parametr $\lambda$, který vyjadřuje očekávanou hodnotu i variabilitu, nemůžeme rozptyl nijak kontrolovat pomocí parametru rozložení. Tento fakt je koneckonců zřejmý už z chrakteristik našich dat. Pokud by tato data opravdu byla vygenerována z poissonova rozložení jejich průměr by se zhruba rovnal variabilitě. Jak je ale vidět, tak tomu není protože průměr počtu slov je `r round(lambda, 2)` a variabilita je `r round(var(pocet_slov), 2)`.  
+```{r poisson-base, fig.cap='PMF poissonova rozložení'}
+x <- 1:50
+n <- length(pocet_slov)
+pmf <- dpois(x, lambda)
+plot(x, pmf,
+  type = "h", lwd = 5,
+  col = "#1f77b4",
+  xlab = "s",
+  ylab = "PMF",
+  main = paste0("Poisson(", round(lambda, 2), ")")
+  )
+```
+I když je náš model jednoduchý s pouze jedním parametrem $\lambda$, je to model, který můžeme použít pro predikci. Výsledky jakéhokoliv modelu je vždy dobré si zobrazit graficky, abychom si dokázali lépe představit, co predikuje. \@ref(fig:poisson-pred) ukazuje, kolik by náš model predikoval počtet slov ve větě. Protože PMF vyjadřuje pravděpodobnost, můžeme očekávaný (predikovaný) četnost počtu slov podle našeho modelu vypočítat jako $PMF * n$. V našem případě máme `r n` vět, tedy predikovaná četnost počtu slov $\hat{s_i} = PMF * n$.
+```{r poisson-pred, fig.cap='Očekávaná četnost počtu slov ve větě pro n=66 vět'}
+# zaokrouhlime, protoze musime mit cela cisla
+s_hat <- round(pmf * n)
+# pridame data
+.x <- as.numeric(names(cetnost))
+
+# zobrazime nase data
+plot(.x, cetnost,
+  type = "h", lwd = 5,
+  col = "grey",
+  xlab = "Počet slov",
+  ylab = "Četnost",
+  xlim = c(0, 50), ylim = c(0, 6),
+  main = "Porovnání modelu poissonova rozložení s daty"
+  )
+# pridame ocekavane hodnoty
+lines(x, s_hat, 
+      col = adjustcolor("#1f77b4", alpha.f = 0.4), 
+      type = "h", lwd = 5)
+# aby y osa zdy vyjadrovala vsechna cisla
+axis(2, at = c(0:6), labels = c(0:6))
+# legenda
+legend("topright", 
+       legend = c("Data",
+                  paste0("Poisson(", 
+                         round(lambda, 2), ")")),
+       lwd = c(2, 2),
+       col = c("grey", "#1f77b4"),
+       cex = 0.7
+       )
+```
+
+Toto se v reálném světě často. Tento jev se v angličtině označuje jako *overdispersion*. Jednou z možností, jak se s overdispersion vypořádat je, že modelujeme náhodnou proměnnou jako pocházející z jiného rozložení^[Tím je v generalized linear models Beta negative binomial]. Pro náš jednoduchý příklad bychom mohli využít častého triku, který převede pozitivní diskrétní data s větší variabilitou na data spojitá. Tento trik využívá **transformace** proměnné a to konkrétně jejího logaritmu. Jak je známo logaritmus je definován pro definiční obor $\in (0, \infty)$. Pro zopakovaní ukazujeme funkci přirozeného logaritmu v grafu \@ref(fig:log-example). Jak je vidno, tak funkce logaritmu převede hodnoty do oboru hodnot $\in (-\infty, \infty)$ a zároveň budou její hodnoty spojité. Normální rozložení je takto definováno a proto zkusíme modelovat počet slov ve větě $s_i$ jako $log(s_i) \sim N(\mu_{log(s)}, \sigma_{log(s)}$.
+
+```{r log-example, fig.cap='Ukázka přirozeného logaritmu'}
+curve(log(x), 
+      from = 0.01, to = 100, 
+      col = "#1f77b4", lwd = 2,
+      xlab = "x", ylab = "Log(x)", main = "Přirozený logaritmus")
+abline(h = 0, v = 0, lwd = 1)
+```
+
+Graf \@ref(fig:log-data) zobrazuje histogram logaritmu početu slov ve větě a teoretické PDF $N(2.61, 0.66)$. Jak je vidět takovýto model lépe vystihuje variabilitu v počtu slov. Vzhledem k tomu, že máme pouze 66 pozorování nebude taková náhodná proměnná přesně vystihovat teoretické rozložení. Graf \@ref(fig:density-sample-norm) ukazuje odhadnutou hustotu pravděpodobnosti pro 50 výběrů z $ N(2.61, 0.66)$, každý o velikosti $n=$`r n`. Modrá křivka ukazuje naše data, šedé křivky potom simulované výběry. Je vidět, že několiktakových výběrů, které jsou podobně nahnuté doprava nastalo, což znamená, že taková data nejsou tak nepravděpodobná (pokud pocházejí z $log(s_i) \sim N(2.61, 0.66)$).
+```{r log-data, fig.cap='Rozložení logaritmu dat a teoretická PDF N(2.61, 0.66)'}
+s_log <- log(pocet_slov)
+mu <- mean(s_log)
+s <- sd(s_log)
+x <- seq(0.01 , 5 , length.out = 1000)
+pdf <- dnorm(x, mean = mu, sd = s)
+hist(s_log, 
+     xlab = "log(s)", ylab = "Četnost",
+     main = "Histogram logaritmu počtu slov",
+     col = "grey", 
+     breaks = 10,
+     xlim = c(0, 5))
+# pridame na druhou osu
+par(new = TRUE)
+plot(x, pdf, 
+     type = "l", lwd = 2, 
+     col = "#1f77b4",
+     axes = FALSE, 
+     xlab = "", ylab = "", 
+     bty = "n")
+legend("topright", 
+       legend = c("log(s)",
+                  paste0("N(", round(mu, 2), ",", round(s, 2), ")")),
+       lwd = c(2, 2),
+       col = c("grey", "#1f77b4"),
+       cex = 0.7
+       )
+thicks <- round(seq(min(pdf), max(pdf), by = 0.05), 2)
+axis(4, at = thicks, labels =thicks)
+```
+
+```{r density-sample-norm, fig.cap='Příklad hustoty pravděpodobnosti 50 výběrů o velikosti n=66 z N(2.61, 0.66)'}
+# odhadneme hustotu pravdepodobnosti dat
+d_data <- density(s_log)
+S <- 50
+
+plot(d_data, 
+     type= "l",
+     xlab = "log(s)", 
+     ylab = "Hustota pravděpodobnosti", main = "",
+     col = "#1f77b4",
+     xlim = c(0, 5), ylim = c(0, 0.8),
+     lwd = 2)
+for(i in 1:S) {
+  vyber <- rnorm(n, mean = mu, sd = s)
+  lines(density(vyber), col = adjustcolor("black", alpha.f = 0.2))
+}
+
+
+```
+
+Nakonec se tedy vrátíme k naší původní otázce - predikce počtu slov ve větě. Jak jsme si ukázali, logaritmus počtu slov ve větě můžeme dobře approximovat normálním rozložením. Na tomto rozložení můžeme počítat CDF stejně tak, jak jsme si to ukázali v \@ref(norm-dist). Řekněme, že z důvodu srozumitelnosti nedoporučejeme věty delší než 20 slov. Zajímá nás, jaká je pravděpodonost, že libovolně zvolená věta bude delší než 20 slov, pak vlastně počítáme $P(log(s_i) > log(20))$ z našeho $log(s_i) \sim N(2.61, 0.66)$.
+```{r}
+q <- log(20)
+cdf <- pnorm(q, mean = mu, sd = s, lower.tail = FALSE)
+```
+
+Tato pravděpodobnost je rovna `r round(cdf, 2)`. Nebo jinak zhruba `r round(cdf, 2)*100`% vět bude delších než 20 slov. 
+
+
+
+
 
 ## Shrnutí
-
 Pomocí této aplikace si můžete vyzkoušet, jak různé parametry ovlivňují tvar rozložení nebo vypočítat pravděpodobnost, že náhodná proměnná $x_i$ nabyde určitých hodnot $a$.
 
 ```{r, echo=FALSE}
@@ -577,98 +746,3 @@ knitr::include_app("https://gallery.shinyapps.io/dist_calc/")
 ```
 
 Zdroj: <https://github.com/ShinyEd/intro-stats/tree/master/dist_calc>
-
-## Jak vybrat rozložení
-
-```{r, message=FALSE, warning=FALSE}
-library(leaflet)
-```
-
-```{r}
-v2_location <- read.csv("../dats/v2_location.csv")
-v2_location <- v2_location[complete.cases(v2_location), ]
-v2_location$label <- paste(paste(v2_location$landing_site, v2_location$date, sep = ", "))
-
-v2_location$lat <- v2_location$lat + rnorm(nrow(v2_location), 0, 0.01)
-v2_location$lon <- v2_location$lon + rnorm(nrow(v2_location), 0, 0.05)
-# greater london area
-mu <- c(51.5072178, -0.1275862)
-lon <- c(-0.492267, 0.362430)
-lat <- c(51.274614, 51.73982)
-
-# index
-i <- (v2_location$lat >= lat[1] & v2_location$lat <= lat[2]) & (
-  v2_location$lon >= lon[1] & v2_location$lon <= lon[2]
-)
-
-v2_london <- v2_location[i, ]
-
-leaflet(data = v2_london) %>%
-  addProviderTiles(providers$CartoDB.Positron) %>%
-  addCircleMarkers(
-    lng = ~lon,
-    lat = ~lat, color = "#000000",
-    opacity = 0.2,
-    fillOpacity = 0.2,
-    fillColor = "#000000",
-    radius = 2.5,
-    stroke = FALSE,
-    label = ~label
-  )
-```
-
-```{r}
-# simulujeme nemoznost mireni
-n <- nrow(v2_london)
-v2_uni <- data.frame(
-  lon = runif(
-    n = n,
-    min = lon[1],
-    max = lon[2]
-  ),
-  lat = runif(
-    n = n,
-    min = lat[1],
-    max = lat[2]
-  )
-)
-
-v2_norm <- data.frame(
-  lon = rnorm(
-    n = n,
-    mean = mean(v2_london$lon),
-    sd = sd(v2_london$lon)
-  ),
-  lat = rnorm(
-    n = n,
-    mean = mean(v2_london$lat),
-    sd = sd(v2_london$lat)
-  )
-)
-
-fig <- leaflet(data = v2_london) %>%
-  addProviderTiles(providers$CartoDB.Positron) %>%
-  addCircleMarkers(
-    lng = ~lon,
-    lat = ~lat, color = "#000000",
-    opacity = 0.2,
-    fillOpacity = 0.2,
-    fillColor = "#000000",
-    radius = 2.5,
-    stroke = FALSE,
-    label = ~label
-  )
-
-fig <- addCircleMarkers(
-  map = fig,
-  lng = v2_norm$lon,
-  lat = v2_norm$lat, color = "#1f77b4",
-  opacity = 0.2,
-  fillOpacity = 0.2,
-  fillColor = "",
-  radius = 2.5,
-  stroke = FALSE,
-  label = "Uniform"
-)
-fig
-```
