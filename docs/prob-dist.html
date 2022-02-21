@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Kapitola 3 Pravděpodobnostní rozložení | Úvod do statistiky</title>
+  <meta name="description" content="Tato kniha obsahuje materiál ke cvičení kurzu Úvod do statistiky (JSB535)." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Kapitola 3 Pravděpodobnostní rozložení | Úvod do statistiky" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Tato kniha obsahuje materiál ke cvičení kurzu Úvod do statistiky (JSB535)." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Kapitola 3 Pravděpodobnostní rozložení | Úvod do statistiky" />
+  
+  <meta name="twitter:description" content="Tato kniha obsahuje materiál ke cvičení kurzu Úvod do statistiky (JSB535)." />
+  
+
+<meta name="author" content="Jan Schubert" />
+
+
+<meta name="date" content="2022-02-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="popisná-statistika.html"/>
+
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Úvod do statistiky</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Úvod</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#příklad-popisné-statistiky"><i class="fa fa-check"></i><b>1.1</b> Příklad popisné statistiky</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#příklad-inferenční-statistiky"><i class="fa fa-check"></i><b>1.2</b> Příklad inferenční statistiky</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#simulace"><i class="fa fa-check"></i><b>1.3</b> Simulace</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#o-modelech"><i class="fa fa-check"></i><b>1.4</b> O modelech</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="popisná-statistika.html"><a href="popisná-statistika.html"><i class="fa fa-check"></i><b>2</b> Popisná statistika</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="popisná-statistika.html"><a href="popisná-statistika.html#central-tend"><i class="fa fa-check"></i><b>2.1</b> Míry centrální tendence</a></li>
+<li class="chapter" data-level="2.2" data-path="popisná-statistika.html"><a href="popisná-statistika.html#desc-vars"><i class="fa fa-check"></i><b>2.2</b> Míry rozptýlenosti</a></li>
+<li class="chapter" data-level="2.3" data-path="popisná-statistika.html"><a href="popisná-statistika.html#cvičení"><i class="fa fa-check"></i><b>2.3</b> Cvičení</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="prob-dist.html"><a href="prob-dist.html"><i class="fa fa-check"></i><b>3</b> Pravděpodobnostní rozložení</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="prob-dist.html"><a href="prob-dist.html#stats-lang"><i class="fa fa-check"></i><b>3.1</b> Pravděpodobnostní rozložení jako jazyk statistiky</a></li>
+<li class="chapter" data-level="3.2" data-path="prob-dist.html"><a href="prob-dist.html#binom-dist"><i class="fa fa-check"></i><b>3.2</b> Binomické</a></li>
+<li class="chapter" data-level="3.3" data-path="prob-dist.html"><a href="prob-dist.html#norm-dist"><i class="fa fa-check"></i><b>3.3</b> Normální</a></li>
+<li class="chapter" data-level="3.4" data-path="prob-dist.html"><a href="prob-dist.html#t"><i class="fa fa-check"></i><b>3.4</b> T</a></li>
+<li class="chapter" data-level="3.5" data-path="prob-dist.html"><a href="prob-dist.html#uniformní"><i class="fa fa-check"></i><b>3.5</b> Uniformní</a></li>
+<li class="chapter" data-level="3.6" data-path="prob-dist.html"><a href="prob-dist.html#poisson"><i class="fa fa-check"></i><b>3.6</b> Poisson</a></li>
+<li class="chapter" data-level="3.7" data-path="prob-dist.html"><a href="prob-dist.html#chi-kvadrát"><i class="fa fa-check"></i><b>3.7</b> Chi-kvadrát</a></li>
+<li class="chapter" data-level="3.8" data-path="prob-dist.html"><a href="prob-dist.html#jak-vybrat-správný-model-pro-data"><i class="fa fa-check"></i><b>3.8</b> Jak vybrat správný model pro data</a></li>
+<li class="chapter" data-level="3.9" data-path="prob-dist.html"><a href="prob-dist.html#cvičení-1"><i class="fa fa-check"></i><b>3.9</b> Cvičení</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Úvod do statistiky</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="prob-dist" class="section level1" number="3">
+<h1><span class="header-section-number">Kapitola 3</span> Pravděpodobnostní rozložení</h1>
+<p>Tuto kapitolu začneme <a href="https://upload.wikimedia.org/wikipedia/commons/d/dc/Galton_box.webm">videm</a>.</p>
+<div class="figure">
+<video src="https://upload.wikimedia.org/wikipedia/commons/d/dc/Galton_box.webm" width="640" height="360" controls=""><a href="https://upload.wikimedia.org/wikipedia/commons/d/dc/Galton_box.webm"></a></video>
+<p class="caption">Matemateca (IME USP) / name of the photographer when stated, CC BY-SA 4.0 <a href="https://creativecommons.org/licenses/by-sa/4.0" class="uri">https://creativecommons.org/licenses/by-sa/4.0</a>, via Wikimedia Commons</p>
+</div>
+<p>Proč kuličky v tomto videu skončí v určitém množství v určitém sloupci? A proč skončí podobné množství kuliček v každém sloupci, pokud bychom kuličky pustili znova? Jak by se počet kuliček ve soupcích lišil?</p>
+<p>Pokud si z této knihy máte odnést jednu kapitolu, pak by to měla být tako :). Jak jsme zmínili v úvodu knihy, většina proměnných okolo nás se chová náhodně. To znamená, že může nabývat náhodných hodnot podle nějakého klíče (procesu). Náhodnost může vycházet z faktu, že měříme jenom nějakou část populace (např. výběrové šetření), z fyzikálních vlastností (např. váha součástky vyrobená v továrně nebude vždy stejná) nebo z chyby měření (např. teploměr nezměří stejnou teplotu vždy stejně, ale hodnoty měření budou kolísat okolo nějakého čísla). Pravděpodobnostní rozložení nám pomáhají kvantifikovat a predikovat míru nahodilosti. Typ pravděpodobnostního rozložení, který na popsání náhodnosti uplatníme vychází z našeho porumění vlastnostní rozložení a jeho vhodnosti na daný problém. A vlastnosti pravděpodobnostních rozložení je to, co si v této kapitole ukážeme.</p>
+<p>Na začátku jsme řekli, že budeme používat statistické modely a že tyto modely nejsou přesným vyjádřením reality, ale mohou být užitečným popsáním reality. V této kapitole začneme modely používat.</p>
+<div id="stats-lang" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Pravděpodobnostní rozložení jako jazyk statistiky</h2>
+<p>V této kapitole si ukážeme spoustu nových značení, která se stanou našim jazykem, kterým budeme ve statistice komunikovat. Budeme je používat k tomu, abychom popsali očekávané chování náhodné proměnné. Každé rozložení má svoje <strong>parametry</strong>, pomocí kterým ho můžeme popsat. Každé rozložení má taky svoje <strong>míry centrální tendence</strong> (<strong>očekávanou hodnotu</strong>) a svoje <strong>míry rozptýlenosti</strong>. To, kolik hodnot náhodné proměnné nabývá určitých hodnot popisuje <strong>hustota pravděpodobnosti</strong>. V angličtině se u spojitých proměnných (která nabývají reálných čísel) vyjadřuje hustota pravděpodobnosti jako <strong>probability density function</strong> (PDF). U diskrétních proměnných (nabývají celých čísel) se hustota pravděpodobnosti nazývá <strong>probability mass function</strong> (PMF). Integrál hustoty pravděpodobnosti je vždy rovný nule. To tedy znamá, že kdybychom sečetli všechny hodnoty hustoty pravděpodobnosti (pro spojité proměnné integrovali), tak by se výsledek rovnal jedné. To plyne z toho, že pravděpodobnost jevu nemůže být vyšší než jedna. Nakonec ještě trocha <strong>terminologie</strong>, které budeme používat. Náhodnou proměnnou budeme označovat jako <span class="math inline">\(x_i\)</span>. Budeme používat malá písmena, pokud výsledkem procesu bude vektor a velká písmena, pokud výsledkem bude matice. <span class="math inline">\(i\)</span> označuje jednotlivá pozorování. Teda první hodnota náhodné proměnné, by se označovala jako <span class="math inline">\(x_1\)</span>. <span class="math inline">\(n\)</span> označuje zpravidla počet pozorování proměnné.</p>
+</div>
+<div id="binom-dist" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Binomické</h2>
+<p>Vraťme se k videu ze začátku kapitoly. Tomuto přístroji se říká Galton Box. Kuličky jsou puštěny do přístroje z jednoho stejného bodu a procházejí několika vrstvami (ve videu 10 vrstvami). V každé vrstvě míček narazí na bod, který ho může poslat na levou nebo na pravou stranu (zhruba se stejnou pravděpodobností 0.5). To, na jakou stranu se míček vydá je určeno náhodou. Kuličky potom spadnou do jednoho ze sloupců (ve videu 13 sloupců). Kdybysme nechali všechny kuličky spadnout, posbírali je a znovu spustili, tak skoro stejné množství kuliček skončí v každém sloupci. Jak je možné, že když spustíme tisíce kuliček, každý se může 10x odrazit nalevo nebo napravo, tak výsledný počet kuliček v každém sloupci je skoro stejný? Příčinou je pravděpodovnoství rozložení.</p>
+<p>Prvním rozložením, které si ukážeme je binomické rozložení. Jevy mohou být generovany procesem, který vede k binomickému rozložení, pokud máme pokus, jehož výsledkem je <strong>úspěch nebo neúspěch</strong>, pokusy jsou <strong>nezávislé</strong> a mají <strong>konstantní pravděpodobnost</strong> úspěchu <span class="math inline">\(p\)</span> (konstantní pro všechny pokusy). Obecně platí, že proměnná <span class="math inline">\(x_i\)</span> pochází z binomického rozložení, kde <span class="math display">\[x_i \sim B(n, p)\]</span> a kde <span class="math inline">\(n\)</span> značí počet pokusů a <span class="math inline">\(p\)</span> pravděpodobnost úspěchu. Proměnná <span class="math inline">\(x_i\)</span> je potom <strong>diskrétní</strong>. Pojďme si ukázat, jak se binomické rozložení vztahuje ke Galtonově boxu. Každý míček prochází 10 pokusy, kde výsledek může být buď úspěch (řekněme, že míček spadne napravo) nebo neúspěch (řeknemě, že míček spadne nalevo). Výsledkem je potom zařazení do jednoho ze 13 sloupců. V extrému může náš proces skončit tak, že všechny kuličky budou nalevo nebo že všechny kuličky budou napravo. Kuličky jsou na sobě relativně nezávislé a všechny mají při každém pokusu relativně konstatní pravděpodobnost. Opět je nutné si uvědomit, že náš model dat (binomické rozložení) není přesnou reprezentací procesu, který se snažíme popsat. Kuličky nejsou ve skutečnosti kompletně nezávislé, mohou do sebe narazit a tím se ovlivnit. Protože ale prochazí zhruba 10 pokusy (i když to se může lišit, některé kuličky se mohou odrazit po nárazu znovu nahoru), bereme proces jako dostatečně náhodný a nezávislý. Důležité je, jestli jsou předpoklady našeho modelu splněny dostatečně na to, aby jeho matematické vyjádření bylo validní pro reálný process, který se snažíme popsat.</p>
+<p>Pojďme si nyní ukázat, jak se Galtonův box dá připodobnit binomickým rozložením. Náhodný process z binomického rozložení můžeme generovat pomocí funkce <code>rbinom</code>. Ta jako argumenty předpokládá <code>n</code> počet pozorování, která chceme generovat, <code>size</code> počet pokusů (způsobů, jak může proces skončit) a <code>p</code> pravděpodobnost úspěchu. Budeme uvaživat, že spustíme 10 000 kuliček, tedy <span class="math display">\[x_i \sim B(10000, 0.5)\]</span></p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="prob-dist.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">4</span>)</span>
+<span id="cb32-2"><a href="prob-dist.html#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="co"># pocet micku</span></span>
+<span id="cb32-3"><a href="prob-dist.html#cb32-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb32-4"><a href="prob-dist.html#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co"># pravdepodobnost uspechu (napravo)</span></span>
+<span id="cb32-5"><a href="prob-dist.html#cb32-5" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
+<span id="cb32-6"><a href="prob-dist.html#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 0 by znamenalo všechny kulicky nalevo, 12 všechny kulicky napravo,</span></span>
+<span id="cb32-7"><a href="prob-dist.html#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="co"># celkem 13 možností, jak mohou kulicky skončit</span></span>
+<span id="cb32-8"><a href="prob-dist.html#cb32-8" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="dv">12</span></span>
+<span id="cb32-9"><a href="prob-dist.html#cb32-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-10"><a href="prob-dist.html#cb32-10" aria-hidden="true" tabindex="-1"></a>vysledek <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n =</span> n, <span class="at">size =</span> s, <span class="at">prob =</span> p)</span>
+<span id="cb32-11"><a href="prob-dist.html#cb32-11" aria-hidden="true" tabindex="-1"></a>cetnost <span class="ot">&lt;-</span> <span class="fu">table</span>(vysledek)</span>
+<span id="cb32-12"><a href="prob-dist.html#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cetnost,</span>
+<span id="cb32-13"><a href="prob-dist.html#cb32-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>,</span>
+<span id="cb32-14"><a href="prob-dist.html#cb32-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">&quot;Četnost&quot;</span>,</span>
+<span id="cb32-15"><a href="prob-dist.html#cb32-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="fu">paste0</span>(<span class="st">&quot;Galtonův box s &quot;</span>, n, <span class="st">&quot; kuličkami&quot;</span>),</span>
+<span id="cb32-16"><a href="prob-dist.html#cb32-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>,</span>
+<span id="cb32-17"><a href="prob-dist.html#cb32-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;h&quot;</span>, <span class="at">lwd =</span> <span class="dv">15</span>,</span>
+<span id="cb32-18"><a href="prob-dist.html#cb32-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">12</span>)</span>
+<span id="cb32-19"><a href="prob-dist.html#cb32-19" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb32-20"><a href="prob-dist.html#cb32-20" aria-hidden="true" tabindex="-1"></a><span class="co"># vzdy ukazat vsechny moznosti i kdyz tam nejsou zadne micky</span></span>
+<span id="cb32-21"><a href="prob-dist.html#cb32-21" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">13</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">13</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-26"></span>
+<img src="book_files/figure-html/unnamed-chunk-26-1.png" alt="Simulace Galtonova boxu s 13 sloupci" width="672" />
+<p class="caption">
+Graf 3.1: Simulace Galtonova boxu s 13 sloupci
+</p>
+</div>
+<p><strong>Očekávanou hodnotu</strong> proměnné pocházející z binomické proměnné můžeme vypočítat jako <span class="math display">\[E(x_i) = np\]</span> <strong>rozptyl</strong> jako <span class="math display">\[Var(x_i) = npq\]</span> a <strong>směrodatbou odchylku</strong> jako <span class="math display">\[Sd(x_i) = \sqrt{Var(X_i)}\]</span>V našem případě, kdy máme 10^{4} kuliček je tedy očekávaná hodnota 5000 a směrodatná odchylka 2500.</p>
+<p>A ještě ukázka, že počet kuliček v každém sloupci je zhruba stejný, pokud bychom je pustili znova, řekněme 11x.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="prob-dist.html#cb33-1" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">11</span></span>
+<span id="cb33-2"><a href="prob-dist.html#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>N) {</span>
+<span id="cb33-3"><a href="prob-dist.html#cb33-3" aria-hidden="true" tabindex="-1"></a>  vysledek <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n =</span> n, <span class="at">size =</span> s, <span class="at">prob =</span> p)</span>
+<span id="cb33-4"><a href="prob-dist.html#cb33-4" aria-hidden="true" tabindex="-1"></a>  micek <span class="ot">&lt;-</span> vysledek[<span class="dv">1</span>]</span>
+<span id="cb33-5"><a href="prob-dist.html#cb33-5" aria-hidden="true" tabindex="-1"></a>  cetnosti <span class="ot">&lt;-</span> <span class="fu">table</span>(vysledek)</span>
+<span id="cb33-6"><a href="prob-dist.html#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># pouzijeme funkci plot, abychom mohli pridat micek</span></span>
+<span id="cb33-7"><a href="prob-dist.html#cb33-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(cetnosti,</span>
+<span id="cb33-8"><a href="prob-dist.html#cb33-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>,</span>
+<span id="cb33-9"><a href="prob-dist.html#cb33-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">&quot;Četnost&quot;</span>,</span>
+<span id="cb33-10"><a href="prob-dist.html#cb33-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="fu">paste0</span>(<span class="st">&quot;Galtonův box s &quot;</span>, n, <span class="st">&quot; kuličkami; pokus #&quot;</span>, i),</span>
+<span id="cb33-11"><a href="prob-dist.html#cb33-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>,</span>
+<span id="cb33-12"><a href="prob-dist.html#cb33-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">lwd =</span> <span class="dv">15</span>,</span>
+<span id="cb33-13"><a href="prob-dist.html#cb33-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">2500</span>),</span>
+<span id="cb33-14"><a href="prob-dist.html#cb33-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">12</span>)</span>
+<span id="cb33-15"><a href="prob-dist.html#cb33-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb33-16"><a href="prob-dist.html#cb33-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># vzdy ukazat vsechny moznosti i kdyz tam nejsou zadne micky</span></span>
+<span id="cb33-17"><a href="prob-dist.html#cb33-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">axis</span>(<span class="dv">1</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">13</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">13</span>)</span>
+<span id="cb33-18"><a href="prob-dist.html#cb33-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(<span class="at">x =</span> micek, <span class="at">y =</span> <span class="dv">2</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb33-19"><a href="prob-dist.html#cb33-19" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-27"></span>
+<img src="book_files/figure-html/unnamed-chunk-27-.gif" alt="Opakované spuštění kuliček v Galtonově boxu" width="672" />
+<p class="caption">
+Graf 3.2: Opakované spuštění kuliček v Galtonově boxu
+</p>
+</div>
+<p>Jak jsme zmínili v <a href="prob-dist.html#stats-lang">3.1</a> frekvenci hodnot diskrétní náhodné proměnné můžeme popsat matematicky pomocí hustoty pravděpodobnosti (PMF). U binomického rozložení můžeme PMF vypočítat jako <span class="math display">\[PMF(x_i) = \binom{n}{k}p^kq^{n-k}\]</span> kde <span class="math inline">\(k\)</span> je počet úspěšných pokusů a <span class="math inline">\(q=1-p\)</span>. V praxi můžeme využít funkce <code>dbinom</code>, která PMF vypočítá. Tato funkce argument <code>x</code> kam dosadíme hodnoty proměnné <span class="math inline">\(x_i\)</span>, pro které chceme PMF vypočítat. Argumenty <code>size</code> a <code>prob</code> jsou stejné jako u <code>rbinom</code>. Protože PMF je vypočítáno deterministicky (není tam žádná náhoda jako u generování náhodných čísel nahoře, čísla pouze dosadíme do vzorce), bude jeho výpočet stejný pokaždé, když zadáme stejné argumenty funkce.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="prob-dist.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># muze padnou minimalne 0 (uplne nalevo) a maximalne 12 (uplne napravo)</span></span>
+<span id="cb34-2"><a href="prob-dist.html#cb34-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">12</span></span>
+<span id="cb34-3"><a href="prob-dist.html#cb34-3" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="dv">12</span></span>
+<span id="cb34-4"><a href="prob-dist.html#cb34-4" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
+<span id="cb34-5"><a href="prob-dist.html#cb34-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-6"><a href="prob-dist.html#cb34-6" aria-hidden="true" tabindex="-1"></a>pmf <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(<span class="at">x =</span> x, <span class="at">size =</span> s, <span class="at">prob =</span> p)</span>
+<span id="cb34-7"><a href="prob-dist.html#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, pmf,</span>
+<span id="cb34-8"><a href="prob-dist.html#cb34-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>,</span>
+<span id="cb34-9"><a href="prob-dist.html#cb34-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">&quot;PMF&quot;</span>,</span>
+<span id="cb34-10"><a href="prob-dist.html#cb34-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;h&quot;</span>, <span class="co"># jedna se o diskretni promennou</span></span>
+<span id="cb34-11"><a href="prob-dist.html#cb34-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">lwd =</span> <span class="dv">15</span>,</span>
+<span id="cb34-12"><a href="prob-dist.html#cb34-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="fu">paste0</span>(<span class="st">&quot;Galtonův box&quot;</span>),</span>
+<span id="cb34-13"><a href="prob-dist.html#cb34-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span></span>
+<span id="cb34-14"><a href="prob-dist.html#cb34-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb34-15"><a href="prob-dist.html#cb34-15" aria-hidden="true" tabindex="-1"></a><span class="co"># vzdy ukazat vsechny moznosti i kdyz tam nejsou zadne micky</span></span>
+<span id="cb34-16"><a href="prob-dist.html#cb34-16" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">13</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">13</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-28"></span>
+<img src="book_files/figure-html/unnamed-chunk-28-1.png" alt="PMF pro Galtonův box s 13 sloupci" width="672" />
+<p class="caption">
+Graf 3.3: PMF pro Galtonův box s 13 sloupci
+</p>
+</div>
+<p>Protože hodnoty <span class="math inline">\(x_i\)</span> mohou nabývat pouze celých čísel, je PMF vyjádřením pravděpodobnosti toho, že náhodná proměnná <span class="math inline">\(x_i\)</span> nabyde nějaké hodnoty. Nejpravděpodobněji skončí míček ve sloupci 6 s pravděpodobností 7, nebo matematickým zápisem <span class="math inline">\(P(x_i=\)</span> 6 <span class="math inline">\()=\)</span> 0.2255859. Pravěpodobnost, že míček skončí v 4 sloupci zleva je <span class="math inline">\(P(x_i = 2)\)</span>=0.0537109. To, že dokážeme predikovat, kolik kuliček skončí v jakém sloupci, ještě neznamená, že víme, kde skončí jeden konkrétní míček. V animaci nahoře si všimněte červené tečky. Ta reprezentuje první míček, který jsme vhodili. Jak je vidět míček cestuje mezi sloupci. To s jakou pravděpobností skončí v daném sloupci nám říká právě PMF.</p>
+<p>Stejně tak můžeme spočítat pravděpodobnost, že skončí v 7 sloupci a více napravo, tedy <span class="math inline">\(P(x \ge 7)\)</span>=0.387207. Tomuto typu úlohy, kdy nás zajímá, zda náhodná proměnná <span class="math inline">\(x_i\)</span> bude mít hodnotu menší/větší než nějaká hodnota <span class="math inline">\(q\)</span>, říkáme <strong>kumulativní pravděpodobnosti</strong> (anglicky cumulative distribution function CDF). Matematicky bychom tento typ úlohy označili jako <span class="math inline">\(P(x_i &lt; q)\)</span> pokud by nás zajímala pravděpodobnost, že náhodné proměnné <span class="math inline">\(x_i\)</span> bude menší než nějaká hodnota <span class="math inline">\(q\)</span> a <span class="math inline">\(P(x_i &gt; q)\)</span>, pokud by nás zajímala pravděpodobnost, že hodnota náhodné proměnné <span class="math inline">\(x_i\)</span> bude větší než nějaká hodnota <span class="math inline">\(q\)</span>. <code>R</code> můžeme na výpočet CDF u binomického rozložení použít funkci <code>pbinom</code>. Jako argumenty očekává tato funkce <code>q</code> hodnota náhodné proměnné vůči které porovnáváme, <code>size</code> a <code>prob</code> mají stejný význam jako u funkcí nahoře a argument <code>lower.tail</code> vyjadřující, zda chceme zjistit pravděpodobnost, že <span class="math inline">\(x_i\)</span> bude menší nebo větší a rovno než <span class="math inline">\(q\)</span>. Pokud má argument <code>lower.tail</code> hodnotu <code>TRUE</code>, pak počítáme <span class="math inline">\(P(x_i \le q)\)</span>, pokud má hodnotu <code>FALSE</code>, pak počítáme <span class="math inline">\(P(x_i &gt; q)\)</span>. Pojďme si ukázat různé výpočty a jejich zobrazení na grafu. Začneme <span class="math inline">\(P(x &gt; 7)\)</span>.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="prob-dist.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># P(x &gt; 7)</span></span>
+<span id="cb35-2"><a href="prob-dist.html#cb35-2" aria-hidden="true" tabindex="-1"></a>p_x7 <span class="ot">&lt;-</span> <span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">7</span>, <span class="at">size =</span> s, <span class="at">prob =</span> p, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb35-3"><a href="prob-dist.html#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, pmf,</span>
+<span id="cb35-4"><a href="prob-dist.html#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>,</span>
+<span id="cb35-5"><a href="prob-dist.html#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">&quot;PMF&quot;</span>,</span>
+<span id="cb35-6"><a href="prob-dist.html#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;h&quot;</span>, <span class="co"># jedna se o diskretni promennou</span></span>
+<span id="cb35-7"><a href="prob-dist.html#cb35-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">lwd =</span> <span class="dv">15</span>,</span>
+<span id="cb35-8"><a href="prob-dist.html#cb35-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="fu">paste0</span>(<span class="st">&quot;P(x &gt; 7)=&quot;</span>, <span class="fu">round</span>(p_x7, <span class="dv">2</span>)),</span>
+<span id="cb35-9"><a href="prob-dist.html#cb35-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">&quot;grey&quot;</span></span>
+<span id="cb35-10"><a href="prob-dist.html#cb35-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb35-11"><a href="prob-dist.html#cb35-11" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">13</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">13</span>)</span>
+<span id="cb35-12"><a href="prob-dist.html#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="co"># zobrazime graficky P(x &gt; 7)</span></span>
+<span id="cb35-13"><a href="prob-dist.html#cb35-13" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x[x <span class="sc">&gt;</span> <span class="dv">7</span>], pmf[x <span class="sc">&gt;</span> <span class="dv">7</span>],</span>
+<span id="cb35-14"><a href="prob-dist.html#cb35-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;h&quot;</span>, <span class="co"># jedna se o diskretni promennou,</span></span>
+<span id="cb35-15"><a href="prob-dist.html#cb35-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">lwd =</span> <span class="dv">15</span>,</span>
+<span id="cb35-16"><a href="prob-dist.html#cb35-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span></span>
+<span id="cb35-17"><a href="prob-dist.html#cb35-17" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-29"></span>
+<img src="book_files/figure-html/unnamed-chunk-29-1.png" alt="Ukázka výpočtu P(x &gt; 7) pomocí PMF" width="672" />
+<p class="caption">
+Graf 3.4: Ukázka výpočtu P(x &gt; 7) pomocí PMF
+</p>
+</div>
+<p>Dále si ukažme jak vypočítat <span class="math inline">\(P(x \le 5)\)</span>.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="prob-dist.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># P(x &lt;= 5)</span></span>
+<span id="cb36-2"><a href="prob-dist.html#cb36-2" aria-hidden="true" tabindex="-1"></a>p_x5 <span class="ot">&lt;-</span> <span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">5</span>, <span class="at">size =</span> s, <span class="at">prob =</span> p, <span class="at">lower.tail =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb36-3"><a href="prob-dist.html#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, pmf,</span>
+<span id="cb36-4"><a href="prob-dist.html#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>,</span>
+<span id="cb36-5"><a href="prob-dist.html#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">&quot;PMF&quot;</span>,</span>
+<span id="cb36-6"><a href="prob-dist.html#cb36-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;h&quot;</span>, <span class="co"># jedna se o diskretni promennou</span></span>
+<span id="cb36-7"><a href="prob-dist.html#cb36-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">lwd =</span> <span class="dv">15</span>,</span>
+<span id="cb36-8"><a href="prob-dist.html#cb36-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="fu">paste0</span>(<span class="st">&quot;P(x &lt;= 5)=&quot;</span>, <span class="fu">round</span>(p_x5, <span class="dv">2</span>)),</span>
+<span id="cb36-9"><a href="prob-dist.html#cb36-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">&quot;grey&quot;</span></span>
+<span id="cb36-10"><a href="prob-dist.html#cb36-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb36-11"><a href="prob-dist.html#cb36-11" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">13</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">13</span>)</span>
+<span id="cb36-12"><a href="prob-dist.html#cb36-12" aria-hidden="true" tabindex="-1"></a><span class="co"># zobrazime graficky P(x &gt; 7)</span></span>
+<span id="cb36-13"><a href="prob-dist.html#cb36-13" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x[x <span class="sc">&lt;=</span> <span class="dv">5</span>], pmf[x <span class="sc">&lt;=</span> <span class="dv">5</span>],</span>
+<span id="cb36-14"><a href="prob-dist.html#cb36-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;h&quot;</span>, <span class="co"># jedna se o diskretni promennou,</span></span>
+<span id="cb36-15"><a href="prob-dist.html#cb36-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">lwd =</span> <span class="dv">15</span>,</span>
+<span id="cb36-16"><a href="prob-dist.html#cb36-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span></span>
+<span id="cb36-17"><a href="prob-dist.html#cb36-17" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-30"></span>
+<img src="book_files/figure-html/unnamed-chunk-30-1.png" alt="Ukázka výpočtu P(x &lt;= 5) pomocí PMF" width="672" />
+<p class="caption">
+Graf 3.5: Ukázka výpočtu P(x &lt;= 5) pomocí PMF
+</p>
+</div>
+<p>A nakonec <span class="math inline">\(P(x_i \ge 6)\)</span>.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="prob-dist.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># P(x &gt;= 6)</span></span>
+<span id="cb37-2"><a href="prob-dist.html#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="co"># pouzijeme FALSE na vypocet upper tail a za 1 dosadime 5, protoze...</span></span>
+<span id="cb37-3"><a href="prob-dist.html#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ...lower.tail = FALSE pocita P(x_i &gt; q)</span></span>
+<span id="cb37-4"><a href="prob-dist.html#cb37-4" aria-hidden="true" tabindex="-1"></a>p_x6 <span class="ot">&lt;-</span> <span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">5</span>, <span class="at">size =</span> s, <span class="at">prob =</span> p, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb37-5"><a href="prob-dist.html#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, pmf,</span>
+<span id="cb37-6"><a href="prob-dist.html#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>,</span>
+<span id="cb37-7"><a href="prob-dist.html#cb37-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">&quot;PMF&quot;</span>,</span>
+<span id="cb37-8"><a href="prob-dist.html#cb37-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;h&quot;</span>, <span class="co"># jedna se o diskretni promennou</span></span>
+<span id="cb37-9"><a href="prob-dist.html#cb37-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">lwd =</span> <span class="dv">15</span>,</span>
+<span id="cb37-10"><a href="prob-dist.html#cb37-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="fu">paste0</span>(<span class="st">&quot;P(x &gt;= 6)=&quot;</span>, <span class="fu">round</span>(p_x6, <span class="dv">2</span>)),</span>
+<span id="cb37-11"><a href="prob-dist.html#cb37-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">&quot;grey&quot;</span></span>
+<span id="cb37-12"><a href="prob-dist.html#cb37-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb37-13"><a href="prob-dist.html#cb37-13" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">13</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">13</span>)</span>
+<span id="cb37-14"><a href="prob-dist.html#cb37-14" aria-hidden="true" tabindex="-1"></a><span class="co"># zobrazime graficky P(x &gt; 7)</span></span>
+<span id="cb37-15"><a href="prob-dist.html#cb37-15" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x[x <span class="sc">&gt;=</span> <span class="dv">6</span>], pmf[x <span class="sc">&gt;=</span> <span class="dv">6</span>],</span>
+<span id="cb37-16"><a href="prob-dist.html#cb37-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;h&quot;</span>, <span class="co"># jedna se o diskretni promennou,</span></span>
+<span id="cb37-17"><a href="prob-dist.html#cb37-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">lwd =</span> <span class="dv">15</span>,</span>
+<span id="cb37-18"><a href="prob-dist.html#cb37-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span></span>
+<span id="cb37-19"><a href="prob-dist.html#cb37-19" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-31"></span>
+<img src="book_files/figure-html/unnamed-chunk-31-1.png" alt="Ukázka výpočtu P(x &gt;= 6) pomocí PMF" width="672" />
+<p class="caption">
+Graf 3.6: Ukázka výpočtu P(x &gt;= 6) pomocí PMF
+</p>
+</div>
+</div>
+<div id="norm-dist" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Normální</h2>
+<p>Normální rozložení popisuje náhodný proces <strong>spojitých</strong> proměnných. Za určitých podmínek (velký výběr a <span class="math inline">\(p\)</span> neblížící se 0 nebo 1) se binomické rozdělení bude podobat normálnímu. Normální rozložení popisuje proces, kterým jsou generované náhodné spojité proměnné, které nejsou ohraničené zleva ani zprava. Jednotlivá pozorování jsou potom opět na sobě nezávislá. Protože mnoho fyzikálních jevů je spojitých<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. a nejsou ohraničeny<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>, normální rozložení se často vyskuteje v přírodě. Normální rozložení má dva parametry, které určují jeho tvar, průměr <span class="math inline">\(\mu\)</span> a směrodatnou odchylku <span class="math inline">\(\sigma\)</span>. Náhodná proměnná <span class="math inline">\(x_i\)</span> pocházející z normálního rozložení se zapíše jako <span class="math display">\[x_i \sim N(\mu, \sigma)\]</span>Parameter <span class="math inline">\(\mu\)</span> ovlivňuje polohu rozložení a parameter <span class="math inline">\(\sigma\)</span> jeho roztaženost nalevo a napravo od <span class="math inline">\(\mu\)</span>. Protože náhodná proměnná <span class="math inline">\(x_i\)</span> je spojitá, nabývá reálných čísel, může mít nekonečně mnoho hodnot. To představuje problém, pokud chceme vypočítat hustotu pravděpodobnosti (PDF). Aby byly zachovány vlastnosti pravděpodobnosti (<span class="math inline">\(p \in [0, 1]\)</span>), je integrál PDF rovný jedné To ale znamená, že hodnota PDF už nevyjadřuje pravděpodobnost nějakého jevu. V angličtině se proto používá pojem density (odtud probability density function PDF). Vzorec pro PDF je <span class="math display">\[PDF(x_i) = \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{1}{2} (\frac{x - \mu}{\sigma})^2}\]</span> v <code>R</code> můžeme pro výpočet PDF normálného rozložení použít funkci <code>dnorm</code>, které má argumenty <code>x</code> hodnoty náhodné proměnné <span class="math inline">\(x_i\)</span>, pro které chceme PDF vypočítat, <code>mean</code> průměr a <code>sd</code> standardní odchylku. Pojďme si ukázat, jak by vypadala PDF pro tyto náhodné proměnné: <span class="math display">\[x_i \sim N(0, 1)\]</span> <span class="math display">\[y_i \sim N(3, 2)\]</span> <span class="math display">\[z_i \sim N(-2, 3)\]</span></p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="prob-dist.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># definujeme si parametry</span></span>
+<span id="cb38-2"><a href="prob-dist.html#cb38-2" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="sc">-</span><span class="dv">2</span>)</span>
+<span id="cb38-3"><a href="prob-dist.html#cb38-3" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb38-4"><a href="prob-dist.html#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="co"># definuje hodnoty nahodne promenne, pro kterou budeme chtit vypocitat pdf</span></span>
+<span id="cb38-5"><a href="prob-dist.html#cb38-5" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">12</span>, <span class="dv">12</span>, <span class="at">length.out =</span> <span class="dv">1000</span>)</span>
+<span id="cb38-6"><a href="prob-dist.html#cb38-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-7"><a href="prob-dist.html#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="co"># vypocitame pdf</span></span>
+<span id="cb38-8"><a href="prob-dist.html#cb38-8" aria-hidden="true" tabindex="-1"></a>pdf_x <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(<span class="at">x =</span> x, <span class="at">mean =</span> mu[<span class="dv">1</span>], <span class="at">sd =</span> s[<span class="dv">1</span>])</span>
+<span id="cb38-9"><a href="prob-dist.html#cb38-9" aria-hidden="true" tabindex="-1"></a>pdf_y <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(<span class="at">x =</span> x, <span class="at">mean =</span> mu[<span class="dv">2</span>], <span class="at">sd =</span> s[<span class="dv">2</span>])</span>
+<span id="cb38-10"><a href="prob-dist.html#cb38-10" aria-hidden="true" tabindex="-1"></a>pdf_z <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(<span class="at">x =</span> x, <span class="at">mean =</span> mu[<span class="dv">3</span>], <span class="at">sd =</span> s[<span class="dv">3</span>])</span>
+<span id="cb38-11"><a href="prob-dist.html#cb38-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-12"><a href="prob-dist.html#cb38-12" aria-hidden="true" tabindex="-1"></a><span class="co"># zobrazime</span></span>
+<span id="cb38-13"><a href="prob-dist.html#cb38-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, pdf_x,</span>
+<span id="cb38-14"><a href="prob-dist.html#cb38-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>,</span>
+<span id="cb38-15"><a href="prob-dist.html#cb38-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>,</span>
+<span id="cb38-16"><a href="prob-dist.html#cb38-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;PDF&quot;</span>,</span>
+<span id="cb38-17"><a href="prob-dist.html#cb38-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">12</span>, <span class="dv">12</span>)</span>
+<span id="cb38-18"><a href="prob-dist.html#cb38-18" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb38-19"><a href="prob-dist.html#cb38-19" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x, pdf_y, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb38-20"><a href="prob-dist.html#cb38-20" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x, pdf_z, <span class="at">col =</span> <span class="st">&quot;orange&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb38-21"><a href="prob-dist.html#cb38-21" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>,</span>
+<span id="cb38-22"><a href="prob-dist.html#cb38-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;x ~ N(0, 1)&quot;</span>, <span class="st">&quot;y ~ N(3, 2)&quot;</span>, <span class="st">&quot;z ~ N(-2, 3)&quot;</span>),</span>
+<span id="cb38-23"><a href="prob-dist.html#cb38-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">lwd =</span> <span class="fu">rep</span>(<span class="dv">2</span>, <span class="dv">3</span>),</span>
+<span id="cb38-24"><a href="prob-dist.html#cb38-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;#1f77b4&quot;</span>, <span class="st">&quot;black&quot;</span>, <span class="st">&quot;orange&quot;</span>),</span>
+<span id="cb38-25"><a href="prob-dist.html#cb38-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">cex =</span> <span class="fl">0.7</span></span>
+<span id="cb38-26"><a href="prob-dist.html#cb38-26" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-32"></span>
+<img src="book_files/figure-html/unnamed-chunk-32-1.png" alt="Ukázka vlivu průměru a směrodatné odchylky na tvar normálního rozložení" width="672" />
+<p class="caption">
+Graf 3.7: Ukázka vlivu průměru a směrodatné odchylky na tvar normálního rozložení
+</p>
+</div>
+<p>Normální rozložení je symetrické. To znamená, že se nachází stejně hodnot nalevo a napravo od průměru. Podle hodnoty směrodatné odchylky dokážeme určit kolik případů bychom a jak daleko bychom očekávali, že budou ležet od průměru. Následující obrázek ukazuje, že zhruba 68% hodnot náhodné proměnné bude ležet +/- jednu směrodatnou odchylku od průměru a zhruba 95% hodnot bude ležet +/- dvě směrodatnou odchylku od průměru a 99% hodnot +/- tři směrodatné odchylky od průměru.</p>
+<div class="figure"><span style="display:block;" id="fig:z-norm"></span>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Standard_deviation_diagram.svg/700px-Standard_deviation_diagram.svg.png" alt="" />
+<p class="caption">Graf 3.8:  M. W. Toews, CC BY 2.5 <a href="https://creativecommons.org/licenses/by/2.5" class="uri">https://creativecommons.org/licenses/by/2.5</a>, via Wikimedia Commons</p>
+</div>
+<p><strong>Očekávanou hodnotou</strong> normálního rozložení je průměr, tedy <span class="math inline">\(E(x_i)=\mu\)</span> a <strong>rozptylem</strong> je <span class="math inline">\(var(x_i) = \sigma^2\)</span>, tedy směrodatnou odchylkou je <span class="math inline">\(\sigma = \sqrt{\sigma^2}\)</span>.</p>
+<p>Pojďme se nyní podívat, co se stane s funkcí normálního rozložení, pokud k náhodné proměnné <span class="math inline">\(x_i\)</span> <strong>přičteme skalár</strong>. Podíváme se na následující proměnnou <span class="math inline">\(h_i \sim N(178, 8)\)</span>, tedy proměnnou, která pochází z normálního rozložení s průměrem 178 a směrodatnou odchylkou 8. K této náhodné proměnné přičteme 20, tedy <span class="math inline">\(h&#39;_i = h_i + 20\)</span> a spočítáme průměr a směrodatnou odchylku. Ke generování náhodných čísel z normálního rozložení použijeme funkci <code>rnorm</code>, který má argumenty <code>n</code> počet pozorování, které chceme generovat, <code>mean</code> průměr rozložení, z kterého chceme generovat a <code>sd</code> směrodatnou odchylku rozložení, z kterého chceme generovat.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="prob-dist.html#cb39-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fl">1e5</span></span>
+<span id="cb39-2"><a href="prob-dist.html#cb39-2" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">178</span>, <span class="at">sd =</span> <span class="dv">8</span>)</span>
+<span id="cb39-3"><a href="prob-dist.html#cb39-3" aria-hidden="true" tabindex="-1"></a>h. <span class="ot">&lt;-</span> h <span class="sc">+</span> <span class="dv">20</span></span>
+<span id="cb39-4"><a href="prob-dist.html#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>))</span>
+<span id="cb39-5"><a href="prob-dist.html#cb39-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-6"><a href="prob-dist.html#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(h,</span>
+<span id="cb39-7"><a href="prob-dist.html#cb39-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>,</span>
+<span id="cb39-8"><a href="prob-dist.html#cb39-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Četnost&quot;</span>,</span>
+<span id="cb39-9"><a href="prob-dist.html#cb39-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">130</span>, <span class="dv">240</span>),</span>
+<span id="cb39-10"><a href="prob-dist.html#cb39-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="fu">paste0</span>(</span>
+<span id="cb39-11"><a href="prob-dist.html#cb39-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;h~N(&quot;</span>, <span class="fu">round</span>(<span class="fu">mean</span>(h), <span class="dv">0</span>),</span>
+<span id="cb39-12"><a href="prob-dist.html#cb39-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;, &quot;</span>, <span class="fu">round</span>(<span class="fu">sd</span>(h), <span class="dv">0</span>), <span class="st">&quot;)&quot;</span></span>
+<span id="cb39-13"><a href="prob-dist.html#cb39-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb39-14"><a href="prob-dist.html#cb39-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb39-15"><a href="prob-dist.html#cb39-15" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(h.,</span>
+<span id="cb39-16"><a href="prob-dist.html#cb39-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>,</span>
+<span id="cb39-17"><a href="prob-dist.html#cb39-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Četnost&quot;</span>,</span>
+<span id="cb39-18"><a href="prob-dist.html#cb39-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">130</span>, <span class="dv">240</span>),</span>
+<span id="cb39-19"><a href="prob-dist.html#cb39-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="fu">paste0</span>(</span>
+<span id="cb39-20"><a href="prob-dist.html#cb39-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;h&#39;~N(&quot;</span>, <span class="fu">round</span>(<span class="fu">mean</span>(h.), <span class="dv">0</span>),</span>
+<span id="cb39-21"><a href="prob-dist.html#cb39-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;, &quot;</span>, <span class="fu">round</span>(<span class="fu">sd</span>(h.), <span class="dv">0</span>), <span class="st">&quot;)&quot;</span></span>
+<span id="cb39-22"><a href="prob-dist.html#cb39-22" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb39-23"><a href="prob-dist.html#cb39-23" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-33"></span>
+<img src="book_files/figure-html/unnamed-chunk-33-1.png" alt="Efekt přičtení skalaru na rozložení proměnné" width="672" />
+<p class="caption">
+Graf 3.9: Efekt přičtení skalaru na rozložení proměnné
+</p>
+</div>
+<p>Jak je vidět přičtení (nebo odečtění) má vliv pouze na průměr a tedy polohu rozložení. V případě přičtení čísla <span class="math inline">\(a\)</span> se celé rozložení posune doprava o <span class="math inline">\(a\)</span>, v případě odečtení se potom posune celé rozložení doleva. Přičtení/odečtení nemá vliv na směrodatnou odchylku, tedy na šířku rozložení od průměru. Tento fakt můžeme zapsat jako <span class="math display">\[h&#39;_i \sim N(\mu_h \pm a, \sigma_h)\]</span></p>
+<p>V dalších několika řádcích si představíme některé základní početní operace s náhodnými proměnnými pocházejícími z normálního rozložení. Začneme tím, co se stane s rozložením stejné náhodné proměnné <span class="math inline">\(h_i \sim N(178, 8)\)</span> pokud ji <strong>vynásobíme skalarem</strong>. Náhodnou proměnnou <span class="math inline">\(h_i\)</span> vynásobíme číslem 0.66, tedy <span class="math inline">\(h&#39;_i = h_i * 0.66\)</span> a spočítáme průměr a směrodatnou odchylku. Jak je vidět vynásobení (nebo jako v našem případě dělení) má vliv na průměr i směrodatnou odchylku. Oba parametry normálního rozložení se změní o faktor <span class="math inline">\(a\)</span> , kterým původní náhodnou proměnnou násobíme, tedy v našem případě se zmenší o třetinu. Tento fakt můžeme zapsat jako <span class="math display">\[h&#39;_i \sim N(\mu_h * a, \sigma_h * a)\]</span></p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="prob-dist.html#cb40-1" aria-hidden="true" tabindex="-1"></a>h. <span class="ot">&lt;-</span> h <span class="sc">*</span> <span class="dv">2</span> <span class="sc">/</span> <span class="dv">3</span></span>
+<span id="cb40-2"><a href="prob-dist.html#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>))</span>
+<span id="cb40-3"><a href="prob-dist.html#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-4"><a href="prob-dist.html#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(h,</span>
+<span id="cb40-5"><a href="prob-dist.html#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>,</span>
+<span id="cb40-6"><a href="prob-dist.html#cb40-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Četnost&quot;</span>,</span>
+<span id="cb40-7"><a href="prob-dist.html#cb40-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">230</span>),</span>
+<span id="cb40-8"><a href="prob-dist.html#cb40-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="fu">paste0</span>(</span>
+<span id="cb40-9"><a href="prob-dist.html#cb40-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;h~N(&quot;</span>, <span class="fu">round</span>(<span class="fu">mean</span>(h), <span class="dv">0</span>),</span>
+<span id="cb40-10"><a href="prob-dist.html#cb40-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;, &quot;</span>, <span class="fu">round</span>(<span class="fu">sd</span>(h), <span class="dv">0</span>), <span class="st">&quot;)&quot;</span></span>
+<span id="cb40-11"><a href="prob-dist.html#cb40-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb40-12"><a href="prob-dist.html#cb40-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb40-13"><a href="prob-dist.html#cb40-13" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(h.,</span>
+<span id="cb40-14"><a href="prob-dist.html#cb40-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>,</span>
+<span id="cb40-15"><a href="prob-dist.html#cb40-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Četnost&quot;</span>,</span>
+<span id="cb40-16"><a href="prob-dist.html#cb40-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">230</span>),</span>
+<span id="cb40-17"><a href="prob-dist.html#cb40-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="fu">paste0</span>(</span>
+<span id="cb40-18"><a href="prob-dist.html#cb40-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;h&#39;~N(&quot;</span>, <span class="fu">round</span>(<span class="fu">mean</span>(h.), <span class="dv">0</span>),</span>
+<span id="cb40-19"><a href="prob-dist.html#cb40-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;, &quot;</span>, <span class="fu">round</span>(<span class="fu">sd</span>(h.), <span class="dv">0</span>), <span class="st">&quot;)&quot;</span></span>
+<span id="cb40-20"><a href="prob-dist.html#cb40-20" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb40-21"><a href="prob-dist.html#cb40-21" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-34"></span>
+<img src="book_files/figure-html/unnamed-chunk-34-1.png" alt="Efekt vynásobení skalarem na rozložení proměnné" width="672" />
+<p class="caption">
+Graf 3.10: Efekt vynásobení skalarem na rozložení proměnné
+</p>
+</div>
+<p>Dále se podíváme, co se stane s průměrem a směrodatnou odchylkou, pokud k sobě <strong>přičteme dvě náhodné proměnné pocházející z normálního rozložení</strong>. Budeme mít dvě náhodné proměnné, které pocházejí z normálního rozložení <span class="math inline">\(h_i \sim N(178, 8)\)</span> a <span class="math inline">\(l_i \sim N(80, 10)\)</span>. Budeme sledovat, co se stane s průměrem a směrodatnou odchylkou nové proměnné <span class="math inline">\(k_i\)</span>, která vznikne sečtením <span class="math inline">\(h_i\)</span> a <span class="math inline">\(l_i\)</span>, tedy <span class="math inline">\(k_i = h_i + l_i\)</span>. Jak vidíme na grafu dole, nová proměnná má průměr rovný <span class="math inline">\(\mu_k = \mu_h + \mu_l\)</span> a <span class="math inline">\(\sigma_k = \sqrt{\sigma_h^2 + \sigma_l^2}\)</span>, tedy <span class="math display">\[k_i \sim N(\mu_h + \mu_l, \sqrt{\sigma_h^2 + \sigma_l^2})\]</span></p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="prob-dist.html#cb41-1" aria-hidden="true" tabindex="-1"></a>l <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> n, <span class="at">mean =</span> <span class="dv">80</span>, <span class="at">sd =</span> <span class="dv">10</span>)</span>
+<span id="cb41-2"><a href="prob-dist.html#cb41-2" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> h <span class="sc">+</span> l</span>
+<span id="cb41-3"><a href="prob-dist.html#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">1</span>))</span>
+<span id="cb41-4"><a href="prob-dist.html#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-5"><a href="prob-dist.html#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(h,</span>
+<span id="cb41-6"><a href="prob-dist.html#cb41-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>,</span>
+<span id="cb41-7"><a href="prob-dist.html#cb41-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">&quot;h&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Četnost&quot;</span>,</span>
+<span id="cb41-8"><a href="prob-dist.html#cb41-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">330</span>),</span>
+<span id="cb41-9"><a href="prob-dist.html#cb41-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="fu">paste0</span>(</span>
+<span id="cb41-10"><a href="prob-dist.html#cb41-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;h~N(&quot;</span>, <span class="fu">round</span>(<span class="fu">mean</span>(h), <span class="dv">0</span>),</span>
+<span id="cb41-11"><a href="prob-dist.html#cb41-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;, &quot;</span>, <span class="fu">round</span>(<span class="fu">sd</span>(h), <span class="dv">0</span>), <span class="st">&quot;)&quot;</span></span>
+<span id="cb41-12"><a href="prob-dist.html#cb41-12" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb41-13"><a href="prob-dist.html#cb41-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb41-14"><a href="prob-dist.html#cb41-14" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(l,</span>
+<span id="cb41-15"><a href="prob-dist.html#cb41-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>,</span>
+<span id="cb41-16"><a href="prob-dist.html#cb41-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">&quot;l&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Četnost&quot;</span>,</span>
+<span id="cb41-17"><a href="prob-dist.html#cb41-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">330</span>),</span>
+<span id="cb41-18"><a href="prob-dist.html#cb41-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="fu">paste0</span>(</span>
+<span id="cb41-19"><a href="prob-dist.html#cb41-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;l~N(&quot;</span>, <span class="fu">round</span>(<span class="fu">mean</span>(l), <span class="dv">0</span>),</span>
+<span id="cb41-20"><a href="prob-dist.html#cb41-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;, &quot;</span>, <span class="fu">round</span>(<span class="fu">sd</span>(l), <span class="dv">0</span>), <span class="st">&quot;)&quot;</span></span>
+<span id="cb41-21"><a href="prob-dist.html#cb41-21" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb41-22"><a href="prob-dist.html#cb41-22" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb41-23"><a href="prob-dist.html#cb41-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-24"><a href="prob-dist.html#cb41-24" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(k,</span>
+<span id="cb41-25"><a href="prob-dist.html#cb41-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>,</span>
+<span id="cb41-26"><a href="prob-dist.html#cb41-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">&quot;k&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Četnost&quot;</span>,</span>
+<span id="cb41-27"><a href="prob-dist.html#cb41-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">330</span>),</span>
+<span id="cb41-28"><a href="prob-dist.html#cb41-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="fu">paste0</span>(</span>
+<span id="cb41-29"><a href="prob-dist.html#cb41-29" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;k~N(&quot;</span>, <span class="fu">round</span>(<span class="fu">mean</span>(k), <span class="dv">0</span>),</span>
+<span id="cb41-30"><a href="prob-dist.html#cb41-30" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;, &quot;</span>, <span class="fu">round</span>(<span class="fu">sd</span>(k), <span class="dv">0</span>), <span class="st">&quot;)&quot;</span></span>
+<span id="cb41-31"><a href="prob-dist.html#cb41-31" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb41-32"><a href="prob-dist.html#cb41-32" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-35"></span>
+<img src="book_files/figure-html/unnamed-chunk-35-1.png" alt="Efekt přičtení dvou normálně rozložených náhodných proměnných na rozložení nové proměnné" width="672" />
+<p class="caption">
+Graf 3.11: Efekt přičtení dvou normálně rozložených náhodných proměnných na rozložení nové proměnné
+</p>
+</div>
+<p>Jako další výpočetní operaci náhodných proměnných pocházejících z normálního rozložení si ukážeme, co se stane pokud od sebe <strong>odečteme dvě náhodné proměnné pocházející z normálního rozložení</strong>. Budeme opět uvažovat náhodné proměnné <span class="math inline">\(h_i \sim N(178, 8)\)</span> a <span class="math inline">\(l_i \sim N(80, 10)\)</span> a budeme počítat <span class="math inline">\(k_i = h_i - l_i\)</span>. Jak je vidět z grafu dole, nový průměr má hodnotu <span class="math inline">\(\mu_k = \mu_h - \mu_l\)</span>, ale směrodatná odchylka je stále rovna <span class="math inline">\(\sigma_k = \sqrt{\sigma_h^2 + \sigma_l^2}\)</span>. To je důležitý poznatek o odečtu dvou normálně rozložených proměnných. Směrodatná odchylka nové proměnné tedy bude vždy součtem směrodatných odchylek původních proměnných, protože rozptyl v datech se sčítá (jinak bychom mohli dosáhnout negativní <span class="math inline">\(\sigma\)</span>, což není definováno, protože <span class="math inline">\(\sigma \in [0, \infty)\)</span>. Tento jev se dá zapsat jako <span class="math display">\[k_i \sim N(\mu_h - \mu_l, \sqrt{\sigma_h^2 + \sigma_l^2})\]</span></p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="prob-dist.html#cb42-1" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> h <span class="sc">-</span> l</span>
+<span id="cb42-2"><a href="prob-dist.html#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">1</span>))</span>
+<span id="cb42-3"><a href="prob-dist.html#cb42-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-4"><a href="prob-dist.html#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(h,</span>
+<span id="cb42-5"><a href="prob-dist.html#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>,</span>
+<span id="cb42-6"><a href="prob-dist.html#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">&quot;h&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Četnost&quot;</span>,</span>
+<span id="cb42-7"><a href="prob-dist.html#cb42-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">330</span>),</span>
+<span id="cb42-8"><a href="prob-dist.html#cb42-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="fu">paste0</span>(</span>
+<span id="cb42-9"><a href="prob-dist.html#cb42-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;h~N(&quot;</span>, <span class="fu">round</span>(<span class="fu">mean</span>(h), <span class="dv">0</span>),</span>
+<span id="cb42-10"><a href="prob-dist.html#cb42-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;, &quot;</span>, <span class="fu">round</span>(<span class="fu">sd</span>(h), <span class="dv">0</span>), <span class="st">&quot;)&quot;</span></span>
+<span id="cb42-11"><a href="prob-dist.html#cb42-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb42-12"><a href="prob-dist.html#cb42-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb42-13"><a href="prob-dist.html#cb42-13" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(l,</span>
+<span id="cb42-14"><a href="prob-dist.html#cb42-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>,</span>
+<span id="cb42-15"><a href="prob-dist.html#cb42-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">&quot;l&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Četnost&quot;</span>,</span>
+<span id="cb42-16"><a href="prob-dist.html#cb42-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">330</span>),</span>
+<span id="cb42-17"><a href="prob-dist.html#cb42-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="fu">paste0</span>(</span>
+<span id="cb42-18"><a href="prob-dist.html#cb42-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;l~N(&quot;</span>, <span class="fu">round</span>(<span class="fu">mean</span>(l), <span class="dv">0</span>),</span>
+<span id="cb42-19"><a href="prob-dist.html#cb42-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;, &quot;</span>, <span class="fu">round</span>(<span class="fu">sd</span>(l), <span class="dv">0</span>), <span class="st">&quot;)&quot;</span></span>
+<span id="cb42-20"><a href="prob-dist.html#cb42-20" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb42-21"><a href="prob-dist.html#cb42-21" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb42-22"><a href="prob-dist.html#cb42-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-23"><a href="prob-dist.html#cb42-23" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(k,</span>
+<span id="cb42-24"><a href="prob-dist.html#cb42-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>,</span>
+<span id="cb42-25"><a href="prob-dist.html#cb42-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">&quot;k&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Četnost&quot;</span>,</span>
+<span id="cb42-26"><a href="prob-dist.html#cb42-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">330</span>),</span>
+<span id="cb42-27"><a href="prob-dist.html#cb42-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="fu">paste0</span>(</span>
+<span id="cb42-28"><a href="prob-dist.html#cb42-28" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;k~N(&quot;</span>, <span class="fu">round</span>(<span class="fu">mean</span>(k), <span class="dv">0</span>),</span>
+<span id="cb42-29"><a href="prob-dist.html#cb42-29" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;, &quot;</span>, <span class="fu">round</span>(<span class="fu">sd</span>(k), <span class="dv">0</span>), <span class="st">&quot;)&quot;</span></span>
+<span id="cb42-30"><a href="prob-dist.html#cb42-30" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb42-31"><a href="prob-dist.html#cb42-31" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-36"></span>
+<img src="book_files/figure-html/unnamed-chunk-36-1.png" alt="Efekt odečtení dvou normálně rozložených náhodných proměnných na rozložení nové proměnné" width="672" />
+<p class="caption">
+Graf 3.12: Efekt odečtení dvou normálně rozložených náhodných proměnných na rozložení nové proměnné
+</p>
+</div>
+<p>Poslední výpočetní operaci, kterou si ukážeme náhodnou proměnnou <strong>standardizuje</strong> tak, že její průměr bude rovný nule a směrodatná odchylka bude rovná jedné. Tento typ transformace je možné provést s proměnnou pocházející z jakéhokoliv rozložení, ale my si ho zmiňujeme v kontextu normálního rozložení, protože zde jej budem vídat nejčastěji. Tuto transformaci lze provést následujícím způsobem: <span class="math display">\[z_i = \frac{(x_i - \mu_x)}{sd(x_i)}\]</span>přičemž tedy platí, že pokud pochází <span class="math inline">\(x_i\)</span> z normálního rozložení, tak <span class="math inline">\(z_i \sim N(0, 1)\)</span>. Pojďme si ukázat, jak by tato transofrmace vypadala pro náhodnou proměnnou <span class="math inline">\(x_i \sim N(178, 8)\)</span>. Vzhledem k vlastnostem normálního rozložení je tedy pro standardizovanou náhodnou proměnnou pocházející z normálního rozložení snadné vypočítat kvantily (viz <a href="prob-dist.html#fig:z-norm">3.8</a>):</p>
+<ul>
+<li><span class="math inline">\(Q_{0.023} = -2\)</span></li>
+<li><span class="math inline">\(Q_{0.159} = -1\)</span></li>
+<li><span class="math inline">\(Q_{0.5} = 0\)</span></li>
+<li><span class="math inline">\(Q_{0.841} = 1\)</span></li>
+<li><span class="math inline">\(Q_{0.977} = 2\)</span></li>
+</ul>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="prob-dist.html#cb43-1" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> (h <span class="sc">-</span> <span class="fu">mean</span>(h)) <span class="sc">/</span> <span class="fu">sd</span>(h)</span>
+<span id="cb43-2"><a href="prob-dist.html#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-3"><a href="prob-dist.html#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>))</span>
+<span id="cb43-4"><a href="prob-dist.html#cb43-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-5"><a href="prob-dist.html#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(h,</span>
+<span id="cb43-6"><a href="prob-dist.html#cb43-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>,</span>
+<span id="cb43-7"><a href="prob-dist.html#cb43-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">&quot;h&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Četnost&quot;</span>,</span>
+<span id="cb43-8"><a href="prob-dist.html#cb43-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># urcime intrval od - 4 sd do + 4 sd</span></span>
+<span id="cb43-9"><a href="prob-dist.html#cb43-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">178-4</span><span class="sc">*</span><span class="dv">8</span>, <span class="dv">178</span><span class="sc">+</span><span class="dv">4</span><span class="sc">*</span><span class="dv">8</span>),</span>
+<span id="cb43-10"><a href="prob-dist.html#cb43-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="fu">paste0</span>(</span>
+<span id="cb43-11"><a href="prob-dist.html#cb43-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;h~N(&quot;</span>, <span class="fu">round</span>(<span class="fu">mean</span>(h), <span class="dv">0</span>),</span>
+<span id="cb43-12"><a href="prob-dist.html#cb43-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;, &quot;</span>, <span class="fu">round</span>(<span class="fu">sd</span>(h), <span class="dv">0</span>), <span class="st">&quot;)&quot;</span></span>
+<span id="cb43-13"><a href="prob-dist.html#cb43-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb43-14"><a href="prob-dist.html#cb43-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb43-15"><a href="prob-dist.html#cb43-15" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(z,</span>
+<span id="cb43-16"><a href="prob-dist.html#cb43-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>,</span>
+<span id="cb43-17"><a href="prob-dist.html#cb43-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">&quot;l&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Četnost&quot;</span>,</span>
+<span id="cb43-18"><a href="prob-dist.html#cb43-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># urcime intrval od - 4 sd do + 4 sd</span></span>
+<span id="cb43-19"><a href="prob-dist.html#cb43-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>),</span>
+<span id="cb43-20"><a href="prob-dist.html#cb43-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="fu">paste0</span>(</span>
+<span id="cb43-21"><a href="prob-dist.html#cb43-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;z~N(&quot;</span>, <span class="fu">round</span>(<span class="fu">mean</span>(z), <span class="dv">0</span>),</span>
+<span id="cb43-22"><a href="prob-dist.html#cb43-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;, &quot;</span>, <span class="fu">round</span>(<span class="fu">sd</span>(z), <span class="dv">0</span>), <span class="st">&quot;)&quot;</span></span>
+<span id="cb43-23"><a href="prob-dist.html#cb43-23" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb43-24"><a href="prob-dist.html#cb43-24" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-37"></span>
+<img src="book_files/figure-html/unnamed-chunk-37-1.png" alt="Standardizovaná proměnná pocházející z normálního rozložení" width="672" />
+<p class="caption">
+Graf 3.13: Standardizovaná proměnná pocházející z normálního rozložení
+</p>
+</div>
+<p>Jak jsme zmínili, protože spojitá proměnná může nabývat nekonečně mnoho hodnot, nevyjadřuje PDF v nějakém konkrétním bodě pravděpodobnost tak, jako tomu je u PMF (např. u binomického rozložení). Platí ale, že integrál PDF je rovný jedné. To znamená, že můžeme použít <strong>kumulativní pravděpodobnost (CDF)</strong> k výpočtu <span class="math inline">\(P(x_i &gt; q)\)</span> nebo <span class="math inline">\(P(x_i \le q)\)</span>. Funkce na výpočet CDF se jmenuje <code>pnorm</code> a stejně jako <code>pbinom</code> má argument <code>q</code>, který vyjadřuje hodnotu náhodné proměnné vůči které porovnáváme, parametr <code>lower.tail</code>, který opět vyjadřuje pro jaký konec rozložení chceme pravděpodobnost vypočítat (<code>TRUE</code> <span class="math inline">\(P(x_i \le q)\)</span>, <code>FALSE</code> <span class="math inline">\(P(x_i &gt; q)\)</span>) a potom parametry normálního rozložení, tedy <code>mean</code> a <code>sd</code>, které udávají tvar rozložení a mají stejný význam jako ve funkci <code>rnorm</code> a <code>dnorm</code>. Vraťme se zpátky k náhodné proměnné <span class="math inline">\(h_i \sim N(178, 8)\)</span>. Ta představuje rozložení výšky mužů v dospělé populaci. Řekněme, že by nás zajímalo, jaká je pravděpodobnost, že muž pocházející z této populace bude 180cm a vyšší, tedy <span class="math inline">\(P(x_i \ge 185)\)</span>. Pro úplnost si opět tuto pravděpodobnost<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> zobrazíme v grafu.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="prob-dist.html#cb44-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">145</span>, <span class="dv">210</span>, <span class="at">length.out =</span> <span class="dv">1000</span>)</span>
+<span id="cb44-2"><a href="prob-dist.html#cb44-2" aria-hidden="true" tabindex="-1"></a>q <span class="ot">&lt;-</span> <span class="dv">185</span></span>
+<span id="cb44-3"><a href="prob-dist.html#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="co"># vypoceteme si PDF, abychom ji mohli zobrazit v grafu</span></span>
+<span id="cb44-4"><a href="prob-dist.html#cb44-4" aria-hidden="true" tabindex="-1"></a>pdf <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(<span class="at">x =</span> x, <span class="at">mean =</span> <span class="dv">178</span>, <span class="at">sd =</span> <span class="dv">8</span>)</span>
+<span id="cb44-5"><a href="prob-dist.html#cb44-5" aria-hidden="true" tabindex="-1"></a>cdf <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(<span class="at">q =</span> q, <span class="at">mean =</span> <span class="dv">178</span>, <span class="at">sd =</span> <span class="dv">8</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb44-6"><a href="prob-dist.html#cb44-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-7"><a href="prob-dist.html#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, pdf,</span>
+<span id="cb44-8"><a href="prob-dist.html#cb44-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb44-9"><a href="prob-dist.html#cb44-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">&quot;grey&quot;</span>,</span>
+<span id="cb44-10"><a href="prob-dist.html#cb44-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">&quot;h&quot;</span>,</span>
+<span id="cb44-11"><a href="prob-dist.html#cb44-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">&quot;PDF&quot;</span>,</span>
+<span id="cb44-12"><a href="prob-dist.html#cb44-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="fu">paste0</span>(<span class="st">&quot;P(x &gt;= &quot;</span>, q, <span class="st">&quot;)=&quot;</span>, <span class="fu">round</span>(cdf, <span class="dv">2</span>))</span>
+<span id="cb44-13"><a href="prob-dist.html#cb44-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb44-14"><a href="prob-dist.html#cb44-14" aria-hidden="true" tabindex="-1"></a><span class="co"># zvoline type = &quot;h&quot; abychom zobrazili integral</span></span>
+<span id="cb44-15"><a href="prob-dist.html#cb44-15" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x[x <span class="sc">&gt;=</span> q], pdf[x <span class="sc">&gt;=</span> q], <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>, <span class="at">type =</span> <span class="st">&quot;h&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-38"></span>
+<img src="book_files/figure-html/unnamed-chunk-38-1.png" alt="Ukázka výpočtu P(x &gt;= 185) pomocí PDF" width="672" />
+<p class="caption">
+Graf 3.14: Ukázka výpočtu P(x &gt;= 185) pomocí PDF
+</p>
+</div>
+<p>Pro úplnost, ještě vypočítáme příklad kdy nás zajímá pravděpodobnost, že muž pocházející z této populace bude menší než 164cm, tedy <span class="math inline">\(P(x_i &lt; 164)\)</span>.</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="prob-dist.html#cb45-1" aria-hidden="true" tabindex="-1"></a>q <span class="ot">&lt;-</span> <span class="dv">164</span></span>
+<span id="cb45-2"><a href="prob-dist.html#cb45-2" aria-hidden="true" tabindex="-1"></a>cdf <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(<span class="at">q =</span> q, <span class="at">mean =</span> <span class="dv">178</span>, <span class="at">sd =</span> <span class="dv">8</span>, <span class="at">lower.tail =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb45-3"><a href="prob-dist.html#cb45-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-4"><a href="prob-dist.html#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, pdf,</span>
+<span id="cb45-5"><a href="prob-dist.html#cb45-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb45-6"><a href="prob-dist.html#cb45-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">&quot;grey&quot;</span>,</span>
+<span id="cb45-7"><a href="prob-dist.html#cb45-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">&quot;h&quot;</span>,</span>
+<span id="cb45-8"><a href="prob-dist.html#cb45-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">&quot;PDF&quot;</span>,</span>
+<span id="cb45-9"><a href="prob-dist.html#cb45-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="fu">paste0</span>(<span class="st">&quot;P(x &lt; &quot;</span>, q, <span class="st">&quot;)=&quot;</span>, <span class="fu">round</span>(cdf, <span class="dv">2</span>))</span>
+<span id="cb45-10"><a href="prob-dist.html#cb45-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb45-11"><a href="prob-dist.html#cb45-11" aria-hidden="true" tabindex="-1"></a><span class="co"># zvoline type = &quot;h&quot; abychom zobrazili integral</span></span>
+<span id="cb45-12"><a href="prob-dist.html#cb45-12" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x[x <span class="sc">&lt;</span> q], pdf[x <span class="sc">&lt;</span> q], <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>, <span class="at">type =</span> <span class="st">&quot;h&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-39"></span>
+<img src="book_files/figure-html/unnamed-chunk-39-1.png" alt="Ukázka výpočtu P(x &lt; 164) pomocí PDF" width="672" />
+<p class="caption">
+Graf 3.15: Ukázka výpočtu P(x &lt; 164) pomocí PDF
+</p>
+</div>
+</div>
+<div id="t" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> T</h2>
+<p>Dalším z rozložení, které si představíme je tzv. t-rozložení, nebo také někdy nazývané studentovo. Toto rozložení vychází z normálního rozložení, ale má větší varibilitu. PDF normálního rozložení rapidně klesá se vzdáleností od průměru (viz <a href="prob-dist.html#fig:z-norm">3.8</a>). Pokud potřebujeme popsat jev, který má více hodnot vzdálených od průměru, než bychom čekali u normálního rozložení, je toho možné dosáhnout pomocí t-rozložení. T-rozložení je automaticky standardizované na <span class="math inline">\(\mu = 0\)</span> a má pouze jeden paramater - stupně volnosti (degrees of freedom) <span class="math inline">\(\nu\)</span>, který určuje jak pravděpodobné jsou hodnoty více vzdálené od průměru. Čím je <span class="math inline">\(\nu\)</span> menší, tím je rozložení více široké a naopak. Pokud je <span class="math inline">\(\nu\)</span> větší než 50, je t-rozdělení skoro totožné se standardizovaným normálním rozložením <span class="math inline">\(N(1, 0)\)</span>. Pojďme si nyní ukázat PDF při různých stupních volnosti <span class="math inline">\(\nu\)</span> a jejich podobnost k <span class="math inline">\(N(1, 0)\)</span>. Ukážeme si <span class="math inline">\(T(2)\)</span>, <span class="math inline">\(T(4)\)</span>, <span class="math inline">\(T(8)\)</span>, <span class="math inline">\(T(16)\)</span>, <span class="math inline">\(T(34)\)</span> a <span class="math inline">\(T(64)\)</span>. Jak je vidět z grafu <a href="prob-dist.html#fig:t-dist">3.16</a>, s rostoucím počtem stupňů volnosti se t-rozložení přibližuje <span class="math inline">\(N(1,0)\)</span>, <span class="math inline">\(T(64)\)</span> už skoro překrývá křivku PDF pro <span class="math inline">\(N(1,0)\)</span></p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="prob-dist.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># stupne volnost</span></span>
+<span id="cb46-2"><a href="prob-dist.html#cb46-2" aria-hidden="true" tabindex="-1"></a>sv <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">^</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
+<span id="cb46-3"><a href="prob-dist.html#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="co"># x pro ktere pocitame pdf</span></span>
+<span id="cb46-4"><a href="prob-dist.html#cb46-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="at">length.out =</span> <span class="dv">1000</span>)</span>
+<span id="cb46-5"><a href="prob-dist.html#cb46-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-6"><a href="prob-dist.html#cb46-6" aria-hidden="true" tabindex="-1"></a>pdf_n <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(x, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb46-7"><a href="prob-dist.html#cb46-7" aria-hidden="true" tabindex="-1"></a>pdf_t <span class="ot">&lt;-</span> <span class="fu">lapply</span>(sv, dt, <span class="at">x =</span> x)</span>
+<span id="cb46-8"><a href="prob-dist.html#cb46-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-9"><a href="prob-dist.html#cb46-9" aria-hidden="true" tabindex="-1"></a><span class="co"># vybereme barvy pouzijeme nejsvetlejsi pro vetsi sv...</span></span>
+<span id="cb46-10"><a href="prob-dist.html#cb46-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ...proto funkce rev, ktera obrati hodnoty </span></span>
+<span id="cb46-11"><a href="prob-dist.html#cb46-11" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> <span class="fu">rev</span>(RColorBrewer<span class="sc">::</span><span class="fu">brewer.pal</span>(<span class="at">n =</span> <span class="fu">length</span>(sv), <span class="at">name =</span> <span class="st">&quot;Blues&quot;</span>))</span>
+<span id="cb46-12"><a href="prob-dist.html#cb46-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-13"><a href="prob-dist.html#cb46-13" aria-hidden="true" tabindex="-1"></a><span class="co"># zobrazime pdf N(1,0)</span></span>
+<span id="cb46-14"><a href="prob-dist.html#cb46-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, pdf_n,</span>
+<span id="cb46-15"><a href="prob-dist.html#cb46-15" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;PDF&quot;</span>,</span>
+<span id="cb46-16"><a href="prob-dist.html#cb46-16" aria-hidden="true" tabindex="-1"></a>     <span class="at">type=</span> <span class="st">&quot;l&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>,</span>
+<span id="cb46-17"><a href="prob-dist.html#cb46-17" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;black&quot;</span>)</span>
+<span id="cb46-18"><a href="prob-dist.html#cb46-18" aria-hidden="true" tabindex="-1"></a><span class="co"># zobrazime pdf vsech T</span></span>
+<span id="cb46-19"><a href="prob-dist.html#cb46-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(sv)) {</span>
+<span id="cb46-20"><a href="prob-dist.html#cb46-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(x, pdf_t[[i]], <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> cols[i])</span>
+<span id="cb46-21"><a href="prob-dist.html#cb46-21" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb46-22"><a href="prob-dist.html#cb46-22" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, </span>
+<span id="cb46-23"><a href="prob-dist.html#cb46-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;N(1,0)&quot;</span>, <span class="fu">paste0</span>(<span class="st">&quot;T(&quot;</span>, sv, <span class="st">&quot;)&quot;</span>)),</span>
+<span id="cb46-24"><a href="prob-dist.html#cb46-24" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, cols),</span>
+<span id="cb46-25"><a href="prob-dist.html#cb46-25" aria-hidden="true" tabindex="-1"></a>       <span class="at">lwd =</span> <span class="fu">rep</span>(<span class="dv">2</span>, <span class="fu">length</span>(sv) <span class="sc">+</span> <span class="dv">1</span>),</span>
+<span id="cb46-26"><a href="prob-dist.html#cb46-26" aria-hidden="true" tabindex="-1"></a>       <span class="at">cex =</span> <span class="fl">0.7</span></span>
+<span id="cb46-27"><a href="prob-dist.html#cb46-27" aria-hidden="true" tabindex="-1"></a>       )</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:t-dist"></span>
+<img src="book_files/figure-html/t-dist-1.png" alt="Podobnost t-rozdělení k N(1,0)" width="672" />
+<p class="caption">
+Graf 3.16: Podobnost t-rozdělení k N(1,0)
+</p>
+</div>
+<p>K výpočtu PDF t-rozdělení jsme použili funkci <code>dt</code>, která má argument <code>x</code> hodnoty proměnné x, pro které chci PDF vypočítat a <code>df</code>, počet stupňů volnosti. Pokud bychom chtěli generovat náhodnou proměnnou z t-rozložení, můžeme tak učinit pomocí funkce <code>rt</code>. Stejně tak CDF t-rozložení můžeme vypočítat pomocí funkce <code>pt</code>.</p>
+<p><strong>Očekávaná hodnota</strong> t-rozdělení je 0, tedy <span class="math inline">\(E(x_i) = 0\)</span> a <strong>rozptyl</strong> je roven <span class="math inline">\(var(x_i) = \frac{\nu}{\nu-2}\)</span>.</p>
+<p><code>R</code> obsahuje pouze tradiční t-rozdělení, které je definováno pouze stupni volnosti <span class="math inline">\(\nu\)</span>. Pokud bychom chtěli pomocí t-rozdělení popsat rozložení, která mají jiný průměr a rozptyl, museli bychom <strong>t-rozdělení zobecnit</strong>. Pokud bychom tedy chtěli stanovit t-rozdělení s průměrem <span class="math inline">\(\mu\)</span> a směrodatnou odchylkou <span class="math inline">\(\sigma\)</span> pro náhodnou proměnnou <span class="math inline">\(x_i\)</span>, pak bude platit <span class="math display">\[x_i = \mu + \sigma T\]</span><strong>Očekávaná hodnota</strong> náhodné proměnné pocházející z zobecněného t-rozdělení je <span class="math inline">\(E(x_i) = \mu\)</span> a <strong>rozptyl</strong> <span class="math inline">\(var(x_i) = \sigma^2 \frac{\nu}{\nu-2}\)</span>.</p>
+<p>PDF tohoto rozdělení bychom vypočítali jako: <span class="math display">\[PDF(x_i) = \frac{1}{\sigma} PDF_T(\frac{x_i - \mu}{\sigma}, \nu)\]</span>Všimněme si, že vlastně počítáme PDF t-rozdělení pro standardizovanou proměnnou a toto PDF násobíme faktorem <span class="math inline">\(\frac{1}{\sigma}\)</span>. Na grafu <a href="prob-dist.html#fig:g-tdist">3.17</a> ukazuje příklad PDF zobecněného t-rozdělení pro rozložení s průměrem 178, směrodatnou odchylkou 8 a 5 stupni volnosti. Náhodnou proměnnou <span class="math inline">\(x_i\)</span> pocházející z tohoto rozložení bychom mohli zapsat jako <span class="math inline">\(x_i \sim T(178, 8, 5)\)</span>. Jak je vidět menší stupně volnosti znamenají, že hodnoty více vzdálené od průměru jsou u takové náhodné proměnné více pravděpodobné, než u normálního rozložení.</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="prob-dist.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># definujeme si parametry rozlozeni</span></span>
+<span id="cb47-2"><a href="prob-dist.html#cb47-2" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="dv">178</span></span>
+<span id="cb47-3"><a href="prob-dist.html#cb47-3" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="dv">8</span></span>
+<span id="cb47-4"><a href="prob-dist.html#cb47-4" aria-hidden="true" tabindex="-1"></a>sv <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb47-5"><a href="prob-dist.html#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="co"># vytvorime x pro ktere chceme vypocitat pdf</span></span>
+<span id="cb47-6"><a href="prob-dist.html#cb47-6" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">178-5</span><span class="sc">*</span>s, <span class="dv">178</span><span class="sc">+</span><span class="dv">5</span><span class="sc">*</span>s, <span class="at">length.out =</span> <span class="dv">1000</span>)</span>
+<span id="cb47-7"><a href="prob-dist.html#cb47-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-8"><a href="prob-dist.html#cb47-8" aria-hidden="true" tabindex="-1"></a><span class="co"># vypocteme pdf N(178,8) pro porovnani</span></span>
+<span id="cb47-9"><a href="prob-dist.html#cb47-9" aria-hidden="true" tabindex="-1"></a>pdf_n <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(x, <span class="at">mean =</span> mu, <span class="at">sd =</span> s)</span>
+<span id="cb47-10"><a href="prob-dist.html#cb47-10" aria-hidden="true" tabindex="-1"></a><span class="co"># vypocteme pdf T(178,8,5)</span></span>
+<span id="cb47-11"><a href="prob-dist.html#cb47-11" aria-hidden="true" tabindex="-1"></a>pdf_t <span class="ot">&lt;-</span> <span class="fu">dt</span>((x <span class="sc">-</span> mu)<span class="sc">/</span>s, <span class="at">df =</span> <span class="dv">5</span>)</span>
+<span id="cb47-12"><a href="prob-dist.html#cb47-12" aria-hidden="true" tabindex="-1"></a>pdf_t. <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>s<span class="sc">*</span>pdf_t</span>
+<span id="cb47-13"><a href="prob-dist.html#cb47-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-14"><a href="prob-dist.html#cb47-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, pdf_n,</span>
+<span id="cb47-15"><a href="prob-dist.html#cb47-15" aria-hidden="true" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb47-16"><a href="prob-dist.html#cb47-16" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;PDF&quot;</span>, <span class="at">col =</span> <span class="st">&quot;grey&quot;</span>)</span>
+<span id="cb47-17"><a href="prob-dist.html#cb47-17" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x, pdf_t.,</span>
+<span id="cb47-18"><a href="prob-dist.html#cb47-18" aria-hidden="true" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb47-19"><a href="prob-dist.html#cb47-19" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>)</span>
+<span id="cb47-20"><a href="prob-dist.html#cb47-20" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, </span>
+<span id="cb47-21"><a href="prob-dist.html#cb47-21" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;N(178,8)&quot;</span>, <span class="st">&quot;T(178,8,5)&quot;</span>),</span>
+<span id="cb47-22"><a href="prob-dist.html#cb47-22" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;#1f77b4&quot;</span>),</span>
+<span id="cb47-23"><a href="prob-dist.html#cb47-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">lwd =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>),</span>
+<span id="cb47-24"><a href="prob-dist.html#cb47-24" aria-hidden="true" tabindex="-1"></a>       <span class="at">cex =</span> <span class="fl">0.7</span></span>
+<span id="cb47-25"><a href="prob-dist.html#cb47-25" aria-hidden="true" tabindex="-1"></a>       )</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:g-tdist"></span>
+<img src="book_files/figure-html/g-tdist-1.png" alt="Zobecněné t-rozdělení" width="672" />
+<p class="caption">
+Graf 3.17: Zobecněné t-rozdělení
+</p>
+</div>
+<p>Pro úplnost ještě dodáme, že CDF náhodné proměnné <span class="math inline">\(x_i\)</span> zobecněného t-rozdělení se vypočítá jako <span class="math display">\[CDF(x_i) = CDF_T(\frac{x_i - \mu}{\sigma}, \nu)\]</span>Zajímá nás jaká je pravdědobnost, zda hodnota náhodné proměnné pocházející z <span class="math inline">\(x_i \sim T(178,8,5)\)</span> bude mít hodnotu větší nebo rovnou než 185, tedy <span class="math inline">\(P(x_i \ge 185)\)</span>. Porovnejte tuto pravděpodobnost se stejným výpočtem pro náhodnou proměnnou pocházející z <span class="math inline">\(N(178,8)\)</span>.</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="prob-dist.html#cb48-1" aria-hidden="true" tabindex="-1"></a>q <span class="ot">&lt;-</span> <span class="dv">185</span></span>
+<span id="cb48-2"><a href="prob-dist.html#cb48-2" aria-hidden="true" tabindex="-1"></a>cdf_t. <span class="ot">&lt;-</span> <span class="fu">pt</span>((q <span class="sc">-</span> mu)<span class="sc">/</span>s, <span class="at">df =</span> sv, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb48-3"><a href="prob-dist.html#cb48-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb48-4"><a href="prob-dist.html#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, pdf_t.,</span>
+<span id="cb48-5"><a href="prob-dist.html#cb48-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb48-6"><a href="prob-dist.html#cb48-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">&quot;grey&quot;</span>,</span>
+<span id="cb48-7"><a href="prob-dist.html#cb48-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>,</span>
+<span id="cb48-8"><a href="prob-dist.html#cb48-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">&quot;PDF&quot;</span>,</span>
+<span id="cb48-9"><a href="prob-dist.html#cb48-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="fu">paste0</span>(<span class="st">&quot;P(x &gt;= &quot;</span>, q, <span class="st">&quot;)=&quot;</span>, <span class="fu">round</span>(cdf_t., <span class="dv">2</span>))</span>
+<span id="cb48-10"><a href="prob-dist.html#cb48-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb48-11"><a href="prob-dist.html#cb48-11" aria-hidden="true" tabindex="-1"></a><span class="co"># zvoline type = &quot;h&quot; abychom zobrazili integral</span></span>
+<span id="cb48-12"><a href="prob-dist.html#cb48-12" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x[x <span class="sc">&gt;=</span> q], pdf_t.[x <span class="sc">&gt;=</span> q], <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>, <span class="at">type =</span> <span class="st">&quot;h&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-40"></span>
+<img src="book_files/figure-html/unnamed-chunk-40-1.png" alt="CDF zobecněného t-rozdělení pro P(x &gt;= 185)" width="672" />
+<p class="caption">
+Graf 3.18: CDF zobecněného t-rozdělení pro P(x &gt;= 185)
+</p>
+</div>
+</div>
+<div id="uniformní" class="section level2" number="3.5">
+<h2><span class="header-section-number">3.5</span> Uniformní</h2>
+<p>Uniformní rozložení popisuje náhodný proces, v kterém mají všechny hodnoty v nějakém intervalu stejnou pravděpodobnost, že budou vybrány. Uniformní rozložení je definováno jak pro <strong>diskrétní</strong>, tak pro <strong>spojité</strong> proměnné. S diskrétním uniformním rozložením jsme se setkali minulý rok při hodu kostkou nebo hodu mincí. Pokud náhodná proměnná <span class="math inline">\(x_i\)</span> pochází z uniformního rozložení, pak platí, že <span class="math display">\[x_i \sim U(a,b)\]</span>Uniformní rozložení je tedy možná vyjádřit pomocí dvou parametrů <span class="math inline">\(a\)</span> a <span class="math inline">\(b\)</span>, které vyjadřují minimální a maximální možné hodnoty proměnné. PMF diskrétního uniformního rozložení rozložení lze vyjádřit jako <span class="math display">\[PMF(x_i) = \frac{1}{n}\]</span>U spojitého uniformního rozložení lze PDF vyjádřit jako <span class="math display">\[PDF(x_i) = \frac{1}{b-a}; x_i \in [a,b]\]</span>Pokud je hodnota <span class="math inline">\(x_i\)</span> mimo <span class="math inline">\([a,b]\)</span>, pak je jeho PDF rovná nule (nebo jinak taková hodnota není možná). <strong>Očekávaná hodnota</strong> diskrétního i spojitéhouniformního rozložení se spočítá jako <span class="math inline">\(E(x_i) = \frac{1}{2}(a+b)\)</span>. <strong>Rozptyl</strong> u spojitého uniformního rozložení se spočítá jako <span class="math inline">\(Var(x_i) = \frac{1}{12}(b-a)^2\)</span> a u diskrétního jako <span class="math inline">\(Var(x_i) = \frac{n^2-1}{12}\)</span>. Protože generování čísel z diskrétního uniformního rozložení můžeme použít funkci <code>sample</code>, kterou jsme používali při simulacích některých klasických pravděpodobnostních problémů. Pro generování hodnot náhodné proměnné pocházející ze spojitého uniformního rozložení můžeme použít funkci <code>runif</code>. PDF poté vypočítáme pomocí funkce <code>dunif</code> a CDF pomocí <code>punif</code>. Jako příklad uniformního rozložení si ukážeme čekání na tramvaj. Řekněme, že přijdeme na zastávku a máme se rozhodnout, zda se nám vyplatí čekat nebo jít pěšky. Čekání na tramvaj v takovém případě můžeme modelovat (připodobnit) uniformním rozložením. Nevíme, kdy tramvaj přijede (v našem příkladu nejsou jízdní řády, nebo alespoň nejsou spolehlivé jízdní řády :). Může přijet hned (tedy za 0min), může přijet za 8min. Pravděpodobnost, za jak dlouho přijede (respektive, v jakém momentu jsme my přisli na zastávku) je rovnoměrně rozložena v celém intervalu. Pojďme si tento proces vyjádřit v animaci. Červená tečka reprezentuje nás čekající na zastávce. Modrý čtverec reprezentuje tramvaj blížící se k zastávce. Jak je vidět, někdy přijdeme na zastávku a tramvaj je blízko. Někdy přijdeme a tramvaj je stále daleko.</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="prob-dist.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># muzeme cekat 0 minut az 8 minut</span></span>
+<span id="cb49-2"><a href="prob-dist.html#cb49-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb49-3"><a href="prob-dist.html#cb49-3" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">8</span></span>
+<span id="cb49-4"><a href="prob-dist.html#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="co"># pocet simulaci</span></span>
+<span id="cb49-5"><a href="prob-dist.html#cb49-5" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb49-6"><a href="prob-dist.html#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="co"># kde bude tram, kdyz prijdeme na zastavku</span></span>
+<span id="cb49-7"><a href="prob-dist.html#cb49-7" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">8</span>, <span class="at">by =</span> <span class="fl">0.5</span>)</span>
+<span id="cb49-8"><a href="prob-dist.html#cb49-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-9"><a href="prob-dist.html#cb49-9" aria-hidden="true" tabindex="-1"></a><span class="co"># pro kazdy pokus</span></span>
+<span id="cb49-10"><a href="prob-dist.html#cb49-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (n <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>N) {</span>
+<span id="cb49-11"><a href="prob-dist.html#cb49-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># vybereme nahodne jak daleko od nas tram bude ...</span></span>
+<span id="cb49-12"><a href="prob-dist.html#cb49-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ...-0.5 protoze pricitame +0.5 v prvnim kroku</span></span>
+<span id="cb49-13"><a href="prob-dist.html#cb49-13" aria-hidden="true" tabindex="-1"></a>  tramvaj <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1</span>, <span class="at">min =</span> a, <span class="at">max =</span> b) <span class="sc">-</span> <span class="fl">0.5</span></span>
+<span id="cb49-14"><a href="prob-dist.html#cb49-14" aria-hidden="true" tabindex="-1"></a>  my <span class="ot">&lt;-</span> <span class="dv">8</span></span>
+<span id="cb49-15"><a href="prob-dist.html#cb49-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># dokud neni tramvaj u nas</span></span>
+<span id="cb49-16"><a href="prob-dist.html#cb49-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span>(tramvaj <span class="sc">&lt;</span> my){</span>
+<span id="cb49-17"><a href="prob-dist.html#cb49-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># zobrazime kazdych 0.5 minuty</span></span>
+<span id="cb49-18"><a href="prob-dist.html#cb49-18" aria-hidden="true" tabindex="-1"></a>    tramvaj <span class="ot">&lt;-</span> tramvaj <span class="sc">+</span> <span class="fl">0.5</span></span>
+<span id="cb49-19"><a href="prob-dist.html#cb49-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># protoze pridavame kazdych 0.5 min ...</span></span>
+<span id="cb49-20"><a href="prob-dist.html#cb49-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ...abychom zobrazili tramvaj u nas na zastavce</span></span>
+<span id="cb49-21"><a href="prob-dist.html#cb49-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(tramvaj <span class="sc">&gt;</span> my) tramvaj <span class="ot">&lt;-</span> my</span>
+<span id="cb49-22"><a href="prob-dist.html#cb49-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(tramvaj, <span class="dv">1</span>, </span>
+<span id="cb49-23"><a href="prob-dist.html#cb49-23" aria-hidden="true" tabindex="-1"></a>         <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb49-24"><a href="prob-dist.html#cb49-24" aria-hidden="true" tabindex="-1"></a>         <span class="at">yaxt =</span> <span class="st">&quot;n&quot;</span>, <span class="at">xaxt =</span> <span class="st">&quot;n&quot;</span>,</span>
+<span id="cb49-25"><a href="prob-dist.html#cb49-25" aria-hidden="true" tabindex="-1"></a>         <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">9</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">2</span>),</span>
+<span id="cb49-26"><a href="prob-dist.html#cb49-26" aria-hidden="true" tabindex="-1"></a>         <span class="at">pch =</span> <span class="dv">22</span>, <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>,</span>
+<span id="cb49-27"><a href="prob-dist.html#cb49-27" aria-hidden="true" tabindex="-1"></a>         <span class="at">main =</span> <span class="fu">paste0</span>(<span class="st">&quot;Pokus: &quot;</span>, n),</span>
+<span id="cb49-28"><a href="prob-dist.html#cb49-28" aria-hidden="true" tabindex="-1"></a>         <span class="at">sub =</span> <span class="fu">paste0</span>(<span class="st">&quot;Zbývající doba čekání: &quot;</span>, <span class="fu">round</span>(my <span class="sc">-</span> tramvaj, <span class="dv">1</span>), <span class="st">&quot;min&quot;</span>))</span>
+<span id="cb49-29"><a href="prob-dist.html#cb49-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># zobrazime nas</span></span>
+<span id="cb49-30"><a href="prob-dist.html#cb49-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">points</span>(my, <span class="dv">1</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb49-31"><a href="prob-dist.html#cb49-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># otocime labely cekani 8-0</span></span>
+<span id="cb49-32"><a href="prob-dist.html#cb49-32" aria-hidden="true" tabindex="-1"></a>    <span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at =</span> x, <span class="at">labels =</span> <span class="fu">rev</span>(x))</span>
+<span id="cb49-33"><a href="prob-dist.html#cb49-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># pridame popisek</span></span>
+<span id="cb49-34"><a href="prob-dist.html#cb49-34" aria-hidden="true" tabindex="-1"></a>    <span class="fu">text</span>(<span class="dv">4</span>, <span class="dv">0</span>, <span class="st">&quot;Vdálenost tramvaje od naší zastávky&quot;</span>)</span>
+<span id="cb49-35"><a href="prob-dist.html#cb49-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, </span>
+<span id="cb49-36"><a href="prob-dist.html#cb49-36" aria-hidden="true" tabindex="-1"></a>           <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;my&quot;</span>, <span class="st">&quot;tramvaj&quot;</span>), </span>
+<span id="cb49-37"><a href="prob-dist.html#cb49-37" aria-hidden="true" tabindex="-1"></a>           <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;#1f77b4&quot;</span>), </span>
+<span id="cb49-38"><a href="prob-dist.html#cb49-38" aria-hidden="true" tabindex="-1"></a>           <span class="at">pch =</span> <span class="fu">c</span>(<span class="dv">19</span>, <span class="dv">22</span>), </span>
+<span id="cb49-39"><a href="prob-dist.html#cb49-39" aria-hidden="true" tabindex="-1"></a>           <span class="at">cex =</span> <span class="fl">0.7</span>)</span>
+<span id="cb49-40"><a href="prob-dist.html#cb49-40" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb49-41"><a href="prob-dist.html#cb49-41" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-41"></span>
+<img src="book_files/figure-html/unnamed-chunk-41-.gif" alt="Ukázka čekání na tramvaj jako náhodný proces z uniformního rozložení" width="672" />
+<p class="caption">
+Graf 3.19: Ukázka čekání na tramvaj jako náhodný proces z uniformního rozložení
+</p>
+</div>
+<p>Pěšky je to do našeho cíle 6min. Tramvají 1min. Tramvaj jezdí jednou za 8min, tedy <span class="math inline">\(t_i \sim U(0, 8)\)</span>. Vyplatí se nám čekat?</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="prob-dist.html#cb50-1" aria-hidden="true" tabindex="-1"></a>ocekavana_hodnota <span class="ot">&lt;-</span> (a<span class="sc">+</span>b)<span class="sc">/</span><span class="dv">2</span></span></code></pre></div>
+<p>Očekávané hodnota našeho čekání je 4. Když k tomu přičteme 1min cesty tramvají, pak očekávaná hodnota naší cesty tramvají je 5min. Řekněme, že je velmi důležité, abychom nedorazili pozdě. Jaká je pravděpodobnost, že tramvají do cíle dorazíme za dobu delší než 6min (tedy, že nám bude cesta trvat déle, než pěšky)?</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="prob-dist.html#cb51-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">9</span>, <span class="at">length.out =</span> <span class="dv">1000</span>)</span>
+<span id="cb51-2"><a href="prob-dist.html#cb51-2" aria-hidden="true" tabindex="-1"></a>q <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb51-3"><a href="prob-dist.html#cb51-3" aria-hidden="true" tabindex="-1"></a>pdf <span class="ot">&lt;-</span> <span class="fu">dunif</span>(<span class="at">x =</span> x, <span class="at">min =</span> a, <span class="at">max =</span> b)</span>
+<span id="cb51-4"><a href="prob-dist.html#cb51-4" aria-hidden="true" tabindex="-1"></a>cdf <span class="ot">&lt;-</span> <span class="fu">punif</span>(q, <span class="at">min =</span> a, <span class="at">max =</span> b, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb51-5"><a href="prob-dist.html#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, pdf,</span>
+<span id="cb51-6"><a href="prob-dist.html#cb51-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb51-7"><a href="prob-dist.html#cb51-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">&quot;grey&quot;</span>,</span>
+<span id="cb51-8"><a href="prob-dist.html#cb51-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">&quot;t&quot;</span>,</span>
+<span id="cb51-9"><a href="prob-dist.html#cb51-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">&quot;PDF&quot;</span>,</span>
+<span id="cb51-10"><a href="prob-dist.html#cb51-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">9</span>),</span>
+<span id="cb51-11"><a href="prob-dist.html#cb51-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="fu">paste0</span>(<span class="st">&quot;P(x &gt; &quot;</span>, q, <span class="st">&quot;)=&quot;</span>, <span class="fu">round</span>(cdf, <span class="dv">2</span>))</span>
+<span id="cb51-12"><a href="prob-dist.html#cb51-12" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb51-13"><a href="prob-dist.html#cb51-13" aria-hidden="true" tabindex="-1"></a><span class="co"># type &quot;h&quot;, abychom vyjadrili integral</span></span>
+<span id="cb51-14"><a href="prob-dist.html#cb51-14" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x[x<span class="sc">&gt;</span>q], pdf[x<span class="sc">&gt;</span>q], <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>, <span class="at">type =</span> <span class="st">&quot;h&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-43"></span>
+<img src="book_files/figure-html/unnamed-chunk-43-1.png" alt="Příklad PDF pro t ~ U(0, 8) a CDF pro P(t &gt; 5)" width="672" />
+<p class="caption">
+Graf 3.20: Příklad PDF pro t ~ U(0, 8) a CDF pro P(t &gt; 5)
+</p>
+</div>
+<p>Jak je vidět, pravděpodobnost, že tramvaj přijede za 5 a více minut (musíme si nechat 1 minutu na cestu tramvají, proto chceme vědět <span class="math inline">\(P(t_i &gt; 5)\)</span>) je 0.38, tedy docela vysoká. Tato situace by nastala zhruba 1 ze 3 případů. Pravděděpodobně bychom tedy v takovém případě šli pěšky.</p>
+</div>
+<div id="poisson" class="section level2" number="3.6">
+<h2><span class="header-section-number">3.6</span> Poisson</h2>
+Poissonovo rozložení popisuje chování <strong>diskrétních</strong> náhodných proměnných v <strong>nějakém daném časovém intervalu</strong>. Od binomického rozložení se liší tím, že popisuje proměnné, které nemají pevně stanovený počet pozorování, tedy <span class="math inline">\(x_i \in [0, \infty)\)</span>. Toto rozložení má jediný parametr <span class="math inline">\(\lambda\)</span>, který je zároveň <strong>očekávanou hodnotou</strong> a <strong>rozptylem</strong>. Stejně jako u binomického, normálního, t a uniformního rozložení předpokládáme, že jednotlivé hodnoty náhodné proměnné jsou na sobě <strong>nezávislé</strong>. Náhodnou proměnnou <span class="math inline">\(x_i\)</span> pocházející z tohoto rozložení značíme jako <span class="math inline">\(x_i \sim Poisson(\lambda)\)</span>. Mnoho každodenních jevů, jejichž hodnoty jsou celé čísla se dají popsat poissonových rozložením. U mnoha jevů totiže neznáme <span class="math inline">\(n\)</span> a tedy nedokážeme říct, jaká je největší očekávaná hodnota. Jako příklady jevů, které je možné approximovat (připodobnit) poissonových rozložením je například počet telefonátů za den, počet aut, které projedou silnicí za hodinu, počet gólů za zápas apod. Vrátíme se zpět do kapitoly popisné statistiky <a href="popisná-statistika.html#central-tend">2.1</a>, kde jsme vypočítali počet slov ve větě v projevu prezideta republiky. Pro připomenutí ukážeme četnosti počtu slov ve větě.
+<div class="figure"><span style="display:block;" id="fig:ch2-hist-pocet-slov"></span>
+<img src="book_files/figure-html/ch2-hist-pocet-slov-1.png" alt="Četnost počtu slov ve větě v projevu prezidenta republiky" width="672" />
+<p class="caption">
+Graf 3.21: Četnost počtu slov ve větě v projevu prezidenta republiky
+</p>
+</div>
+<p>Řekněme, že bychom chtěli predikovat počet slov ve větě v nějaké prezidentově dalším projevu a chtěli bychom to udělat tak, že bychom se snažili zjistit parametry procesu, který počet slov vyprodukoval. Víme, že minimálně můžeme mít ve větě jedno slovo. Maximální počet slov je sice prakticky ohraničen, ale my neznáme žádnou hranici, kterou bychom mohli uplatnit. Budeme tedy předpokládat, že ohraničený není<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>. Zároveň předpokládáme, že hodnoty náhodné proměnné vygenerované z poissonova rozložení jsou nezávislé. V našem případě jsou hodnoty spíše silně závislé. Počet slov v jedné větě bude určitě ovlivňovat počet slov v následující(ch) větách. Jak je vidět na <a href="prob-dist.html#fig:pocet-slov-zavislost">3.22</a> po hodně dlouhých větách, častěji následují kratší věty. Málokdy je více krátkých vět za sebou a naopak.</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="prob-dist.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pocet_slov, </span>
+<span id="cb52-2"><a href="prob-dist.html#cb52-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, </span>
+<span id="cb52-3"><a href="prob-dist.html#cb52-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb52-4"><a href="prob-dist.html#cb52-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Počet slov&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Pořadí&quot;</span>,</span>
+<span id="cb52-5"><a href="prob-dist.html#cb52-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:pocet-slov-zavislost"></span>
+<img src="book_files/figure-html/pocet-slov-zavislost-1.png" alt="Zkoumání závislosti jednotlivých hodnot proměnné počet slov" width="672" />
+<p class="caption">
+Graf 3.22: Zkoumání závislosti jednotlivých hodnot proměnné počet slov
+</p>
+</div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="prob-dist.html#cb53-1" aria-hidden="true" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="fu">mean</span>(pocet_slov)</span></code></pre></div>
+<p>Průměrný počet slov ve větě je 16.56, což je <span class="math inline">\(\lambda\)</span> našeho rozložení. Modelujeme tedy počet slov <span class="math inline">\(s_i\)</span> ve větě <span class="math inline">\(s_i \sim Poisson(\)</span> 16.56 <span class="math inline">\()\)</span>.Graf <a href="prob-dist.html#fig:poisson-base">3.23</a> vyjadřuje PMF tohoto rozložení. Jak je vidět tento model na naše data moc nesedí. Náš model má moc malý rozptyl v porovnání s daty. Protože poissonovo rozložení má pouze jeden parametr <span class="math inline">\(\lambda\)</span>, který vyjadřuje očekávanou hodnotu i rozptyl, nemůžeme rozptyl nijak kontrolovat pomocí parametru rozložení. Tento fakt je koneckonců zřejmý už z chrakteristik našich dat. Pokud by tato data opravdu byla vygenerována z poissonova rozložení jejich průměr by se zhruba rovnal rozptylu Jak je ale vidět, tak tomu není protože průměr počtu slov je 16.56 a rozptyl je 95.11.</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="prob-dist.html#cb54-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">50</span></span>
+<span id="cb54-2"><a href="prob-dist.html#cb54-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(pocet_slov)</span>
+<span id="cb54-3"><a href="prob-dist.html#cb54-3" aria-hidden="true" tabindex="-1"></a>pmf <span class="ot">&lt;-</span> <span class="fu">dpois</span>(x, lambda)</span>
+<span id="cb54-4"><a href="prob-dist.html#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, pmf,</span>
+<span id="cb54-5"><a href="prob-dist.html#cb54-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;h&quot;</span>, <span class="at">lwd =</span> <span class="dv">5</span>,</span>
+<span id="cb54-6"><a href="prob-dist.html#cb54-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>,</span>
+<span id="cb54-7"><a href="prob-dist.html#cb54-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">&quot;s&quot;</span>,</span>
+<span id="cb54-8"><a href="prob-dist.html#cb54-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">&quot;PMF&quot;</span>,</span>
+<span id="cb54-9"><a href="prob-dist.html#cb54-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="fu">paste0</span>(<span class="st">&quot;Poisson(&quot;</span>, <span class="fu">round</span>(lambda, <span class="dv">2</span>), <span class="st">&quot;)&quot;</span>)</span>
+<span id="cb54-10"><a href="prob-dist.html#cb54-10" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:poisson-base"></span>
+<img src="book_files/figure-html/poisson-base-1.png" alt="PMF poissonova rozložení" width="672" />
+<p class="caption">
+Graf 3.23: PMF poissonova rozložení
+</p>
+</div>
+<p>I když je náš model jednoduchý s pouze jedním parametrem <span class="math inline">\(\lambda\)</span>, je to model, který můžeme použít pro predikci. Výsledky jakéhokoliv modelu je vždy dobré si zobrazit graficky, abychom si dokázali lépe představit, co predikuje. <a href="prob-dist.html#fig:poisson-pred">3.24</a> ukazuje, kolik by náš model predikoval počtet slov ve větě. Protože PMF vyjadřuje pravděpodobnost, můžeme očekávaný (predikovaný) četnost počtu slov podle našeho modelu vypočítat jako <span class="math inline">\(PMF * n\)</span>. V našem případě máme 66 vět, tedy predikovaná četnost počtu slov <span class="math inline">\(\hat{s_i} = PMF * n\)</span>.</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="prob-dist.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># zaokrouhlime, protoze musime mit cela cisla</span></span>
+<span id="cb55-2"><a href="prob-dist.html#cb55-2" aria-hidden="true" tabindex="-1"></a>s_hat <span class="ot">&lt;-</span> <span class="fu">round</span>(pmf <span class="sc">*</span> n)</span>
+<span id="cb55-3"><a href="prob-dist.html#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="co"># pridame data</span></span>
+<span id="cb55-4"><a href="prob-dist.html#cb55-4" aria-hidden="true" tabindex="-1"></a>.x <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">names</span>(cetnost))</span>
+<span id="cb55-5"><a href="prob-dist.html#cb55-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-6"><a href="prob-dist.html#cb55-6" aria-hidden="true" tabindex="-1"></a><span class="co"># zobrazime nase data</span></span>
+<span id="cb55-7"><a href="prob-dist.html#cb55-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(.x, cetnost,</span>
+<span id="cb55-8"><a href="prob-dist.html#cb55-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;h&quot;</span>, <span class="at">lwd =</span> <span class="dv">5</span>,</span>
+<span id="cb55-9"><a href="prob-dist.html#cb55-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">&quot;grey&quot;</span>,</span>
+<span id="cb55-10"><a href="prob-dist.html#cb55-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">&quot;Počet slov&quot;</span>,</span>
+<span id="cb55-11"><a href="prob-dist.html#cb55-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">&quot;Četnost&quot;</span>,</span>
+<span id="cb55-12"><a href="prob-dist.html#cb55-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">50</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">6</span>),</span>
+<span id="cb55-13"><a href="prob-dist.html#cb55-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">&quot;Porovnání modelu poissonova rozložení s daty&quot;</span></span>
+<span id="cb55-14"><a href="prob-dist.html#cb55-14" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb55-15"><a href="prob-dist.html#cb55-15" aria-hidden="true" tabindex="-1"></a><span class="co"># pridame ocekavane hodnoty</span></span>
+<span id="cb55-16"><a href="prob-dist.html#cb55-16" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x, s_hat, </span>
+<span id="cb55-17"><a href="prob-dist.html#cb55-17" aria-hidden="true" tabindex="-1"></a>      <span class="at">col =</span> <span class="fu">adjustcolor</span>(<span class="st">&quot;#1f77b4&quot;</span>, <span class="at">alpha.f =</span> <span class="fl">0.4</span>), </span>
+<span id="cb55-18"><a href="prob-dist.html#cb55-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">type =</span> <span class="st">&quot;h&quot;</span>, <span class="at">lwd =</span> <span class="dv">5</span>)</span>
+<span id="cb55-19"><a href="prob-dist.html#cb55-19" aria-hidden="true" tabindex="-1"></a><span class="co"># aby y osa zdy vyjadrovala vsechna cisla</span></span>
+<span id="cb55-20"><a href="prob-dist.html#cb55-20" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">6</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">6</span>))</span>
+<span id="cb55-21"><a href="prob-dist.html#cb55-21" aria-hidden="true" tabindex="-1"></a><span class="co"># legenda</span></span>
+<span id="cb55-22"><a href="prob-dist.html#cb55-22" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, </span>
+<span id="cb55-23"><a href="prob-dist.html#cb55-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;Data&quot;</span>,</span>
+<span id="cb55-24"><a href="prob-dist.html#cb55-24" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">paste0</span>(<span class="st">&quot;Poisson(&quot;</span>, </span>
+<span id="cb55-25"><a href="prob-dist.html#cb55-25" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">round</span>(lambda, <span class="dv">2</span>), <span class="st">&quot;)&quot;</span>)),</span>
+<span id="cb55-26"><a href="prob-dist.html#cb55-26" aria-hidden="true" tabindex="-1"></a>       <span class="at">lwd =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>),</span>
+<span id="cb55-27"><a href="prob-dist.html#cb55-27" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;grey&quot;</span>, <span class="st">&quot;#1f77b4&quot;</span>),</span>
+<span id="cb55-28"><a href="prob-dist.html#cb55-28" aria-hidden="true" tabindex="-1"></a>       <span class="at">cex =</span> <span class="fl">0.7</span></span>
+<span id="cb55-29"><a href="prob-dist.html#cb55-29" aria-hidden="true" tabindex="-1"></a>       )</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:poisson-pred"></span>
+<img src="book_files/figure-html/poisson-pred-1.png" alt="Očekávaná četnost počtu slov ve větě pro n=66 vět" width="672" />
+<p class="caption">
+Graf 3.24: Očekávaná četnost počtu slov ve větě pro n=66 vět
+</p>
+</div>
+<p>Toto se v reálném světě často. Tento jev se v angličtině označuje jako <em>overdispersion</em>. Jednou z možností, jak se s overdispersion vypořádat je, že modelujeme náhodnou proměnnou jako pocházející z jiného rozložení<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>. Pro náš jednoduchý příklad bychom mohli využít častého triku, který převede pozitivní diskrétní data s větším rozptylem na data spojitá. Tento trik využívá <strong>transformace</strong> proměnné a to konkrétně jejího logaritmu. Jak je známo logaritmus je definován pro definiční obor <span class="math inline">\(\in (0, \infty)\)</span>. Pro zopakovaní ukazujeme funkci přirozeného logaritmu v grafu <a href="prob-dist.html#fig:log-example">3.25</a>. Jak je vidno, tak funkce logaritmu převede hodnoty do oboru hodnot <span class="math inline">\(\in (-\infty, \infty)\)</span> a zároveň budou její hodnoty spojité. Normální rozložení je takto definováno a proto zkusíme modelovat počet slov ve větě <span class="math inline">\(s_i\)</span> jako <span class="math inline">\(log(s_i) \sim N(\mu_{log(s)}, \sigma_{log(s)})\)</span>.</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="prob-dist.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">log</span>(x), </span>
+<span id="cb56-2"><a href="prob-dist.html#cb56-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">from =</span> <span class="fl">0.01</span>, <span class="at">to =</span> <span class="dv">100</span>, </span>
+<span id="cb56-3"><a href="prob-dist.html#cb56-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb56-4"><a href="prob-dist.html#cb56-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Log(x)&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Přirozený logaritmus&quot;</span>)</span>
+<span id="cb56-5"><a href="prob-dist.html#cb56-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">v =</span> <span class="dv">0</span>, <span class="at">lwd =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:log-example"></span>
+<img src="book_files/figure-html/log-example-1.png" alt="Ukázka přirozeného logaritmu" width="672" />
+<p class="caption">
+Graf 3.25: Ukázka přirozeného logaritmu
+</p>
+</div>
+<p>Graf <a href="prob-dist.html#fig:log-data">3.26</a> zobrazuje histogram logaritmu početu slov ve větě a teoretické PDF <span class="math inline">\(N(2.61, 0.66)\)</span>. Jak je vidět takovýto model lépe vystihuje rozptyl v počtu slov. Vzhledem k tomu, že máme pouze 66 pozorování nebude taková náhodná proměnná přesně vystihovat teoretické rozložení. Graf <a href="prob-dist.html#fig:density-sample-norm">3.27</a> ukazuje odhadnutou hustotu pravděpodobnosti pro 50 výběrů z <span class="math inline">\(N(2.61, 0.66)\)</span>, každý o velikosti <span class="math inline">\(n=\)</span> 66. Modrá křivka ukazuje naše data, šedé křivky potom simulované výběry. Je vidět, že několiktakových výběrů, které jsou podobně nahnuté doprava nastalo, což znamená, že taková data nejsou tak nepravděpodobná (pokud pocházejí z <span class="math inline">\(log(s_i) \sim N(2.61, 0.66)\)</span>).</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="prob-dist.html#cb57-1" aria-hidden="true" tabindex="-1"></a>s_log <span class="ot">&lt;-</span> <span class="fu">log</span>(pocet_slov)</span>
+<span id="cb57-2"><a href="prob-dist.html#cb57-2" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="fu">mean</span>(s_log)</span>
+<span id="cb57-3"><a href="prob-dist.html#cb57-3" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">sd</span>(s_log)</span>
+<span id="cb57-4"><a href="prob-dist.html#cb57-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">0.01</span> , <span class="dv">5</span> , <span class="at">length.out =</span> <span class="dv">1000</span>)</span>
+<span id="cb57-5"><a href="prob-dist.html#cb57-5" aria-hidden="true" tabindex="-1"></a>pdf <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(x, <span class="at">mean =</span> mu, <span class="at">sd =</span> s)</span>
+<span id="cb57-6"><a href="prob-dist.html#cb57-6" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(s_log, </span>
+<span id="cb57-7"><a href="prob-dist.html#cb57-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;log(s)&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Četnost&quot;</span>,</span>
+<span id="cb57-8"><a href="prob-dist.html#cb57-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Histogram logaritmu počtu slov&quot;</span>,</span>
+<span id="cb57-9"><a href="prob-dist.html#cb57-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;grey&quot;</span>, </span>
+<span id="cb57-10"><a href="prob-dist.html#cb57-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">breaks =</span> <span class="dv">10</span>,</span>
+<span id="cb57-11"><a href="prob-dist.html#cb57-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">5</span>))</span>
+<span id="cb57-12"><a href="prob-dist.html#cb57-12" aria-hidden="true" tabindex="-1"></a><span class="co"># pridame na druhou osu</span></span>
+<span id="cb57-13"><a href="prob-dist.html#cb57-13" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">new =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb57-14"><a href="prob-dist.html#cb57-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, pdf, </span>
+<span id="cb57-15"><a href="prob-dist.html#cb57-15" aria-hidden="true" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>, </span>
+<span id="cb57-16"><a href="prob-dist.html#cb57-16" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>,</span>
+<span id="cb57-17"><a href="prob-dist.html#cb57-17" aria-hidden="true" tabindex="-1"></a>     <span class="at">axes =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb57-18"><a href="prob-dist.html#cb57-18" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>, </span>
+<span id="cb57-19"><a href="prob-dist.html#cb57-19" aria-hidden="true" tabindex="-1"></a>     <span class="at">bty =</span> <span class="st">&quot;n&quot;</span>)</span>
+<span id="cb57-20"><a href="prob-dist.html#cb57-20" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, </span>
+<span id="cb57-21"><a href="prob-dist.html#cb57-21" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;log(s)&quot;</span>,</span>
+<span id="cb57-22"><a href="prob-dist.html#cb57-22" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">paste0</span>(<span class="st">&quot;N(&quot;</span>, <span class="fu">round</span>(mu, <span class="dv">2</span>), <span class="st">&quot;,&quot;</span>, <span class="fu">round</span>(s, <span class="dv">2</span>), <span class="st">&quot;)&quot;</span>)),</span>
+<span id="cb57-23"><a href="prob-dist.html#cb57-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">lwd =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>),</span>
+<span id="cb57-24"><a href="prob-dist.html#cb57-24" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;grey&quot;</span>, <span class="st">&quot;#1f77b4&quot;</span>),</span>
+<span id="cb57-25"><a href="prob-dist.html#cb57-25" aria-hidden="true" tabindex="-1"></a>       <span class="at">cex =</span> <span class="fl">0.7</span></span>
+<span id="cb57-26"><a href="prob-dist.html#cb57-26" aria-hidden="true" tabindex="-1"></a>       )</span>
+<span id="cb57-27"><a href="prob-dist.html#cb57-27" aria-hidden="true" tabindex="-1"></a>thicks <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">seq</span>(<span class="fu">min</span>(pdf), <span class="fu">max</span>(pdf), <span class="at">by =</span> <span class="fl">0.05</span>), <span class="dv">2</span>)</span>
+<span id="cb57-28"><a href="prob-dist.html#cb57-28" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">4</span>, <span class="at">at =</span> thicks, <span class="at">labels =</span>thicks)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:log-data"></span>
+<img src="book_files/figure-html/log-data-1.png" alt="Rozložení logaritmu dat a teoretická PDF N(2.61, 0.66)" width="672" />
+<p class="caption">
+Graf 3.26: Rozložení logaritmu dat a teoretická PDF N(2.61, 0.66)
+</p>
+</div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="prob-dist.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># odhadneme hustotu pravdepodobnosti dat</span></span>
+<span id="cb58-2"><a href="prob-dist.html#cb58-2" aria-hidden="true" tabindex="-1"></a>d_data <span class="ot">&lt;-</span> <span class="fu">density</span>(s_log)</span>
+<span id="cb58-3"><a href="prob-dist.html#cb58-3" aria-hidden="true" tabindex="-1"></a>S <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb58-4"><a href="prob-dist.html#cb58-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-5"><a href="prob-dist.html#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(d_data, </span>
+<span id="cb58-6"><a href="prob-dist.html#cb58-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">type=</span> <span class="st">&quot;l&quot;</span>,</span>
+<span id="cb58-7"><a href="prob-dist.html#cb58-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;log(s)&quot;</span>, </span>
+<span id="cb58-8"><a href="prob-dist.html#cb58-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Hustota pravděpodobnosti&quot;</span>, <span class="at">main =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb58-9"><a href="prob-dist.html#cb58-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>,</span>
+<span id="cb58-10"><a href="prob-dist.html#cb58-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">5</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.8</span>),</span>
+<span id="cb58-11"><a href="prob-dist.html#cb58-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb58-12"><a href="prob-dist.html#cb58-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>S) {</span>
+<span id="cb58-13"><a href="prob-dist.html#cb58-13" aria-hidden="true" tabindex="-1"></a>  vyber <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> mu, <span class="at">sd =</span> s)</span>
+<span id="cb58-14"><a href="prob-dist.html#cb58-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(<span class="fu">density</span>(vyber), <span class="at">col =</span> <span class="fu">adjustcolor</span>(<span class="st">&quot;black&quot;</span>, <span class="at">alpha.f =</span> <span class="fl">0.2</span>))</span>
+<span id="cb58-15"><a href="prob-dist.html#cb58-15" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:density-sample-norm"></span>
+<img src="book_files/figure-html/density-sample-norm-1.png" alt="Příklad hustoty pravděpodobnosti 50 výběrů o velikosti n=66 z N(2.61, 0.66)" width="672" />
+<p class="caption">
+Graf 3.27: Příklad hustoty pravděpodobnosti 50 výběrů o velikosti n=66 z N(2.61, 0.66)
+</p>
+</div>
+<p>Nakonec se tedy vrátíme k naší původní otázce - predikce počtu slov ve větě. Jak jsme si ukázali, logaritmus počtu slov ve větě můžeme dobře approximovat normálním rozložením. Na tomto rozložení můžeme počítat CDF stejně tak, jak jsme si to ukázali v <a href="prob-dist.html#norm-dist">3.3</a>. Řekněme, že z důvodu srozumitelnosti nedoporučejeme věty delší než 20 slov. Zajímá nás, jaká je pravděpodonost, že libovolně zvolená věta bude delší než 20 slov, pak vlastně počítáme <span class="math inline">\(P(log(s_i) &gt; log(20))\)</span> z našeho <span class="math inline">\(log(s_i) \sim N(2.61, 0.66)\)</span><a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>.</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="prob-dist.html#cb59-1" aria-hidden="true" tabindex="-1"></a>q <span class="ot">&lt;-</span> <span class="fu">log</span>(<span class="dv">20</span>)</span>
+<span id="cb59-2"><a href="prob-dist.html#cb59-2" aria-hidden="true" tabindex="-1"></a>cdf <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(q, <span class="at">mean =</span> mu, <span class="at">sd =</span> s, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p>Tato pravděpodobnost je rovna 0.28. Nebo jinak zhruba 28% vět bude delších než 20 slov.</p>
+</div>
+<div id="chi-kvadrát" class="section level2" number="3.7">
+<h2><span class="header-section-number">3.7</span> Chi-kvadrát</h2>
+<p><span class="math inline">\(\chi^2\)</span> rozložení popisuje náhodný proces, kterého nabývá součet umocněných stadandardizovaných normálně rozložených proměnných. Jak jsme uvedli v <a href="prob-dist.html#norm-dist">3.3</a>, standardizovaná náhodná proměnná pocházející z normálního rozložení <span class="math inline">\(z_i\)</span> má <span class="math inline">\(\mu_z = 0\)</span> a <span class="math inline">\(\sigma_z = 1\)</span>. Pokud máme <span class="math inline">\(k\)</span> standardizovaných náhodných proměnných, pak můžeme zapsat <span class="math inline">\(Q = \sum_{i=1}^k z_i^2\)</span>. Toto rozložení se nepoužívá tak často k popsání jevů z fyzického světa jako spíše pro popsání chování různých parametrů, které se ve statistice odhadují. Protože mnoho odhadovaných paramtrů (jako např. průměr) mají normální rozložení, můžeme jejich pravděpodobnostní rozložení popsat právě pomocí <span class="math inline">\(\chi^2\)</span>, což se hodí při posuzování významnosti různých procedur. <span class="math inline">\(\chi^2\)</span> má jediný parameter <span class="math inline">\(k\)</span>, který vyjadřuje počet stupňů volnsti (degrees of freedom). V <a href="prob-dist.html#fig:x2-chart">3.28</a> ukazujeme, jak <span class="math inline">\(\chi^2\)</span> rozložení vzniká. Děláme výběr o velikosti <span class="math inline">\(n=200\)</span> ze standardizovaného normálního rozložení pro <span class="math inline">\(k=2\)</span> proměnné, <span class="math inline">\(k=4\)</span> a <span class="math inline">\(k=16\)</span>, tedy <span class="math inline">\(z \sim \chi^2(2)\)</span>, <span class="math inline">\(z \sim \chi^2(4)\)</span> a <span class="math inline">\(z \sim \chi^2(16)\)</span>. Proměnné umocníme, sečteme a zobrazíme histogram rozložení této nově vzniklé náhodné proměnné.</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="prob-dist.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># velikost vyber</span></span>
+<span id="cb60-2"><a href="prob-dist.html#cb60-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">200</span></span>
+<span id="cb60-3"><a href="prob-dist.html#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="co"># pocet standardizovanych promennych</span></span>
+<span id="cb60-4"><a href="prob-dist.html#cb60-4" aria-hidden="true" tabindex="-1"></a>K <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">16</span>)</span>
+<span id="cb60-5"><a href="prob-dist.html#cb60-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-6"><a href="prob-dist.html#cb60-6" aria-hidden="true" tabindex="-1"></a><span class="co">#zobrazit grafy vedle sebe</span></span>
+<span id="cb60-7"><a href="prob-dist.html#cb60-7" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">1</span>))</span>
+<span id="cb60-8"><a href="prob-dist.html#cb60-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-9"><a href="prob-dist.html#cb60-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(k <span class="cf">in</span> K) {</span>
+<span id="cb60-10"><a href="prob-dist.html#cb60-10" aria-hidden="true" tabindex="-1"></a>  Z <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>k, <span class="cf">function</span>(x) <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>))</span>
+<span id="cb60-11"><a href="prob-dist.html#cb60-11" aria-hidden="true" tabindex="-1"></a>  X2 <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(Z<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb60-12"><a href="prob-dist.html#cb60-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb60-13"><a href="prob-dist.html#cb60-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hist</span>(X2,</span>
+<span id="cb60-14"><a href="prob-dist.html#cb60-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlab =</span> <span class="st">&quot;z&quot;</span>, </span>
+<span id="cb60-15"><a href="prob-dist.html#cb60-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylab =</span> <span class="st">&quot;Četnost&quot;</span>, <span class="at">main =</span> <span class="fu">paste0</span>(<span class="st">&quot;X2(&quot;</span>, k, <span class="st">&quot;)&quot;</span>),</span>
+<span id="cb60-16"><a href="prob-dist.html#cb60-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>,)</span>
+<span id="cb60-17"><a href="prob-dist.html#cb60-17" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:x2-chart"></span>
+<img src="book_files/figure-html/x2-chart-1.png" alt="Ukázka X2 rozložení pro k=2, k=4 a k=16" width="672" />
+<p class="caption">
+Graf 3.28: Ukázka X2 rozložení pro k=2, k=4 a k=16
+</p>
+</div>
+<p>Jak je vidět <span class="math inline">\(\chi^2\)</span> je definováno pouze pro <span class="math inline">\([0, \infty)\)</span>, tedy pro pozitivní hodnoty spojité proměnné. To je proto že počítáme s mocninou, tedy žádné negativní hodnoty v našem definičním oboru být nemohou. <strong>Očekávanou hodnotou</strong> je <span class="math inline">\(k\)</span>, tedy <span class="math inline">\(E(z_i) = k\)</span> a <strong>rozptyl</strong> je <span class="math inline">\(2k\)</span>, tedy <span class="math inline">\(Var(z_i)=2k\)</span>. S rostoucím počtem stupňů volnosti <span class="math inline">\(k\)</span> se rozložení tvarem podobá normálnímu rozložení s velkým rozptylem (protože rozptyl je roven <span class="math inline">\(2k\)</span>). Graf <a href="prob-dist.html#fig:x2-pdf">3.29</a> zobrazuje PDF pro <span class="math inline">\(z \sim \chi^2(2)\)</span>, <span class="math inline">\(z \sim \chi^2(4)\)</span>, <span class="math inline">\(z \sim \chi^2(8)\)</span>, <span class="math inline">\(z \sim \chi^2(16)\)</span> a <span class="math inline">\(z \sim \chi^2(32)\)</span>.</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="prob-dist.html#cb61-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">50</span>, <span class="at">length.out =</span> <span class="dv">1000</span>)</span>
+<span id="cb61-2"><a href="prob-dist.html#cb61-2" aria-hidden="true" tabindex="-1"></a>K <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">^</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span>
+<span id="cb61-3"><a href="prob-dist.html#cb61-3" aria-hidden="true" tabindex="-1"></a>PDF <span class="ot">&lt;-</span> <span class="fu">sapply</span>(K, <span class="cf">function</span>(k) <span class="fu">dchisq</span>(x, k))</span>
+<span id="cb61-4"><a href="prob-dist.html#cb61-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-5"><a href="prob-dist.html#cb61-5" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> <span class="fu">rev</span>(RColorBrewer<span class="sc">::</span><span class="fu">brewer.pal</span>(<span class="at">n =</span> <span class="fu">length</span>(K)<span class="sc">+</span><span class="dv">1</span>, <span class="at">name =</span> <span class="st">&quot;Blues&quot;</span>))</span>
+<span id="cb61-6"><a href="prob-dist.html#cb61-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, PDF[, <span class="dv">1</span>], </span>
+<span id="cb61-7"><a href="prob-dist.html#cb61-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">type=</span> <span class="st">&quot;l&quot;</span>,</span>
+<span id="cb61-8"><a href="prob-dist.html#cb61-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;z&quot;</span>, </span>
+<span id="cb61-9"><a href="prob-dist.html#cb61-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;PDF&quot;</span>, <span class="at">main =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb61-10"><a href="prob-dist.html#cb61-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>,</span>
+<span id="cb61-11"><a href="prob-dist.html#cb61-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb61-12"><a href="prob-dist.html#cb61-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-13"><a href="prob-dist.html#cb61-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="fu">length</span>(K)) {</span>
+<span id="cb61-14"><a href="prob-dist.html#cb61-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(x, PDF[, j], </span>
+<span id="cb61-15"><a href="prob-dist.html#cb61-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb61-16"><a href="prob-dist.html#cb61-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> cols[j])</span>
+<span id="cb61-17"><a href="prob-dist.html#cb61-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb61-18"><a href="prob-dist.html#cb61-18" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, </span>
+<span id="cb61-19"><a href="prob-dist.html#cb61-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend =</span> <span class="fu">paste0</span>(<span class="st">&quot;X2(&quot;</span>, K, <span class="st">&quot;)&quot;</span>),</span>
+<span id="cb61-20"><a href="prob-dist.html#cb61-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;#1f77b4&quot;</span>, cols[<span class="dv">2</span><span class="sc">:</span><span class="fu">length</span>(K)]),</span>
+<span id="cb61-21"><a href="prob-dist.html#cb61-21" aria-hidden="true" tabindex="-1"></a>       <span class="at">lwd =</span> <span class="fu">rep</span>(<span class="dv">2</span>, <span class="fu">length</span>(K)),</span>
+<span id="cb61-22"><a href="prob-dist.html#cb61-22" aria-hidden="true" tabindex="-1"></a>       <span class="at">cex =</span> <span class="fl">0.7</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:x2-pdf"></span>
+<img src="book_files/figure-html/x2-pdf-1.png" alt="PDF X2 rozložení s k=2, k=4, k = 8, k=16 a k=32" width="672" />
+<p class="caption">
+Graf 3.29: PDF X2 rozložení s k=2, k=4, k = 8, k=16 a k=32
+</p>
+</div>
+</div>
+<div id="jak-vybrat-správný-model-pro-data" class="section level2" number="3.8">
+<h2><span class="header-section-number">3.8</span> Jak vybrat správný model pro data</h2>
+<p>My jsme si v této kapitole ukázali některé nejčastější rozložení, které popisují náhodné procesy vyskutující se ve fyzikálním světě okolo nás. Při analýze máte zpravidla nějaká data (náhodné proměnné), jejichž chování se nažíte popsat pomocí nějakého modelu. To jaký model na vaše data vybrat záleží především na <strong>povaze dat</strong>, tedy zda jsou data spojitá nebo diskrétní. Dále pak na tom, jaké hodnoty byste u vašich dat čekali, především, zda májí data nějakou <strong>hranici</strong>, za kterou data nejsou možná (např. data musí být pozitivní apod.). V poslední řadě pak záleží na tom, zda zvolený model <strong>věrohodně vystihuje pravděpodobnost</strong>, s kterou data nabývají různých hodnot. Znovu zopakujeme, že model představuje připodobnění reality a jeho užitečnost závisí na otázce, kterou se snažíme modelem zodpovědět. Vždy je dobrým zvykem si data zobrazit. Ze zvažovaného modelu si vygenerujte data a porovnejte je s reálnými daty. Uvažujte jakých extrémních hodnot by váš model mohl dosáhnout a zda jsou takové hodnoty pro problém který zkoumáte vůbec reálné. Zvažte, do jaké míry váše data (nebo jejich sběr) porušují předpoklady vašeho modelu<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a>. Právě díky grafickému zobrazení různých simulací můžete pochopit, jak by mohly různé předpoklady váš model rozbít, nebo za jakých podmínek přestane věrohodně vystihovat vaše data.</p>
+<p>Nakonec představíme aplikaci, pomocí které si můžete vyzkoušet, jak různé parametry ovlivňují tvar různých rozložení nebo vypočítat pravděpodobnost, že náhodná proměnná <span class="math inline">\(x_i\)</span> nabyde určitých hodnot <span class="math inline">\(a\)</span>.</p>
+<iframe src="https://gallery.shinyapps.io/dist_calc/?showcase=0" width="672" height="400px" data-external="1">
+</iframe>
+<p>Zdroj: <a href="https://github.com/ShinyEd/intro-stats/tree/master/dist_calc" class="uri">https://github.com/ShinyEd/intro-stats/tree/master/dist_calc</a></p>
+</div>
+<div id="cvičení-1" class="section level2" number="3.9">
+<h2><span class="header-section-number">3.9</span> Cvičení</h2>
+<p>Vymyslete náhodné proměnné, jejichž pravděpodobnostní rozložení by se dalo popsat binomickým, normálním a poissonovým rozložením.</p>
+
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>Např. teplota, hmotnost, výška. Naše schonost tyto jevy měřit je ale často diskrétní, hmotnost můžeme měřit na mg apod. Protože jsou ale jednotky míry často malé, bereme je jako spojitou proměnnou<a href="prob-dist.html#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>Teoreticky jsou ohraničené, ale prakticky se v přírodě extrémy často nevyskutují. Například teplota neklesá k absolutní nule. Váha zvířat je zpravidla větší než 0 mg apod.<a href="prob-dist.html#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>Jedná se o pravděpodobnost, protože počítáme PDF v nějakém intervalu CDF<a href="prob-dist.html#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>PMF poissonova rozložení klesá s rostoucí hodnotou <span class="math inline">\(x_i\)</span> rychle k zanedbatelné hodnotě, takže bude nepravděpodobné, že bychom generovali věty s nadpřirozenými počty slov.<a href="prob-dist.html#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p>Tím je v generalized linear models Beta negative binomial<a href="prob-dist.html#fnref5" class="footnote-back">↩︎</a></p></li>
+<li id="fn6"><p>Pokud bychom chtěli věrohodně zachytit nejistotu ohledně počtu slov v našich datech, měli bychom počítat s nejistotou odhadu průměru a směrodatné odchylky rozložení. Něco, co si ukážeme v příští kapitole.<a href="prob-dist.html#fnref6" class="footnote-back">↩︎</a></p></li>
+<li id="fn7"><p>Skoro všechna data porušují do nějaké míry alespoň jedne z předpokladů modelu :)<a href="prob-dist.html#fnref7" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="popisná-statistika.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection",
+"download": false
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

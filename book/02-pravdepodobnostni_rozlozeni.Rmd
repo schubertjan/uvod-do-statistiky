@@ -1,4 +1,4 @@
-# Pravděpodobnostní rozložení
+# Pravděpodobnostní rozložení{#prob-dist}
 
 Tuto kapitolu začneme [videm](https://upload.wikimedia.org/wikipedia/commons/d/dc/Galton_box.webm).
 
@@ -14,13 +14,13 @@ Na začátku jsme řekli, že budeme používat statistické modely a že tyto m
 
 V této kapitole si ukážeme spoustu nových značení, která se stanou našim jazykem, kterým budeme ve statistice komunikovat. Budeme je používat k tomu, abychom popsali očekávané chování náhodné proměnné. Každé rozložení má svoje **parametry**, pomocí kterým ho můžeme popsat. Každé rozložení má taky svoje **míry centrální tendence** (**očekávanou hodnotu**) a svoje **míry rozptýlenosti**. To, kolik hodnot náhodné proměnné nabývá určitých hodnot popisuje **hustota pravděpodobnosti**. V angličtině se u spojitých proměnných (která nabývají reálných čísel) vyjadřuje hustota pravděpodobnosti jako **probability density function** (PDF). U diskrétních proměnných (nabývají celých čísel) se hustota pravděpodobnosti nazývá **probability mass function** (PMF). Integrál hustoty pravděpodobnosti je vždy rovný nule. To tedy znamá, že kdybychom sečetli všechny hodnoty hustoty pravděpodobnosti (pro spojité proměnné integrovali), tak by se výsledek rovnal jedné. To plyne z toho, že pravděpodobnost jevu nemůže být vyšší než jedna. Nakonec ještě trocha **terminologie**, které budeme používat. Náhodnou proměnnou budeme označovat jako $x_i$. Budeme používat malá písmena, pokud výsledkem procesu bude vektor a velká písmena, pokud výsledkem bude matice. $i$ označuje jednotlivá pozorování. Teda první hodnota náhodné proměnné, by se označovala jako $x_1$. $n$ označuje zpravidla počet pozorování proměnné.
 
-## Binomické
+## Binomické{#binom-dist}
 
-Vraťme se k videu ze začátku kapitoly. Tomuto přístroji se říká Galton Box. Míčky jsou puštěny do přístroje z jednoho stejného bodu a procházejí několika vrstvami (ve videu 10 vrstvami). V každé vrstvě míček narazí na bod, který ho může poslat na levou nebo na pravou stranu (zhruba se stejnou pravděpodobností 0.5). To, na jakou stranu se míček vydá je určeno náhodou. Míčky potom spadnou do jednoho ze sloupců (ve videu 13 sloupců). Kdybysme nechali všechny míčky spadnout, posbírali je a znovu spustili, tak skoro stejné množství míčků skončí v každém sloupci. Jak je možné, že když spustíme tisíce míčků, každý se může 10x odrazit nalevo nebo napravo, tak výsledný počet míčků v každém sloupci je skoro stejný? Příčinou je pravděpodovnoství rozložení.
+Vraťme se k videu ze začátku kapitoly. Tomuto přístroji se říká Galton Box. Kuličky jsou puštěny do přístroje z jednoho stejného bodu a procházejí několika vrstvami (ve videu 10 vrstvami). V každé vrstvě míček narazí na bod, který ho může poslat na levou nebo na pravou stranu (zhruba se stejnou pravděpodobností 0.5). To, na jakou stranu se míček vydá je určeno náhodou. Kuličky potom spadnou do jednoho ze sloupců (ve videu 13 sloupců). Kdybysme nechali všechny kuličky spadnout, posbírali je a znovu spustili, tak skoro stejné množství kuliček skončí v každém sloupci. Jak je možné, že když spustíme tisíce kuliček, každý se může 10x odrazit nalevo nebo napravo, tak výsledný počet kuliček v každém sloupci je skoro stejný? Příčinou je pravděpodovnoství rozložení.
 
-Prvním rozložením, které si ukážeme je binomické rozložení. Jevy mohou být generovany procesem, který vede k binomickému rozložení, pokud máme pokus, jehož výsledkem je **úspěch nebo neúspěch**, pokusy jsou **nezávislé** a mají **konstantní pravděpodobnost** úspěchu $p$ (konstantní pro všechny pokusy). Obecně platí, že proměnná $x_i$ pochází z binomického rozložení, kde $$x_i \sim B(n, p)$$ a kde $n$ značí počet pokusů a $p$ pravděpodobnost úspěchu. Proměnná $x_i$ je potom **diskrétní**. Pojďme si ukázat, jak se binomické rozložení vztahuje ke Galtonově boxu. Každý míček prochází 10 pokusy, kde výsledek může být buď úspěch (řekněme, že míček spadne napravo) nebo neúspěch (řeknemě, že míček spadne nalevo). Výsledkem je potom zařazení do jednoho ze 13 sloupců. V extrému může náš proces skončit tak, že všechny míčky budou nalevo nebo že všechny míčky budou napravo. Míčky jsou na sobě relativně nezávislé a všechny mají při každém pokusu relativně konstatní pravděpodobnost. Opět je nutné si uvědomit, že náš model dat (binomické rozložení) není přesnou reprezentací procesu, který se snažíme popsat. Míčky nejsou ve skutečnosti kompletně nezávislé, mohou do sebe narazit a tím se ovlivnit. Protože ale prochazí zhruba 10 pokusy (i když to se může lišit, některé míčky se mohou odrazit po nárazu znovu nahoru), bereme proces jako dostatečně náhodný a nezávislý. Důležité je, jestli jsou předpoklady našeho modelu splněny dostatečně na to, aby jeho matematické vyjádření bylo validní pro reálný process, který se snažíme popsat.
+Prvním rozložením, které si ukážeme je binomické rozložení. Jevy mohou být generovany procesem, který vede k binomickému rozložení, pokud máme pokus, jehož výsledkem je **úspěch nebo neúspěch**, pokusy jsou **nezávislé** a mají **konstantní pravděpodobnost** úspěchu $p$ (konstantní pro všechny pokusy). Obecně platí, že proměnná $x_i$ pochází z binomického rozložení, kde $$x_i \sim B(n, p)$$ a kde $n$ značí počet pokusů a $p$ pravděpodobnost úspěchu. Proměnná $x_i$ je potom **diskrétní**. Pojďme si ukázat, jak se binomické rozložení vztahuje ke Galtonově boxu. Každý míček prochází 10 pokusy, kde výsledek může být buď úspěch (řekněme, že míček spadne napravo) nebo neúspěch (řeknemě, že míček spadne nalevo). Výsledkem je potom zařazení do jednoho ze 13 sloupců. V extrému může náš proces skončit tak, že všechny kuličky budou nalevo nebo že všechny kuličky budou napravo. Kuličky jsou na sobě relativně nezávislé a všechny mají při každém pokusu relativně konstatní pravděpodobnost. Opět je nutné si uvědomit, že náš model dat (binomické rozložení) není přesnou reprezentací procesu, který se snažíme popsat. Kuličky nejsou ve skutečnosti kompletně nezávislé, mohou do sebe narazit a tím se ovlivnit. Protože ale prochazí zhruba 10 pokusy (i když to se může lišit, některé kuličky se mohou odrazit po nárazu znovu nahoru), bereme proces jako dostatečně náhodný a nezávislý. Důležité je, jestli jsou předpoklady našeho modelu splněny dostatečně na to, aby jeho matematické vyjádření bylo validní pro reálný process, který se snažíme popsat.
 
-Pojďme si nyní ukázat, jak se Galtonův box dá připodobnit binomickým rozložením. Náhodný process z binomického rozložení můžeme generovat pomocí funkce `rbinom`. Ta jako argumenty předpokládá `n` počet pozorování, která chceme generovat, `size` počet pokusů (způsobů, jak může proces skončit) a `p` pravděpodobnost úspěchu. Budeme uvaživat, že spustíme 10 000 míčků, tedy $$x_i \sim B(10000, 0.5)$$
+Pojďme si nyní ukázat, jak se Galtonův box dá připodobnit binomickým rozložením. Náhodný process z binomického rozložení můžeme generovat pomocí funkce `rbinom`. Ta jako argumenty předpokládá `n` počet pozorování, která chceme generovat, `size` počet pokusů (způsobů, jak může proces skončit) a `p` pravděpodobnost úspěchu. Budeme uvaživat, že spustíme 10 000 kuliček, tedy $$x_i \sim B(10000, 0.5)$$
 
 ```{r, fig.cap='Simulace Galtonova boxu s 13 sloupci'}
 set.seed(4)
@@ -28,8 +28,8 @@ set.seed(4)
 n <- 10000
 # pravdepodobnost uspechu (napravo)
 p <- 0.5
-# 0 by znamenalo všechny míčky nalevo, 12 všechny míčky napravo,
-# celkem 13 možností, jak mohou míčku skončit
+# 0 by znamenalo všechny kulicky nalevo, 12 všechny kulicky napravo,
+# celkem 13 možností, jak mohou kulicky skončit
 s <- 12
 
 vysledek <- rbinom(n = n, size = s, prob = p)
@@ -37,7 +37,7 @@ cetnost <- table(vysledek)
 plot(cetnost,
   xlab = "x",
   ylab = "Četnost",
-  main = paste0("Galtonův box s ", n, " míčky"),
+  main = paste0("Galtonův box s ", n, " kuličkami"),
   col = "#1f77b4",
   type = "h", lwd = 15,
   xlim = c(0, 12)
@@ -46,11 +46,11 @@ plot(cetnost,
 axis(1, 1:13, 1:13)
 ```
 
-**Očekávanou hodnotu** proměnné pocházející z binomické proměnné můžeme vypočítat jako $$E(x_i) = np$$ **rozptyl** jako $$Var(x_i) = npq$$ a **směrodatbou odchylku** jako $$Sd(x_i) = \sqrt{Var(X_i)}$$V našem případě, kdy máme `r n` míčků je tedy očekávaná hodnota `r n*p` a směrodatná odchylka `r n*p*(1-p)`.
+**Očekávanou hodnotu** proměnné pocházející z binomické proměnné můžeme vypočítat jako $$E(x_i) = np$$ **rozptyl** jako $$Var(x_i) = npq$$ a **směrodatbou odchylku** jako $$Sd(x_i) = \sqrt{Var(X_i)}$$V našem případě, kdy máme `r n` kuliček je tedy očekávaná hodnota `r n*p` a směrodatná odchylka `r n*p*(1-p)`.
 
-A ještě ukázka, že počet míčků v každém sloupci je zhruba stejný, pokud bychom je pustili znova, řekněme 11x.
+A ještě ukázka, že počet kuliček v každém sloupci je zhruba stejný, pokud bychom je pustili znova, řekněme 11x.
 
-```{r, animation.hook='gifski', fig.cap='Opakované spuštění míčků v Galtonově boxu'}
+```{r, animation.hook='gifski', fig.cap='Opakované spuštění kuliček v Galtonově boxu'}
 N <- 11
 for (i in 1:N) {
   vysledek <- rbinom(n = n, size = s, prob = p)
@@ -60,7 +60,7 @@ for (i in 1:N) {
   plot(cetnosti,
     xlab = "x",
     ylab = "Četnost",
-    main = paste0("Galtonův box s ", n, " míčky; pokus #", i),
+    main = paste0("Galtonův box s ", n, " kuličkami; pokus #", i),
     col = "#1f77b4",
     lwd = 15,
     ylim = c(0, 2500),
@@ -93,7 +93,7 @@ plot(x, pmf,
 axis(1, 1:13, 1:13)
 ```
 
-Protože hodnoty $x_i$ mohou nabývat pouze celých čísel, je PMF vyjádřením pravděpodobnosti toho, že náhodná proměnná $x_i$ nabyde nějaké hodnoty. Nejpravděpodobněji skončí míček ve sloupci `r x[which.max(pmf)]` s pravděpodobností `r which.max(pmf)`, nebo matematickým zápisem $P(x_i=$ `r x[which.max(pmf)]` $)=$ `r max(pmf)`. Pravěpodobnost, že míček skončí v 4 sloupci zleva je $P(x_i = 2)$=`r pmf[x==3]`. To, že dokážeme predikovat, kolik míčků skončí v jakém sloupci, ještě neznamená, že víme, kde skončí jeden konkrétní míček. V animaci nahoře si všimněte červené tečky. Ta reprezentuje první míček, který jsme vhodili. Jak je vidět míček cestuje mezi sloupci. To s jakou pravděpobností skončí v daném sloupci nám říká právě PMF.
+Protože hodnoty $x_i$ mohou nabývat pouze celých čísel, je PMF vyjádřením pravděpodobnosti toho, že náhodná proměnná $x_i$ nabyde nějaké hodnoty. Nejpravděpodobněji skončí míček ve sloupci `r x[which.max(pmf)]` s pravděpodobností `r which.max(pmf)`, nebo matematickým zápisem $P(x_i=$ `r x[which.max(pmf)]` $)=$ `r max(pmf)`. Pravěpodobnost, že míček skončí v 4 sloupci zleva je $P(x_i = 2)$=`r pmf[x==3]`. To, že dokážeme predikovat, kolik kuliček skončí v jakém sloupci, ještě neznamená, že víme, kde skončí jeden konkrétní míček. V animaci nahoře si všimněte červené tečky. Ta reprezentuje první míček, který jsme vhodili. Jak je vidět míček cestuje mezi sloupci. To s jakou pravděpobností skončí v daném sloupci nám říká právě PMF.
 
 Stejně tak můžeme spočítat pravděpodobnost, že skončí v 7 sloupci a více napravo, tedy $P(x \ge 7)$=`r sum(pmf[x>=7])`. Tomuto typu úlohy, kdy nás zajímá, zda náhodná proměnná $x_i$ bude mít hodnotu menší/větší než nějaká hodnota $q$, říkáme **kumulativní pravděpodobnosti** (anglicky cumulative distribution function CDF). Matematicky bychom tento typ úlohy označili jako $P(x_i < q)$ pokud by nás zajímala pravděpodobnost, že náhodné proměnné $x_i$ bude menší než nějaká hodnota $q$ a $P(x_i > q)$, pokud by nás zajímala pravděpodobnost, že hodnota náhodné proměnné $x_i$ bude větší než nějaká hodnota $q$. `R` můžeme na výpočet CDF u binomického rozložení použít funkci `pbinom`. Jako argumenty očekává tato funkce `q` hodnota náhodné proměnné vůči které porovnáváme, `size` a `prob` mají stejný význam jako u funkcí nahoře a argument `lower.tail` vyjadřující, zda chceme zjistit pravděpodobnost, že $x_i$ bude menší nebo větší a rovno než $q$. Pokud má argument `lower.tail` hodnotu `TRUE`, pak počítáme $P(x_i \le q)$, pokud má hodnotu `FALSE`, pak počítáme $P(x_i > q)$. Pojďme si ukázat různé výpočty a jejich zobrazení na grafu. Začneme $P(x > 7)$.
 
@@ -796,3 +796,7 @@ knitr::include_app("https://gallery.shinyapps.io/dist_calc/")
 ```
 
 Zdroj: <https://github.com/ShinyEd/intro-stats/tree/master/dist_calc>
+
+
+## Cvičení 
+Vymyslete náhodné proměnné, jejichž pravděpodobnostní rozložení by se dalo popsat binomickým, normálním a poissonovým rozložením. 

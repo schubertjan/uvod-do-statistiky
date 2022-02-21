@@ -42,12 +42,13 @@ popisná-statistika
 central-tend
 desc-vars
 cvičení
-pravděpodobnostní-rozložení
+prob-dist
 stats-lang
-binomické
+binom-dist
 norm-dist
 t
 uniformní
 poisson
 chi-kvadrát
 jak-vybrat-správný-model-pro-data
+cvičení-1
