@@ -46,7 +46,7 @@ prob-dist
 stats-lang
 binom-dist
 norm-dist
-t
+t-dist
 uniformní
 poisson
 chi-kvadrát

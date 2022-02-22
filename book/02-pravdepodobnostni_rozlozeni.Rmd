@@ -404,7 +404,7 @@ plot(x, pdf,
 lines(x[x < q], pdf[x < q], col = "#1f77b4", type = "h")
 ```
 
-## T
+## T{#t-dist}
 Dalším z rozložení, které si představíme je tzv. t-rozložení, nebo také někdy nazývané studentovo. Toto rozložení vychází z normálního rozložení, ale má větší varibilitu. PDF normálního rozložení rapidně klesá se vzdáleností od průměru (viz \@ref(fig:z-norm)). Pokud potřebujeme popsat jev, který má více hodnot vzdálených od průměru, než bychom čekali u normálního rozložení, je toho možné dosáhnout pomocí t-rozložení. T-rozložení je automaticky standardizované na $\mu = 0$ a má pouze jeden paramater - stupně volnosti (degrees of freedom) $\nu$, který určuje jak pravděpodobné jsou hodnoty více vzdálené od průměru. Čím je $\nu$ menší, tím je rozložení více široké a naopak. Pokud je $\nu$ větší než 50, je t-rozdělení skoro totožné se standardizovaným normálním rozložením $N(1, 0)$. Pojďme si nyní ukázat PDF při různých stupních volnosti $\nu$ a jejich podobnost k $N(1, 0)$. Ukážeme si $T(2)$, $T(4)$, $T(8)$, $T(16)$, $T(34)$ a $T(64)$. Jak je vidět z grafu \@ref(fig:t-dist), s rostoucím počtem stupňů volnosti se t-rozložení přibližuje $N(1,0)$, $T(64)$ už skoro překrývá křivku PDF pro $N(1,0)$
 
 ```{r t-dist, fig.cap='Podobnost t-rozdělení k N(1,0)'}

@@ -16,31 +16,31 @@ prezident <- readLines("https://raw.githubusercontent.com/schubertjan/uvod-do-st
 Nejdříve text očistíme o mezery a čárky, přeneseme vše do malých písmen, rozdělíme na věty a potom na slova. Protože tuto proceduru budeme dělat vícekrát uděláme si na to funkci. Výstupem této funkce bude list, jehož každý element reprezentuje jednu větu a v rámci této věty jaká obsahuje slova.  
 ```{r}
 vycistit_text <- function(.text) {
-  # vse malym pismem
-  .text <- tolower(.text)
+     # vse malym pismem
+     .text <- tolower(.text)
 
-  # odstranime prazdne radky
-  .text <- .text[.text != ""]
+     # odstranime prazdne radky
+     .text <- .text[.text != ""]
 
-  # odstranime carky
-  .text <- gsub(pattern = ",", replacement = "", x = .text)
+     # odstranime carky
+     .text <- gsub(pattern = ",", replacement = "", x = .text)
 
-  # rozdelit na vety, pokud najdeme "." nebo "!" nebo "?"
-  .text <- unlist(strsplit(.text, split = "\\.|\\!|\\?"))
+     # rozdelit na vety, pokud najdeme "." nebo "!" nebo "?"
+     .text <- unlist(strsplit(.text, split = "\\.|\\!|\\?"))
 
-  # vymazeme mezery na zacatku a konci
-  .text <- trimws(.text, which = c("left"))
-  .text <- trimws(.text, which = c("right"))
+     # vymazeme mezery na zacatku a konci
+     .text <- trimws(.text, which = c("left"))
+     .text <- trimws(.text, which = c("right"))
 
-  # odstranime prazdne prvky, ktere vznikly protoze po tecce neni zadny text
-  .text <- .text[.text != ""]
+     # odstranime prazdne prvky, ktere vznikly protoze po tecce neni zadny text
+     .text <- .text[.text != ""]
 
-  # rozdelime na slova
-  slova <- list()
-  for (i in 1:length(.text)) {
-    slova[[i]] <- unlist(strsplit(.text[i], split = " "))
-  }
-  return(slova)
+     # rozdelime na slova
+     slova <- list()
+     for (i in 1:length(.text)) {
+          slova[[i]] <- unlist(strsplit(.text[i], split = " "))
+     }
+     return(slova)
 }
 ```
 
@@ -79,19 +79,21 @@ Zdroj: [Wikipedia](https://cs.wikipedia.org/wiki/Histogram)
 
 Můžeme ho vytvořit pomocí funkce `hist`. Vidíme, že nejvíce nejčastěji věta obsahuje mezi 5 až 25 slovy, ale některé věty obsahují i více než 35 slov. 
 ```{r, fig.cap='Příklad histogramu na číselné (kardinální) proměnné'}
-hist(pocet_slov, 
-     col = "#1f77b4", 
-     xlab = "Počet slov ve větě", ylab = "Četnost", 
-     main = "Histogram počtu slov ve větě")
+hist(pocet_slov,
+     col = "#1f77b4",
+     xlab = "Počet slov ve větě", ylab = "Četnost",
+     main = "Histogram počtu slov ve větě"
+)
 ```
 Funkce `hist` automaticky zvolí vhodné intervaly pro sloupce v grafu. Pokud byste je chtěli změnit, můžete tak udělat pomocí argumentu `breaks`.
 
 ```{r}
-hist(pocet_slov, 
-     col = "#1f77b4", 
-     xlab = "Počet slov ve větě", ylab = "Četnost", 
+hist(pocet_slov,
+     col = "#1f77b4",
+     xlab = "Počet slov ve větě", ylab = "Četnost",
      main = "Histogram počtu slov ve větě",
-     breaks = 15)
+     breaks = 15
+)
 ```
 
 ```{r}
@@ -110,11 +112,11 @@ Medián můžeme také vypočítat pomocí funkce `median`. Mediánový počet s
 Pojďme si výpočet zobrazit graficky a seřadit si počet slov od nejmenšího po největší a zobrazit si medián na grafu.
 ```{r, fig.cap='Seřazení proměnné pro ilustraci výpočtu mediánu'}
 plot(1:n,
-  sort(pocet_slov),
-  col = "#1f77b4",
-  ylab = "Počet slov ve větě", xlab = "Pořadí", main = "Počet slov ve větě seřazený podle velikosti",
-  type = "h",
-  lwd = 5
+     sort(pocet_slov),
+     col = "#1f77b4",
+     ylab = "Počet slov ve větě", xlab = "Pořadí", main = "Počet slov ve větě seřazený podle velikosti",
+     type = "h",
+     lwd = 5
 )
 # pridame prostredni hodnoty
 lines(i1, pocet_slov[i1], col = "grey", type = "h", lwd = 5)
@@ -124,10 +126,10 @@ lines(i2, pocet_slov[i2], col = "grey", type = "h", lwd = 5)
 lines(mean(c(i1, i2)), .median, col = "red", type = "h", lwd = 1, lty = 2)
 lines(c(-2, mean(c(i1, i2))), c(.median, .median), col = "red", type = "l", lwd = 1, lty = 2)
 legend("topleft",
-  col = c("grey", "red"),
-  lwd = c(4, 4),
-  legend = c("Prostřední hodnoty", "Median"),
-  cex = 0.7
+     col = c("grey", "red"),
+     lwd = c(4, 4),
+     legend = c("Prostřední hodnoty", "Median"),
+     cex = 0.7
 )
 ```
 
@@ -163,7 +165,7 @@ slova_premier <- slova_premier[!slova_premier %in% stopwords]
 slova <- slova[!slova %in% stopwords]
 
 # vypocitame absolutni cetnost slov
-cetnost_premier <- table(slova_premier) 
+cetnost_premier <- table(slova_premier)
 cetnost_prezident <- table(slova)
 
 # vypocitame relativni cetnost
@@ -172,18 +174,19 @@ cetnost_prezident <- cetnost_prezident / sum(cetnost_prezident)
 
 # vypocitame relativni cetnost
 
-# ted slouzime obe tabulky 
-rel_cetnost <- merge(data.frame(cetnost_premier), 
-                     data.frame(cetnost_prezident), 
-                     by.x = "slova_premier", by.y = "slova")
+# ted slouzime obe tabulky
+rel_cetnost <- merge(data.frame(cetnost_premier),
+     data.frame(cetnost_prezident),
+     by.x = "slova_premier", by.y = "slova"
+)
 # prejmenuje sloupce, aby davaly vice smysl
 colnames(rel_cetnost) <- c("slova", "premier", "prezident")
 head(rel_cetnost)
 
-# vybereme nejcastejsich 20 slov pro každého 
+# vybereme nejcastejsich 20 slov pro každého
 top_premier <- order(rel_cetnost$premier, decreasing = TRUE)[1:20]
-top_prezident <-order(rel_cetnost$prezident, decreasing = TRUE)[1:20]
-# vyfiltrujeme 
+top_prezident <- order(rel_cetnost$prezident, decreasing = TRUE)[1:20]
+# vyfiltrujeme
 top_index <- unique(c(top_premier, top_prezident))
 rel_cetnost_top <- rel_cetnost[top_index, ]
 ```
@@ -191,18 +194,20 @@ rel_cetnost_top <- rel_cetnost[top_index, ]
 ```{r, fig.cap='Top 20 slov podle relativní četnosti v projevu prezidenta a premiéra', fig.align='center'}
 x <- 1:nrow(rel_cetnost_top)
 plot(x,
-     rel_cetnost_top$premier, 
+     rel_cetnost_top$premier,
      type = "h",
      xaxt = "n",
      xlab = "",
      ylab = "Relativní četnost",
-     col = "black", lwd = 3)
-lines(x+0.3,
-      rel_cetnost_top$prezident, 
-      type = "h",
-      col = "#1f77b4", lwd = 3)
-axis(1, at=x, labels=rel_cetnost_top$slova, las = 3, cex.axis = 0.8)
-legend("topright", legend = c("Premiér", "Prezident"), col = c("black", "#1f77b4"), lwd = c(3,3), cex = 0.8)
+     col = "black", lwd = 3
+)
+lines(x + 0.3,
+     rel_cetnost_top$prezident,
+     type = "h",
+     col = "#1f77b4", lwd = 3
+)
+axis(1, at = x, labels = rel_cetnost_top$slova, las = 3, cex.axis = 0.8)
+legend("topright", legend = c("Premiér", "Prezident"), col = c("black", "#1f77b4"), lwd = c(3, 3), cex = 0.8)
 ```
 
 ## Míry rozptýlenosti {#desc-vars}
@@ -221,58 +226,64 @@ Rozptyl počtu slov ve větě je tedy `r rozptyl` a směrodatná odchylka je `r 
 par(mfrow = c(2, 1))
 x <- rnorm(1e4, mean = 5, sd = 1)
 prumer <- mean(x)
-n <- seq(1, 10) 
+n <- seq(1, 10)
 smerodatna_odchylka <- sd(x)
- 
+
 # prvni graf
-plot(x[n], n, 
+plot(x[n], n,
      main = paste0("Směrodatná odchylka: ", round(smerodatna_odchylka, 2)),
-     xlim = c(0,10), 
-     xlab = "", ylab = "Číslo pozorovaní", 
+     xlim = c(0, 10),
+     xlab = "", ylab = "Číslo pozorovaní",
      pch = 19,
-     col = "#1f77b4")
+     col = "#1f77b4"
+)
 abline(v = prumer, col = "black", lwd = 2)
-for(i in n) {
-	lines(c(prumer, x[i]), c(i,i), col = "#1f77b4", lwd = 2)
+for (i in n) {
+     lines(c(prumer, x[i]), c(i, i), col = "#1f77b4", lwd = 2)
 }
-legend("topright", 
-        legend = c("Průměr", "Vzdal. od průměru"), 
-       col = c("black", "#1f77b4"), 
-       lwd = c(2,2), cex = 0.7)
+legend("topright",
+     legend = c("Průměr", "Vzdal. od průměru"),
+     col = c("black", "#1f77b4"),
+     lwd = c(2, 2), cex = 0.7
+)
 
 # druhy graf
 x2 <- rnorm(1e4, mean = 5, sd = 2.5)
 prumer <- mean(x2)
 smerodatna_odchylka <- sd(x2)
 
-plot(x2[n], n, 
+plot(x2[n], n,
      main = paste0("Směrodatná odchylka: ", round(smerodatna_odchylka, 2)),
-     xlim = c(0,10), 
-     xlab = "", ylab = "Číslo pozorovaní", 
+     xlim = c(0, 10),
+     xlab = "", ylab = "Číslo pozorovaní",
      pch = 19,
-     col = "#1f77b4")
+     col = "#1f77b4"
+)
 abline(v = prumer, col = "black", lwd = 2)
-for(i in n) {
-	lines(c(prumer, x2[i]), c(i,i), col = "#1f77b4",lwd = 2)
+for (i in n) {
+     lines(c(prumer, x2[i]), c(i, i), col = "#1f77b4", lwd = 2)
 }
-legend("topright", 
-       legend = c("Průměr", "Vzdal. od průměru"), 
-       col = c("black", "#1f77b4"), 
-       lwd = c(2,2), cex = 0.7)
+legend("topright",
+     legend = c("Průměr", "Vzdal. od průměru"),
+     col = c("black", "#1f77b4"),
+     lwd = c(2, 2), cex = 0.7
+)
 ```
 
 
 Pro úplnost, jak by vypadal histogram rozložení obou proměnných. V tomto případě jsme data generovali z normálního rozložení (viz kapitola Pravděpodobnostní rozložení).  
 ```{r, fig.cap='Histogram bodů z normálního rozložení o průměru 5 a směrodatné odchylce 1 (modrá) a 2.5 (černá)'}
-hist(x, 
-     col = adjustcolor("#1f77b4", 0.9), 
-     breaks = 20, 
+hist(x,
+     col = adjustcolor("#1f77b4", 0.9),
+     breaks = 20,
      xlab = "", ylab = "Četnost", main = "",
-     xlim = c(0,10))
-hist(x2, 
-     col = adjustcolor("black", 0.4), 
-     breaks = 40, 
-     add = TRUE)
+     xlim = c(0, 10)
+)
+hist(x2,
+     col = adjustcolor("black", 0.4),
+     breaks = 40,
+     add = TRUE
+)
 ```
 
 
@@ -317,4 +328,5 @@ Někdy se hodnoty kvantilů používají k výpočtu mezikvantilových rozpětí
 
 
 ## Cvičení 
-Vytvořte funkci na výpočet percentilu.
+1. Vytvořte funkci na výpočet percentilu.
+2. Načtěte projev předsedy Senátu [zde](https://raw.githubusercontent.com/schubertjan/uvod-do-statistiky/master/dats/senat.txt). Který projev je nejdelší? Který ústavní činitel má v průměru nejdelší věty? Jak se liší rozptyl počtu slov ve větě a co to znamená?

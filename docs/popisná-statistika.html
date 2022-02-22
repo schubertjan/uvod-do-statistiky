@@ -24,7 +24,7 @@
 <meta name="author" content="Jan Schubert" />
 
 
-<meta name="date" content="2022-02-21" />
+<meta name="date" content="2022-02-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -155,7 +155,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.1" data-path="prob-dist.html"><a href="prob-dist.html#stats-lang"><i class="fa fa-check"></i><b>3.1</b> Pravděpodobnostní rozložení jako jazyk statistiky</a></li>
 <li class="chapter" data-level="3.2" data-path="prob-dist.html"><a href="prob-dist.html#binom-dist"><i class="fa fa-check"></i><b>3.2</b> Binomické</a></li>
 <li class="chapter" data-level="3.3" data-path="prob-dist.html"><a href="prob-dist.html#norm-dist"><i class="fa fa-check"></i><b>3.3</b> Normální</a></li>
-<li class="chapter" data-level="3.4" data-path="prob-dist.html"><a href="prob-dist.html#t"><i class="fa fa-check"></i><b>3.4</b> T</a></li>
+<li class="chapter" data-level="3.4" data-path="prob-dist.html"><a href="prob-dist.html#t-dist"><i class="fa fa-check"></i><b>3.4</b> T</a></li>
 <li class="chapter" data-level="3.5" data-path="prob-dist.html"><a href="prob-dist.html#uniformní"><i class="fa fa-check"></i><b>3.5</b> Uniformní</a></li>
 <li class="chapter" data-level="3.6" data-path="prob-dist.html"><a href="prob-dist.html#poisson"><i class="fa fa-check"></i><b>3.6</b> Poisson</a></li>
 <li class="chapter" data-level="3.7" data-path="prob-dist.html"><a href="prob-dist.html#chi-kvadrát"><i class="fa fa-check"></i><b>3.7</b> Chi-kvadrát</a></li>
@@ -194,31 +194,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="popisná-statistika.html#cb9-1" aria-hidden="true" tabindex="-1"></a>prezident <span class="ot">&lt;-</span> <span class="fu">readLines</span>(<span class="st">&quot;https://raw.githubusercontent.com/schubertjan/uvod-do-statistiky/master/dats/prezident.txt&quot;</span>, <span class="at">encoding =</span> <span class="st">&quot;UTF-8&quot;</span>)</span></code></pre></div>
 <p>Nejdříve text očistíme o mezery a čárky, přeneseme vše do malých písmen, rozdělíme na věty a potom na slova. Protože tuto proceduru budeme dělat vícekrát uděláme si na to funkci. Výstupem této funkce bude list, jehož každý element reprezentuje jednu větu a v rámci této věty jaká obsahuje slova.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="popisná-statistika.html#cb10-1" aria-hidden="true" tabindex="-1"></a>vycistit_text <span class="ot">&lt;-</span> <span class="cf">function</span>(.text) {</span>
-<span id="cb10-2"><a href="popisná-statistika.html#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># vse malym pismem</span></span>
-<span id="cb10-3"><a href="popisná-statistika.html#cb10-3" aria-hidden="true" tabindex="-1"></a>  .text <span class="ot">&lt;-</span> <span class="fu">tolower</span>(.text)</span>
+<span id="cb10-2"><a href="popisná-statistika.html#cb10-2" aria-hidden="true" tabindex="-1"></a>     <span class="co"># vse malym pismem</span></span>
+<span id="cb10-3"><a href="popisná-statistika.html#cb10-3" aria-hidden="true" tabindex="-1"></a>     .text <span class="ot">&lt;-</span> <span class="fu">tolower</span>(.text)</span>
 <span id="cb10-4"><a href="popisná-statistika.html#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-5"><a href="popisná-statistika.html#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># odstranime prazdne radky</span></span>
-<span id="cb10-6"><a href="popisná-statistika.html#cb10-6" aria-hidden="true" tabindex="-1"></a>  .text <span class="ot">&lt;-</span> .text[.text <span class="sc">!=</span> <span class="st">&quot;&quot;</span>]</span>
+<span id="cb10-5"><a href="popisná-statistika.html#cb10-5" aria-hidden="true" tabindex="-1"></a>     <span class="co"># odstranime prazdne radky</span></span>
+<span id="cb10-6"><a href="popisná-statistika.html#cb10-6" aria-hidden="true" tabindex="-1"></a>     .text <span class="ot">&lt;-</span> .text[.text <span class="sc">!=</span> <span class="st">&quot;&quot;</span>]</span>
 <span id="cb10-7"><a href="popisná-statistika.html#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-8"><a href="popisná-statistika.html#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># odstranime carky</span></span>
-<span id="cb10-9"><a href="popisná-statistika.html#cb10-9" aria-hidden="true" tabindex="-1"></a>  .text <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="at">pattern =</span> <span class="st">&quot;,&quot;</span>, <span class="at">replacement =</span> <span class="st">&quot;&quot;</span>, <span class="at">x =</span> .text)</span>
+<span id="cb10-8"><a href="popisná-statistika.html#cb10-8" aria-hidden="true" tabindex="-1"></a>     <span class="co"># odstranime carky</span></span>
+<span id="cb10-9"><a href="popisná-statistika.html#cb10-9" aria-hidden="true" tabindex="-1"></a>     .text <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="at">pattern =</span> <span class="st">&quot;,&quot;</span>, <span class="at">replacement =</span> <span class="st">&quot;&quot;</span>, <span class="at">x =</span> .text)</span>
 <span id="cb10-10"><a href="popisná-statistika.html#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-11"><a href="popisná-statistika.html#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># rozdelit na vety, pokud najdeme &quot;.&quot; nebo &quot;!&quot; nebo &quot;?&quot;</span></span>
-<span id="cb10-12"><a href="popisná-statistika.html#cb10-12" aria-hidden="true" tabindex="-1"></a>  .text <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">strsplit</span>(.text, <span class="at">split =</span> <span class="st">&quot;</span><span class="sc">\\</span><span class="st">.|</span><span class="sc">\\</span><span class="st">!|</span><span class="sc">\\</span><span class="st">?&quot;</span>))</span>
+<span id="cb10-11"><a href="popisná-statistika.html#cb10-11" aria-hidden="true" tabindex="-1"></a>     <span class="co"># rozdelit na vety, pokud najdeme &quot;.&quot; nebo &quot;!&quot; nebo &quot;?&quot;</span></span>
+<span id="cb10-12"><a href="popisná-statistika.html#cb10-12" aria-hidden="true" tabindex="-1"></a>     .text <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">strsplit</span>(.text, <span class="at">split =</span> <span class="st">&quot;</span><span class="sc">\\</span><span class="st">.|</span><span class="sc">\\</span><span class="st">!|</span><span class="sc">\\</span><span class="st">?&quot;</span>))</span>
 <span id="cb10-13"><a href="popisná-statistika.html#cb10-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-14"><a href="popisná-statistika.html#cb10-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># vymazeme mezery na zacatku a konci</span></span>
-<span id="cb10-15"><a href="popisná-statistika.html#cb10-15" aria-hidden="true" tabindex="-1"></a>  .text <span class="ot">&lt;-</span> <span class="fu">trimws</span>(.text, <span class="at">which =</span> <span class="fu">c</span>(<span class="st">&quot;left&quot;</span>))</span>
-<span id="cb10-16"><a href="popisná-statistika.html#cb10-16" aria-hidden="true" tabindex="-1"></a>  .text <span class="ot">&lt;-</span> <span class="fu">trimws</span>(.text, <span class="at">which =</span> <span class="fu">c</span>(<span class="st">&quot;right&quot;</span>))</span>
+<span id="cb10-14"><a href="popisná-statistika.html#cb10-14" aria-hidden="true" tabindex="-1"></a>     <span class="co"># vymazeme mezery na zacatku a konci</span></span>
+<span id="cb10-15"><a href="popisná-statistika.html#cb10-15" aria-hidden="true" tabindex="-1"></a>     .text <span class="ot">&lt;-</span> <span class="fu">trimws</span>(.text, <span class="at">which =</span> <span class="fu">c</span>(<span class="st">&quot;left&quot;</span>))</span>
+<span id="cb10-16"><a href="popisná-statistika.html#cb10-16" aria-hidden="true" tabindex="-1"></a>     .text <span class="ot">&lt;-</span> <span class="fu">trimws</span>(.text, <span class="at">which =</span> <span class="fu">c</span>(<span class="st">&quot;right&quot;</span>))</span>
 <span id="cb10-17"><a href="popisná-statistika.html#cb10-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-18"><a href="popisná-statistika.html#cb10-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># odstranime prazdne prvky, ktere vznikly protoze po tecce neni zadny text</span></span>
-<span id="cb10-19"><a href="popisná-statistika.html#cb10-19" aria-hidden="true" tabindex="-1"></a>  .text <span class="ot">&lt;-</span> .text[.text <span class="sc">!=</span> <span class="st">&quot;&quot;</span>]</span>
+<span id="cb10-18"><a href="popisná-statistika.html#cb10-18" aria-hidden="true" tabindex="-1"></a>     <span class="co"># odstranime prazdne prvky, ktere vznikly protoze po tecce neni zadny text</span></span>
+<span id="cb10-19"><a href="popisná-statistika.html#cb10-19" aria-hidden="true" tabindex="-1"></a>     .text <span class="ot">&lt;-</span> .text[.text <span class="sc">!=</span> <span class="st">&quot;&quot;</span>]</span>
 <span id="cb10-20"><a href="popisná-statistika.html#cb10-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-21"><a href="popisná-statistika.html#cb10-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># rozdelime na slova</span></span>
-<span id="cb10-22"><a href="popisná-statistika.html#cb10-22" aria-hidden="true" tabindex="-1"></a>  slova <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb10-23"><a href="popisná-statistika.html#cb10-23" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(.text)) {</span>
-<span id="cb10-24"><a href="popisná-statistika.html#cb10-24" aria-hidden="true" tabindex="-1"></a>    slova[[i]] <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">strsplit</span>(.text[i], <span class="at">split =</span> <span class="st">&quot; &quot;</span>))</span>
-<span id="cb10-25"><a href="popisná-statistika.html#cb10-25" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb10-26"><a href="popisná-statistika.html#cb10-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(slova)</span>
+<span id="cb10-21"><a href="popisná-statistika.html#cb10-21" aria-hidden="true" tabindex="-1"></a>     <span class="co"># rozdelime na slova</span></span>
+<span id="cb10-22"><a href="popisná-statistika.html#cb10-22" aria-hidden="true" tabindex="-1"></a>     slova <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb10-23"><a href="popisná-statistika.html#cb10-23" aria-hidden="true" tabindex="-1"></a>     <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(.text)) {</span>
+<span id="cb10-24"><a href="popisná-statistika.html#cb10-24" aria-hidden="true" tabindex="-1"></a>          slova[[i]] <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">strsplit</span>(.text[i], <span class="at">split =</span> <span class="st">&quot; &quot;</span>))</span>
+<span id="cb10-25"><a href="popisná-statistika.html#cb10-25" aria-hidden="true" tabindex="-1"></a>     }</span>
+<span id="cb10-26"><a href="popisná-statistika.html#cb10-26" aria-hidden="true" tabindex="-1"></a>     <span class="fu">return</span>(slova)</span>
 <span id="cb10-27"><a href="popisná-statistika.html#cb10-27" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="popisná-statistika.html#cb11-1" aria-hidden="true" tabindex="-1"></a>prezident_clean <span class="ot">&lt;-</span> <span class="fu">vycistit_text</span>(prezident)</span></code></pre></div>
 <div id="central-tend" class="section level2" number="2.1">
@@ -239,10 +239,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 Zdroj: <a href="https://cs.wikipedia.org/wiki/Histogram">Wikipedia</a></p>
 </blockquote>
 <p>Můžeme ho vytvořit pomocí funkce <code>hist</code>. Vidíme, že nejvíce nejčastěji věta obsahuje mezi 5 až 25 slovy, ale některé věty obsahují i více než 35 slov.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="popisná-statistika.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(pocet_slov, </span>
-<span id="cb15-2"><a href="popisná-statistika.html#cb15-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>, </span>
-<span id="cb15-3"><a href="popisná-statistika.html#cb15-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Počet slov ve větě&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Četnost&quot;</span>, </span>
-<span id="cb15-4"><a href="popisná-statistika.html#cb15-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Histogram počtu slov ve větě&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="popisná-statistika.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(pocet_slov,</span>
+<span id="cb15-2"><a href="popisná-statistika.html#cb15-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>,</span>
+<span id="cb15-3"><a href="popisná-statistika.html#cb15-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Počet slov ve větě&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Četnost&quot;</span>,</span>
+<span id="cb15-4"><a href="popisná-statistika.html#cb15-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Histogram počtu slov ve větě&quot;</span></span>
+<span id="cb15-5"><a href="popisná-statistika.html#cb15-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:unnamed-chunk-14"></span>
 <img src="book_files/figure-html/unnamed-chunk-14-1.png" alt="Příklad histogramu na číselné (kardinální) proměnné" width="672" />
 <p class="caption">
@@ -250,11 +251,12 @@ Graf 2.1: Příklad histogramu na číselné (kardinální) proměnné
 </p>
 </div>
 <p>Funkce <code>hist</code> automaticky zvolí vhodné intervaly pro sloupce v grafu. Pokud byste je chtěli změnit, můžete tak udělat pomocí argumentu <code>breaks</code>.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="popisná-statistika.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(pocet_slov, </span>
-<span id="cb16-2"><a href="popisná-statistika.html#cb16-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>, </span>
-<span id="cb16-3"><a href="popisná-statistika.html#cb16-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Počet slov ve větě&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Četnost&quot;</span>, </span>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="popisná-statistika.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(pocet_slov,</span>
+<span id="cb16-2"><a href="popisná-statistika.html#cb16-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>,</span>
+<span id="cb16-3"><a href="popisná-statistika.html#cb16-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Počet slov ve větě&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Četnost&quot;</span>,</span>
 <span id="cb16-4"><a href="popisná-statistika.html#cb16-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Histogram počtu slov ve větě&quot;</span>,</span>
-<span id="cb16-5"><a href="popisná-statistika.html#cb16-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">breaks =</span> <span class="dv">15</span>)</span></code></pre></div>
+<span id="cb16-5"><a href="popisná-statistika.html#cb16-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">breaks =</span> <span class="dv">15</span></span>
+<span id="cb16-6"><a href="popisná-statistika.html#cb16-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p><img src="book_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="popisná-statistika.html#cb17-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(pocet_slov)</span>
 <span id="cb17-2"><a href="popisná-statistika.html#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># protoze mame sudy pocet slov vypocitame prumer dvou prostrednich hodnot</span></span>
@@ -265,11 +267,11 @@ Graf 2.1: Příklad histogramu na číselné (kardinální) proměnné
 <p>Medián můžeme také vypočítat pomocí funkce <code>median</code>. Mediánový počet slov ve větě je tedy 15.5.</p>
 <p>Pojďme si výpočet zobrazit graficky a seřadit si počet slov od nejmenšího po největší a zobrazit si medián na grafu.</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="popisná-statistika.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span>n,</span>
-<span id="cb18-2"><a href="popisná-statistika.html#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sort</span>(pocet_slov),</span>
-<span id="cb18-3"><a href="popisná-statistika.html#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>,</span>
-<span id="cb18-4"><a href="popisná-statistika.html#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">&quot;Počet slov ve větě&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Pořadí&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Počet slov ve větě seřazený podle velikosti&quot;</span>,</span>
-<span id="cb18-5"><a href="popisná-statistika.html#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;h&quot;</span>,</span>
-<span id="cb18-6"><a href="popisná-statistika.html#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">lwd =</span> <span class="dv">5</span></span>
+<span id="cb18-2"><a href="popisná-statistika.html#cb18-2" aria-hidden="true" tabindex="-1"></a>     <span class="fu">sort</span>(pocet_slov),</span>
+<span id="cb18-3"><a href="popisná-statistika.html#cb18-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>,</span>
+<span id="cb18-4"><a href="popisná-statistika.html#cb18-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Počet slov ve větě&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Pořadí&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Počet slov ve větě seřazený podle velikosti&quot;</span>,</span>
+<span id="cb18-5"><a href="popisná-statistika.html#cb18-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">&quot;h&quot;</span>,</span>
+<span id="cb18-6"><a href="popisná-statistika.html#cb18-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="dv">5</span></span>
 <span id="cb18-7"><a href="popisná-statistika.html#cb18-7" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb18-8"><a href="popisná-statistika.html#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># pridame prostredni hodnoty</span></span>
 <span id="cb18-9"><a href="popisná-statistika.html#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(i1, pocet_slov[i1], <span class="at">col =</span> <span class="st">&quot;grey&quot;</span>, <span class="at">type =</span> <span class="st">&quot;h&quot;</span>, <span class="at">lwd =</span> <span class="dv">5</span>)</span>
@@ -279,10 +281,10 @@ Graf 2.1: Příklad histogramu na číselné (kardinální) proměnné
 <span id="cb18-13"><a href="popisná-statistika.html#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">mean</span>(<span class="fu">c</span>(i1, i2)), .median, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">type =</span> <span class="st">&quot;h&quot;</span>, <span class="at">lwd =</span> <span class="dv">1</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
 <span id="cb18-14"><a href="popisná-statistika.html#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="fu">mean</span>(<span class="fu">c</span>(i1, i2))), <span class="fu">c</span>(.median, .median), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">lwd =</span> <span class="dv">1</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
 <span id="cb18-15"><a href="popisná-statistika.html#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>,</span>
-<span id="cb18-16"><a href="popisná-statistika.html#cb18-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;grey&quot;</span>, <span class="st">&quot;red&quot;</span>),</span>
-<span id="cb18-17"><a href="popisná-statistika.html#cb18-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">lwd =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>),</span>
-<span id="cb18-18"><a href="popisná-statistika.html#cb18-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;Prostřední hodnoty&quot;</span>, <span class="st">&quot;Median&quot;</span>),</span>
-<span id="cb18-19"><a href="popisná-statistika.html#cb18-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">cex =</span> <span class="fl">0.7</span></span>
+<span id="cb18-16"><a href="popisná-statistika.html#cb18-16" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;grey&quot;</span>, <span class="st">&quot;red&quot;</span>),</span>
+<span id="cb18-17"><a href="popisná-statistika.html#cb18-17" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>),</span>
+<span id="cb18-18"><a href="popisná-statistika.html#cb18-18" aria-hidden="true" tabindex="-1"></a>     <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;Prostřední hodnoty&quot;</span>, <span class="st">&quot;Median&quot;</span>),</span>
+<span id="cb18-19"><a href="popisná-statistika.html#cb18-19" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex =</span> <span class="fl">0.7</span></span>
 <span id="cb18-20"><a href="popisná-statistika.html#cb18-20" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:unnamed-chunk-17"></span>
 <img src="book_files/figure-html/unnamed-chunk-17-1.png" alt="Seřazení proměnné pro ilustraci výpočtu mediánu" width="672" />
@@ -314,7 +316,7 @@ Graf 2.2: Seřazení proměnné pro ilustraci výpočtu mediánu
 <span id="cb23-13"><a href="popisná-statistika.html#cb23-13" aria-hidden="true" tabindex="-1"></a>slova <span class="ot">&lt;-</span> slova[<span class="sc">!</span>slova <span class="sc">%in%</span> stopwords]</span>
 <span id="cb23-14"><a href="popisná-statistika.html#cb23-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-15"><a href="popisná-statistika.html#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="co"># vypocitame absolutni cetnost slov</span></span>
-<span id="cb23-16"><a href="popisná-statistika.html#cb23-16" aria-hidden="true" tabindex="-1"></a>cetnost_premier <span class="ot">&lt;-</span> <span class="fu">table</span>(slova_premier) </span>
+<span id="cb23-16"><a href="popisná-statistika.html#cb23-16" aria-hidden="true" tabindex="-1"></a>cetnost_premier <span class="ot">&lt;-</span> <span class="fu">table</span>(slova_premier)</span>
 <span id="cb23-17"><a href="popisná-statistika.html#cb23-17" aria-hidden="true" tabindex="-1"></a>cetnost_prezident <span class="ot">&lt;-</span> <span class="fu">table</span>(slova)</span>
 <span id="cb23-18"><a href="popisná-statistika.html#cb23-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-19"><a href="popisná-statistika.html#cb23-19" aria-hidden="true" tabindex="-1"></a><span class="co"># vypocitame relativni cetnost</span></span>
@@ -323,13 +325,14 @@ Graf 2.2: Seřazení proměnné pro ilustraci výpočtu mediánu
 <span id="cb23-22"><a href="popisná-statistika.html#cb23-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-23"><a href="popisná-statistika.html#cb23-23" aria-hidden="true" tabindex="-1"></a><span class="co"># vypocitame relativni cetnost</span></span>
 <span id="cb23-24"><a href="popisná-statistika.html#cb23-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-25"><a href="popisná-statistika.html#cb23-25" aria-hidden="true" tabindex="-1"></a><span class="co"># ted slouzime obe tabulky </span></span>
-<span id="cb23-26"><a href="popisná-statistika.html#cb23-26" aria-hidden="true" tabindex="-1"></a>rel_cetnost <span class="ot">&lt;-</span> <span class="fu">merge</span>(<span class="fu">data.frame</span>(cetnost_premier), </span>
-<span id="cb23-27"><a href="popisná-statistika.html#cb23-27" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">data.frame</span>(cetnost_prezident), </span>
-<span id="cb23-28"><a href="popisná-statistika.html#cb23-28" aria-hidden="true" tabindex="-1"></a>                     <span class="at">by.x =</span> <span class="st">&quot;slova_premier&quot;</span>, <span class="at">by.y =</span> <span class="st">&quot;slova&quot;</span>)</span>
-<span id="cb23-29"><a href="popisná-statistika.html#cb23-29" aria-hidden="true" tabindex="-1"></a><span class="co"># prejmenuje sloupce, aby davaly vice smysl</span></span>
-<span id="cb23-30"><a href="popisná-statistika.html#cb23-30" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(rel_cetnost) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;slova&quot;</span>, <span class="st">&quot;premier&quot;</span>, <span class="st">&quot;prezident&quot;</span>)</span>
-<span id="cb23-31"><a href="popisná-statistika.html#cb23-31" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(rel_cetnost)</span></code></pre></div>
+<span id="cb23-25"><a href="popisná-statistika.html#cb23-25" aria-hidden="true" tabindex="-1"></a><span class="co"># ted slouzime obe tabulky</span></span>
+<span id="cb23-26"><a href="popisná-statistika.html#cb23-26" aria-hidden="true" tabindex="-1"></a>rel_cetnost <span class="ot">&lt;-</span> <span class="fu">merge</span>(<span class="fu">data.frame</span>(cetnost_premier),</span>
+<span id="cb23-27"><a href="popisná-statistika.html#cb23-27" aria-hidden="true" tabindex="-1"></a>     <span class="fu">data.frame</span>(cetnost_prezident),</span>
+<span id="cb23-28"><a href="popisná-statistika.html#cb23-28" aria-hidden="true" tabindex="-1"></a>     <span class="at">by.x =</span> <span class="st">&quot;slova_premier&quot;</span>, <span class="at">by.y =</span> <span class="st">&quot;slova&quot;</span></span>
+<span id="cb23-29"><a href="popisná-statistika.html#cb23-29" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-30"><a href="popisná-statistika.html#cb23-30" aria-hidden="true" tabindex="-1"></a><span class="co"># prejmenuje sloupce, aby davaly vice smysl</span></span>
+<span id="cb23-31"><a href="popisná-statistika.html#cb23-31" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(rel_cetnost) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;slova&quot;</span>, <span class="st">&quot;premier&quot;</span>, <span class="st">&quot;prezident&quot;</span>)</span>
+<span id="cb23-32"><a href="popisná-statistika.html#cb23-32" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(rel_cetnost)</span></code></pre></div>
 <pre><code>##          slova     premier   prezident
 ## 1      alespoň 0.001686341 0.001547988
 ## 2 bezpečnostní 0.001686341 0.001547988
@@ -337,26 +340,28 @@ Graf 2.2: Seřazení proměnné pro ilustraci výpočtu mediánu
 ## 4         ceny 0.003372681 0.001547988
 ## 5        české 0.006745363 0.001547988
 ## 6        cesta 0.005059022 0.003095975</code></pre>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="popisná-statistika.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># vybereme nejcastejsich 20 slov pro každého </span></span>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="popisná-statistika.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># vybereme nejcastejsich 20 slov pro každého</span></span>
 <span id="cb25-2"><a href="popisná-statistika.html#cb25-2" aria-hidden="true" tabindex="-1"></a>top_premier <span class="ot">&lt;-</span> <span class="fu">order</span>(rel_cetnost<span class="sc">$</span>premier, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>]</span>
-<span id="cb25-3"><a href="popisná-statistika.html#cb25-3" aria-hidden="true" tabindex="-1"></a>top_prezident <span class="ot">&lt;-</span><span class="fu">order</span>(rel_cetnost<span class="sc">$</span>prezident, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>]</span>
-<span id="cb25-4"><a href="popisná-statistika.html#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># vyfiltrujeme </span></span>
+<span id="cb25-3"><a href="popisná-statistika.html#cb25-3" aria-hidden="true" tabindex="-1"></a>top_prezident <span class="ot">&lt;-</span> <span class="fu">order</span>(rel_cetnost<span class="sc">$</span>prezident, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>]</span>
+<span id="cb25-4"><a href="popisná-statistika.html#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># vyfiltrujeme</span></span>
 <span id="cb25-5"><a href="popisná-statistika.html#cb25-5" aria-hidden="true" tabindex="-1"></a>top_index <span class="ot">&lt;-</span> <span class="fu">unique</span>(<span class="fu">c</span>(top_premier, top_prezident))</span>
 <span id="cb25-6"><a href="popisná-statistika.html#cb25-6" aria-hidden="true" tabindex="-1"></a>rel_cetnost_top <span class="ot">&lt;-</span> rel_cetnost[top_index, ]</span></code></pre></div>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="popisná-statistika.html#cb26-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(rel_cetnost_top)</span>
 <span id="cb26-2"><a href="popisná-statistika.html#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x,</span>
-<span id="cb26-3"><a href="popisná-statistika.html#cb26-3" aria-hidden="true" tabindex="-1"></a>     rel_cetnost_top<span class="sc">$</span>premier, </span>
+<span id="cb26-3"><a href="popisná-statistika.html#cb26-3" aria-hidden="true" tabindex="-1"></a>     rel_cetnost_top<span class="sc">$</span>premier,</span>
 <span id="cb26-4"><a href="popisná-statistika.html#cb26-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">&quot;h&quot;</span>,</span>
 <span id="cb26-5"><a href="popisná-statistika.html#cb26-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xaxt =</span> <span class="st">&quot;n&quot;</span>,</span>
 <span id="cb26-6"><a href="popisná-statistika.html#cb26-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>,</span>
 <span id="cb26-7"><a href="popisná-statistika.html#cb26-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Relativní četnost&quot;</span>,</span>
-<span id="cb26-8"><a href="popisná-statistika.html#cb26-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
-<span id="cb26-9"><a href="popisná-statistika.html#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x<span class="fl">+0.3</span>,</span>
-<span id="cb26-10"><a href="popisná-statistika.html#cb26-10" aria-hidden="true" tabindex="-1"></a>      rel_cetnost_top<span class="sc">$</span>prezident, </span>
-<span id="cb26-11"><a href="popisná-statistika.html#cb26-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">type =</span> <span class="st">&quot;h&quot;</span>,</span>
-<span id="cb26-12"><a href="popisná-statistika.html#cb26-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
-<span id="cb26-13"><a href="popisná-statistika.html#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at=</span>x, <span class="at">labels=</span>rel_cetnost_top<span class="sc">$</span>slova, <span class="at">las =</span> <span class="dv">3</span>, <span class="at">cex.axis =</span> <span class="fl">0.8</span>)</span>
-<span id="cb26-14"><a href="popisná-statistika.html#cb26-14" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;Premiér&quot;</span>, <span class="st">&quot;Prezident&quot;</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;#1f77b4&quot;</span>), <span class="at">lwd =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>), <span class="at">cex =</span> <span class="fl">0.8</span>)</span></code></pre></div>
+<span id="cb26-8"><a href="popisná-statistika.html#cb26-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span></span>
+<span id="cb26-9"><a href="popisná-statistika.html#cb26-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-10"><a href="popisná-statistika.html#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x <span class="sc">+</span> <span class="fl">0.3</span>,</span>
+<span id="cb26-11"><a href="popisná-statistika.html#cb26-11" aria-hidden="true" tabindex="-1"></a>     rel_cetnost_top<span class="sc">$</span>prezident,</span>
+<span id="cb26-12"><a href="popisná-statistika.html#cb26-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">&quot;h&quot;</span>,</span>
+<span id="cb26-13"><a href="popisná-statistika.html#cb26-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span></span>
+<span id="cb26-14"><a href="popisná-statistika.html#cb26-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-15"><a href="popisná-statistika.html#cb26-15" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at =</span> x, <span class="at">labels =</span> rel_cetnost_top<span class="sc">$</span>slova, <span class="at">las =</span> <span class="dv">3</span>, <span class="at">cex.axis =</span> <span class="fl">0.8</span>)</span>
+<span id="cb26-16"><a href="popisná-statistika.html#cb26-16" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;Premiér&quot;</span>, <span class="st">&quot;Prezident&quot;</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;#1f77b4&quot;</span>), <span class="at">lwd =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">3</span>), <span class="at">cex =</span> <span class="fl">0.8</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-21"></span>
 <img src="book_files/figure-html/unnamed-chunk-21-1.png" alt="Top 20 slov podle relativní četnosti v projevu prezidenta a premiéra" width="672" />
 <p class="caption">
@@ -377,44 +382,48 @@ Graf 2.3: Top 20 slov podle relativní četnosti v projevu prezidenta a premiér
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="popisná-statistika.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>))</span>
 <span id="cb28-2"><a href="popisná-statistika.html#cb28-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="fl">1e4</span>, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
 <span id="cb28-3"><a href="popisná-statistika.html#cb28-3" aria-hidden="true" tabindex="-1"></a>prumer <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)</span>
-<span id="cb28-4"><a href="popisná-statistika.html#cb28-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>) </span>
+<span id="cb28-4"><a href="popisná-statistika.html#cb28-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>)</span>
 <span id="cb28-5"><a href="popisná-statistika.html#cb28-5" aria-hidden="true" tabindex="-1"></a>smerodatna_odchylka <span class="ot">&lt;-</span> <span class="fu">sd</span>(x)</span>
-<span id="cb28-6"><a href="popisná-statistika.html#cb28-6" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb28-6"><a href="popisná-statistika.html#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-7"><a href="popisná-statistika.html#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="co"># prvni graf</span></span>
-<span id="cb28-8"><a href="popisná-statistika.html#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x[n], n, </span>
+<span id="cb28-8"><a href="popisná-statistika.html#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x[n], n,</span>
 <span id="cb28-9"><a href="popisná-statistika.html#cb28-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">paste0</span>(<span class="st">&quot;Směrodatná odchylka: &quot;</span>, <span class="fu">round</span>(smerodatna_odchylka, <span class="dv">2</span>)),</span>
-<span id="cb28-10"><a href="popisná-statistika.html#cb28-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">10</span>), </span>
-<span id="cb28-11"><a href="popisná-statistika.html#cb28-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Číslo pozorovaní&quot;</span>, </span>
+<span id="cb28-10"><a href="popisná-statistika.html#cb28-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>),</span>
+<span id="cb28-11"><a href="popisná-statistika.html#cb28-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Číslo pozorovaní&quot;</span>,</span>
 <span id="cb28-12"><a href="popisná-statistika.html#cb28-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">19</span>,</span>
-<span id="cb28-13"><a href="popisná-statistika.html#cb28-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>)</span>
-<span id="cb28-14"><a href="popisná-statistika.html#cb28-14" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> prumer, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb28-15"><a href="popisná-statistika.html#cb28-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> n) {</span>
-<span id="cb28-16"><a href="popisná-statistika.html#cb28-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(<span class="fu">c</span>(prumer, x[i]), <span class="fu">c</span>(i,i), <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb28-17"><a href="popisná-statistika.html#cb28-17" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb28-18"><a href="popisná-statistika.html#cb28-18" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, </span>
-<span id="cb28-19"><a href="popisná-statistika.html#cb28-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;Průměr&quot;</span>, <span class="st">&quot;Vzdal. od průměru&quot;</span>), </span>
-<span id="cb28-20"><a href="popisná-statistika.html#cb28-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;#1f77b4&quot;</span>), </span>
-<span id="cb28-21"><a href="popisná-statistika.html#cb28-21" aria-hidden="true" tabindex="-1"></a>       <span class="at">lwd =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="at">cex =</span> <span class="fl">0.7</span>)</span>
-<span id="cb28-22"><a href="popisná-statistika.html#cb28-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-23"><a href="popisná-statistika.html#cb28-23" aria-hidden="true" tabindex="-1"></a><span class="co"># druhy graf</span></span>
-<span id="cb28-24"><a href="popisná-statistika.html#cb28-24" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="fl">1e4</span>, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="fl">2.5</span>)</span>
-<span id="cb28-25"><a href="popisná-statistika.html#cb28-25" aria-hidden="true" tabindex="-1"></a>prumer <span class="ot">&lt;-</span> <span class="fu">mean</span>(x2)</span>
-<span id="cb28-26"><a href="popisná-statistika.html#cb28-26" aria-hidden="true" tabindex="-1"></a>smerodatna_odchylka <span class="ot">&lt;-</span> <span class="fu">sd</span>(x2)</span>
-<span id="cb28-27"><a href="popisná-statistika.html#cb28-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-28"><a href="popisná-statistika.html#cb28-28" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x2[n], n, </span>
-<span id="cb28-29"><a href="popisná-statistika.html#cb28-29" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">paste0</span>(<span class="st">&quot;Směrodatná odchylka: &quot;</span>, <span class="fu">round</span>(smerodatna_odchylka, <span class="dv">2</span>)),</span>
-<span id="cb28-30"><a href="popisná-statistika.html#cb28-30" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">10</span>), </span>
-<span id="cb28-31"><a href="popisná-statistika.html#cb28-31" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Číslo pozorovaní&quot;</span>, </span>
-<span id="cb28-32"><a href="popisná-statistika.html#cb28-32" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">19</span>,</span>
-<span id="cb28-33"><a href="popisná-statistika.html#cb28-33" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>)</span>
-<span id="cb28-34"><a href="popisná-statistika.html#cb28-34" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> prumer, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb28-35"><a href="popisná-statistika.html#cb28-35" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> n) {</span>
-<span id="cb28-36"><a href="popisná-statistika.html#cb28-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(<span class="fu">c</span>(prumer, x2[i]), <span class="fu">c</span>(i,i), <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>,<span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb28-37"><a href="popisná-statistika.html#cb28-37" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb28-38"><a href="popisná-statistika.html#cb28-38" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, </span>
-<span id="cb28-39"><a href="popisná-statistika.html#cb28-39" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;Průměr&quot;</span>, <span class="st">&quot;Vzdal. od průměru&quot;</span>), </span>
-<span id="cb28-40"><a href="popisná-statistika.html#cb28-40" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;#1f77b4&quot;</span>), </span>
-<span id="cb28-41"><a href="popisná-statistika.html#cb28-41" aria-hidden="true" tabindex="-1"></a>       <span class="at">lwd =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="at">cex =</span> <span class="fl">0.7</span>)</span></code></pre></div>
+<span id="cb28-13"><a href="popisná-statistika.html#cb28-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span></span>
+<span id="cb28-14"><a href="popisná-statistika.html#cb28-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb28-15"><a href="popisná-statistika.html#cb28-15" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> prumer, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb28-16"><a href="popisná-statistika.html#cb28-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> n) {</span>
+<span id="cb28-17"><a href="popisná-statistika.html#cb28-17" aria-hidden="true" tabindex="-1"></a>     <span class="fu">lines</span>(<span class="fu">c</span>(prumer, x[i]), <span class="fu">c</span>(i, i), <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb28-18"><a href="popisná-statistika.html#cb28-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb28-19"><a href="popisná-statistika.html#cb28-19" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>,</span>
+<span id="cb28-20"><a href="popisná-statistika.html#cb28-20" aria-hidden="true" tabindex="-1"></a>     <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;Průměr&quot;</span>, <span class="st">&quot;Vzdal. od průměru&quot;</span>),</span>
+<span id="cb28-21"><a href="popisná-statistika.html#cb28-21" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;#1f77b4&quot;</span>),</span>
+<span id="cb28-22"><a href="popisná-statistika.html#cb28-22" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="at">cex =</span> <span class="fl">0.7</span></span>
+<span id="cb28-23"><a href="popisná-statistika.html#cb28-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb28-24"><a href="popisná-statistika.html#cb28-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-25"><a href="popisná-statistika.html#cb28-25" aria-hidden="true" tabindex="-1"></a><span class="co"># druhy graf</span></span>
+<span id="cb28-26"><a href="popisná-statistika.html#cb28-26" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="fl">1e4</span>, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="fl">2.5</span>)</span>
+<span id="cb28-27"><a href="popisná-statistika.html#cb28-27" aria-hidden="true" tabindex="-1"></a>prumer <span class="ot">&lt;-</span> <span class="fu">mean</span>(x2)</span>
+<span id="cb28-28"><a href="popisná-statistika.html#cb28-28" aria-hidden="true" tabindex="-1"></a>smerodatna_odchylka <span class="ot">&lt;-</span> <span class="fu">sd</span>(x2)</span>
+<span id="cb28-29"><a href="popisná-statistika.html#cb28-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-30"><a href="popisná-statistika.html#cb28-30" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x2[n], n,</span>
+<span id="cb28-31"><a href="popisná-statistika.html#cb28-31" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">paste0</span>(<span class="st">&quot;Směrodatná odchylka: &quot;</span>, <span class="fu">round</span>(smerodatna_odchylka, <span class="dv">2</span>)),</span>
+<span id="cb28-32"><a href="popisná-statistika.html#cb28-32" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>),</span>
+<span id="cb28-33"><a href="popisná-statistika.html#cb28-33" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Číslo pozorovaní&quot;</span>,</span>
+<span id="cb28-34"><a href="popisná-statistika.html#cb28-34" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">19</span>,</span>
+<span id="cb28-35"><a href="popisná-statistika.html#cb28-35" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span></span>
+<span id="cb28-36"><a href="popisná-statistika.html#cb28-36" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb28-37"><a href="popisná-statistika.html#cb28-37" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> prumer, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb28-38"><a href="popisná-statistika.html#cb28-38" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> n) {</span>
+<span id="cb28-39"><a href="popisná-statistika.html#cb28-39" aria-hidden="true" tabindex="-1"></a>     <span class="fu">lines</span>(<span class="fu">c</span>(prumer, x2[i]), <span class="fu">c</span>(i, i), <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb28-40"><a href="popisná-statistika.html#cb28-40" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb28-41"><a href="popisná-statistika.html#cb28-41" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>,</span>
+<span id="cb28-42"><a href="popisná-statistika.html#cb28-42" aria-hidden="true" tabindex="-1"></a>     <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;Průměr&quot;</span>, <span class="st">&quot;Vzdal. od průměru&quot;</span>),</span>
+<span id="cb28-43"><a href="popisná-statistika.html#cb28-43" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;#1f77b4&quot;</span>),</span>
+<span id="cb28-44"><a href="popisná-statistika.html#cb28-44" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="at">cex =</span> <span class="fl">0.7</span></span>
+<span id="cb28-45"><a href="popisná-statistika.html#cb28-45" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-23"></span>
 <img src="book_files/figure-html/unnamed-chunk-23-1.png" alt="Ukázka výpočtu směrodatné odchylky" width="672" />
 <p class="caption">
@@ -422,15 +431,17 @@ Graf 2.4: Ukázka výpočtu směrodatné odchylky
 </p>
 </div>
 <p>Pro úplnost, jak by vypadal histogram rozložení obou proměnných. V tomto případě jsme data generovali z normálního rozložení (viz kapitola Pravděpodobnostní rozložení).</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="popisná-statistika.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(x, </span>
-<span id="cb29-2"><a href="popisná-statistika.html#cb29-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="fu">adjustcolor</span>(<span class="st">&quot;#1f77b4&quot;</span>, <span class="fl">0.9</span>), </span>
-<span id="cb29-3"><a href="popisná-statistika.html#cb29-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">breaks =</span> <span class="dv">20</span>, </span>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="popisná-statistika.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(x,</span>
+<span id="cb29-2"><a href="popisná-statistika.html#cb29-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="fu">adjustcolor</span>(<span class="st">&quot;#1f77b4&quot;</span>, <span class="fl">0.9</span>),</span>
+<span id="cb29-3"><a href="popisná-statistika.html#cb29-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">breaks =</span> <span class="dv">20</span>,</span>
 <span id="cb29-4"><a href="popisná-statistika.html#cb29-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Četnost&quot;</span>, <span class="at">main =</span> <span class="st">&quot;&quot;</span>,</span>
-<span id="cb29-5"><a href="popisná-statistika.html#cb29-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">10</span>))</span>
-<span id="cb29-6"><a href="popisná-statistika.html#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(x2, </span>
-<span id="cb29-7"><a href="popisná-statistika.html#cb29-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="fu">adjustcolor</span>(<span class="st">&quot;black&quot;</span>, <span class="fl">0.4</span>), </span>
-<span id="cb29-8"><a href="popisná-statistika.html#cb29-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">breaks =</span> <span class="dv">40</span>, </span>
-<span id="cb29-9"><a href="popisná-statistika.html#cb29-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">add =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<span id="cb29-5"><a href="popisná-statistika.html#cb29-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb29-6"><a href="popisná-statistika.html#cb29-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb29-7"><a href="popisná-statistika.html#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(x2,</span>
+<span id="cb29-8"><a href="popisná-statistika.html#cb29-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="fu">adjustcolor</span>(<span class="st">&quot;black&quot;</span>, <span class="fl">0.4</span>),</span>
+<span id="cb29-9"><a href="popisná-statistika.html#cb29-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">breaks =</span> <span class="dv">40</span>,</span>
+<span id="cb29-10"><a href="popisná-statistika.html#cb29-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">add =</span> <span class="cn">TRUE</span></span>
+<span id="cb29-11"><a href="popisná-statistika.html#cb29-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:unnamed-chunk-24"></span>
 <img src="book_files/figure-html/unnamed-chunk-24-1.png" alt="Histogram bodů z normálního rozložení o průměru 5 a směrodatné odchylce 1 (modrá) a 2.5 (černá)" width="672" />
 <p class="caption">
@@ -470,7 +481,10 @@ Kde PR je hodnota percentilu, CF je kumulativní počet výsledků a F je počet
 </div>
 <div id="cvičení" class="section level2" number="2.3">
 <h2><span class="header-section-number">2.3</span> Cvičení</h2>
-<p>Vytvořte funkci na výpočet percentilu.</p>
+<ol style="list-style-type: decimal">
+<li>Vytvořte funkci na výpočet percentilu.</li>
+<li>Načtěte projev předsedy Senátu <a href="https://raw.githubusercontent.com/schubertjan/uvod-do-statistiky/master/dats/senat.txt">zde</a>. Který projev je nejdelší? Který ústavní činitel má v průměru nejdelší věty? Jak se liší rozptyl počtu slov ve větě a co to znamená?</li>
+</ol>
 
 </div>
 </div>

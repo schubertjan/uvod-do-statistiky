@@ -24,7 +24,7 @@
 <meta name="author" content="Jan Schubert" />
 
 
-<meta name="date" content="2022-02-21" />
+<meta name="date" content="2022-02-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -155,7 +155,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.1" data-path="prob-dist.html"><a href="prob-dist.html#stats-lang"><i class="fa fa-check"></i><b>3.1</b> Pravděpodobnostní rozložení jako jazyk statistiky</a></li>
 <li class="chapter" data-level="3.2" data-path="prob-dist.html"><a href="prob-dist.html#binom-dist"><i class="fa fa-check"></i><b>3.2</b> Binomické</a></li>
 <li class="chapter" data-level="3.3" data-path="prob-dist.html"><a href="prob-dist.html#norm-dist"><i class="fa fa-check"></i><b>3.3</b> Normální</a></li>
-<li class="chapter" data-level="3.4" data-path="prob-dist.html"><a href="prob-dist.html#t"><i class="fa fa-check"></i><b>3.4</b> T</a></li>
+<li class="chapter" data-level="3.4" data-path="prob-dist.html"><a href="prob-dist.html#t-dist"><i class="fa fa-check"></i><b>3.4</b> T</a></li>
 <li class="chapter" data-level="3.5" data-path="prob-dist.html"><a href="prob-dist.html#uniformní"><i class="fa fa-check"></i><b>3.5</b> Uniformní</a></li>
 <li class="chapter" data-level="3.6" data-path="prob-dist.html"><a href="prob-dist.html#poisson"><i class="fa fa-check"></i><b>3.6</b> Poisson</a></li>
 <li class="chapter" data-level="3.7" data-path="prob-dist.html"><a href="prob-dist.html#chi-kvadrát"><i class="fa fa-check"></i><b>3.7</b> Chi-kvadrát</a></li>
@@ -611,7 +611,7 @@ Graf 3.15: Ukázka výpočtu P(x &lt; 164) pomocí PDF
 </p>
 </div>
 </div>
-<div id="t" class="section level2" number="3.4">
+<div id="t-dist" class="section level2" number="3.4">
 <h2><span class="header-section-number">3.4</span> T</h2>
 <p>Dalším z rozložení, které si představíme je tzv. t-rozložení, nebo také někdy nazývané studentovo. Toto rozložení vychází z normálního rozložení, ale má větší varibilitu. PDF normálního rozložení rapidně klesá se vzdáleností od průměru (viz <a href="prob-dist.html#fig:z-norm">3.8</a>). Pokud potřebujeme popsat jev, který má více hodnot vzdálených od průměru, než bychom čekali u normálního rozložení, je toho možné dosáhnout pomocí t-rozložení. T-rozložení je automaticky standardizované na <span class="math inline">\(\mu = 0\)</span> a má pouze jeden paramater - stupně volnosti (degrees of freedom) <span class="math inline">\(\nu\)</span>, který určuje jak pravděpodobné jsou hodnoty více vzdálené od průměru. Čím je <span class="math inline">\(\nu\)</span> menší, tím je rozložení více široké a naopak. Pokud je <span class="math inline">\(\nu\)</span> větší než 50, je t-rozdělení skoro totožné se standardizovaným normálním rozložením <span class="math inline">\(N(1, 0)\)</span>. Pojďme si nyní ukázat PDF při různých stupních volnosti <span class="math inline">\(\nu\)</span> a jejich podobnost k <span class="math inline">\(N(1, 0)\)</span>. Ukážeme si <span class="math inline">\(T(2)\)</span>, <span class="math inline">\(T(4)\)</span>, <span class="math inline">\(T(8)\)</span>, <span class="math inline">\(T(16)\)</span>, <span class="math inline">\(T(34)\)</span> a <span class="math inline">\(T(64)\)</span>. Jak je vidět z grafu <a href="prob-dist.html#fig:t-dist">3.16</a>, s rostoucím počtem stupňů volnosti se t-rozložení přibližuje <span class="math inline">\(N(1,0)\)</span>, <span class="math inline">\(T(64)\)</span> už skoro překrývá křivku PDF pro <span class="math inline">\(N(1,0)\)</span></p>
 <div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="prob-dist.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># stupne volnost</span></span>
