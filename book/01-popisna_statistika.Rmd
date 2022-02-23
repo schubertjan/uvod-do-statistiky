@@ -211,7 +211,7 @@ legend("topright", legend = c("Premiér", "Prezident"), col = c("black", "#1f77b
 ```
 
 ## Míry rozptýlenosti {#desc-vars}
-Míry centrální tendence nám udávájí hodnotu typického pozorování proměnné. Míry rozptýlenosti nám říkají, jak jsou hodnoty rozptýleny daleko od nějaké typické hodnoty. Pro kardinální proměnné se nejčastěji používá **rozptyl**, který vypočítáme tak, že každou hodnotu proměnné odečteme od průměru a umocníme. Tyto hodnoty sečteme a vydělíme počtem pozorování. Matematicky bychom rozptyl $\sigma^2$ proměnné $x$ vypočítali jako $$\sigma^2 = \frac{1}{n}\sum_{i=1}^n (x_i - \overline{x})^2$$ Ve statistice se také používá pro výpočet rozptýlenosti **směrodatná odchylka** $\sigma$, které se vypočítá jako $$\sigma = \sqrt{\sigma^2}$$ Ukažme si příklad na počtu slov.
+Míry centrální tendence nám udávájí hodnotu typického pozorování proměnné. Míry rozptýlenosti nám říkají, jak jsou hodnoty rozptýleny daleko od nějaké typické hodnoty. Pro kardinální proměnné se nejčastěji používá **rozptyl**, který vypočítáme tak, že každou hodnotu proměnné odečteme od průměru a umocníme. Tyto hodnoty sečteme a vydělíme počtem pozorování. Matematicky bychom rozptyl $s^2$ proměnné $x$ vypočítali jako $$s^2 = \frac{1}{n}\sum_{i=1}^n (x_i - \overline{x})^2$$ Ve statistice se také používá pro výpočet rozptýlenosti **směrodatná odchylka** $\sigma$, které se vypočítá jako $$s = \sqrt{\sigma^2}$$ Ukažme si příklad na počtu slov.
 ```{r}
 n <- length(pocet_slov)
 rozptyl <- sum((pocet_slov - mean(pocet_slov))^2) / n

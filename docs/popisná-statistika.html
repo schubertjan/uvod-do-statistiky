@@ -24,7 +24,7 @@
 <meta name="author" content="Jan Schubert" />
 
 
-<meta name="date" content="2022-02-22" />
+<meta name="date" content="2022-02-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -371,7 +371,7 @@ Graf 2.3: Top 20 slov podle relativní četnosti v projevu prezidenta a premiér
 </div>
 <div id="desc-vars" class="section level2" number="2.2">
 <h2><span class="header-section-number">2.2</span> Míry rozptýlenosti</h2>
-<p>Míry centrální tendence nám udávájí hodnotu typického pozorování proměnné. Míry rozptýlenosti nám říkají, jak jsou hodnoty rozptýleny daleko od nějaké typické hodnoty. Pro kardinální proměnné se nejčastěji používá <strong>rozptyl</strong>, který vypočítáme tak, že každou hodnotu proměnné odečteme od průměru a umocníme. Tyto hodnoty sečteme a vydělíme počtem pozorování. Matematicky bychom rozptyl <span class="math inline">\(\sigma^2\)</span> proměnné <span class="math inline">\(x\)</span> vypočítali jako <span class="math display">\[\sigma^2 = \frac{1}{n}\sum_{i=1}^n (x_i - \overline{x})^2\]</span> Ve statistice se také používá pro výpočet rozptýlenosti <strong>směrodatná odchylka</strong> <span class="math inline">\(\sigma\)</span>, které se vypočítá jako <span class="math display">\[\sigma = \sqrt{\sigma^2}\]</span> Ukažme si příklad na počtu slov.</p>
+<p>Míry centrální tendence nám udávájí hodnotu typického pozorování proměnné. Míry rozptýlenosti nám říkají, jak jsou hodnoty rozptýleny daleko od nějaké typické hodnoty. Pro kardinální proměnné se nejčastěji používá <strong>rozptyl</strong>, který vypočítáme tak, že každou hodnotu proměnné odečteme od průměru a umocníme. Tyto hodnoty sečteme a vydělíme počtem pozorování. Matematicky bychom rozptyl <span class="math inline">\(s^2\)</span> proměnné <span class="math inline">\(x\)</span> vypočítali jako <span class="math display">\[s^2 = \frac{1}{n}\sum_{i=1}^n (x_i - \overline{x})^2\]</span> Ve statistice se také používá pro výpočet rozptýlenosti <strong>směrodatná odchylka</strong> <span class="math inline">\(\sigma\)</span>, které se vypočítá jako <span class="math display">\[s = \sqrt{\sigma^2}\]</span> Ukažme si příklad na počtu slov.</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="popisná-statistika.html#cb27-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(pocet_slov)</span>
 <span id="cb27-2"><a href="popisná-statistika.html#cb27-2" aria-hidden="true" tabindex="-1"></a>rozptyl <span class="ot">&lt;-</span> <span class="fu">sum</span>((pocet_slov <span class="sc">-</span> <span class="fu">mean</span>(pocet_slov))<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> n</span>
 <span id="cb27-3"><a href="popisná-statistika.html#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co"># nebo v R pomoci var</span></span>
