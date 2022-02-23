@@ -233,7 +233,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Modus této proměnné by byla hodnota “a,” která se vyskytla 45x. To je v textové analýze typické a tato slova se označují jako “stopwords” a jsou zpravidla a textové analýzy vyřazena.</p>
 <p>Další měrou centrální tendence je <strong>median</strong>. Medián nám značí prostřední hodnotu nějaké proměnné. Můžeme si jeho výpočet představit tak, že hodnoty proměnné seřadíme od nejmenší po největší a vyberete hodnotu, která bude přesně uprostřed. Tato hodnota je medián. Matematicky se medián u proměnné <span class="math inline">\(x_i\)</span> vypočítá jako <span class="math display">\[\tilde{x} = x_{(n + 1)/2}\]</span> Pokud má naše proměnná sudý počet čísel, vypočítá se medián zpravidla jako průměr dvou prostředních hodnot, tedy <span class="math display">\[\tilde{x} = \frac{x_{n/2} + x_{n/2+1}}{2}\]</span> Řekněme, že bychom chtěli vědět medián počtu slov ve větě. Nejdříve si musíme pro každou větu (prvek listu <code>prezident_clean</code>) vypočítat počet slov.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="popisná-statistika.html#cb14-1" aria-hidden="true" tabindex="-1"></a>pocet_slov <span class="ot">&lt;-</span> <span class="fu">sapply</span>(prezident_clean, length)</span></code></pre></div>
-<p>Velmi dobrým zvykem je si rozložení hodnot proměnné zobrazit graficky. Grafické zobrzení nám vždy poví nejenom o typické hodnotě proměnné, ale i o tom, jak se hodnoty liší (viz Míry rozptýlenosti @ref(#desc-vars)). Pokud máme číselnou proměnnou je nejčastějším způsobem, jak zobrazit hodnoty proměnné histogram. Histogram je:</p>
+<p>Velmi dobrým zvykem je si rozložení hodnot proměnné zobrazit graficky. Grafické zobrzení nám vždy poví nejenom o typické hodnotě proměnné, ale i o tom, jak se hodnoty liší (viz Míry rozptýlenosti <a href="popisná-statistika.html#desc-vars">2.2</a>). Pokud máme číselnou proměnnou je nejčastějším způsobem, jak zobrazit hodnoty proměnné histogram. Histogram je:</p>
 <blockquote>
 <p>…je to grafické znázornění distribuce dat pomocí sloupcového grafu se sloupci stejné šířky, vyjadřující šířku intervalů
 (tříd), přičemž výška sloupců vyjadřuje četnost sledované veličiny v daném intervalu.
@@ -488,8 +488,8 @@ Kde PR je hodnota percentilu, CF je kumulativní počet výsledků a F je počet
 <div id="cvičení" class="section level2" number="2.4">
 <h2><span class="header-section-number">2.4</span> Cvičení</h2>
 <ol style="list-style-type: decimal">
-<li>Vytvořte funkci na výpočet percentilu.</li>
-<li>Načtěte projev předsedy Senátu <a href="https://raw.githubusercontent.com/schubertjan/uvod-do-statistiky/master/dats/senat.txt">zde</a>. Který projev je nejdelší? Který ústavní činitel má v průměru nejdelší věty? Jak se liší směrodatná odchylka počtu slov ve větě a co to znamená?</li>
+<li>Vytvořte funkci na výpočet percentilu. Vstupem do funkce bude numerický vektor <span class="math inline">\(x\)</span> a hodnota kvantilu <span class="math inline">\(q\)</span>. Výstupem funkce bude hodnota percentilu.</li>
+<li>Načtěte projev <a href="https://raw.githubusercontent.com/schubertjan/uvod-do-statistiky/master/dats/senat.txt">Předsedy Senátu</a>, <a href="https://raw.githubusercontent.com/schubertjan/uvod-do-statistiky/master/dats/vlada.txt">Premiéra ČR</a> a projev Prezidenta ČR z kapitoly nahoře. Který projev je celkově nejdelší? Který ústavní činitel má v průměru nejdelší věty? Jak se liší směrodatná odchylka počtu slov ve větě a co to znamená? Zobrazte rozložení dat pomocí histogramu.</li>
 </ol>
 
 </div>

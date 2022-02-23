@@ -71,7 +71,7 @@ Další měrou centrální tendence je **median**. Medián nám značí prostře
 pocet_slov <- sapply(prezident_clean, length)
 ```
 
-Velmi dobrým zvykem je si rozložení hodnot proměnné zobrazit graficky. Grafické zobrzení nám vždy poví nejenom o typické hodnotě proměnné, ale i o tom, jak se hodnoty liší (viz Míry rozptýlenosti \@ref(#desc-vars)). Pokud máme číselnou proměnnou je nejčastějším způsobem, jak zobrazit hodnoty proměnné histogram. Histogram je:
+Velmi dobrým zvykem je si rozložení hodnot proměnné zobrazit graficky. Grafické zobrzení nám vždy poví nejenom o typické hodnotě proměnné, ale i o tom, jak se hodnoty liší (viz Míry rozptýlenosti \@ref(desc-vars)). Pokud máme číselnou proměnnou je nejčastějším způsobem, jak zobrazit hodnoty proměnné histogram. Histogram je:
 
 > ...je to grafické znázornění distribuce dat pomocí sloupcového grafu se sloupci stejné šířky, vyjadřující šířku intervalů 
 > (tříd), přičemž výška sloupců vyjadřuje četnost sledované veličiny v daném intervalu.
@@ -333,5 +333,5 @@ Někdy se hodnoty kvantilů používají k výpočtu mezikvantilových rozpětí
 
 
 ## Cvičení 
-1. Vytvořte funkci na výpočet percentilu.
-2. Načtěte projev předsedy Senátu [zde](https://raw.githubusercontent.com/schubertjan/uvod-do-statistiky/master/dats/senat.txt). Který projev je nejdelší? Který ústavní činitel má v průměru nejdelší věty? Jak se liší směrodatná odchylka počtu slov ve větě a co to znamená?
+1. Vytvořte funkci na výpočet percentilu. Vstupem do funkce bude numerický vektor $x$ a hodnota kvantilu $q$. Výstupem funkce bude hodnota percentilu.
+2. Načtěte projev [Předsedy Senátu](https://raw.githubusercontent.com/schubertjan/uvod-do-statistiky/master/dats/senat.txt), [Premiéra ČR](https://raw.githubusercontent.com/schubertjan/uvod-do-statistiky/master/dats/vlada.txt) a projev Prezidenta ČR z kapitoly nahoře. Který projev je celkově nejdelší? Který ústavní činitel má v průměru nejdelší věty? Jak se liší směrodatná odchylka počtu slov ve větě a co to znamená? Zobrazte rozložení dat pomocí histogramu. 
