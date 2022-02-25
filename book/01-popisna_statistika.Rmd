@@ -295,7 +295,7 @@ hist(x2,
 )
 ```
 
-## Míry polohy
+## Míry polohy{#kvantily}
 Poslední popisnou statistikou, kterou si představíme, jsou míry polohy. Ty nám udávají polohy nějakého pozorování proměnné vůči ostatním pozorováním. První mírou polohy, kterou si představíme je **kvantil**. Kvantil proměnné $x$ se značí jako $x_q$ a je to číslo, které nám říká podíl případů proměnné $x$, které leží pod danou hodnotou proměnné $x_q$. Medián proměnné je tedy vlastně specifická hodnota kvantilu $q=0.5$, tedy $x_{0.5}$. 
 
 Pokud chceme data rozdělit na stejně velké podíly, můžeme použít jeden ze standardně používaných způsobů dělení, které jsou:

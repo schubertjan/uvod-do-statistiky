@@ -41,7 +41,7 @@ o-modelech
 popisná-statistika
 central-tend
 desc-vars
-míry-polohy
+kvantily
 cvičení
 prob-dist
 stats-lang

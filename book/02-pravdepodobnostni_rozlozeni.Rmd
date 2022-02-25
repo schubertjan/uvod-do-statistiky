@@ -333,11 +333,11 @@ hist(k,
 
 Poslední výpočetní operaci, kterou si ukážeme náhodnou proměnnou **standardizuje** tak, že její průměr bude rovný nule a směrodatná odchylka bude rovná jedné. Tento typ transformace je možné provést s proměnnou pocházející z jakéhokoliv rozložení, ale my si ho zmiňujeme v kontextu normálního rozložení, protože zde jej budem vídat nejčastěji. Tuto transformaci lze provést následujícím způsobem: $$z_i = \frac{(x_i - \mu_x)}{sd(x_i)}$$přičemž tedy platí, že pokud pochází $x_i$ z normálního rozložení, tak $z_i \sim N(0, 1)$. Pojďme si ukázat, jak by tato transofrmace vypadala pro náhodnou proměnnou $x_i \sim N(178, 8)$. Vzhledem k vlastnostem normálního rozložení je tedy pro standardizovanou náhodnou proměnnou pocházející z normálního rozložení snadné vypočítat kvantily (viz \@ref(fig:z-norm)):
 
-* $Q_{0.023} = -2$
-* $Q_{0.159} = -1$
-* $Q_{0.5} = 0$
-* $Q_{0.841} = 1$
-* $Q_{0.977} = 2$ 
+* $z_{0.023} = -2$
+* $z_{0.159} = -1$
+* $z_{0.5} = 0$
+* $z_{0.841} = 1$
+* $z_{0.977} = 2$ 
 
 
 ```{r, fig.cap='Standardizovaná proměnná pocházející z normálního rozložení', fig.height=7}
@@ -349,7 +349,7 @@ hist(h,
   col = "#1f77b4",
   xlab = "h", ylab = "Četnost",
   # urcime intrval od - 4 sd do + 4 sd
-  xlim = c(178-4*8, 178+4*8),
+  xlim = c(178 - 4 * 8, 178 + 4 * 8),
   main = paste0(
     "h~N(", round(mean(h), 0),
     ", ", round(sd(h), 0), ")"
@@ -417,24 +417,25 @@ pdf_n <- dnorm(x, mean = 0, sd = 1)
 pdf_t <- lapply(sv, dt, x = x)
 
 # vybereme barvy pouzijeme nejsvetlejsi pro vetsi sv...
-# ...proto funkce rev, ktera obrati hodnoty 
+# ...proto funkce rev, ktera obrati hodnoty
 cols <- rev(RColorBrewer::brewer.pal(n = length(sv), name = "Blues"))
 
 # zobrazime pdf N(1,0)
 plot(x, pdf_n,
-     xlab = "x", ylab = "PDF",
-     type= "l", lwd = 3,
-     col = "black")
+  xlab = "x", ylab = "PDF",
+  type = "l", lwd = 3,
+  col = "black"
+)
 # zobrazime pdf vsech T
-for(i in 1:length(sv)) {
+for (i in 1:length(sv)) {
   lines(x, pdf_t[[i]], type = "l", lwd = 2, col = cols[i])
 }
-legend("topright", 
-       legend = c("N(1,0)", paste0("T(", sv, ")")),
-       col = c("black", cols),
-       lwd = rep(2, length(sv) + 1),
-       cex = 0.7
-       )
+legend("topright",
+  legend = c("N(1,0)", paste0("T(", sv, ")")),
+  col = c("black", cols),
+  lwd = rep(2, length(sv) + 1),
+  cex = 0.7
+)
 ```
 
 K výpočtu PDF t-rozdělení jsme použili funkci `dt`, která má argument `x` hodnoty proměnné x, pro které chci PDF vypočítat a `df`, počet stupňů volnosti. Pokud bychom chtěli generovat náhodnou proměnnou z t-rozložení, můžeme tak učinit pomocí funkce `rt`. Stejně tak CDF t-rozložení můžeme vypočítat pomocí funkce `pt`.
@@ -450,33 +451,35 @@ mu <- 178
 s <- 8
 sv <- 5
 # vytvorime x pro ktere chceme vypocitat pdf
-x <- seq(178-5*s, 178+5*s, length.out = 1000)
+x <- seq(178 - 5 * s, 178 + 5 * s, length.out = 1000)
 
 # vypocteme pdf N(178,8) pro porovnani
 pdf_n <- dnorm(x, mean = mu, sd = s)
 # vypocteme pdf T(178,8,5)
-pdf_t <- dt((x - mu)/s, df = 5)
-pdf_t. <- 1/s*pdf_t
+pdf_t <- dt((x - mu) / s, df = 5)
+pdf_t. <- 1 / s * pdf_t
 
 plot(x, pdf_n,
-     type = "l", lwd = 2,
-     xlab = "x", ylab = "PDF", col = "grey")
+  type = "l", lwd = 2,
+  xlab = "x", ylab = "PDF", col = "grey"
+)
 lines(x, pdf_t.,
-     type = "l", lwd = 2,
-     col = "#1f77b4")
-legend("topright", 
-       legend = c("N(178,8)", "T(178,8,5)"),
-       col = c("black", "#1f77b4"),
-       lwd = c(2, 2),
-       cex = 0.7
-       )
+  type = "l", lwd = 2,
+  col = "#1f77b4"
+)
+legend("topright",
+  legend = c("N(178,8)", "T(178,8,5)"),
+  col = c("black", "#1f77b4"),
+  lwd = c(2, 2),
+  cex = 0.7
+)
 ```
 
 Pro úplnost ještě dodáme, že CDF náhodné proměnné $x_i$ zobecněného t-rozdělení se vypočítá jako $$CDF(x_i) = CDF_T(\frac{x_i - \mu}{\sigma}, \nu)$$Zajímá nás jaká je pravdědobnost, zda hodnota náhodné proměnné pocházející z $x_i \sim T(178,8,5)$ bude mít hodnotu větší nebo rovnou než 185, tedy $P(x_i \ge 185)$. Porovnejte tuto pravděpodobnost se stejným výpočtem pro náhodnou proměnnou pocházející z $N(178,8)$.
 ```{r, fig.cap='CDF zobecněného t-rozdělení pro P(x >= 185)'}
 q <- 185
-cdf_t. <- pt((q - mu)/s, df = sv, lower.tail = FALSE)
-  
+cdf_t. <- pt((q - mu) / s, df = sv, lower.tail = FALSE)
+
 plot(x, pdf_t.,
   type = "l", lwd = 2,
   col = "grey",
@@ -509,30 +512,32 @@ for (n in 1:N) {
   tramvaj <- runif(1, min = a, max = b) - 0.5
   my <- 8
   # dokud neni tramvaj u nas
-  while(tramvaj < my){
+  while (tramvaj < my) {
     # zobrazime kazdych 0.5 minuty
     tramvaj <- tramvaj + 0.5
     # protoze pridavame kazdych 0.5 min ...
     # ...abychom zobrazili tramvaj u nas na zastavce
-    if(tramvaj > my) tramvaj <- my
-    plot(tramvaj, 1, 
-         xlab = "", ylab = "",
-         yaxt = "n", xaxt = "n",
-         xlim = c(-1, 9), ylim = c(0, 2),
-         pch = 22, col = "#1f77b4",
-         main = paste0("Pokus: ", n),
-         sub = paste0("Zbývající doba čekání: ", round(my - tramvaj, 1), "min"))
+    if (tramvaj > my) tramvaj <- my
+    plot(tramvaj, 1,
+      xlab = "", ylab = "",
+      yaxt = "n", xaxt = "n",
+      xlim = c(-1, 9), ylim = c(0, 2),
+      pch = 22, col = "#1f77b4",
+      main = paste0("Pokus: ", n),
+      sub = paste0("Zbývající doba čekání: ", round(my - tramvaj, 1), "min")
+    )
     # zobrazime nas
     points(my, 1, pch = 19, col = "red")
     # otocime labely cekani 8-0
     axis(1, at = x, labels = rev(x))
     # pridame popisek
     text(4, 0, "Vdálenost tramvaje od naší zastávky")
-    legend("topright", 
-           legend = c("my", "tramvaj"), 
-           col = c("red", "#1f77b4"), 
-           pch = c(19, 22), 
-           cex = 0.7)
+    legend("topright",
+      legend = c("my", "tramvaj"),
+      col = c("red", "#1f77b4"),
+      pch = c(19, 22),
+      cex = 0.7
+    )
   }
 }
 ```
@@ -540,7 +545,7 @@ for (n in 1:N) {
 Pěšky je to do našeho cíle 6min. Tramvají 1min. Tramvaj jezdí jednou za 8min, tedy $t_i \sim U(0, 8)$. Vyplatí se nám čekat?  
 
 ```{r}
-ocekavana_hodnota <- (a+b)/2
+ocekavana_hodnota <- (a + b) / 2
 ```
 
 Očekávané hodnota našeho čekání je `r ocekavana_hodnota`. Když k tomu přičteme 1min cesty tramvají, pak očekávaná hodnota naší cesty tramvají je `r ocekavana_hodnota+1`min. Řekněme, že je velmi důležité, abychom nedorazili pozdě. Jaká je pravděpodobnost, že tramvají do cíle dorazíme za dobu delší než 6min (tedy, že nám bude cesta trvat déle, než pěšky)?
@@ -554,11 +559,11 @@ plot(x, pdf,
   col = "grey",
   xlab = "t",
   ylab = "PDF",
-  xlim = c(-1,9),
+  xlim = c(-1, 9),
   main = paste0("P(x > ", q, ")=", round(cdf, 2))
-  )
+)
 # type "h", abychom vyjadrili integral
-lines(x[x>q], pdf[x>q], col = "#1f77b4", type = "h")
+lines(x[x > q], pdf[x > q], col = "#1f77b4", type = "h")
 ```
 
 Jak je vidět, pravděpodobnost, že tramvaj přijede za 5 a více minut (musíme si nechat 1 minutu na cestu tramvají, proto chceme vědět $P(t_i > 5)$) je `r round(cdf, 2)`, tedy docela vysoká. Tato situace by nastala zhruba 1 ze 3 případů. Pravděděpodobně bychom tedy v takovém případě šli pěšky.
@@ -598,22 +603,24 @@ vycistit_text <- function(.text) {
 prezident_clean <- vycistit_text(prezident)
 pocet_slov <- sapply(prezident_clean, length)
 cetnost <- table(pocet_slov)
-plot(names(cetnost), cetnost, 
-     col = "#1f77b4", 
-     xlab = "Počet slov ve větě", ylab = "Četnost", 
-     type = "h", lwd = 5,
-     ylim = c(0, 6),
-     xlim = c(0, 45))
+plot(names(cetnost), cetnost,
+  col = "#1f77b4",
+  xlab = "Počet slov ve větě", ylab = "Četnost",
+  type = "h", lwd = 5,
+  ylim = c(0, 6),
+  xlim = c(0, 45)
+)
 # aby y osa zdy vyjadrovala vsechna cisla
 axis(2, at = c(0:6), labels = c(0:6))
 ```
 Řekněme, že bychom chtěli predikovat počet slov ve větě v nějaké prezidentově dalším projevu a chtěli bychom to udělat tak, že bychom se snažili zjistit parametry procesu, který počet slov vyprodukoval. Víme, že minimálně můžeme mít ve větě jedno slovo. Maximální počet slov je sice prakticky ohraničen, ale my neznáme žádnou hranici, kterou bychom mohli uplatnit. Budeme tedy předpokládat, že ohraničený není^[PMF poissonova rozložení klesá s rostoucí hodnotou $x_i$ rychle k zanedbatelné hodnotě, takže bude nepravděpodobné, že bychom generovali věty s nadpřirozenými počty slov.]. Zároveň předpokládáme, že hodnoty náhodné proměnné vygenerované z poissonova rozložení jsou nezávislé. V našem případě jsou hodnoty spíše silně závislé. Počet slov v jedné větě bude určitě ovlivňovat počet slov v následující(ch) větách. Jak je vidět na \@ref(fig:pocet-slov-zavislost) po hodně dlouhých větách, častěji následují kratší věty. Málokdy je více krátkých vět za sebou a naopak.
 ```{r pocet-slov-zavislost, fig.cap='Zkoumání závislosti jednotlivých hodnot proměnné počet slov'}
-plot(pocet_slov, 
-     type = "l", 
-     lwd = 2,
-     ylab = "Počet slov", xlab = "Pořadí",
-      col = "#1f77b4")
+plot(pocet_slov,
+  type = "l",
+  lwd = 2,
+  ylab = "Počet slov", xlab = "Pořadí",
+  col = "#1f77b4"
+)
 ```
 
 ```{r}
@@ -631,7 +638,7 @@ plot(x, pmf,
   xlab = "s",
   ylab = "PMF",
   main = paste0("Poisson(", round(lambda, 2), ")")
-  )
+)
 ```
 I když je náš model jednoduchý s pouze jedním parametrem $\lambda$, je to model, který můžeme použít pro predikci. Výsledky jakéhokoliv modelu je vždy dobré si zobrazit graficky, abychom si dokázali lépe představit, co predikuje. \@ref(fig:poisson-pred) ukazuje, kolik by náš model predikoval počtet slov ve větě. Protože PMF vyjadřuje pravděpodobnost, můžeme očekávaný (predikovaný) četnost počtu slov podle našeho modelu vypočítat jako $PMF * n$. V našem případě máme `r n` vět, tedy predikovaná četnost počtu slov $\hat{s_i} = PMF * n$.
 ```{r poisson-pred, fig.cap='Očekávaná četnost počtu slov ve větě pro n=66 vět'}
@@ -648,31 +655,37 @@ plot(.x, cetnost,
   ylab = "Četnost",
   xlim = c(0, 50), ylim = c(0, 6),
   main = "Porovnání modelu poissonova rozložení s daty"
-  )
+)
 # pridame ocekavane hodnoty
-lines(x, s_hat, 
-      col = adjustcolor("#1f77b4", alpha.f = 0.4), 
-      type = "h", lwd = 5)
+lines(x, s_hat,
+  col = adjustcolor("#1f77b4", alpha.f = 0.4),
+  type = "h", lwd = 5
+)
 # aby y osa zdy vyjadrovala vsechna cisla
 axis(2, at = c(0:6), labels = c(0:6))
 # legenda
-legend("topright", 
-       legend = c("Data",
-                  paste0("Poisson(", 
-                         round(lambda, 2), ")")),
-       lwd = c(2, 2),
-       col = c("grey", "#1f77b4"),
-       cex = 0.7
-       )
+legend("topright",
+  legend = c(
+    "Data",
+    paste0(
+      "Poisson(",
+      round(lambda, 2), ")"
+    )
+  ),
+  lwd = c(2, 2),
+  col = c("grey", "#1f77b4"),
+  cex = 0.7
+)
 ```
 
 Toto se v reálném světě často. Tento jev se v angličtině označuje jako *overdispersion*. Jednou z možností, jak se s overdispersion vypořádat je, že modelujeme náhodnou proměnnou jako pocházející z jiného rozložení^[Tím je v generalized linear models Beta negative binomial]. Pro náš jednoduchý příklad bychom mohli využít častého triku, který převede pozitivní diskrétní data s větším rozptylem na data spojitá. Tento trik využívá **transformace** proměnné a to konkrétně jejího logaritmu. Jak je známo logaritmus je definován pro definiční obor $\in (0, \infty)$. Pro zopakovaní ukazujeme funkci přirozeného logaritmu v grafu \@ref(fig:log-example). Jak je vidno, tak funkce logaritmu převede hodnoty do oboru hodnot $\in (-\infty, \infty)$ a zároveň budou její hodnoty spojité. Normální rozložení je takto definováno a proto zkusíme modelovat počet slov ve větě $s_i$ jako $log(s_i) \sim N(\mu_{log(s)}, \sigma_{log(s)})$.
 
 ```{r log-example, fig.cap='Ukázka přirozeného logaritmu'}
-curve(log(x), 
-      from = 0.01, to = 100, 
-      col = "#1f77b4", lwd = 2,
-      xlab = "x", ylab = "Log(x)", main = "Přirozený logaritmus")
+curve(log(x),
+  from = 0.01, to = 100,
+  col = "#1f77b4", lwd = 2,
+  xlab = "x", ylab = "Log(x)", main = "Přirozený logaritmus"
+)
 abline(h = 0, v = 0, lwd = 1)
 ```
 
@@ -681,31 +694,35 @@ Graf \@ref(fig:log-data) zobrazuje histogram logaritmu početu slov ve větě a 
 s_log <- log(pocet_slov)
 mu <- mean(s_log)
 s <- sd(s_log)
-x <- seq(0.01 , 5 , length.out = 1000)
+x <- seq(0.01, 5, length.out = 1000)
 pdf <- dnorm(x, mean = mu, sd = s)
-hist(s_log, 
-     xlab = "log(s)", ylab = "Četnost",
-     main = "Histogram logaritmu počtu slov",
-     col = "grey", 
-     breaks = 10,
-     xlim = c(0, 5))
+hist(s_log,
+  xlab = "log(s)", ylab = "Četnost",
+  main = "Histogram logaritmu počtu slov",
+  col = "grey",
+  breaks = 10,
+  xlim = c(0, 5)
+)
 # pridame na druhou osu
 par(new = TRUE)
-plot(x, pdf, 
-     type = "l", lwd = 2, 
-     col = "#1f77b4",
-     axes = FALSE, 
-     xlab = "", ylab = "", 
-     bty = "n")
-legend("topright", 
-       legend = c("log(s)",
-                  paste0("N(", round(mu, 2), ",", round(s, 2), ")")),
-       lwd = c(2, 2),
-       col = c("grey", "#1f77b4"),
-       cex = 0.7
-       )
+plot(x, pdf,
+  type = "l", lwd = 2,
+  col = "#1f77b4",
+  axes = FALSE,
+  xlab = "", ylab = "",
+  bty = "n"
+)
+legend("topright",
+  legend = c(
+    "log(s)",
+    paste0("N(", round(mu, 2), ",", round(s, 2), ")")
+  ),
+  lwd = c(2, 2),
+  col = c("grey", "#1f77b4"),
+  cex = 0.7
+)
 thicks <- round(seq(min(pdf), max(pdf), by = 0.05), 2)
-axis(4, at = thicks, labels =thicks)
+axis(4, at = thicks, labels = thicks)
 ```
 
 ```{r density-sample-norm, fig.cap='Příklad hustoty pravděpodobnosti 50 výběrů o velikosti n=66 z N(2.61, 0.66)'}
@@ -713,19 +730,18 @@ axis(4, at = thicks, labels =thicks)
 d_data <- density(s_log)
 S <- 50
 
-plot(d_data, 
-     type= "l",
-     xlab = "log(s)", 
-     ylab = "Hustota pravděpodobnosti", main = "",
-     col = "#1f77b4",
-     xlim = c(0, 5), ylim = c(0, 0.8),
-     lwd = 2)
-for(i in 1:S) {
+plot(d_data,
+  type = "l",
+  xlab = "log(s)",
+  ylab = "Hustota pravděpodobnosti", main = "",
+  col = "#1f77b4",
+  xlim = c(0, 5), ylim = c(0, 0.8),
+  lwd = 2
+)
+for (i in 1:S) {
   vyber <- rnorm(n, mean = mu, sd = s)
   lines(density(vyber), col = adjustcolor("black", alpha.f = 0.2))
 }
-
-
 ```
 
 Nakonec se tedy vrátíme k naší původní otázce - predikce počtu slov ve větě. Jak jsme si ukázali, logaritmus počtu slov ve větě můžeme dobře approximovat normálním rozložením. Na tomto rozložení můžeme počítat CDF stejně tak, jak jsme si to ukázali v \@ref(norm-dist). Řekněme, že z důvodu srozumitelnosti nedoporučejeme věty delší než 20 slov. Zajímá nás, jaká je pravděpodonost, že libovolně zvolená věta bude delší než 20 slov, pak vlastně počítáme $P(log(s_i) > log(20))$ z našeho $log(s_i) \sim N(2.61, 0.66)$^[Pokud bychom chtěli věrohodně zachytit nejistotu ohledně počtu slov v našich datech, měli bychom počítat s nejistotou odhadu průměru a směrodatné odchylky rozložení. Něco, co si ukážeme v příští kapitole.].
@@ -745,17 +761,18 @@ n <- 200
 # pocet standardizovanych promennych
 K <- c(2, 4, 16)
 
-#zobrazit grafy vedle sebe
+# zobrazit grafy vedle sebe
 par(mfrow = c(3, 1))
 
-for(k in K) {
+for (k in K) {
   Z <- sapply(1:k, function(x) rnorm(n, 0, 1))
   X2 <- rowSums(Z^2)
-  
+
   hist(X2,
-       xlab = "z", 
-       ylab = "Četnost", main = paste0("X2(", k, ")"),
-       col = "#1f77b4",)
+    xlab = "z",
+    ylab = "Četnost", main = paste0("X2(", k, ")"),
+    col = "#1f77b4",
+  )
 }
 ```
 
@@ -765,24 +782,27 @@ x <- seq(0, 50, length.out = 1000)
 K <- 2^c(1:5)
 PDF <- sapply(K, function(k) dchisq(x, k))
 
-cols <- rev(RColorBrewer::brewer.pal(n = length(K)+1, name = "Blues"))
-plot(x, PDF[, 1], 
-     type= "l",
-     xlab = "z", 
-     ylab = "PDF", main = "",
-     col = "#1f77b4",
-     lwd = 2)
+cols <- rev(RColorBrewer::brewer.pal(n = length(K) + 1, name = "Blues"))
+plot(x, PDF[, 1],
+  type = "l",
+  xlab = "z",
+  ylab = "PDF", main = "",
+  col = "#1f77b4",
+  lwd = 2
+)
 
-for(j in 2:length(K)) {
-  lines(x, PDF[, j], 
-        type = "l", lwd = 2,
-        col = cols[j])
+for (j in 2:length(K)) {
+  lines(x, PDF[, j],
+    type = "l", lwd = 2,
+    col = cols[j]
+  )
 }
-legend("topright", 
-       legend = paste0("X2(", K, ")"),
-       col = c("#1f77b4", cols[2:length(K)]),
-       lwd = rep(2, length(K)),
-       cex = 0.7)
+legend("topright",
+  legend = paste0("X2(", K, ")"),
+  col = c("#1f77b4", cols[2:length(K)]),
+  lwd = rep(2, length(K)),
+  cex = 0.7
+)
 ```
 
 

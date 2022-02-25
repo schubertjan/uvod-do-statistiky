@@ -127,8 +127,8 @@ cols <- rev(RColorBrewer::brewer.pal(length(N) + 1, name = "Blues")  )
 for(i in 1:length(N)) {
   # provedeme vyber a odhadneme p a sd
   n <- N[i]
-  vyber <- rbinom(n = n, size = s, prob = p)
-  p_hat <- rel_cetnost(vyber, "6")
+  .vyber <- rbinom(n = n, size = s, prob = p)
+  p_hat <- rel_cetnost(.vyber, "6")
   s_hat <- sqrt(p_hat*(1-p_hat))
   
   # vypocteme pdf pro T(p, s/sqrt(n), n-1) podle zobecneneho t-rozlozeni
@@ -184,10 +184,10 @@ t_q <- qt(probs, n-1)
 i_s <- p_hat + t_q * s_hat/sqrt(n)
 ```
 
-Pokud bychom vypočítali interval spolehlivosti podle výše zmíněného vzorce pro $\alpha=0.05$, pak bychmo měli hodnoty mezi [`r round(i_s[1], 2)`, `r round(i_s[2], 2)`], tedy pokud bychom výběry z populace opakovali, pak by 95% z nich bylo v rozmezí [`r round(i_s[1], 2)`, `r round(i_s[2], 2)`].
+Pokud bychom vypočítali interval spolehlivosti podle výše zmíněného vzorce pro $\alpha=0.05$, pak bychom měli hodnoty mezi [`r round(i_s[1], 2)`, `r round(i_s[2], 2)`], tedy pokud bychom výběry z populace opakovali, pak by 95% z nich bylo v rozmezí [`r round(i_s[1], 2)`, `r round(i_s[2], 2)`].
 
 Ještě ukážeme to, co jsme zmínili nahoře, tedy, že interval spolehlivosti nám říká v jakém rozmezí bychom očekávali dané procento hodnot (toto procento je dané námi zvolenou hladinou $1-\alpha$) výběrového parametru při opakovaných výběrech. Budeme  simulovat 100 výběrů, u každého výběru spočítáme interval spolehlivosti a zobrazíme ho šedě, pokud nepokrývá populační hodnotu $\pi_7$ a modře pokud ji pokrývá. Protože naše hladina spolehlivosti je zvolena na 90%, očekáváme, že ze 100 intervalů spolehlivosti, jich asi 90 pokryje populační hodnotu a asi 10 ji nepokryje^[Proto6e náš výběr je pouze 100, nebude přesně 10 a 90].
-```{r, fig.cap='Ukázka opakovaných výběrů z populace a jak hladina alpha ovlivňuje podíl intervalů pokrytých opakovaných výběrem'}
+```{r is-chyba, fig.cap='Ukázka opakovaných výběrů z populace a jak hladina alpha ovlivňuje podíl intervalů pokrytých opakovaných výběrem'}
 # vytvorime si funkci na vypocet is
 interval_spolehlivosti <- function(p_hat, alpha, n) {
   # spocitame populacni sd
@@ -252,7 +252,73 @@ legend("topright",
 
 
 ## Bootstrap
-Jako by těch kouzel nebylo dost, ukážeme si dnes ještě jedno. Podíl kuliček 7 a 10 sloupce. 
+Pojďme se na chvilku vrátit ke grafu \@ref(fig:clv-anim). Na tomto grafu jsme ukázali hypotetickou situaci, kdy jsme věděli jak vypadá rozložení proměnné v celé populaci. Dělali jsme opakovené výběry, abychom ukázali, jak by vypadalo rozložení parametru, kdybychom u každého výběru vypočítali parametr, který nás zajímá. Ukazuje se, že pomocí podobné metody můžeme vypočítat rozložení parametru a to i bez toho, abychom měli data za celou populaci. Místo toho, abychom dělali náhodné výběry z populačních dat, tak budeme dělat **náhodné výběry s opakováním z výběru o velikosti $n$**. Výstupem tohoto výpočtu je vektor parametru, který nás zajímá, o velikosti rovnající se počtu výběrů s opakováním. Je důležité zdůraznit, že přestože počítáme rozložení parametru empiricky, některé ze předpokladů, které jsme zmínili u výpočtu teoretického rozložení, jsou stále platné. Především předpoklad o nezávislosti jednotlivých pozorování a o náhodném výběru z populace. 
+```{r bootstrap-ukazka, fig.cap='Boostrap výpočet procenta kuliček v sedmém sloupci'}
+# pocet bootstrap vyberu
+S <- 1e5
+p_hat <- rep(NA, S)
+for(i in 1:S) {
+  # udelame vyber s opakovanim
+  boostrap_vyber <- sample(.vyber, size = n, replace = TRUE)
+  # vypocitame parametr vyberu
+  p_hat[i] <- rel_cetnost(boostrap_vyber, "6")
+}
+
+hist(p_hat, 
+     col = "#1f77b4",
+     xlab = "Procento kuliček v sedmém sloupci", ylab = "Četnost",
+     main = "")
+
+# vypocitale kvantil 0.025 a 0.975
+alpha <- 0.05
+i_s <- quantile(p_hat, probs = c(alpha/2, 1-alpha/2))
+```
+Jako příklad se vrátíme k našemu výběru z \@ref(fig:is-chyba), kdy jsme na chvilku předstírali, že neznáme populační data, respektive náhodný proces, který data generuje. Graf \@ref(fig:bootstrap-ukazka) ukazuje empirické rozložení procenta kuliček, které skončí v sedmého sloupci. Pokud bychom chtěli vypočítat interval spolehlivosti, vypočítáme emprirický kvantil, tak jako jsme dělali v kapitole o mírách polohy \@ref(kvantily). `r (1-alpha)*100`% interval spolehlivosti je [`r round(i_s[1], 2)`, `r round(i_s[2], 2)`].
+
+Pokud můžeme vypočítat rozložení parametru analyticky, proč bychom měli používat bootstrap, který je více náročný z hlediska potřeby provádět opakované výběry. Je to proto, že pomocí bootsrapu můžeme vypočítat empirické rozložení i parametrů, pro které neexistuje jednoduché teoretické rozložení. Pracujeme opět se stejným hypotetickým výběrem o velikosti $n=$ `r n`. Pokud bychom například chtěli vědět interval spolehlivosti poměru kuliček v pátém a sedmém sloupci, tedy $\frac{p_{5}}{p_{7}}$, můžeme udělat $S$ výběrů s opakováním, u každého výběru vypočítat $\frac{p_{5}}{p_{7}}$. Získáme tak vektor o velikosti $S$, který můžeme použít k vypočítání empirického rozložení parametru $\frac{p_{5}}{p_{7}}$.
+```{r}
+# vytvorime funkci
+bootstrap <- function(x, func, S) {
+  n <- length(x)
+  parameter <- rep(NA, S)
+  # provedeme vybery s opakovanim
+  for(i in 1:S) {
+    # udelame vyber s opakovanim
+    boostrap_vyber <- sample(x, size = n, replace = TRUE)
+    # vypocitame parametr vyberu
+    parameter[i] <- func(boostrap_vyber)
+  }
+  return(parameter)
+}
+
+# funkce na vypocet pomeru
+pomer <- function(x) {
+  ans <- rel_cetnost(x, "4") / rel_cetnost(x, "6")
+  # pokud nebudou zadne kulicky v jednom ze sloupcu ...
+  # ...vratit NA
+  if(length(ans) == 0) {
+    return(NA)
+  } else {
+    return(ans)
+  }
+}
+# vypocitame bootstrap parametru
+p_hat <- bootstrap(.vyber, pomer, 1e5)
+
+hist(p_hat, 
+     col = "#1f77b4",
+     xlab = "Poměr procenta kuliček v pátém a sedmém sloupci", 
+     ylab = "Četnost",
+     main = "")
+
+# vypocitale kvantil 0.025 a 0.975
+alpha <- 0.05
+i_s <- quantile(p_hat, 
+                probs = c(alpha/2, 1-alpha/2), 
+                na.rm = TRUE)
+```
+`r (1-alpha)*100`% interval spolehlivosti pro $\frac{p_{5}}{p_{7}}$ je [`r round(i_s[1], 2)`, `r round(i_s[2], 2)`].
+
 
 ## Průměr
 
