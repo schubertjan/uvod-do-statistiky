@@ -20,7 +20,7 @@ Vraťme se k videu ze začátku kapitoly. Tomuto přístroji se říká Galton B
 
 Prvním rozložením, které si ukážeme je binomické rozložení. Jevy mohou být generovany procesem, který vede k binomickému rozložení, pokud máme pokus, jehož výsledkem je **úspěch nebo neúspěch**, pokusy jsou **nezávislé** a mají **konstantní pravděpodobnost** úspěchu $p$ (konstantní pro všechny pokusy). Obecně platí, že proměnná $x_i$ pochází z binomického rozložení, kde $$x_i \sim B(n, p)$$ a kde $n$ značí počet pokusů a $p$ pravděpodobnost úspěchu. Proměnná $x_i$ je potom **diskrétní**. Pojďme si ukázat, jak se binomické rozložení vztahuje ke Galtonově boxu. Každý míček prochází 10 pokusy, kde výsledek může být buď úspěch (řekněme, že míček spadne napravo) nebo neúspěch (řeknemě, že míček spadne nalevo). Výsledkem je potom zařazení do jednoho ze 13 sloupců. V extrému může náš proces skončit tak, že všechny kuličky budou nalevo nebo že všechny kuličky budou napravo. Kuličky jsou na sobě relativně nezávislé a všechny mají při každém pokusu relativně konstatní pravděpodobnost. Opět je nutné si uvědomit, že náš model dat (binomické rozložení) není přesnou reprezentací procesu, který se snažíme popsat. Kuličky nejsou ve skutečnosti kompletně nezávislé, mohou do sebe narazit a tím se ovlivnit. Protože ale prochazí zhruba 10 pokusy (i když to se může lišit, některé kuličky se mohou odrazit po nárazu znovu nahoru), bereme proces jako dostatečně náhodný a nezávislý. Důležité je, jestli jsou předpoklady našeho modelu splněny dostatečně na to, aby jeho matematické vyjádření bylo validní pro reálný process, který se snažíme popsat.
 
-Pojďme si nyní ukázat, jak se Galtonův box dá připodobnit binomickým rozložením. Náhodný process z binomického rozložení můžeme generovat pomocí funkce `rbinom`. Ta jako argumenty předpokládá `n` počet pozorování, která chceme generovat, `size` počet pokusů (způsobů, jak může proces skončit) a `p` pravděpodobnost úspěchu. Budeme uvaživat, že spustíme 10 000 kuliček, tedy $$x_i \sim B(10000, 0.5)$$^[Respektive součet 13 pokusů pro $x_i \sim B(10000, 0.5)$, kde každý pokus můžem mít výsledek 1/0]
+Pojďme si nyní ukázat, jak se Galtonův box dá připodobnit binomickým rozložením. Náhodný process z binomického rozložení můžeme generovat pomocí funkce `rbinom`. Ta jako argumenty předpokládá `n` počet pozorování, která chceme generovat, `size` počet pokusů (způsobů, jak může proces skončit) a `p` pravděpodobnost úspěchu. Budeme uvaživat, že spustíme 10 000 kuliček, tedy $$x_i \sim B(10000, 0.5)$$^[Respektive součet 13 pokusů pro $x_i \sim B(10000, 0.5)$, kde každý pokus můžem mít výsledek 1/0.]
 
 ```{r, fig.cap='Simulace Galtonova boxu s 13 sloupci'}
 set.seed(4)
@@ -165,7 +165,7 @@ lines(x[x >= 6], pmf[x >= 6],
 
 ## Normální{#norm-dist}
 
-Normální rozložení popisuje náhodný proces **spojitých** proměnných. Za určitých podmínek (velký výběr a $p$ neblížící se 0 nebo 1) se binomické rozdělení bude podobat normálnímu. Normální rozložení popisuje proces, kterým jsou generované náhodné spojité proměnné, které nejsou ohraničené zleva ani zprava. Jednotlivá pozorování jsou potom opět na sobě nezávislá. Protože mnoho fyzikálních jevů je spojitých^[Např. teplota, hmotnost, výška. Naše schonost tyto jevy měřit je ale často diskrétní, hmotnost můžeme měřit na mg apod. Protože jsou ale jednotky míry často malé, bereme je jako spojitou proměnnou]. a nejsou ohraničeny^[Teoreticky jsou ohraničené, ale prakticky se v přírodě extrémy často nevyskutují. Například teplota neklesá k absolutní nule. Váha zvířat je zpravidla větší než 0 mg apod.], normální rozložení se často vyskuteje v přírodě. Normální rozložení má dva parametry, které určují jeho tvar, průměr $\mu$ a směrodatnou odchylku $\sigma$. Náhodná proměnná $x_i$ pocházející z normálního rozložení se zapíše jako $$x_i \sim N(\mu, \sigma)$$Parameter $\mu$ ovlivňuje polohu rozložení a parameter $\sigma$ jeho roztaženost nalevo a napravo od $\mu$. Protože náhodná proměnná $x_i$ je spojitá, nabývá reálných čísel, může mít nekonečně mnoho hodnot. To představuje problém, pokud chceme vypočítat hustotu pravděpodobnosti (PDF). Aby byly zachovány vlastnosti pravděpodobnosti ($p \in [0, 1]$), je integrál PDF rovný jedné To ale znamená, že hodnota PDF už nevyjadřuje pravděpodobnost nějakého jevu. V angličtině se proto používá pojem density (odtud probability density function PDF). Vzorec pro PDF je $$PDF(x_i) = \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{1}{2} (\frac{x - \mu}{\sigma})^2}$$ v `R` můžeme pro výpočet PDF normálného rozložení použít funkci `dnorm`, které má argumenty `x` hodnoty náhodné proměnné $x_i$, pro které chceme PDF vypočítat, `mean` průměr a `sd` standardní odchylku. Pojďme si ukázat, jak by vypadala PDF pro tyto náhodné proměnné: $$x_i \sim N(0, 1)$$ $$y_i \sim N(3, 2)$$ $$z_i \sim N(-2, 3)$$
+Normální rozložení popisuje náhodný proces **spojitých** proměnných. Za určitých podmínek (velký výběr a $p$ neblížící se 0 nebo 1) se binomické rozdělení bude podobat normálnímu. Normální rozložení popisuje proces, kterým jsou generované náhodné spojité proměnné, které nejsou ohraničené zleva ani zprava. Jednotlivá pozorování jsou potom opět na sobě nezávislá. Protože mnoho fyzikálních jevů je spojitých^[Např. teplota, hmotnost, výška. Naše schonost tyto jevy měřit je ale často diskrétní, hmotnost můžeme měřit na mg apod. Protože jsou ale jednotky míry často malé, bereme je jako spojitou proměnnou.]. a nejsou ohraničeny^[Teoreticky jsou ohraničené, ale prakticky se v přírodě extrémy často nevyskutují. Například teplota neklesá k absolutní nule. Váha zvířat je zpravidla větší než 0 mg apod.], normální rozložení se často vyskuteje v přírodě. Normální rozložení má dva parametry, které určují jeho tvar, průměr $\mu$ a směrodatnou odchylku $\sigma$. Náhodná proměnná $x_i$ pocházející z normálního rozložení se zapíše jako $$x_i \sim N(\mu, \sigma)$$Parameter $\mu$ ovlivňuje polohu rozložení a parameter $\sigma$ jeho roztaženost nalevo a napravo od $\mu$. Protože náhodná proměnná $x_i$ je spojitá, nabývá reálných čísel, může mít nekonečně mnoho hodnot. To představuje problém, pokud chceme vypočítat hustotu pravděpodobnosti (PDF). Aby byly zachovány vlastnosti pravděpodobnosti ($p \in [0, 1]$), je integrál PDF rovný jedné To ale znamená, že hodnota PDF už nevyjadřuje pravděpodobnost nějakého jevu. V angličtině se proto používá pojem density (odtud probability density function PDF). Vzorec pro PDF je $$PDF(x_i) = \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{1}{2} (\frac{x - \mu}{\sigma})^2}$$ v `R` můžeme pro výpočet PDF normálného rozložení použít funkci `dnorm`, které má argumenty `x` hodnoty náhodné proměnné $x_i$, pro které chceme PDF vypočítat, `mean` průměr a `sd` standardní odchylku. Pojďme si ukázat, jak by vypadala PDF pro tyto náhodné proměnné: $$x_i \sim N(0, 1)$$ $$y_i \sim N(3, 2)$$ $$z_i \sim N(-2, 3)$$
 
 ```{r, fig.cap='Ukázka vlivu průměru a směrodatné odchylky na tvar normálního rozložení'}
 # definujeme si parametry
@@ -367,7 +367,7 @@ hist(z,
 )
 ```
 
-Jak jsme zmínili, protože spojitá proměnná může nabývat nekonečně mnoho hodnot, nevyjadřuje PDF v nějakém konkrétním bodě pravděpodobnost tak, jako tomu je u PMF (např. u binomického rozložení). Platí ale, že integrál PDF je rovný jedné. To znamená, že můžeme použít **kumulativní pravděpodobnost (CDF)** k výpočtu $P(x_i > q)$ nebo $P(x_i \le q)$. Funkce na výpočet CDF se jmenuje `pnorm` a stejně jako `pbinom` má argument `q`, který vyjadřuje hodnotu náhodné proměnné vůči které porovnáváme, parametr `lower.tail`, který opět vyjadřuje pro jaký konec rozložení chceme pravděpodobnost vypočítat (`TRUE` $P(x_i \le q)$, `FALSE` $P(x_i > q)$) a potom parametry normálního rozložení, tedy `mean` a `sd`, které udávají tvar rozložení a mají stejný význam jako ve funkci `rnorm` a `dnorm`. Vraťme se zpátky k náhodné proměnné $h_i \sim N(178, 8)$. Ta představuje rozložení výšky mužů v dospělé populaci. Řekněme, že by nás zajímalo, jaká je pravděpodobnost, že muž pocházející z této populace bude 180cm a vyšší, tedy $P(x_i \ge 185)$. Pro úplnost si opět tuto pravděpodobnost^[Jedná se o pravděpodobnost, protože počítáme PDF v nějakém intervalu CDF] zobrazíme v grafu.
+Jak jsme zmínili, protože spojitá proměnná může nabývat nekonečně mnoho hodnot, nevyjadřuje PDF v nějakém konkrétním bodě pravděpodobnost tak, jako tomu je u PMF (např. u binomického rozložení). Platí ale, že integrál PDF je rovný jedné. To znamená, že můžeme použít **kumulativní pravděpodobnost (CDF)** k výpočtu $P(x_i > q)$ nebo $P(x_i \le q)$. Funkce na výpočet CDF se jmenuje `pnorm` a stejně jako `pbinom` má argument `q`, který vyjadřuje hodnotu náhodné proměnné vůči které porovnáváme, parametr `lower.tail`, který opět vyjadřuje pro jaký konec rozložení chceme pravděpodobnost vypočítat (`TRUE` $P(x_i \le q)$, `FALSE` $P(x_i > q)$) a potom parametry normálního rozložení, tedy `mean` a `sd`, které udávají tvar rozložení a mají stejný význam jako ve funkci `rnorm` a `dnorm`. Vraťme se zpátky k náhodné proměnné $h_i \sim N(178, 8)$. Ta představuje rozložení výšky mužů v dospělé populaci. Řekněme, že by nás zajímalo, jaká je pravděpodobnost, že muž pocházející z této populace bude 180cm a vyšší, tedy $P(x_i \ge 185)$. Pro úplnost si opět tuto pravděpodobnost^[Jedná se o pravděpodobnost, protože počítáme PDF v nějakém intervalu CDF.] zobrazíme v grafu.
 
 ```{r, fig.cap='Ukázka výpočtu P(x >= 185) pomocí PDF'}
 x <- seq(145, 210, length.out = 1000)
@@ -493,10 +493,10 @@ lines(x[x >= q], pdf_t.[x >= q], col = "#1f77b4", type = "h")
 
 
 
-## Uniformní
+## Uniformní{#unif-dist}
 Uniformní rozložení popisuje náhodný proces, v kterém mají všechny hodnoty v nějakém intervalu stejnou pravděpodobnost, že budou vybrány. Uniformní rozložení je definováno jak pro **diskrétní**, tak pro **spojité** proměnné. S diskrétním uniformním rozložením jsme se setkali minulý rok při hodu kostkou nebo hodu mincí. Pokud náhodná proměnná $x_i$ pochází z uniformního rozložení, pak platí, že $$x_i \sim U(a,b)$$Uniformní rozložení je tedy možná vyjádřit pomocí dvou parametrů $a$ a $b$, které vyjadřují minimální a maximální možné hodnoty proměnné. PMF diskrétního uniformního rozložení rozložení lze vyjádřit jako $$PMF(x_i) = \frac{1}{n}$$U spojitého uniformního rozložení lze PDF vyjádřit jako $$PDF(x_i) = \frac{1}{b-a}; x_i \in [a,b]$$Pokud je hodnota $x_i$ mimo $[a,b]$, pak je jeho PDF rovná nule (nebo jinak taková hodnota není možná). **Očekávaná hodnota** diskrétního i spojitéhouniformního rozložení se spočítá jako $E(x_i) = \frac{1}{2}(a+b)$. **Rozptyl** u spojitého uniformního rozložení se spočítá jako $Var(x_i) = \frac{1}{12}(b-a)^2$ a u diskrétního jako $Var(x_i) = \frac{n^2-1}{12}$. Protože generování čísel z diskrétního uniformního rozložení můžeme použít funkci `sample`, kterou jsme používali při simulacích některých klasických pravděpodobnostních problémů. Pro generování hodnot náhodné proměnné pocházející ze spojitého uniformního rozložení můžeme použít funkci `runif`. PDF poté vypočítáme pomocí funkce `dunif` a CDF pomocí `punif`. Jako příklad uniformního rozložení si ukážeme čekání na tramvaj. Řekněme, že přijdeme na zastávku a máme se rozhodnout, zda se nám vyplatí čekat nebo jít pěšky. Čekání na tramvaj v takovém případě můžeme modelovat (připodobnit) uniformním rozložením. Nevíme, kdy tramvaj přijede (v našem příkladu nejsou jízdní řády, nebo alespoň nejsou spolehlivé jízdní řády :). Může přijet hned (tedy za 0min), může přijet za 8min. Pravděpodobnost, za jak dlouho přijede (respektive, v jakém momentu jsme my přisli na zastávku) je rovnoměrně rozložena v celém intervalu. Pojďme si tento proces vyjádřit v animaci. Červená tečka reprezentuje nás čekající na zastávce. Modrý čtverec reprezentuje tramvaj blížící se k zastávce. Jak je vidět, někdy přijdeme na zastávku a tramvaj je blízko. Někdy přijdeme a tramvaj je stále daleko. 
 
-```{r, animation.hook='gifski', fig.cap='Ukázka čekání na tramvaj jako náhodný proces z uniformního rozložení'}
+```{r, animation.hook='gifski', fig.cap='Ukázka čekání na tramvaj jako náhodný proces z uniformního rozložení', interval=0.6}
 # muzeme cekat 0 minut az 8 minut
 a <- 0
 b <- 8
@@ -569,7 +569,7 @@ lines(x[x > q], pdf[x > q], col = "#1f77b4", type = "h")
 Jak je vidět, pravděpodobnost, že tramvaj přijede za 5 a více minut (musíme si nechat 1 minutu na cestu tramvají, proto chceme vědět $P(t_i > 5)$) je `r round(cdf, 2)`, tedy docela vysoká. Tato situace by nastala zhruba 1 ze 3 případů. Pravděděpodobně bychom tedy v takovém případě šli pěšky.
 
 
-## Poisson
+## Poisson{#pois-dist}
 Poissonovo rozložení popisuje chování **diskrétních** náhodných proměnných v **nějakém daném časovém intervalu**. Od binomického rozložení se liší tím, že popisuje proměnné, které nemají pevně stanovený počet pozorování, tedy $x_i \in [0, \infty)$. Toto rozložení má jediný parametr $\lambda$, který je zároveň **očekávanou hodnotou** a **rozptylem**. Stejně jako u binomického, normálního, t a uniformního rozložení předpokládáme, že jednotlivé hodnoty náhodné proměnné jsou na sobě **nezávislé**. Náhodnou proměnnou $x_i$ pocházející z tohoto rozložení značíme jako $x_i \sim Poisson(\lambda)$. Mnoho každodenních jevů, jejichž hodnoty jsou celé čísla se dají popsat poissonových rozložením. U mnoha jevů totiže neznáme $n$ a tedy nedokážeme říct, jaká je největší očekávaná hodnota. Jako příklady jevů, které je možné approximovat (připodobnit) poissonových rozložením je například počet telefonátů za den, počet aut, které projedou silnicí za hodinu, počet gólů za zápas apod. Vrátíme se zpět do kapitoly popisné statistiky \@ref(central-tend), kde jsme vypočítali počet slov ve větě v projevu prezideta republiky. Pro připomenutí ukážeme četnosti počtu slov ve větě.
 ```{r ch2-hist-pocet-slov, echo=FALSE, fig.cap='Četnost počtu slov ve větě v projevu prezidenta republiky'}
 prezident <- readLines("https://raw.githubusercontent.com/schubertjan/uvod-do-statistiky/master/dats/prezident.txt", encoding = "UTF-8")
@@ -678,7 +678,7 @@ legend("topright",
 )
 ```
 
-Toto se v reálném světě často. Tento jev se v angličtině označuje jako *overdispersion*. Jednou z možností, jak se s overdispersion vypořádat je, že modelujeme náhodnou proměnnou jako pocházející z jiného rozložení^[Tím je v generalized linear models Beta negative binomial]. Pro náš jednoduchý příklad bychom mohli využít častého triku, který převede pozitivní diskrétní data s větším rozptylem na data spojitá. Tento trik využívá **transformace** proměnné a to konkrétně jejího logaritmu. Jak je známo logaritmus je definován pro definiční obor $\in (0, \infty)$. Pro zopakovaní ukazujeme funkci přirozeného logaritmu v grafu \@ref(fig:log-example). Jak je vidno, tak funkce logaritmu převede hodnoty do oboru hodnot $\in (-\infty, \infty)$ a zároveň budou její hodnoty spojité. Normální rozložení je takto definováno a proto zkusíme modelovat počet slov ve větě $s_i$ jako $log(s_i) \sim N(\mu_{log(s)}, \sigma_{log(s)})$.
+Toto se v reálném světě často. Tento jev se v angličtině označuje jako *overdispersion*. Jednou z možností, jak se s overdispersion vypořádat je, že modelujeme náhodnou proměnnou jako pocházející z jiného rozložení. Pro náš jednoduchý příklad bychom mohli využít častého triku, který převede pozitivní diskrétní data s větším rozptylem na data spojitá. Tento trik využívá **transformace** proměnné a to konkrétně jejího logaritmu. Jak je známo logaritmus je definován pro definiční obor $\in (0, \infty)$. Pro zopakovaní ukazujeme funkci přirozeného logaritmu v grafu \@ref(fig:log-example). Jak je vidno, tak funkce logaritmu převede hodnoty do oboru hodnot $\in (-\infty, \infty)$ a zároveň budou její hodnoty spojité. Normální rozložení je takto definováno a proto zkusíme modelovat počet slov ve větě $s_i$ jako $log(s_i) \sim T(\mu_{log(s)}, \sigma_{log(s)}, n)$.
 
 ```{r log-example, fig.cap='Ukázka přirozeného logaritmu'}
 curve(log(x),
@@ -689,13 +689,20 @@ curve(log(x),
 abline(h = 0, v = 0, lwd = 1)
 ```
 
-Graf \@ref(fig:log-data) zobrazuje histogram logaritmu početu slov ve větě a teoretické PDF $N(2.61, 0.66)$. Jak je vidět takovýto model lépe vystihuje rozptyl v počtu slov. Vzhledem k tomu, že máme pouze 66 pozorování nebude taková náhodná proměnná přesně vystihovat teoretické rozložení. Graf \@ref(fig:density-sample-norm) ukazuje odhadnutou hustotu pravděpodobnosti pro 50 výběrů z $N(2.61, 0.66)$, každý o velikosti $n=$ `r n`. Modrá křivka ukazuje naše data, šedé křivky potom simulované výběry. Je vidět, že několiktakových výběrů, které jsou podobně nahnuté doprava nastalo, což znamená, že taková data nejsou tak nepravděpodobná (pokud pocházejí z $log(s_i) \sim N(2.61, 0.66)$).
-```{r log-data, fig.cap='Rozložení logaritmu dat a teoretická PDF N(2.61, 0.66)'}
+Graf \@ref(fig:log-data) zobrazuje histogram logaritmu početu slov ve větě a teoretické PDF $T(2.61, 0.66, 65)$. Jak je vidět takovýto model lépe vystihuje rozptyl v počtu slov. Vzhledem k tomu, že máme pouze 66 pozorování nebude taková náhodná proměnná přesně vystihovat teoretické rozložení. Graf \@ref(fig:density-sample-norm) ukazuje odhadnutou hustotu pravděpodobnosti pro 50 výběrů z $T(2.61, 0.66, 66)$, každý o velikosti $n=$ `r n`. Modrá křivka ukazuje naše data, šedé křivky potom simulované výběry. Je vidět, že několiktakových výběrů, které jsou podobně nahnuté doprava nastalo, což znamená, že taková data nejsou tak nepravděpodobná (pokud pocházejí z $log(s_i) \sim T(2.61, 0.66, 66)$).
+
+```{r log-data, fig.cap='Rozložení logaritmu dat a teoretická PDF T(2.61, 0.66, 66)'}
+# transfromujeme promennou
 s_log <- log(pocet_slov)
+# vypocitame prumer
 mu <- mean(s_log)
+# vypocitame rozptyl
 s <- sd(s_log)
+# stanovime x pro ktere vypocitame pdf
 x <- seq(0.01, 5, length.out = 1000)
-pdf <- dnorm(x, mean = mu, sd = s)
+# vypocitame pdf zobecneneho t rozdeleni
+pdf <- dt((x - mu) / s, df = n) * 1 / s
+
 hist(s_log,
   xlab = "log(s)", ylab = "Četnost",
   main = "Histogram logaritmu počtu slov",
@@ -715,7 +722,7 @@ plot(x, pdf,
 legend("topright",
   legend = c(
     "log(s)",
-    paste0("N(", round(mu, 2), ",", round(s, 2), ")")
+    paste0("T(", round(mu, 2), ",", round(s, 2), ",", n,")")
   ),
   lwd = c(2, 2),
   col = c("grey", "#1f77b4"),
@@ -725,7 +732,7 @@ thicks <- round(seq(min(pdf), max(pdf), by = 0.05), 2)
 axis(4, at = thicks, labels = thicks)
 ```
 
-```{r density-sample-norm, fig.cap='Příklad hustoty pravděpodobnosti 50 výběrů o velikosti n=66 z N(2.61, 0.66)'}
+```{r density-sample-norm, fig.cap='Příklad hustoty pravděpodobnosti 50 výběrů o velikosti n=66 z T(2.61, 0.66, 66)'}
 # odhadneme hustotu pravdepodobnosti dat
 d_data <- density(s_log)
 S <- 50
@@ -733,21 +740,23 @@ S <- 50
 plot(d_data,
   type = "l",
   xlab = "log(s)",
-  ylab = "Hustota pravděpodobnosti", main = "",
+  ylab = "Hustota pravděpodobnosti (PDF)", main = "",
   col = "#1f77b4",
-  xlim = c(0, 5), ylim = c(0, 0.8),
+  xlim = c(0, 5), ylim = c(0, 0.85),
   lwd = 2
 )
 for (i in 1:S) {
-  vyber <- rnorm(n, mean = mu, sd = s)
+  # provedeme vybery z t rozdeleni o stejne velikosti vyberu
+  vyber <- rt(n, df = n) * s + mu
   lines(density(vyber), col = adjustcolor("black", alpha.f = 0.2))
 }
 ```
 
 Nakonec se tedy vrátíme k naší původní otázce - predikce počtu slov ve větě. Jak jsme si ukázali, logaritmus počtu slov ve větě můžeme dobře approximovat normálním rozložením. Na tomto rozložení můžeme počítat CDF stejně tak, jak jsme si to ukázali v \@ref(norm-dist). Řekněme, že z důvodu srozumitelnosti nedoporučejeme věty delší než 20 slov. Zajímá nás, jaká je pravděpodonost, že libovolně zvolená věta bude delší než 20 slov, pak vlastně počítáme $P(log(s_i) > log(20))$ z našeho $log(s_i) \sim N(2.61, 0.66)$^[Pokud bychom chtěli věrohodně zachytit nejistotu ohledně počtu slov v našich datech, měli bychom počítat s nejistotou odhadu průměru a směrodatné odchylky rozložení. Něco, co si ukážeme v příští kapitole.].
+
 ```{r}
 q <- log(20)
-cdf <- pnorm(q, mean = mu, sd = s, lower.tail = FALSE)
+cdf <- pt((q - mu) / s, df = n, lower.tail = FALSE)
 ```
 
 Tato pravděpodobnost je rovna `r round(cdf, 2)`. Nebo jinak zhruba `r round(cdf, 2)*100`% vět bude delších než 20 slov. 
@@ -807,7 +816,7 @@ legend("topright",
 
 
 ## Jak vybrat správný model pro data
-My jsme si v této kapitole ukázali některé nejčastější rozložení, které popisují náhodné procesy vyskutující se ve fyzikálním světě okolo nás. Při analýze máte zpravidla nějaká data (náhodné proměnné), jejichž chování se nažíte popsat pomocí nějakého modelu. To jaký model na vaše data vybrat záleží především na **povaze dat**, tedy zda jsou data spojitá nebo diskrétní. Dále pak na tom, jaké hodnoty byste u vašich dat čekali, především, zda májí data nějakou **hranici**, za kterou data nejsou možná (např. data musí být pozitivní apod.). V poslední řadě pak záleží na tom, zda zvolený model **věrohodně vystihuje pravděpodobnost**, s kterou data nabývají různých hodnot. Znovu zopakujeme, že model představuje připodobnění reality a jeho užitečnost závisí na otázce, kterou se snažíme modelem zodpovědět. Vždy je dobrým zvykem si data zobrazit. Ze zvažovaného modelu si vygenerujte data a porovnejte je s reálnými daty. Uvažujte jakých extrémních hodnot by váš model mohl dosáhnout a zda jsou takové hodnoty pro problém který zkoumáte vůbec reálné. Zvažte, do jaké míry váše data (nebo jejich sběr) porušují předpoklady vašeho modelu^[Skoro všechna data porušují do nějaké míry alespoň jedne z předpokladů modelu :)]. Právě díky grafickému zobrazení různých simulací můžete pochopit, jak by mohly různé předpoklady váš model rozbít, nebo za jakých podmínek přestane věrohodně vystihovat vaše data.
+My jsme si v této kapitole ukázali některé nejčastější rozložení, které popisují náhodné procesy vyskutující se ve fyzikálním světě okolo nás. Při analýze máte zpravidla nějaká data (náhodné proměnné), jejichž chování se nažíte popsat pomocí nějakého modelu. To jaký model na vaše data vybrat záleží především na **povaze dat**, tedy zda jsou data spojitá nebo diskrétní. Dále pak na tom, jaké hodnoty byste u vašich dat čekali, především, zda májí data nějakou **hranici**, za kterou data nejsou možná (např. data musí být pozitivní apod.). V poslední řadě pak záleží na tom, zda zvolený model **věrohodně vystihuje pravděpodobnost**, s kterou data nabývají různých hodnot. Znovu zopakujeme, že model představuje připodobnění reality a jeho užitečnost závisí na otázce, kterou se snažíme modelem zodpovědět. Vždy je dobrým zvykem si data zobrazit. Ze zvažovaného modelu si vygenerujte data a porovnejte je s reálnými daty. Uvažujte jakých extrémních hodnot by váš model mohl dosáhnout a zda jsou takové hodnoty pro problém který zkoumáte vůbec reálné. Zvažte, do jaké míry váše data (nebo jejich sběr) porušují předpoklady vašeho modelu^[Skoro všechna data porušují do nějaké míry alespoň jedne z předpokladů modelu :).]. Právě díky grafickému zobrazení různých simulací můžete pochopit, jak by mohly různé předpoklady váš model rozbít, nebo za jakých podmínek přestane věrohodně vystihovat vaše data.
 
 Nakonec představíme aplikaci, pomocí které si můžete vyzkoušet, jak různé parametry ovlivňují tvar různých rozložení nebo vypočítat pravděpodobnost, že náhodná proměnná $x_i$ nabyde určitých hodnot $a$.
 

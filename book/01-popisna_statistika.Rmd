@@ -220,7 +220,7 @@ vr <- max(pocet_slov) - min(pocet_slov)
 ```
 Minimální počet slov ve větě je `r min(pocet_slov)`, nejdelší věta má `r max(pocet_slov)`. Variační rozpětí je tedy `r vr`. 
 
-Pro kardinální proměnné se nejčastěji používá **rozptyl**, který vypočítáme tak, že každou hodnotu proměnné odečteme od průměru a umocníme. Tyto hodnoty sečteme a vydělíme počtem pozorování. Matematicky bychom rozptyl $s^2$ proměnné $x$ vypočítali jako $$s^2 = \frac{1}{n-1}\sum_{i=1}^n (x_i - \overline{x})^2$$^[V případě populačního rozptylu $\sigma^2 = \frac{1}{N}\sum_{i=1}^n (x_i - \mu_x)^2$]Ve statistice se také používá pro výpočet rozptýlenosti **směrodatná odchylka** $s$, které se vypočítá jako $$s = \sqrt{s^2}$$Protože umocněné vzdálenosti od průměru opět odmocníme a tím je vrátíme na stejnou škálu jako $x_i$, představuje směrodatná odchylka typickou vzdálenost pozorování od průměru. Ukažme si příklad na počtu slov.
+Pro kardinální proměnné se nejčastěji používá **rozptyl**, který vypočítáme tak, že každou hodnotu proměnné odečteme od průměru a umocníme. Tyto hodnoty sečteme a vydělíme počtem pozorování. Matematicky bychom rozptyl $s^2$ proměnné $x$ vypočítali jako $$s^2 = \frac{1}{n-1}\sum_{i=1}^n (x_i - \overline{x})^2$$^[V případě populačního rozptylu $\sigma^2 = \frac{1}{N}\sum_{i=1}^n (x_i - \mu_x)^2$.]Ve statistice se také používá pro výpočet rozptýlenosti **směrodatná odchylka** $s$, které se vypočítá jako $$s = \sqrt{s^2}$$Protože umocněné vzdálenosti od průměru opět odmocníme a tím je vrátíme na stejnou škálu jako $x_i$, představuje směrodatná odchylka typickou vzdálenost pozorování od průměru. Ukažme si příklad na počtu slov.
 ```{r}
 n <- length(pocet_slov)
 rozptyl <- sum((pocet_slov - mean(pocet_slov))^2) / n

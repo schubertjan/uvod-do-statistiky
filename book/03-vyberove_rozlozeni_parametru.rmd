@@ -1,0 +1,462 @@
+# Výběrové rozdělení parametrů
+
+Během této kapitoly se dostaneme dále do základů statistiky a představíme si jeden z nejpoužívanějších principů statistiky, který nás bude provázat po zbytku semestru. Opět to bude náročnější kapitola a možná se k ní budete chtít vrátit zpět, jak budeme centrální limitní větu (CLV) aplikovat na další statistické problémy. V této kapitole si představíme její princip. V kapitole o pravděpodobnostních rozloženích \@ref(prob-dist) jsme si ukázali, že existují různé typy rozložení, které je možné použít k popsání (připodobnění) toho, jakých hodnot bude proměnná nabývat a v jaké četnosti. Často nás zajímají nejenom hodnoty náhodné proměnné, ale také některé její **parametry**, jako například průměr nebo procenta. Už víme, že hodnoty náhodné proměnné jsou ovlivněny náhodou, které může mít různé důvody. Je asi intuitivní, že i parametry této proměnné budou touto náhodou ovlivněny a že nebudou vždy stejné. No a protože tyto parametry budou nabývat různých hodnot, pak můžeme jejich rozložení zkoumat jako výběrové rozložení parametrů. A jako u každého jiného pravděpodobnostního rozložení můžeme popsat jaké hodnoty a s jakou frekvencí bychom u proměnné očekávali.
+
+Než se pustíme do principů CLV a výběrového rozložení paramerů, zmíníme pár vět o termilogii, kterou budeme používat. Populační parametry, se zpravidla označují písmeny řecké abecedy. Výběrové parametry pak označujeme písmeny latinské abecedy. 
+
+Parametr | Výběr  | Populace
+---------| ------ | ---------
+průměr | $\overline{x}$  | $\mu$
+směrodatná odchylka | $s$ | $\sigma$
+procento | $p$ | $\pi$
+
+
+## Procenta{#clv-procento}
+Vraťme se zpět ke Galtonově boxu. My jsme tento proces simulovali jako $x_i \sim B(10000, 0.5)$. Řekněme, že nás zajímá zjistit jaké procento míčků skončí v prostředním (sedmém) sloupci $p$. Procento je nějaký parametr naší proměnné, který jsme zvolili, ale mohli bychom si zvolit například medián. Toto procento bude pokaždé když kuličky spustíme znova trochu jiné. Centrální limitní věta nám pomůže kvantifikovat, jak jiné toto procento bude.
+```{r}
+set.seed(42)
+# pocet micku
+n <- 10000
+# pravdepodobnost uspechu (napravo)
+p <- 0.5
+# 0 by znamenalo všechny kulicky nalevo, 12 všechny kulicky napravo,
+# celkem 13 možností, jak mohou kulicky skončit
+s <- 12
+
+vysledek <- rbinom(n = n, size = s, prob = p)
+cetnost <- table(vysledek)
+
+# pouzijeme nazev 6 v tabulce, protoze 0 je prvni sloupec
+p_7 <- cetnost[names(cetnost) == "6"] / n
+```
+
+Například v simulaci, kterou jsme provedli v kodu nahoře je procento kuliček v sedmém sloupci $p_7$ rovné `r p_7`. Když jsme simulovali hodnoty náhodné proměnné, tak každá kulička představovala jedno pozorování. V simulaci, kterou si teď předvedeme, vždy spustíme kuličky, spočítáme procento v sedmém sloupci, kuličky pustíme znova, opět spočítáme procento kuliček v sedmém sloupci a tak dále. Každé procento, které takto vypočítáme, představuje jednu hodnotu nějaké nové náhodné proměnné. Nakonec si ukážeme jak vypadá histogram těchto procent. Předtím, než se na animaci podíváte zkuste pomocí vašich znalostí pravděpodobnostních rozložení odhadnout, jaké bude mít rozložení průměrů tvar. 
+
+```{r clv-anim, animation.hook='gifski', fig.cap='Rozložení procenta kuliček v sedmém sloupci při opakovaném spuštění kuliček', interval=0.4}
+# funkce na vypocet p_7
+rel_cetnost <- function(x, k) {
+  cetnost <- table(x)
+  p <- cetnost[names(cetnost) == k] / sum(cetnost)
+  return(p)
+}
+
+# pocet simulaci
+S <- 1:90
+p_7 <- rep(NA, length(S))
+
+for (i in S) {
+  # spustime kulicky
+  vysledek <- rbinom(n = n, size = s, prob = p)
+  # vypocitame procento kulicek v kazdem sloupci
+  p_7[i] <- rel_cetnost(vysledek, "6")
+
+  hist(p_7,
+    breaks = seq(0.21, 0.24, by = 0.002),
+    xlim = c(0.21, 0.24),
+    main = paste0("Počet opakových spuštění kuliček: ", S[i]),
+    col = "#1f77b4",
+    xlab = "Procento kuliček v sedmém sloupci", ylab = "Četnost"
+  )
+}
+```
+
+Jak je vidět z histogramu v \@ref(fig:clv-anim), rozložení procent z opakovaných spuštění kuliček je zhruba normálně rozloženo s průměrem `r round(mean(p_7), 2)` a směrodatnou odchylkou `r round(sd(p_7), 3)`, nebo jinak $p \sim N($ `r round(mean(p_7), 2)` $,$ `r round(sd(p_7), 3)` $)$. To není žádné překvapení. Jak víme z \@ref(norm-dist) spojité proměnné, které se shlukují okolo nějakého bodu a mohou nabývat hodnot na levo a na pravo od tohoto bodu bývají často normálně rozděleny. **Centrální limitní věta** nám popisuje tento fenomen a říká nám, jak vypočítat parametry tohoto normálního rozložení (tedy průměr a směrodatnou odchylku). V našem případě bychom parametry takového rozložení mohli vypočítat jako $$p \sim N(\pi, \frac{\sigma_{\pi}}{\sqrt{n}})$$kde $n$ je velikost výběru (10000 v našem případě), pričemž z \@ref(binom-dist) víme, že rozptyl u procent vypočítáme jako $\sigma^2 = \pi*(1-\pi)$ a směrodatnou odchylku jako $\sigma = \sqrt{\pi*(1-\pi)}$. Protože teoretická rozložení parametru využívá k aproximaci normální rozložení, platí pro PDF stejné překlady, jaké jsme si ukazovali v \@ref(norm-dist), tedy, že jednotlivé hodnoty jsou na sobě nezávislé. Graf \@ref(fig:clv-comp) ukazuje porovnání histogramu z `r max(S)` opakovaných puštění kuliček a jejich procent v sedmém sloupci s teoretickým rozložením tohoto parametru podle CLV^[$p_7 \sim N(0.19, \sqrt {\frac{0.19*0.81}{n}})$]. 
+
+```{r clv-comp, fig.cap='Porovnání rozložení 90 opakování procent kuliček v sedmém sloupci s teoretickým rozložením procent kuliček v sedmém sloupci podle CLV'}
+# vypocitame p
+p_hat <- dbinom(6, size = 12, prob = 0.5)
+# vypocitame smerodatnou odchylku dat
+s_hat <- sqrt(p_hat * (1 - p_hat))
+
+# vypocitame pdf rozlozeni procent
+x <- seq(0.21, 0.24, length.out = 1000)
+pdf <- dnorm(x, mean = p_hat, sd = s_hat/sqrt(n))
+
+
+hist(p_7,
+  breaks = seq(0.21, 0.24, by = 0.002),
+  xlim = c(0.21, 0.24),
+  col = "grey",
+  main = "",
+  xlab = "Procento kuliček v sedmém sloupci", ylab = "Četnost"
+)
+# pridame na druhou osu
+par(new = TRUE)
+plot(x, pdf,
+  type = "l", lwd = 2,
+  col = "#1f77b4",
+  axes = FALSE,
+  xlab = "", ylab = "",
+  bty = "n"
+)
+
+legend("topright",
+  legend = c(
+    "Rozložení procent",
+    paste0("N(", round(p_hat, 2), ",", round(s_hat/sqrt(n), 3), ")")
+  ),
+  lwd = c(2, 2),
+  col = c("grey", "#1f77b4"),
+  cex = 0.7
+)
+thicks <- round(seq(0, max(pdf), by = 10), 2)
+axis(4, at = thicks, labels = thicks)
+```
+
+Jak je zřejmé s parametrů rozložení, poloha tohoto rozložení určena průměrem a šířka rozložení bude ovlivněna $\frac{\sigma_{\pi}}{\sqrt{n}}$, tedy mírou variability v datech a velikostí našeho výběru. Čím větší velikost výběru, tím menší je směrodatná odchylka rozložení parametru^[Tento vztah není lineární, tedy 2x větší výběr neznamená 2x menší směrodatnou odchylku rozložení parametru, směrodatná odchylka rozložení klesá $\frac{1}{\sqrt{n}}$.]. Aby nedocházelo k záměně směrodatné odchylky rozložení parametru a směrodatné odchylky výběru, používá se pro směrodatnou odchylku rozložení parametru pojem **směrodatná chyba**. 
+
+Doposud jsme pro průměr rozložení parametru a směrodatnou odchylku používali populační parametry, tedy věděli jsme hodnotu $\pi$ v populaci a také rozptyl dat $\pi*(1-\pi)$. To vychází z toho, že u Galtonova boxu víme, jaký náhodný proces data generuje. Většinou ale tento náhodný proces neznáme a nemáme tedy informace o populačním průměru a směrodatné odchylce. V takovém případě odhadneme obě hodnoty z dat (výběru). Je asi intuitivní, že pokud bude velikost našeho výběru $n$ malá, bude existovat větší nejistota o odhadu populačního průměru a směrodatné odchylky z dat. Abychom tuto dodatečnou nejistotu zachytili v teoretickém pravděpodobnostním rozložení parametru, použijeme k jeho aproximaci t-rozdělení s $n-1$ stupni volnosti, tedy $$p \sim T(p, \frac{s_p}{\sqrt{n}}, n-1)$$^[Směrodatná odchylka odhadnutá z dat se označuje $s$.]Jak víme z \@ref(t-dist), t-rozložení dává větší pravděpodobnost hodnotám více vzdáleným od průměru. 
+
+Graf \@ref(fig:clv-t) ukazuje teoretické rozložení procenta kuliček v sedmém sloupci $p_7$ při $n=20$, $n=50$ a $n=100$. Tedy místo 10000, pustíme pouze 20, 50 a 100 kuliček. Abychom ukázali použití t-rozložení a odhadu průměru a směrodatné odchylky z výběru, budeme chvilku předstírat, že nevíme jejich teoretické hodnoty a proto $p_7$ a $s_7$ odhadneme z výběru Jak je vidět při puštění pouze 20 kuliček je náš odhad velmi nepřesný. Procento kuliček, které skončí v sedmém sloupci může klidně být od 0 do 0.4^[Velikost tohoto výběru je dokonce tak malá, že aproximace t-rozdělením nemusí být přesná.]. To dává smysl, představte si, jaká míra nejistoty existuje, pokud do Galtonova boxu nasypeme pouze 20 kuliček. S tím, jak se zvětšuje velikost výběru $n$, klesá míra naší nejistoty o odhadu procenta kuliček v sedmém sloupci, klesá směrodatná chyba odhadu a tím pádem o šířka teoretického rozložení parametru.   
+
+```{r clv-t, fig.cap='Porovnání vlivu velikosti výběru n na směrodatnou chybu odhadu'}
+# definujeme velikost vyberu
+N <- c(20, 50, 100)
+# definujeme hodnoty pro ktere budeme pocitat pdf
+x <- seq(0.00,1, length.out = 1000)
+
+# vytvorime prazdný graf, do ktereho budeme pridavat
+plot(x,
+     type= "n",
+     xlim = c(0, 0.8),
+     ylim = c(0, 10),
+     xlab = "Procento kuliček v sedmém sloupci", ylab = "PDF")
+
+cols <- rev(RColorBrewer::brewer.pal(length(N) + 1, name = "Blues")  )
+
+for(i in 1:length(N)) {
+  # provedeme vyber a odhadneme p a sd
+  n <- N[i]
+  .vyber <- rbinom(n = n, size = s, prob = p)
+  p_hat <- rel_cetnost(.vyber, "6")
+  s_hat <- sqrt(p_hat*(1-p_hat))
+  
+  # vypocteme pdf pro T(p, s/sqrt(n), n-1) podle zobecneneho t-rozlozeni
+  pdf_t <- 1/(s_hat / sqrt(n)) * dt((x - p_hat)/(s_hat / sqrt(n)), df = n-1)
+  
+  # pridame t-rozlozeni
+  lines(x, pdf_t, type = "l", lwd = 2, col = cols[i])
+}
+
+# pridame legendu
+legend("topright", 
+       legend = c(paste0("T(p, s/sqrt(n), ", N-1, ")")),
+       col = cols[1:length(N)],
+       cex = 0.7,
+       lwd = c(2, 2)
+       )
+```
+
+## Interval spolehlivosti{#clv-is}
+Pokud dokážeme pomocí PDF popsat předpokládáné rozložení výběrového parametru, dokážeme pomocí CDF spočítat pravděpodobnost, že by výběrový parametr nabyl nějaké hodnoty nebo vyšší/menší. Tedy v případě výběrového parametru procent kuliček v sedmém sloupci, dokážeme spočítat $P(p \ge q)$ nebo $P(p < q)$. Například, můžeme vypočítat kvantily, které pokryjí 95% hodnot rozložení výběrového parametru okolo průměru, tedy $p_{0.025}$ a $p_{0.975}$. Procento hodnot rozložení výběrového parametru pokryté našim kvantilem označujeme jako $1-\alpha$ a tedy procento hodnot rozložení výběrového parametru nepokryté našim kvantilem jako $\alpha$. Graf \@ref(fig:is-1) ukazuje teoretické rozložení výběrového parametru (procenta kuliček v sedmém sloupci) a modrá oblast ukazuje hodnoty p, které jsou menší než $p_{0.025}$ nebo větší než $p_{0.975}$. K vypočítání kvantilů rozložení použijeme funkci `qt`.   
+
+```{r is-1, fig.cap='Kvantily p_0.025 a p_0.975 pro rozložení T(p, s/sqrt(n), 99)'}
+probs <- c(0.025, 0.975)
+
+# vypocitame quantily zobecneneho t-rozlozeni pro probs
+q <- qt(probs, df = n-1)
+q <- q * s_hat/sqrt(n) + p_hat
+
+# vytvorime prazdný graf, do ktereho budeme pridavat
+plot(x, pdf_t,
+     type = "l", lwd = 2, 
+     col = "grey",
+     xlim = c(0, 0.8),
+     ylim = c(0, 10),
+     xlab = "Procento kuliček v sedmém sloupci", ylab = "PDF")
+
+# naznacime kvantily a hodnoty vetsi nez nebo mensi nez
+# pridame jako "h" abychom nazanacili integral 
+lines(x[x < q[1]], pdf_t[x < q[1]], col = "#1f77b4", type = "h")
+lines(x[x > q[2]], pdf_t[x > q[2]], col = "#1f77b4", type = "h")
+
+legend("topright", 
+       legend = c("p_0.025 | p_0.975", paste0("T(", round(p_hat, 2),
+                                              ",",
+                                              round(s_hat / sqrt(n), 2),
+                                              ",",
+                                              tail(N, 1)-1,")")
+       ), 
+       col = c("#1f77b4", "grey"),
+       lwd = c(2, 2),
+       cex = 0.7)
+```
+
+Pojďme si ještě jednou shrnout, co jsme vypočítali. Pomocí CLV jsme vypočítali pravděpodobnostní rozložení výběrového parametru (procenta kuliček v sedmém sloupci). Toto rozložení nám říká, s jakou pravděpodobností bychom získali další parametry, pokud bychom provedli nové výběry. Představme si opět na chvilku, že neznáme proces, který procenta kuliček v sedmém sloupci generuje (tedy neznáme populační $\pi_7$). Pomocí pravděpodobnostního rozložení parametru výběru bychom tedy mohli usoudit něco o populačním parametru, konkrétně to, že pokud bychom výběry z populace opakovali, pak by 95% hodnot výběrového parametru bylo v rozmezí $p_{0.025}$ a $p_{0.975}$, tedy konkrétně mezi $p_{0.025}=$ `r round(q[1], 2)` a  $p_{0.975}$= `r round(q[2], 2)`. To je nesmírně užitečná informace, která nám říká něco o populační hodnotě, kterou vůbec neznáme (v našem předstíraném případě). Skoro pokaždé budete při analýze pracovat s výběrem^[Ať už výběrem z populace jedniců, nebo výběrem výrobků z nějakého výrobního procesu nebo výběrem teplot měřených v nějaký čas dne apod.] a pomocí CLV tedy můžete odhadnout populačního parametru. Gratuluji, právě jste sestrojili interval spolehlivosti! Formálně se interval spolehlivosti vypočítá jako $$IS_{1-\alpha} = \overline{x} +/- t_{\alpha/2; 1-\alpha/2} \frac{s}{\sqrt{n}}$$kde $t$ je hodnota kvantilu t-rozložení s $n-1$ stupni volnosti pro $\alpha/2$ a $1-\alpha/2$.
+
+```{r}
+t_q <- qt(probs, n-1)
+i_s <- p_hat + t_q * s_hat/sqrt(n)
+```
+
+Pokud bychom vypočítali interval spolehlivosti podle výše zmíněného vzorce pro $\alpha=0.05$, pak bychom měli hodnoty mezi [`r round(i_s[1], 2)`, `r round(i_s[2], 2)`], tedy pokud bychom výběry z populace opakovali, pak by 95% z nich bylo v rozmezí [`r round(i_s[1], 2)`, `r round(i_s[2], 2)`].
+
+Ještě ukážeme to, co jsme zmínili nahoře, tedy, že interval spolehlivosti nám říká v jakém rozmezí bychom očekávali dané procento hodnot (toto procento je dané námi zvolenou hladinou $1-\alpha$) výběrového parametru při opakovaných výběrech. Budeme  simulovat 100 výběrů, u každého výběru spočítáme interval spolehlivosti a zobrazíme ho šedě, pokud nepokrývá populační hodnotu $\pi_7$ a modře pokud ji pokrývá. Protože naše hladina spolehlivosti je zvolena na 90%, očekáváme, že ze 100 intervalů spolehlivosti, jich asi 90 pokryje populační hodnotu a asi 10 ji nepokryje^[Protože náš výběr je pouze 100, nebude přesně 10 a 90.].
+```{r is-chyba, fig.cap='Ukázka opakovaných výběrů z populace a jak hladina alpha ovlivňuje podíl intervalů pokrytých opakovaných výběrem'}
+# vytvorime si funkci na vypocet is
+interval_spolehlivosti <- function(p_hat, alpha, n) {
+  # spocitame populacni sd
+  s_hat <- sqrt(p_hat *(1 - p_hat))
+  # vypocitame pravdepodobnosti 1-alpha/2
+  probs <- c(alpha / 2, 1 - (alpha / 2))
+  # spocitame kvantily pro 1/alpha/2
+  t_q <- qt(probs, n-1)
+  # spocitame interval spolehlivosti
+  i_s <- p_hat + t_q * s_hat/sqrt(n)
+  return(i_s)
+}
+
+# pocet simulaci
+S <- 100
+# velikost vyberu
+n <- 100
+# urcime hladinu spolehlivosti
+alpha <- 0.1
+# populacni hodnota
+pi <- dbinom(x = 6, size = 12, prob = 0.5) 
+
+# vyvorime prazdny graf
+plot(1:S, type= "n", 
+     xlab = "Pořadí", ylab = "Procento kuliček v sedmém sloupci",
+     ylim = c(0.05, 0.45))
+
+for(x in 1:S) {
+  # udelame vyber a spocitame ...
+  # ...vyberovy prumer a smerodatnou odchylku
+  vyber <- rbinom(n, size = 12, prob = 0.5)
+  p_hat <- rel_cetnost(vyber, "6")
+  s_hat <- sqrt(p_hat * (1 - p_hat))
+  
+  # spocitame interval spolehlivosti
+  i_s <-interval_spolehlivosti(p_hat, alpha, n)
+  
+  # zvolime barvu podletoho, zda is pokryva populacni parametr
+  .col <- "#1f77b4"
+  if(i_s[1] > pi | i_s[2] < pi) {
+    .col <- "grey"  
+  }
+  # zobrazime v grafu bodovy odhad
+  points(x, p_hat, pch = 19, col = .col)
+  lines(c(x, x), i_s, lwd = 1, col = .col)
+}
+# pridame populacni prumer
+abline(h = pi, col = "black", lwd = 2)
+
+legend("topright", 
+       legend = "populační parametr",
+       col = "black",
+       lwd = 2)
+```
+
+Šířku intervalu spolehlivosti (nejistoty ohledně hodnoty populačního parametru tedy ovlivňuje):
+
+* směrodatná chyba odhadu parametru $\frac{s}{\sqrt{n}}$ (a tedy jaká je variabilita v našich výběrových datech, měřeno směrodatnou odchylkou a velikostí výběru)
+* hladina spolehlivosti $\alpha$. Čím menší je alpha, tím je interval spolehlivosti užší, ale tím více procent opakovaných výběrů by hodnotu populačního parametru nepokrylo. Standardně tedy zvolíme $\alpha$ relativně malé, aby náš interval spolehlivosti pokryl populační parametr ve velké většině případů, a to i za cenu toho, že intrval spolehlivosti bude širší.
+
+
+## Bootstrap
+Pojďme se na chvilku vrátit ke grafu \@ref(fig:clv-anim). Na tomto grafu jsme ukázali hypotetickou situaci, kdy jsme věděli jak vypadá rozložení proměnné v celé populaci. Dělali jsme opakovené výběry, abychom ukázali, jak by vypadalo rozložení parametru, kdybychom u každého výběru vypočítali parametr, který nás zajímá. Ukazuje se, že pomocí podobné metody můžeme vypočítat rozložení parametru a to i bez toho, abychom měli data za celou populaci. Místo toho, abychom dělali náhodné výběry z populačních dat, tak budeme dělat **náhodné výběry s opakováním z výběru o velikosti $n$**. Výstupem tohoto výpočtu je vektor parametru, který nás zajímá, o velikosti rovnající se počtu výběrů s opakováním. Je důležité zdůraznit, že přestože počítáme rozložení parametru empiricky, některé ze předpokladů, které jsme zmínili u výpočtu teoretického rozložení, jsou stále platné. Především předpoklad o nezávislosti jednotlivých pozorování a o náhodném výběru z populace (pokud chceme dělat úsudky o celé populaci). 
+```{r bootstrap-ukazka, fig.cap='Boostrap výpočet procenta kuliček v sedmém sloupci'}
+# pocet bootstrap vyberu
+S <- 1e5
+p_hat <- rep(NA, S)
+for(i in 1:S) {
+  # udelame vyber s opakovanim
+  boostrap_vyber <- sample(.vyber, size = n, replace = TRUE)
+  # vypocitame parametr vyberu
+  p_hat[i] <- rel_cetnost(boostrap_vyber, "6")
+}
+
+hist(p_hat, 
+     col = "#1f77b4",
+     xlab = "Procento kuliček v sedmém sloupci", ylab = "Četnost",
+     main = "")
+
+# vypocitale kvantil 0.025 a 0.975
+alpha <- 0.05
+i_s <- quantile(p_hat, probs = c(alpha/2, 1-alpha/2))
+```
+Jako příklad se vrátíme k našemu výběru z \@ref(fig:is-chyba), kdy jsme na chvilku předstírali, že neznáme populační data, respektive náhodný proces, který data generuje. Graf \@ref(fig:bootstrap-ukazka) ukazuje empirické rozložení procenta kuliček, které skončí v sedmého sloupci. Pokud bychom chtěli vypočítat interval spolehlivosti, vypočítáme emprirický kvantil, tak jako jsme dělali v kapitole o mírách polohy \@ref(kvantily). `r (1-alpha)*100`% interval spolehlivosti je [`r round(i_s[1], 2)`, `r round(i_s[2], 2)`].
+
+Pokud můžeme vypočítat rozložení parametru analyticky, proč bychom měli používat bootstrap, který je více náročný z hlediska potřeby provádět opakované výběry. Je to proto, že pomocí bootsrapu můžeme vypočítat empirické rozložení i parametrů, pro které neexistuje jednoduché teoretické rozložení. Pracujeme opět se stejným hypotetickým výběrem o velikosti $n=$ `r n`. Pokud bychom například chtěli vypočítat interval spolehlivosti poměru kuliček v pátém a sedmém sloupci, tedy $\frac{p_{5}}{p_{7}}$, nebude jednoduché vypočítat směrodatnou chybu^[Pro představu [zde](https://en.wikipedia.org/wiki/Fieller%27s_theorem) je analytické řešení.]. S pomocí bootstrapu můžeme udělat $S$ výběrů s opakováním, u každého výběru vypočítat $\frac{p_{5}}{p_{7}}$. Získáme tak vektor o velikosti $S$, který můžeme použít k vypočítání empirického rozložení parametru $\frac{p_{5}}{p_{7}}$.
+```{r}
+# vytvorime funkci
+bootstrap <- function(x, func, S) {
+  n <- length(x)
+  parameter <- rep(NA, S)
+  # provedeme vybery s opakovanim
+  for(i in 1:S) {
+    # udelame vyber s opakovanim
+    boostrap_vyber <- sample(x, size = n, replace = TRUE)
+    # vypocitame parametr vyberu
+    parameter[i] <- func(boostrap_vyber)
+  }
+  return(parameter)
+}
+
+# funkce na vypocet pomeru
+pomer <- function(x) {
+  ans <- rel_cetnost(x, "4") / rel_cetnost(x, "6")
+  # pokud nebudou zadne kulicky v jednom ze sloupcu ...
+  # ...vratit NA
+  if(length(ans) == 0) {
+    return(NA)
+  } else {
+    return(ans)
+  }
+}
+# vypocitame bootstrap parametru
+p_hat <- bootstrap(.vyber, pomer, 1e5)
+
+hist(p_hat, 
+     col = "#1f77b4",
+     xlab = "Poměr procenta kuliček v pátém a sedmém sloupci", 
+     ylab = "Četnost",
+     main = "")
+
+# vypocitale kvantil 0.025 a 0.975
+alpha <- 0.05
+i_s <- quantile(p_hat, 
+                probs = c(alpha/2, 1-alpha/2), 
+                na.rm = TRUE)
+```
+`r (1-alpha)*100`% interval spolehlivosti pro $\frac{p_{5}}{p_{7}}$ je [`r round(i_s[1], 2)`, `r round(i_s[2], 2)`].
+
+
+## Průměr
+Jak jsme uvedli v \@ref(clv-procento), CLV říká, že průměr nezávislých proměnných $\theta$ bude normálně rozložen se směrodatnou chybou rovnou $\frac{s}{\sqrt(n)}$^[Směrodatnou odchylku parametru nazýváme směrodatná chyba, aby nedocházelo k záměně se směrodatnou odchylkou výběru.], tedy $\theta \sim N(\theta, \frac{s}{\sqrt(n)})$. U procent $p$ jsme směrodatnou odchylku počítali jako $\sqrt{p(1-p)}$. U průměru počítáme směrodatnou odchylku jako $s = \sqrt{\frac{1}{n-1}\sum_{i=1}^n (x_i - \overline{x})^2}$, tedy jak jsme si ukazovali v \@ref(desc-vars). Rozložení výběrového průměru náhodné proměnné $x$, tedy bude $$\overline{x} \sim T(\overline{x}, \frac{s}{\sqrt{n}}, n-1)$$Platí přitom, že nezáleží na tom, zda náhodné proměnná pochází z normálního rozložení. CLV se týká průměru této proměnné. Jako příklad si ukážeme hypotetickou situaci, v které budeme vědět populační rozložení náhodné proměnné $x_i$, která pochází z uniformního rozložení $x_i \sim U(-10, 10)$. Provedeme 5000 výběrů o velikosti $n=100$ z této populace, u každého spočítáme průměr a poté zobrazíme rozložení těchto průměrů histogramem.
+
+```{r clv-unif, fig.cap='Průměr 5000 výběrů o velikosti n=100 z x~U(-10, 10)'}
+# pocet simulaci
+S <- 5000
+# vektor, kam budeme ukladat prumery
+prumer <- rep(NA, S)
+# velikost vyberu
+n <- 100
+# parametry uniformniho rozlozeni
+a <- -10
+b <- 10
+
+for(i in 1:S) {
+  vyber <- runif(n, min = -10, max = 10)
+  prumer[i] <- mean(vyber)
+}
+
+hist(prumer,
+  col = "#1f77b4",
+  breaks = 10,
+  xlim = c(-3, 3),
+  main = "",
+  xlab = "Průměr x~U(-10, 10)", ylab = "Četnost"
+)
+
+legend("topright", 
+       legend = paste0("průměr: ", round(mean(prumer), 2),
+                       "\n",
+                       "směr.odchylka: ", round(sd(prumer), 2)),
+       lwd = 10,
+       col = "#1f77b4",
+       cex = 0.7
+       )
+```
+Jak je vidět z grafu \@ref(fig:clv-unif) rozložení průměrů z `r S` výběrů je normálně rozloženo. Průměr těchto `r S` průměrů je `r round(mean(prumer), 2)` a směrodatná odchylka je `r round(sd(prumer), 2)`. Porovnejme tyto hodnoty s teoretickým rozložením podle CLV. Z kapitoly o uniformním rozložení \@ref(unif-dist) víme, že průměr se vypočítá jako $\mu = \frac{1}{2}(a+b)$, tedy pro  $U(-10 ,10)$ je to hodnota `r (a+b)/2`. Rozptyl je $\sigma^2 = \frac{1}{12}(b-a)^2$, tedy pro  $U(-10 ,10)$ hodnota `r round((b-a)^2/12, 2)`. Směrodatná chyba odhadu je $\frac{s}{\sqrt{n}}$, tedy `r  round(sqrt(((b-a)^2/12) / n), 2)`. Jak je vidět, parametry normálního rozložení průměru podle CLV se shodují s údaji, které jsme získali při simulaci naší hypotetické situace. 
+
+Pokud bychom chtěli vypočítat **interval spolehlivosti**, můžeme postupovat stejně jako jsme uvedli v kapitole o intervalu spolehlivosti \@ref(clv-is). Pokud máme k dispozici výběr proměnné $x_i$, pak platí $$IS_{1-\alpha} = \overline{x} +/- t_{\alpha/2; 1-\alpha/2} \frac{s}{\sqrt{n}}$$tedy, že k výběrovému průměru přičteme/odečteme hodnotu směrodatné chyby odhadu vynásobenou kvantilem t-rozdělení (podle zvolené hladiny $\alpha$). 
+
+```{r}
+# zvolime hladinu spolehlivosti
+alpha <- 0.05
+# vypocitame vyberovy prumer
+x_hat <- mean(vyber)
+# vypocitame vyberovou smer. odchylku
+s_hat <- sd(vyber)
+# vypocitame kvantil t rozdeleni pro n-1
+t_q <- qt(c(alpha/2, 1-alpha/2), df = n-1)
+# vypocitame interval spolehlivosti
+i_s <- x_hat + t_q * s_hat/sqrt(n)
+# zaokrouhlime pro prehlednost
+i_s <- round(i_s, 2)
+```
+
+Abychom si ukázali výpočet intervalu spolehlivosti, použijeme poslední výběr z naší simulace. Průměr tohoto výběru o velikosti $n=$ `r n` je `r round(x_hat, 2)` a směrodatná odchylka je `r round(s_hat, 2)`. `r (1 - alpha) * 100`% interval spolehlivosti je [`r i_s[1]`, `r i_s[2]`]. Tedy, pokud bychom výběry opakovali, pak by `r (1 - alpha) * 100`% výběrů mělo průměr v rozmezí [`r i_s[1]`, `r i_s[2]`]. Protože se jedná o hypotetickou situaci, tak my víme, že populační výběr pro $U(-10, 10)$ je roven `r (a+b)/2`. Jak je vidět, přestože náš výběr je pouze o velikosti $n=$ `r n`, pak dokážeme pomocí intervalu spolehlivosti získat informaci o populačním průměru. 
+
+
+## Rozptyl
+Poslední z parametrů, jehož výběrové rozdělění si představíme je rozptyl, respektive směrodatná odchylka. Stejně jako platí u průměru, i rozptyl různých náhodných proměnných se bude lišit v závislosti na výběru. Interval spolehlivosti pro výběrový rozptyl $s^2$ je možné zapsat analytickou formou jako $$\frac{(n-1)s^2}{\chi^2_{\alpha/2}} \le \sigma^2 \le \frac{(n-1)s^2}{\chi^2_{1-\alpha/2}}$$kde $\chi^2$ je kvantil chi-kvadrát rozdělení s $n-1$ stupni volnosti. K výpočtu výběrového rozdělení rozptylu bychom také mohli použít bootstrap. Vraťme se zpátky k výpočtu počtu slov ve větě z kapitoly \@ref(pois-dist), kde jsme počet slov ve větě $s_i$ modelovali jako $log(s_i) \sim T(2.61, 0.66, 66)$. Zkoumaný proslov můžeme chápat jako výběr z populace proslovů. Tedy vypočítaný výběrový průměr $log(\overline{s}) = 2.61$ a výběrová směrodatná odchylka rovná $0.66$ se budou lišit v závislosti na výběru. Tuto nejistotu bychom měli vzít v potaz i při predikci procenta vět delších než 20 slov. Graf \@ref(fig:clv-prumer-sd) ukazuje výběrové rozdělení průměru a výběrové rozdělení směrodatné odchylky.
+```{r clv-prumer-sd, fig.width=10, fig.cap='PDF výběrového průměru a směrodatné odchylky'}
+n <- 66
+vyberovy_prumer <- 2.61
+vyberova_sd <- 0.66
+smerodatna_chyba <- vyberova_sd / sqrt(n)
+
+# vypocitame pdf vyberoveho rozdeleni prumery
+x <- seq(2.2, 3, length.out = 1000)
+pdf_prumer <- dt((x - vyberovy_prumer) / smerodatna_chyba, df = n-1) * 1/smerodatna_chyba
+
+par(mfrow = c(1, 2))
+# vyberove rozdeleni prumeru
+plot(x, pdf_prumer,
+     xlab = "Logaritmus počtu slov ve větě",
+     ylab = "PDF",
+     col = "#1f77b4",
+     main = "Výběrové rozdělení průměru",
+     type = "l", lwd = 2,
+     cex.main = 0.7)
+
+# vypocitame pdf vyberove směrodatné odchylky
+r_s <- sqrt((n-1)*vyberova_sd^2 / rchisq(1e5, n-1))
+pdf_s <- density(r_s, n=1e5)
+
+
+# vyberove rozdeleni rozptylu
+plot(pdf_s,
+     xlab = "Logaritmus počtu slov ve větě",
+     ylab = "PDF",
+     col = "#1f77b4",
+     main = "Výběrové rozdělení směr.odchylky",
+     type = "l", lwd = 2,
+     cex.main = 0.7)
+
+# vypocitame jeste interval spolehlivosti
+alpha <- 0.05
+q <- c(alpha/2, 1-alpha/2)
+is_prumer <- vyberovy_prumer + smerodatna_chyba * qt(q, df = n-1)
+is_sd <- quantile(r_s, probs = q)
+```
+
+`r (1-alpha)*100`% interval spolehlivosti pro průměr je [`r round(is_prumer[1], 2)`, `r round(is_prumer[2], 2)`] a `r (1-alpha)*100`% interval spolehlivosti pro směrodatnou odchylku je [`r round(is_sd[1], 2)`, `r round(is_sd[2], 2)`]. Pokud bychom převedli hodnoty zpět na původní škálu, pak by byl `r (1-alpha)*100`% interval spolehlivosti pro průměr počtu slov ve větě [`r round(exp(is_prumer[1]), 2)`, `r round(exp(is_prumer[2]), 2)`] a `r (1-alpha)*100`% interval spolehlivosti pro směrodatnou odchylku je [`r round(exp(is_sd[1]), 2)`, `r round(exp(is_sd[2]), 2)`]. Abychom tuto nejistotu vzali v potaz při naší predikci budeme simulovat výběry z t-rozdělení, kde zohledníme vypočítanou nejistotu ve výběrovém průměru a směrodatné odchylce.
+```{r clv-sim-t, fig.cap='Prvních 100 simulací výběrů z t-rozdělení při n=66 a zohlednění nejistoty výběrového průměru a směrodatné odchylky'}
+# pocet simulaci
+s <- 1e5
+# matrix na ukladani simulaci
+S <- matrix(NA, nrow = s, ncol = n)
+for(i in 1:s) {
+  S[i, ] <- rt(n, df = n-1) * 
+    sqrt((n-1)*vyberova_sd^2 / rchisq(1, n-1)) + # vyberovy rozptyl
+    rnorm(1, vyberovy_prumer, smerodatna_chyba) # vyberovy prumer
+}
+
+# zobrazime prvnich 100
+plot(s,
+  type = "l",
+  xlab = "log(s)",
+  ylab = "Hustota pravděpodobnosti (PDF)", main = "",
+  col = "#1f77b4",
+  xlim = c(0, 5), ylim = c(0, 0.85),
+  lwd = 2
+)
+for (i in 1:100) {
+  # provedeme vybery z t rozdeleni o stejne velikosti vyberu
+  lines(density(S[i, ]), col = adjustcolor("black", alpha.f = 0.1))
+}
+
+# vypocitame (P > log(20))
+q <- log(20)
+cdf <- apply(S, 1, function(x) sum(x > q) / n)
+i_s <- quantile(cdf, probs = c(alpha/2, 1-alpha/2))
+```
+Provedeme `r s` simulaci, v každé simulaci provedeme výběr ze zobezněného t rozdělení, o velikosti $n=$ `r n`. U každého výběru vezmeme v potaz nejistotu o odhadu výběrového průměru a výběrové směrodatné odchylky. Graf \@ref(fig:clv-sim-t) ukazuje prvních 100 simulací počtu slov ve větě $log(s_i)$. Abychom spočítali pravděpodobnost, že libovolně zvolená věta bude delší než 20 slov, tedy $P(log(s_i) > log(20))$, pak u každé simulace spočítáme % hodnot větších než $log(20)$. Protože existuje nejistota ohledně každého výběru, pak je i ohledně odhadu $P(log(s_i) > log(20))$ nejistota. Průměr odhadu $P(log(s_i) > log(20))$ je `r round(mean(cdf), 2)` a směrodatná odchylka `r round(sd(cdf), 2)`. Můžeme použít empirický kvantil a výpočítat, že `r (1-alpha)*100`% interval spolehlivosti pro podíl vět s počet slov větších než 20 je [`r round(i_s[1], 4) * 100`, `r round(i_s[2], 4) * 100`]^[Při výběru $n=66$.]. Jak je tedy vidět interval spolehlivosti je široký. To plyne z toho, že v samotných datech je velký rozptyl v počtu slov ve větě a také z toho, že naše data obsahují pouze 66 vět. 
+
+
+## Cvičení
+Spočtěte, v jakém intervalu se bude pohybovat průměrná doba čekání na tramvaj, když tramvaj pojede jednou za 8 minut. Spočtěte 90% interval spolehlivosti a okomentuje, co tento interval vyjadřuje.
