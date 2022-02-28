@@ -425,7 +425,7 @@ is_sd <- quantile(r_s, probs = q)
 ```
 
 `r (1-alpha)*100`% interval spolehlivosti pro průměr je [`r round(is_prumer[1], 2)`, `r round(is_prumer[2], 2)`] a `r (1-alpha)*100`% interval spolehlivosti pro směrodatnou odchylku je [`r round(is_sd[1], 2)`, `r round(is_sd[2], 2)`]. Pokud bychom převedli hodnoty zpět na původní škálu, pak by byl `r (1-alpha)*100`% interval spolehlivosti pro průměr počtu slov ve větě [`r round(exp(is_prumer[1]), 2)`, `r round(exp(is_prumer[2]), 2)`] a `r (1-alpha)*100`% interval spolehlivosti pro směrodatnou odchylku je [`r round(exp(is_sd[1]), 2)`, `r round(exp(is_sd[2]), 2)`]. Abychom tuto nejistotu vzali v potaz při naší predikci budeme simulovat výběry z t-rozdělení, kde zohledníme vypočítanou nejistotu ve výběrovém průměru a směrodatné odchylce.
-```{r clv-sim-t, fig.cap='Prvních 100 simulací výběrů z t-rozdělení při n=66 a zohlednění nejistoty výběrového průměru a směrodatné odchylky'}
+```{r clv-sim-t, fig.cap='Prvních 50 simulací výběrů z t-rozdělení při n=66 a zohlednění nejistoty výběrového průměru a směrodatné odchylky'}
 # pocet simulaci
 s <- 1e5
 # matrix na ukladani simulaci
@@ -445,9 +445,9 @@ plot(s,
   xlim = c(0, 5), ylim = c(0, 0.85),
   lwd = 2
 )
-for (i in 1:100) {
+for (i in 1:50) {
   # provedeme vybery z t rozdeleni o stejne velikosti vyberu
-  lines(density(S[i, ]), col = adjustcolor("black", alpha.f = 0.1))
+  lines(density(S[i, ]), col = adjustcolor("black", alpha.f = 0.2))
 }
 
 # vypocitame (P > log(20))
@@ -455,7 +455,7 @@ q <- log(20)
 cdf <- apply(S, 1, function(x) sum(x > q) / n)
 i_s <- quantile(cdf, probs = c(alpha/2, 1-alpha/2))
 ```
-Provedeme `r s` simulaci, v každé simulaci provedeme výběr ze zobezněného t rozdělení, o velikosti $n=$ `r n`. U každého výběru vezmeme v potaz nejistotu o odhadu výběrového průměru a výběrové směrodatné odchylky. Graf \@ref(fig:clv-sim-t) ukazuje prvních 100 simulací počtu slov ve větě $log(s_i)$. Abychom spočítali pravděpodobnost, že libovolně zvolená věta bude delší než 20 slov, tedy $P(log(s_i) > log(20))$, pak u každé simulace spočítáme % hodnot větších než $log(20)$. Protože existuje nejistota ohledně každého výběru, pak je i ohledně odhadu $P(log(s_i) > log(20))$ nejistota. Průměr odhadu $P(log(s_i) > log(20))$ je `r round(mean(cdf), 2)` a směrodatná odchylka `r round(sd(cdf), 2)`. Můžeme použít empirický kvantil a výpočítat, že `r (1-alpha)*100`% interval spolehlivosti pro podíl vět s počet slov větších než 20 je [`r round(i_s[1], 4) * 100`, `r round(i_s[2], 4) * 100`]^[Při výběru $n=66$.]. Jak je tedy vidět interval spolehlivosti je široký. To plyne z toho, že v samotných datech je velký rozptyl v počtu slov ve větě a také z toho, že naše data obsahují pouze 66 vět. 
+Provedeme `r s` simulaci, v každé simulaci provedeme výběr ze zobezněného t rozdělení, o velikosti $n=$ `r n`. U každého výběru vezmeme v potaz nejistotu o odhadu výběrového průměru a výběrové směrodatné odchylky. Graf \@ref(fig:clv-sim-t) ukazuje prvních 50 simulací počtu slov ve větě $log(s_i)$. Abychom spočítali pravděpodobnost, že v libovolném budoucím proslovu o 66 větách bude věta delší než 20 slov, tedy $P(log(s_i) > log(20))$, pak u každé simulace spočítáme % hodnot větších než $log(20)$. Protože existuje nejistota ohledně každého výběru, pak je i ohledně odhadu $P(log(s_i) > log(20))$ nejistota. Průměr odhadu $P(log(s_i) > log(20))$ je `r round(mean(cdf), 2)` a směrodatná odchylka `r round(sd(cdf), 2)`. Můžeme použít empirický kvantil a výpočítat, že `r (1-alpha)*100`% interval spolehlivosti pro podíl vět s počet slov větších než 20 je [`r round(i_s[1], 4) * 100`, `r round(i_s[2], 4) * 100`]^[Při libovolném budoucím proslovu o 66 větách $n=66$. Pokud by byl budoucí proslov delší, byl by interval spolehlivosti pro odhad $P(log(s_i) > log(20))$ menší, protože bychom měli více vět a tím pádem stabilnější odhad.]. Jak je tedy vidět interval spolehlivosti je široký. To plyne z toho, že v samotných datech je velký rozptyl v počtu slov ve větě a také z toho, že naše data obsahují pouze 66 vět. 
 
 
 ## Cvičení
