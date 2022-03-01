@@ -73,7 +73,7 @@ Další mírou centrální tendence je **medián**. Medián nám značí prostř
 pocet_slov <- sapply(prezident_clean, length)
 ```
 
-Velmi dobrým zvykem je si rozložení hodnot proměnné zobrazit graficky. Grafické zobrzení nám vždy poví nejenom o typické hodnotě proměnné, ale i o tom, jak se hodnoty liší (viz Míry rozptýlenosti \@ref(desc-vars)). Pokud máme číselnou proměnnou je nejčastějším způsobem, jak zobrazit hodnoty proměnné histogram. Histogram je:
+Velmi dobrým zvykem je si rozdělení hodnot proměnné zobrazit graficky. Grafické zobrzení nám vždy poví nejenom o typické hodnotě proměnné, ale i o tom, jak se hodnoty liší (viz Míry rozptýlenosti \@ref(desc-vars)). Pokud máme číselnou proměnnou je nejčastějším způsobem, jak zobrazit hodnoty proměnné histogram. Histogram je:
 
 > ...grafické znázornění distribuce dat pomocí sloupcového grafu se sloupci stejné šířky, vyjadřující šířku intervalů 
 > (tříd), přičemž výška sloupců vyjadřuje četnost sledované veličiny v daném intervalu.
@@ -151,7 +151,7 @@ x_prumer_w <- sum(w * pocet_slov) / sum(w)
 
 Průměrný počet slov ve větě je `r round(x_prumer, 2)`. Někdy nechceme všem pozorováním při výpočtu průměru dát stejnou váhu. V takovém případě vypočítáme **vážený průměr**. Jeho vzorec je $$\overline{x} = \frac{\sum_{i=1}^{n} w_ix_i}{\sum_{i=1}^{n}w_i}$$ Řekněme například, že bychom průměrný počet slov chtěli vážit pozicí v textu a dát slovům v první větě větší váhu, než slovům, které se objevily později v textu. Takovýto vážený průměr je `r round(x_prumer_w)`.
 
-Důležitý rozdíl mezi mediánem a průměr nastává pokud nejsou data symetricky rozdělena. Symetricky rozdělená data jsou taková, která mají podobný počet hodnot nalevo a napravo od průměru. V našem případě rozložení počtu slov ve větě je medián menší než průměr. To je typické pro rozložení, která mají delší konec napravo od průměru. Průměr je totiž náchylný na extrémní pozorování. Medián je založený na pořadí, takže ho extrémní pozorování tolik neovlivní. Většina proměnných, která je ohraničená zleva (nemůže mít menší hodnotu než nějaká hranice) má asymetrické rozložení s více hodnotami napravo od průměru, např. příjem. V takových případech může být medián lepší mírou centrální tendence, ale výběr bude vždy záležet na otázce, kterou daty chceme zodpovědět.    
+Důležitý rozdíl mezi mediánem a průměr nastává pokud nejsou data symetricky rozdělena. Symetricky rozdělená data jsou taková, která mají podobný počet hodnot nalevo a napravo od průměru. V našem případě rozdělení počtu slov ve větě je medián menší než průměr. To je typické pro rozdělení, která mají delší konec napravo od průměru. Průměr je totiž náchylný na extrémní pozorování. Medián je založený na pořadí, takže ho extrémní pozorování tolik neovlivní. Většina proměnných, která je ohraničená zleva (nemůže mít menší hodnotu než nějaká hranice) má asymetrické rozdělení s více hodnotami napravo od průměru, např. příjem. V takových případech může být medián lepší mírou centrální tendence, ale výběr bude vždy záležet na otázce, kterou daty chceme zodpovědět.    
 
 
 I pomocí měr centrální tendence se dají dělat zajívé analýzy. Řekněme, že nás zajímá rozdíl v relativní četnosti slov v projevu prezidenta a premiéra^[Pro relativní četnost slov v dokumentu se používá termín term-frequency nebo také "tf". Více informací [zde](https://cs.wikipedia.org/wiki/Tf-idf).]. Graf \@ref(fig:desc-rozdil) zobrazuje 20 slov^[Očištěných o stopwords.], které mají největší relativní četnost. Jak je vidět projev premiéra se zaměřoval častěji na *problémy* ČR, kdežto projev prezidenta se častěji zaměřoval na *rozpočet* a *očkování*^[Při textové analýze bychom potom dále využili nástroje jako [bag-of-words](https://cs.wikipedia.org/wiki/Vno%C5%99en%C3%AD_slov) abychom získali pouze kořeny slov apod.].  
@@ -235,7 +235,7 @@ smerodatna_odchylka <- sqrt(rozptyl)
 
 Rozptyl počtu slov ve větě je tedy `r round(rozptyl, 2)` a směrodatná odchylka je `r round(smerodatna_odchylka, 2)`. Typická vzdálenost od průměrného počtu slov ve větě, který je `r round(x_prumer, 2)`, je tedy zhruba `r round(smerodatna_odchylka)` slov. 
 
-Ukažme si princip rozptylu/směrodatné odchylky na imaginárních datech. Na ukázku si vytvoříme proměnnou, která má 10 pozorování a zobrazíme je do grafu \@ref(fig:rozptyl-princip) jako body. Červená čára označuje průměr těchto bodů. Horizontální čáry potom označují vzdálenost každého pozorování od průměrné hodnoty. Nejdříve si ukážeme příklad s menším rozptylem hodnot a pod ním příklad rozložení s větším rozptylem hodnot. Protože mají oba příklady stejný počet pozorování (10), můžete si rozdíl v jejich směrodatné odhylce představit jako rozdíl vertikálních úseček, které vedou od průměru.  
+Ukažme si princip rozptylu/směrodatné odchylky na imaginárních datech. Na ukázku si vytvoříme proměnnou, která má 10 pozorování a zobrazíme je do grafu \@ref(fig:rozptyl-princip) jako body. Červená čára označuje průměr těchto bodů. Horizontální čáry potom označují vzdálenost každého pozorování od průměrné hodnoty. Nejdříve si ukážeme příklad s menším rozptylem hodnot a pod ním příklad rozdělení s větším rozptylem hodnot. Protože mají oba příklady stejný počet pozorování (10), můžete si rozdíl v jejich směrodatné odhylce představit jako rozdíl vertikálních úseček, které vedou od průměru.  
 ```{r rozptyl-princip, fig.cap='Ukázka výpočtu směrodatné odchylky', fig.align='center', fig.height=10}
 par(mfrow = c(2, 1))
 x <- rnorm(1e4, mean = 5, sd = 1)
@@ -285,8 +285,8 @@ legend("topright",
 ```
 
 
-Pro úplnost, jak by vypadal histogram rozložení obou proměnných. V tomto případě jsme data generovali z normálního rozložení (viz kapitola pravděpodobnostní rozložení \@ref(prob-dist)).  
-```{r, fig.cap='Histogram bodů z normálního rozložení o průměru 5 a směrodatné odchylce 1 (modrá) a 2.5 (černá)'}
+Pro úplnost, jak by vypadal histogram rozdělení obou proměnných. V tomto případě jsme data generovali z normálního rozdělení (viz kapitola pravděpodobnostní rozdělení \@ref(prob-dist)).  
+```{r, fig.cap='Histogram bodů z normálního rozdělení o průměru 5 a směrodatné odchylce 1 (modrá) a 2.5 (černá)'}
 hist(x,
      col = adjustcolor("#1f77b4", 0.9),
      breaks = 20,
@@ -339,4 +339,4 @@ Někdy se hodnoty kvantilů používají k výpočtu mezikvantilových rozpětí
 
 ## Cvičení 
 1. Vytvořte funkci na výpočet percentilu. Vstupem do funkce bude numerický vektor $x$ a hodnota kvantilu $q$. Výstupem funkce bude hodnota percentilu.
-2. Načtěte projev [Předsedy Senátu](https://raw.githubusercontent.com/schubertjan/uvod-do-statistiky/master/dats/senat.txt), [Premiéra ČR](https://raw.githubusercontent.com/schubertjan/uvod-do-statistiky/master/dats/vlada.txt) a projev Prezidenta ČR z kapitoly nahoře. Který projev je celkově nejdelší? Který ústavní činitel má v průměru nejdelší věty? Jak se liší směrodatná odchylka počtu slov ve větě a co to znamená? Zobrazte rozložení dat pomocí histogramu. 
+2. Načtěte projev [Předsedy Senátu](https://raw.githubusercontent.com/schubertjan/uvod-do-statistiky/master/dats/senat.txt), [Premiéra ČR](https://raw.githubusercontent.com/schubertjan/uvod-do-statistiky/master/dats/vlada.txt) a projev Prezidenta ČR z kapitoly nahoře. Který projev je celkově nejdelší? Který ústavní činitel má v průměru nejdelší věty? Jak se liší směrodatná odchylka počtu slov ve větě a co to znamená? Zobrazte rozdělení dat pomocí histogramu. 

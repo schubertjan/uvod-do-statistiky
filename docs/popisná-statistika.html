@@ -24,7 +24,7 @@
 <meta name="author" content="Jan Schubert" />
 
 
-<meta name="date" content="2022-02-28" />
+<meta name="date" content="2022-03-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -151,9 +151,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3" data-path="popisná-statistika.html"><a href="popisná-statistika.html#kvantily"><i class="fa fa-check"></i><b>2.3</b> Míry polohy</a></li>
 <li class="chapter" data-level="2.4" data-path="popisná-statistika.html"><a href="popisná-statistika.html#cvičení"><i class="fa fa-check"></i><b>2.4</b> Cvičení</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="prob-dist.html"><a href="prob-dist.html"><i class="fa fa-check"></i><b>3</b> Pravděpodobnostní rozložení</a>
+<li class="chapter" data-level="3" data-path="prob-dist.html"><a href="prob-dist.html"><i class="fa fa-check"></i><b>3</b> Pravděpodobnostní rozdělení</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="prob-dist.html"><a href="prob-dist.html#stats-lang"><i class="fa fa-check"></i><b>3.1</b> Pravděpodobnostní rozložení jako jazyk statistiky</a></li>
+<li class="chapter" data-level="3.1" data-path="prob-dist.html"><a href="prob-dist.html#stats-lang"><i class="fa fa-check"></i><b>3.1</b> Pravděpodobnostní rozdělení jako jazyk statistiky</a></li>
 <li class="chapter" data-level="3.2" data-path="prob-dist.html"><a href="prob-dist.html#binom-dist"><i class="fa fa-check"></i><b>3.2</b> Binomické</a></li>
 <li class="chapter" data-level="3.3" data-path="prob-dist.html"><a href="prob-dist.html#norm-dist"><i class="fa fa-check"></i><b>3.3</b> Normální</a></li>
 <li class="chapter" data-level="3.4" data-path="prob-dist.html"><a href="prob-dist.html#t-dist"><i class="fa fa-check"></i><b>3.4</b> T</a></li>
@@ -244,7 +244,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Modus této proměnné je hodnota “a,” která se vyskytla 45x. To je v textové analýze typické a tato slova se označují jako “stopwords” a jsou zpravidla a textové analýzy vyřazena.</p>
 <p>Další mírou centrální tendence je <strong>medián</strong>. Medián nám značí prostřední hodnotu nějaké proměnné. Můžeme si jeho výpočet představit tak, že hodnoty proměnné seřadíme od nejmenší po největší a vyberete hodnotu, která bude přesně uprostřed. Tato hodnota je medián. Matematicky se medián u proměnné <span class="math inline">\(x_i\)</span> vypočítá jako <span class="math display">\[\tilde{x} = x_{(n + 1)/2}\]</span> Pokud má naše proměnná sudý počet čísel, vypočítá se medián zpravidla jako průměr dvou prostředních hodnot, tedy <span class="math display">\[\tilde{x} = \frac{x_{n/2} + x_{n/2+1}}{2}\]</span>Řekněme, že bychom chtěli vědět medián počtu slov ve větě. Nejdříve si musíme pro každou větu (prvek listu <code>prezident_clean</code>) vypočítat počet slov.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="popisná-statistika.html#cb14-1" aria-hidden="true" tabindex="-1"></a>pocet_slov <span class="ot">&lt;-</span> <span class="fu">sapply</span>(prezident_clean, length)</span></code></pre></div>
-<p>Velmi dobrým zvykem je si rozložení hodnot proměnné zobrazit graficky. Grafické zobrzení nám vždy poví nejenom o typické hodnotě proměnné, ale i o tom, jak se hodnoty liší (viz Míry rozptýlenosti <a href="popisná-statistika.html#desc-vars">2.2</a>). Pokud máme číselnou proměnnou je nejčastějším způsobem, jak zobrazit hodnoty proměnné histogram. Histogram je:</p>
+<p>Velmi dobrým zvykem je si rozdělení hodnot proměnné zobrazit graficky. Grafické zobrzení nám vždy poví nejenom o typické hodnotě proměnné, ale i o tom, jak se hodnoty liší (viz Míry rozptýlenosti <a href="popisná-statistika.html#desc-vars">2.2</a>). Pokud máme číselnou proměnnou je nejčastějším způsobem, jak zobrazit hodnoty proměnné histogram. Histogram je:</p>
 <blockquote>
 <p>…grafické znázornění distribuce dat pomocí sloupcového grafu se sloupci stejné šířky, vyjadřující šířku intervalů
 (tříd), přičemž výška sloupců vyjadřuje četnost sledované veličiny v daném intervalu.
@@ -320,7 +320,7 @@ Graf 2.3: Seřazení proměnné pro ilustraci výpočtu mediánu
 <span id="cb19-7"><a href="popisná-statistika.html#cb19-7" aria-hidden="true" tabindex="-1"></a>x_prumer_w <span class="ot">&lt;-</span> <span class="fu">sum</span>(w <span class="sc">*</span> pocet_slov) <span class="sc">/</span> <span class="fu">sum</span>(w)</span>
 <span id="cb19-8"><a href="popisná-statistika.html#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co"># nebo pomci funkce weighted.mean(pocet_slov, w)</span></span></code></pre></div>
 <p>Průměrný počet slov ve větě je 16.56. Někdy nechceme všem pozorováním při výpočtu průměru dát stejnou váhu. V takovém případě vypočítáme <strong>vážený průměr</strong>. Jeho vzorec je <span class="math display">\[\overline{x} = \frac{\sum_{i=1}^{n} w_ix_i}{\sum_{i=1}^{n}w_i}\]</span> Řekněme například, že bychom průměrný počet slov chtěli vážit pozicí v textu a dát slovům v první větě větší váhu, než slovům, které se objevily později v textu. Takovýto vážený průměr je 17.</p>
-<p>Důležitý rozdíl mezi mediánem a průměr nastává pokud nejsou data symetricky rozdělena. Symetricky rozdělená data jsou taková, která mají podobný počet hodnot nalevo a napravo od průměru. V našem případě rozložení počtu slov ve větě je medián menší než průměr. To je typické pro rozložení, která mají delší konec napravo od průměru. Průměr je totiž náchylný na extrémní pozorování. Medián je založený na pořadí, takže ho extrémní pozorování tolik neovlivní. Většina proměnných, která je ohraničená zleva (nemůže mít menší hodnotu než nějaká hranice) má asymetrické rozložení s více hodnotami napravo od průměru, např. příjem. V takových případech může být medián lepší mírou centrální tendence, ale výběr bude vždy záležet na otázce, kterou daty chceme zodpovědět.</p>
+<p>Důležitý rozdíl mezi mediánem a průměr nastává pokud nejsou data symetricky rozdělena. Symetricky rozdělená data jsou taková, která mají podobný počet hodnot nalevo a napravo od průměru. V našem případě rozdělení počtu slov ve větě je medián menší než průměr. To je typické pro rozdělení, která mají delší konec napravo od průměru. Průměr je totiž náchylný na extrémní pozorování. Medián je založený na pořadí, takže ho extrémní pozorování tolik neovlivní. Většina proměnných, která je ohraničená zleva (nemůže mít menší hodnotu než nějaká hranice) má asymetrické rozdělení s více hodnotami napravo od průměru, např. příjem. V takových případech může být medián lepší mírou centrální tendence, ale výběr bude vždy záležet na otázce, kterou daty chceme zodpovědět.</p>
 <p>I pomocí měr centrální tendence se dají dělat zajívé analýzy. Řekněme, že nás zajímá rozdíl v relativní četnosti slov v projevu prezidenta a premiéra<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. Graf <a href="popisná-statistika.html#fig:desc-rozdil">2.4</a> zobrazuje 20 slov<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>, které mají největší relativní četnost. Jak je vidět projev premiéra se zaměřoval častěji na <em>problémy</em> ČR, kdežto projev prezidenta se častěji zaměřoval na <em>rozpočet</em> a <em>očkování</em><a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>.</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="popisná-statistika.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># nacteme text projevu premiera</span></span>
 <span id="cb20-2"><a href="popisná-statistika.html#cb20-2" aria-hidden="true" tabindex="-1"></a>premier <span class="ot">&lt;-</span> <span class="fu">readLines</span>(<span class="st">&quot;https://raw.githubusercontent.com/schubertjan/uvod-do-statistiky/master/dats/vlada.txt&quot;</span>)</span>
@@ -403,7 +403,7 @@ Graf 2.4: Top 20 slov podle relativní četnosti v projevu prezidenta a premiér
 <span id="cb25-5"><a href="popisná-statistika.html#cb25-5" aria-hidden="true" tabindex="-1"></a>smerodatna_odchylka <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(rozptyl)</span>
 <span id="cb25-6"><a href="popisná-statistika.html#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co"># nebo v R pomoci sd</span></span></code></pre></div>
 <p>Rozptyl počtu slov ve větě je tedy 93.67 a směrodatná odchylka je 9.68. Typická vzdálenost od průměrného počtu slov ve větě, který je 16.56, je tedy zhruba 10 slov.</p>
-<p>Ukažme si princip rozptylu/směrodatné odchylky na imaginárních datech. Na ukázku si vytvoříme proměnnou, která má 10 pozorování a zobrazíme je do grafu <a href="popisná-statistika.html#fig:rozptyl-princip">2.5</a> jako body. Červená čára označuje průměr těchto bodů. Horizontální čáry potom označují vzdálenost každého pozorování od průměrné hodnoty. Nejdříve si ukážeme příklad s menším rozptylem hodnot a pod ním příklad rozložení s větším rozptylem hodnot. Protože mají oba příklady stejný počet pozorování (10), můžete si rozdíl v jejich směrodatné odhylce představit jako rozdíl vertikálních úseček, které vedou od průměru.</p>
+<p>Ukažme si princip rozptylu/směrodatné odchylky na imaginárních datech. Na ukázku si vytvoříme proměnnou, která má 10 pozorování a zobrazíme je do grafu <a href="popisná-statistika.html#fig:rozptyl-princip">2.5</a> jako body. Červená čára označuje průměr těchto bodů. Horizontální čáry potom označují vzdálenost každého pozorování od průměrné hodnoty. Nejdříve si ukážeme příklad s menším rozptylem hodnot a pod ním příklad rozdělení s větším rozptylem hodnot. Protože mají oba příklady stejný počet pozorování (10), můžete si rozdíl v jejich směrodatné odhylce představit jako rozdíl vertikálních úseček, které vedou od průměru.</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="popisná-statistika.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>))</span>
 <span id="cb26-2"><a href="popisná-statistika.html#cb26-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="fl">1e4</span>, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
 <span id="cb26-3"><a href="popisná-statistika.html#cb26-3" aria-hidden="true" tabindex="-1"></a>prumer <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)</span>
@@ -455,7 +455,7 @@ Graf 2.4: Top 20 slov podle relativní četnosti v projevu prezidenta a premiér
 Graf 2.5: Ukázka výpočtu směrodatné odchylky
 </p>
 </div>
-<p>Pro úplnost, jak by vypadal histogram rozložení obou proměnných. V tomto případě jsme data generovali z normálního rozložení (viz kapitola pravděpodobnostní rozložení <a href="prob-dist.html#prob-dist">3</a>).</p>
+<p>Pro úplnost, jak by vypadal histogram rozdělení obou proměnných. V tomto případě jsme data generovali z normálního rozdělení (viz kapitola pravděpodobnostní rozdělení <a href="prob-dist.html#prob-dist">3</a>).</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="popisná-statistika.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(x,</span>
 <span id="cb27-2"><a href="popisná-statistika.html#cb27-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="fu">adjustcolor</span>(<span class="st">&quot;#1f77b4&quot;</span>, <span class="fl">0.9</span>),</span>
 <span id="cb27-3"><a href="popisná-statistika.html#cb27-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">breaks =</span> <span class="dv">20</span>,</span>
@@ -468,9 +468,9 @@ Graf 2.5: Ukázka výpočtu směrodatné odchylky
 <span id="cb27-10"><a href="popisná-statistika.html#cb27-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">add =</span> <span class="cn">TRUE</span></span>
 <span id="cb27-11"><a href="popisná-statistika.html#cb27-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:unnamed-chunk-21"></span>
-<img src="book_files/figure-html/unnamed-chunk-21-1.png" alt="Histogram bodů z normálního rozložení o průměru 5 a směrodatné odchylce 1 (modrá) a 2.5 (černá)" width="672" />
+<img src="book_files/figure-html/unnamed-chunk-21-1.png" alt="Histogram bodů z normálního rozdělení o průměru 5 a směrodatné odchylce 1 (modrá) a 2.5 (černá)" width="672" />
 <p class="caption">
-Graf 2.6: Histogram bodů z normálního rozložení o průměru 5 a směrodatné odchylce 1 (modrá) a 2.5 (černá)
+Graf 2.6: Histogram bodů z normálního rozdělení o průměru 5 a směrodatné odchylce 1 (modrá) a 2.5 (černá)
 </p>
 </div>
 </div>
@@ -507,7 +507,7 @@ Kde PR je hodnota percentilu, CF je kumulativní počet výsledků a F je počet
 <h2><span class="header-section-number">2.4</span> Cvičení</h2>
 <ol style="list-style-type: decimal">
 <li>Vytvořte funkci na výpočet percentilu. Vstupem do funkce bude numerický vektor <span class="math inline">\(x\)</span> a hodnota kvantilu <span class="math inline">\(q\)</span>. Výstupem funkce bude hodnota percentilu.</li>
-<li>Načtěte projev <a href="https://raw.githubusercontent.com/schubertjan/uvod-do-statistiky/master/dats/senat.txt">Předsedy Senátu</a>, <a href="https://raw.githubusercontent.com/schubertjan/uvod-do-statistiky/master/dats/vlada.txt">Premiéra ČR</a> a projev Prezidenta ČR z kapitoly nahoře. Který projev je celkově nejdelší? Který ústavní činitel má v průměru nejdelší věty? Jak se liší směrodatná odchylka počtu slov ve větě a co to znamená? Zobrazte rozložení dat pomocí histogramu.</li>
+<li>Načtěte projev <a href="https://raw.githubusercontent.com/schubertjan/uvod-do-statistiky/master/dats/senat.txt">Předsedy Senátu</a>, <a href="https://raw.githubusercontent.com/schubertjan/uvod-do-statistiky/master/dats/vlada.txt">Premiéra ČR</a> a projev Prezidenta ČR z kapitoly nahoře. Který projev je celkově nejdelší? Který ústavní činitel má v průměru nejdelší věty? Jak se liší směrodatná odchylka počtu slov ve větě a co to znamená? Zobrazte rozdělení dat pomocí histogramu.</li>
 </ol>
 
 </div>
