@@ -32,5 +32,6 @@
     },
     "load_workspace": false,
     "always_save_history": false,
-    "editor_theme": "Solarized Dark"
+    "editor_theme": "Solarized Dark",
+    "toolbar_visible": false
 }

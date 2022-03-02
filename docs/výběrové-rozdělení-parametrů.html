@@ -24,7 +24,7 @@
 <meta name="author" content="Jan Schubert" />
 
 
-<meta name="date" content="2022-03-01" />
+<meta name="date" content="2022-03-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -224,7 +224,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </table>
 <div id="clv-procento" class="section level2" number="4.1">
 <h2><span class="header-section-number">4.1</span> Procenta</h2>
-<p>Vraťme se zpět ke Galtonově boxu. My jsme tento proces simulovali jako <span class="math inline">\(x_i \sim B(13, 0.5)\)</span>. Řekněme, že nás zajímá zjistit jaké procento míčků skončí v prostředním (sedmém) sloupci <span class="math inline">\(p\)</span>. Procento je nějaký parametr naší proměnné, který jsme zvolili, ale mohli bychom si zvolit například medián. Toto procento bude pokaždé když kuličky spustíme znova trochu jiné. Centrální limitní věta nám pomůže kvantifikovat, jak jiné toto procento bude.</p>
+<p>Vraťme se zpět ke Galtonově boxu. My jsme tento proces simulovali jako <span class="math inline">\(x_i \sim B(12, 0.5)\)</span>. Řekněme, že nás zajímá zjistit jaké procento míčků skončí v prostředním (sedmém) sloupci <span class="math inline">\(p\)</span>. Procento je nějaký parametr naší proměnné, který jsme zvolili, ale mohli bychom si zvolit například medián. Toto procento bude pokaždé když kuličky spustíme znova trochu jiné. Centrální limitní věta nám pomůže kvantifikovat, jak jiné toto procento bude.</p>
 <div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="výběrové-rozdělení-parametrů.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
 <span id="cb60-2"><a href="výběrové-rozdělení-parametrů.html#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="co"># pocet micku</span></span>
 <span id="cb60-3"><a href="výběrové-rozdělení-parametrů.html#cb60-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
