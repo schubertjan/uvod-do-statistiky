@@ -1,4 +1,4 @@
-# Výběrové rozdělení parametrů
+# Výběrové rozdělení parametrů{#dist-params}
 
 Během této kapitoly se dostaneme dále do základů statistiky a představíme si jeden z nejpoužívanějších principů statistiky, který nás bude provázat po zbytku semestru. Opět to bude náročnější kapitola a možná se k ní budete chtít vrátit zpět, jak budeme centrální limitní větu (CLV) aplikovat na další statistické problémy. V této kapitole si představíme její princip. V kapitole o pravděpodobnostních rozděleních \@ref(prob-dist) jsme si ukázali, že existují různé typy rozdělení, které je možné použít k popsání (připodobnění) toho, jakých hodnot bude proměnná nabývat a v jaké četnosti. Často nás zajímají nejenom hodnoty náhodné proměnné, ale také některé její **parametry**, jako například průměr nebo procenta. Už víme, že hodnoty náhodné proměnné jsou ovlivněny náhodou, které může mít různé důvody. Je asi intuitivní, že i parametry této proměnné budou touto náhodou ovlivněny a že nebudou vždy stejné. No a protože tyto parametry budou nabývat různých hodnot, pak můžeme jejich rozdělení zkoumat jako výběrové rozdělení parametrů. A jako u každého jiného pravděpodobnostního rozdělení můžeme popsat jaké hodnoty a s jakou frekvencí bychom u proměnné očekávali.
 
@@ -258,7 +258,7 @@ legend("topright",
 Pojďme se na chvilku vrátit ke grafu \@ref(fig:clv-anim). Na tomto grafu jsme ukázali hypotetickou situaci, kdy jsme věděli jak vypadá rozdělení proměnné v celé populaci. Dělali jsme opakovené výběry, abychom ukázali, jak by vypadalo rozdělení parametru, kdybychom u každého výběru vypočítali parametr, který nás zajímá. Ukazuje se, že pomocí podobné metody můžeme vypočítat rozdělení parametru a to i bez toho, abychom měli data za celou populaci. Místo toho, abychom dělali náhodné výběry z populačních dat, tak budeme dělat **náhodné výběry s opakováním z výběru o velikosti $n$**. Výstupem tohoto výpočtu je vektor parametru, který nás zajímá, o velikosti rovnající se počtu výběrů s opakováním. Je důležité zdůraznit, že přestože počítáme rozdělení parametru empiricky, některé ze předpokladů, které jsme zmínili u výpočtu teoretického rozdělení, jsou stále platné. Především předpoklad o nezávislosti jednotlivých pozorování a o náhodném výběru z populace (pokud chceme dělat úsudky o celé populaci). 
 ```{r bootstrap-ukazka, fig.cap='Boostrap výpočet procenta kuliček v sedmém sloupci'}
 # pocet bootstrap vyberu
-S <- 1e5
+S <- 1e4
 p_hat <- rep(NA, S)
 for(i in 1:S) {
   # udelame vyber s opakovanim
@@ -306,7 +306,7 @@ pomer <- function(x) {
   }
 }
 # vypocitame bootstrap parametru
-p_hat <- bootstrap(.vyber, pomer, 1e5)
+p_hat <- bootstrap(.vyber, pomer, S)
 
 hist(p_hat, 
      col = "#1f77b4",

@@ -766,7 +766,7 @@ Tato pravděpodobnost je rovna `r round(cdf, 2)`. Nebo jinak zhruba `r round(cdf
 $\chi^2$ rozdělení popisuje náhodný proces, kterého nabývá součet umocněných stadandardizovaných normálně rozdělených proměnných. Jak jsme uvedli v \@ref(norm-dist), standardizovaná náhodná proměnná pocházející z normálního rozdělení $z_i$ má $\mu_z = 0$ a $\sigma_z = 1$. Pokud máme $k$ standardizovaných náhodných proměnných, pak můžeme zapsat $Q = \sum_{i=1}^k z_i^2$. Toto rozdělení se nepoužívá tak často k popsání jevů z fyzického světa jako spíše pro popsání chování různých parametrů, které se ve statistice odhadují. Protože mnoho odhadovaných paramtrů (jako např. průměr) mají normální rozdělení, můžeme jejich pravděpodobnostní rozdělení popsat právě pomocí $\chi^2$, což se hodí při posuzování významnosti různých procedur. $\chi^2$ má jediný parameter $k$, který vyjadřuje počet stupňů volnsti (degrees of freedom). V \@ref(fig:x2-chart) ukazujeme, jak $\chi^2$ rozdělení vzniká. Děláme výběr o velikosti $n=200$ ze standardizovaného normálního rozdělení pro $k=2$ proměnné, $k=4$ a $k=16$, tedy $z \sim \chi^2(2)$, $z \sim \chi^2(4)$ a $z \sim \chi^2(16)$. Proměnné umocníme, sečteme a zobrazíme histogram rozdělení této nově vzniklé náhodné proměnné. 
 ```{r x2-chart, fig.cap='Ukázka X2 rozdělení pro k=2, k=4 a k=16', fig.height=7}
 # velikost vyber
-n <- 200
+n <- 1000
 # pocet standardizovanych promennych
 K <- c(2, 4, 16)
 
@@ -779,6 +779,7 @@ for (k in K) {
 
   hist(X2,
     xlab = "z",
+    breaks = 20,
     ylab = "Četnost", main = paste0("X2(", k, ")"),
     col = "#1f77b4",
   )
@@ -820,12 +821,10 @@ My jsme si v této kapitole ukázali některé nejčastější rozdělení, kter
 
 Nakonec představíme aplikaci, pomocí které si můžete vyzkoušet, jak různé parametry ovlivňují tvar různých rozdělení nebo vypočítat pravděpodobnost, že náhodná proměnná $x_i$ nabyde určitých hodnot $a$.
 
-```{r, echo=FALSE}
+```{r dist-app, echo=FALSE, fig.cap='Zdroj: https://github.com/ShinyEd/intro-stats/tree/master/dist_calc'}
 knitr::include_app("https://gallery.shinyapps.io/dist_calc/")
 ```
 
-Zdroj: <https://github.com/ShinyEd/intro-stats/tree/master/dist_calc>
-
 
 ## Cvičení 
-Vymyslete náhodné proměnné, jejichž pravděpodobnostní rozdělení by se dalo popsat binomickým, normálním a poissonovým rozdělením. 
+Vymyslete náhodné proměnné, jejichž pravděpodobnostní rozdělení by se dalo popsat binomickým, normálním a poissonovým rozdělením.

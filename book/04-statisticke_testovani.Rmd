@@ -1,0 +1,255 @@
+# Statistické testování
+
+Statistické testy tvoří základní kámen moderní vědy. Jsou používány v klinických studiích na určení efektu léku, v A/B testech na určení toho, zda nějaká intervence funguje, nebo v analýze výběrových šetření na určení toho, zda je nějaký vztah důsledkem náhody. V Popperově filozofii vědeckého poznání jsou statistické testy používány k falzifikaci vědeckých teorií^[Více o tématu falzifikace např. [zde](https://cs.wikipedia.org/wiki/Falzifikovatelnost).].
+
+Statistické testování zahrnuje soubor různých testů podle problému, který se snažíme vyřešit a podle proměnné, kterou používáme. My si v této kapitole na příkladu jednovýběrového t-testu pro průměr ukážeme principy statistického testování, které platí i pro další typy statistických testů. Výběr testu záleží na problému a hypotéze, kterou jsme pro daný výzkumný problém stanovili. Z matematického hlediska nebude v této kapitole mnoho nového. Budeme využívat znalostí o výběrovém rozdělení parametru (viz \@ref(dist-params)) a pouze ho uvedme do kontextu statistického testu. 
+
+## Postup statistického testování
+
+Každý statistický test má čtyři fáze:
+
+1. zvolení testu podle výzkumné otázky a typu dat, 
+2. formulace nulové $H_0$ a alternativní $H_1$ hypotézy, 
+3. výpočet testovací statistiky
+4. interpretace výsledku
+
+
+### Zvolení testu
+
+Pro toto cvičení budeme používat jednovýběrový t-test pro průměr. Tedy, budeme testovat hodnotu průměru jednoho výběru. Bude nás zajímat průměrná doba, kterou dospělí jedinci v České republice stráví denně na internetu (v minutách). Následující data pocházejí z European Social Study, která byla provedena v roce 2018. První sloupec obsahuje id respondenta a druhý počet minut kolik strávil denně na internetu. Pojďme se podívat na data.
+```{r}
+ess <- read.csv("../dats/int_use.csv")
+summary(ess)
+# odstranit chybejici hodnoty
+ess_bez_na <- ess[!is.na(ess$int_use_day_mins), ]
+```
+
+### Formulace nulové a alternativní hypotézy{#test-h0}
+
+V této fázi formulujeme nulovou a alternativní hypotézu na základě naší výzkumné otázky. Tyto hypotézy formulujeme **vždy před výpočtem testovací statistiky** a vybíráme je tak, aby nám posloužili k možnému vyvrácení vědecké teorie. Technicky nám nic nebrání počítat různé testovací statistiky a poté vybrat tu, která vychází zajímavě, ale tímto způsobem se rychle dostaneme do nebezpečné situace. Statistické testy neslouží k objevování vztahů a proto by se tak neměly používat (viz \@ref(tests-many))! My si ukážeme tři různé nulové hypotézy, abychom si ukázali rozdíl mezi dvojstranným, levostranným a pravostranným testem. Ve reálném výzkumu si ale vybereme pouze takovou hypotézu, které odpovídá výzkumné otázce (a která vychází z vědecké teorie).    
+
+
+**Dvojstranná hypotéza**
+
+$H_0 = 180$
+
+$H_1 \neq 180$
+
+
+**Levostranná hypotéza**
+
+$H_0 \ge 180$
+
+$H_1 < 180$
+
+
+**Pravostranná hypotéza** 
+
+$H_0 \le 180$
+
+$H_1 > 180$
+
+
+### Výpočet testovací statistiky
+
+Výpočet testovací statistiky bude záležet na tom, který test zvolíme. Různé testy májí různé testovací statistiky a proto je důležité u zvoleného testu porozumět tomu, jakou testovací statistiku počítáme. Obecně ale platí, že každá testovací statistika se vypočítá jako $testovaci\;statistika = \frac{bodovy\;odhad - nulova\;hypoteza}{smerodatna\;chyba\;odhadu}$
+
+
+V našem případě jednovýběrového t-testu pro průměr je naší testovací statistikou t-skór. T-skór vypočítáme jako $t = \frac{\overline{x} - \mu_0}{\frac{s}{\sqrt{n}}}$, kde $\overline{x}$ je náš výběrový průměr, $\mu_0$ je hodnota z nulové hypotézy a $\frac{s}{\sqrt{n}}$ je směrodatná chyba odhadu. Výběrový průměr spočítáme snadno a směrodatnou chybu odhadu výběrového průměru známe z centrální limitní věty a intervalů spolehlivosti. Testovací statistiku $t$ budeme počítat s $n-1$ stupni volnosti.
+```{r}
+# testovaci_statistika = bodovy_odhad - nulova_hypoteza / smerodatou_chyba_odhadu
+bodovy_odhad <- mean(ess_bez_na$int_use_day_mins)
+nulova_hypoteza <- 180
+n <- nrow(ess_bez_na)
+smerodatou_chyba_odhadu <- sd(ess_bez_na$int_use_day_mins) / sqrt(n)
+testovaci_statistika <- (bodovy_odhad - nulova_hypoteza) / smerodatou_chyba_odhadu
+```
+
+
+U každého statistického testu si zvolíme nějakou kritickou mez, která je určení hladinou pravděpodobnosti $\alpha$. $\alpha$ nám udává pravděpodobnost, že nesprávně zamítneme nulovou hypotézu. Konvenčně se udává hladina $\alpha = 0.05$, ale my si zvolíme nějakou jinou, například $\alpha=0.11$, abychom si ukázali, že tato hladina je do jisté míry arbitrární a záleží na více věcech (jako je síla testu, typ chyby, kterou chcete akceptovat - I.druhu vs II.druhu. Více viz \@ref(test-power)). Protože t-skór pochází ze studentova t standardního rozdělení s $n-1$ stupni volnosti, můžeme ho vypočítat pomocí funkcí, které již známe (stejně jako jsme určovali u intervalů spolehlivosti). Kritická mez bude záležet na typu nulové a alternativní hypotézy. Pojďme si ukázat, jak bude kritická mez vypadat na grafu rozdělení testovací statistiky za předpokladu $H_0$. Zároveň si do grafu zakreslíme hodnotu naší testovací statistiky.
+
+
+### Interpretace výsledku
+Modrá vertikální přímka značí kritickou mez, za kterou bychom zamítali $H_0$. Modrý region pak značí region, kde zamítáme $H_0$. Pokud se testovací statistika nachází v tomto regionu, zamítáme $H_0$ ve prospěch $H_1$. V opačném případě $H_0$ zamítnout nemůžeme. Graf \@ref(fig:tests-inter-left) ukazuje výběrové rozdělení průměru za předpokladu $H_0$ pro levostranný test, graf \@ref(fig:tests-inter-right) ukazuje výběrové rozdělení průměru za předpokladu platnosti $H_0$ pro pravostranný test a \@ref(fig:tests-inter-both) ukazuje výběrové rozdělení průměru za předpokladu platnosti $H_0$ pro oboustranný test.
+
+```{r tests-inter-left, fig.cap='Rozdělení výběrového průměru za platnosti H0: levostranný'}
+alpha <- 0.11
+kritickou_mez_levostranny <- qt(alpha, df = n-1)
+x <- seq(-4,4,by=0.001)
+pdf <- dt(x, df = n-1)
+
+# levostranna
+plot(x, pdf, 
+     xlab = "Výběrový průměr", 
+     ylab = "PDF", 
+     main = "",
+     type = "l", lwd = 2,
+     col = "grey")
+lines(x[x < kritickou_mez_levostranny], pdf[x < kritickou_mez_levostranny], 
+      type= "h", 
+      col = "#1f77b4")
+abline(v = kritickou_mez_levostranny, col = "#1f77b4")
+abline(v = testovaci_statistika, lty = 2)
+```
+
+```{r tests-inter-right, fig.cap='Rozdělení výběrového průměru za platnosti H0: pravostranný'}
+# pravostrannou
+kritickou_mez_pravostranny <- qt(1-alpha, df = n-1)
+plot(x, pdf, 
+     xlab = "Výběrový průměr", 
+     ylab = "PDF", 
+     main = "",
+     type = "l", lwd = 2,
+     col = "grey")
+lines(x[x > kritickou_mez_pravostranny], pdf[x > kritickou_mez_pravostranny], 
+      type= "h", 
+      col = "#1f77b4")
+abline(v = kritickou_mez_pravostranny, col = "#1f77b4")
+abline(v = testovaci_statistika, lty = 2)
+```
+
+```{r tests-inter-both, fig.cap='Rozdělení výběrového průměru za platnosti H0: oboustranný'}
+# oboustranny
+kritickou_mez_oboustranny <- qt(c(alpha/2, 1-alpha/2), df = n-1)
+plot(x, pdf, 
+     xlab = "Výběrový průměr", 
+     ylab = "PDF", 
+     main = "",
+     type = "l", lwd = 2,
+     col = "grey")
+lines(x[x < kritickou_mez_oboustranny[1] | x > kritickou_mez_oboustranny[2]], 
+      pdf[x < kritickou_mez_oboustranny[1] | x > kritickou_mez_oboustranny[2]], 
+      type= "h", 
+      col = "#1f77b4")
+abline(v = kritickou_mez_oboustranny, col = "#1f77b4")
+abline(v = testovaci_statistika, lty = 2)
+```
+Při oboustranné hypotéze: $H_0 = 180$ a tedy $H_1 \neq 180$, je kritické mez +/- `r kritickou_mez_oboustranny[2]` Naše testovací statistika má hodnotu `r testovaci_statistika` a není tedy menší než kritické mez. V takovém případě bychom **nezamítali** $H_0$ ve prospěch $H_1$.
+
+
+Při levostranné hypotéze: $H_0 \ge 180$ a $H_1 < 180$ je kritické mez `r kritickou_mez_levostranny`. Testovací statistika je menší než tato kritická hodnota a my proto **zamítáme** $H_0$ ve prospěch $H_1$.
+
+
+Při pravostranné hypotéze: $H_0 \le 180$ a $H_1 > 180$ je kritické mez `r kritickou_mez_pravostranny`. Testovací statistika je menší než tato kritická hodnota a my proto **nezamítáme** $H_0$ ve prospěch $H_1$. 
+
+Abychom nemuseli stále počítat hodnoty kritické meze, které se mohou lišit v závislosti na rozdělení výběrové statistiky a chybě prvního druhu ($alpha$), používá se tzv p-hodnota, což vyjadřuje pravděpodobnost, že uvidíme pozorovanou hodnotu nebo ještě extrémnější (za předpokladu $H_0$). P-hodnotu můžeme vypočítat jako distribuční funkci (CDF) podle toho, jaký typ $H_0$ jsme zvolili.
+```{r}
+p_levostranny <- pt(testovaci_statistika, df = n-1)
+p_pravostranny <- 1-pt(testovaci_statistika, df = n-1)
+p_oboustrany <- (1-pt(abs(testovaci_statistika), df = n-1)) * 2
+```
+
+P-hodnota levostranného testu při alpha `r alpha` je`r round(p_levostranny, 2)`. P-hodnota pravostranného testu při alpha `r alpha` je`r round(p_pravostranny, 2)`. P-hodnota oboustranného testu při alpha `r alpha` je`r round(p_oboustrany, 2)`. 
+
+Vidíme, že hodnota p je menší, než zvolená $\alpha$ pouze u levostranného testu, takže bychom zde zamítli $H_0$ ve prospěch $H_1$. Jak vidíme, výsledek se shoduje s porovnáním testovací statistiky k vypočtené kritické hladině. Výhodou je, že můžeme výpočet kritické hladiny přeskočit, rovnou vypočítat p-hodnotu a porovnat k námi zvolené $\alpha$. 
+
+Ještě je důležité dodat, že pokud nemůžeme zamítnout $H_0$, tak to neznamená, že hodnota parametru v populaci se rovná $H_0$^[Velmi pravděpodobně hodnota parametru nebude rovna právě $H_0$.]. Znamená to pouze, že v našich datech neexistuje dostatek evidence k tomu, abychom mohli na hladině spolehlivosti $1-\alpha$ řící, zda je výběrový parametr odlišný od $H_0$.
+
+Pokud byste chtěli počítat jednovýběrový z-test pro průměr místo t-testu, pouze nahradíte rozdělení výběrového průměru za normální rozdělení (z-test ještě dále předpokládá, že známe populační rozptyl $\sigma$). V praxi ale můžete použít t-test, protože víme, že při vetším počtu pozorování ($n>50$) se t-rozdělení velmi podobá normálnímu.
+
+V R existuje na vypočítání t-testu funkce `t.test`, který má argumenty `x` náhodnou proměnnou, kterou testujeme, `alternative` určení typu $H_0$ a $H_1$, `conf.level` určení spolehlivosti testu a `mu` hodnotu $H_0$, vůči které test provádíme. 
+```{r}
+t_test_levostranna <- t.test(ess_bez_na$int_use_day_mins, 
+                             alternative = "less", 
+                             conf.level = 1-alpha,
+                             mu = nulova_hypoteza)
+t_test_pravostranny <- t.test(ess_bez_na$int_use_day_mins, 
+                             alternative = "greater", 
+                             conf.level = 1-alpha,
+                             mu = nulova_hypoteza)
+t_test_oboustranny <- t.test(ess_bez_na$int_use_day_mins, 
+                             alternative = "two.sided", 
+                             conf.level = 1-alpha,
+                             mu = nulova_hypoteza)
+```
+
+
+## Velikost účinku
+Statistické testování nám prozradí pouze směr účinku naší hypotézy, nikoliv však její sílu/efekt. K tomu nám slouží Cohenovo d. Vypočítá se jako $d = \frac{|(bodovy\;odhad - H_0)|}{smerodatna\;odchylka\;mereni}$. Všimněte si, že $d$ je vlastně standardizovaným rozdílem mezi bodovým odhadem a $H_0$. Obecně se udává následující síly účinku pro hodnoty $d$:
+
+
+|< 0.2 | 0.2 - 0.5 | 0.5 - 0.8 | 0.8 - 1.2 | > 1.2
+|------|------|------|------|------|
+|velmi malý|malý efekt|střední efekt|velký efekt|velmi velky|
+
+Pro náši úlohu by se $d$ vypočítalo jako:
+```{r}
+d <- abs(bodovy_odhad - nulova_hypoteza) / sd(ess_bez_na$int_use_day_mins)
+```
+
+Velikost účinku je `r round(d, 2)`, což odpovídá spíše malému efektu.
+
+## Síla testu{#test-power}
+Proč nezvolit chybu I. druhu $\alpha$ vždy velmi malou, abychom si byli jisti, že pravděpodobnost našich dat při platnosti $H_0$ je velmi malá? K tomu, abychom pochopili, jakou $\alpha$ zvolit si musíme představit i chybu II. druhu $\beta$. Chyba I. druhu $\alpha$ nám určuje pravděpodobnost, že zamítneme $H_0$, pokud ve skutečnosti $H_0$ je platná. Někdy se taková chyba označuje jako false positive (FP). Situace, kdy správně zamítneme $H_0$ a ona ve skutečnosti neplatí, se někdy označuje jako tru positive (TP). Teď si představme situaci, v které $H_0$ nezamítneme, ale ona ve skutečnosti neplatí (tedy platí $H_1$). Takové situace se někdy říká false negative (FN). A právě tuto chybu vyjadřuje chyba II. druhu $\beta$. Síla testu se vypočítá jako $1-\beta$ a označuje se tedy TP. Síla testu nám říká pravděpodobnost, s kterým test správně určí $H_1$, pokud ve skutečnosti rozdíl existuje. Tabulka dole ukazuje všechny situace, které mohou nastat a jak se tyto situace vztahují na chyby I. a II. druhu^[TP = true positive, TN = true negative, FP = false positive, FN = false negative.].
+
+Tabulka: Ukázka výsledků testů v zavislosti na skutečnosti.
+
+|                 | |      Závěr testu            |
+|-----------------|-| ------------| --------------|
+|**Skutečnost**   | |**$H_0$ platí**|**$H_0$ neplatí**|
+|**$H_0$ platí**  | | TN ($1-\alpha$) | FP ($\alpha$) |
+|**$H_0$ neplatí**| | FN ($\beta$) | TP ($1-\beta$) |
+
+Velikost chyby I. druhu je úměrná chybě II. druhu. Chyba II. druhu nám udává pravděpodobnost, že nezamítneme $H_0$, pokud ve skutečnosti platí $H_1$. Aplikace \@ref(fig:test-app) ukazuje jak spolu souvisí tyto dvě chyby v případě jednovýběrového z-testu^[Tedy jako t-test s větším počtem pozorování]. Graf udává rozdělení parametru za platnosti $H_0$ a rozdělení za platnosti $H_1$. Červena plocha pod rozdělením $H_0$ ukazuje oblast zamítnutí $H_0$ při platnosti $H_0$ (tedy $\alpha$) a modrá plocha ukazuje oblast nezamítnutí $H_0$ při platnosti $H_1$. Jak si můžeme vyzkoušet v aplikaci, při snížení chyby I. druhu $\alpha$, vzroste chyba II. druhu $\beta$ a naopak. Zároveň si můžeme všimnout, že při zvolení oboustranného testu se chyba II. druhu $\beta$ při stejné $\alpha$ sníží a to z toho důvodu, že posuneme hranici, kde zamítáme $H_0$. Dále si všimněme, že velikost $\beta$ závisí na standarní chybě odhadu, která určuje šířku obou rozdělení parametru^[Tedy za předpokladu $H_0$ a za předpokladu $H_1$.]. Čím je standardní chyba odhadu menší, tím je menší $\beta$. Dále závisí chyba II. druhu $\beta$ na vzdálenosti průměru $H_0$ od $H_1$. Čím je tato vzdálenost větší, tím je chyba II. menší.
+
+```{r test-app, echo=FALSE, fig.cap='Ukázka závislosti chyby I. a II. druhu. Zdroj: https://shiny.rit.albany.edu/stat/betaprob/'}
+knitr::include_app("https://shiny.rit.albany.edu/stat/betaprob/")
+```
+
+Jakým způsobem vybrat velikost $\alpha$ bude záležet na problému, v kterém test provádíme. Jaké důsledky má chyba I. druhu (FP) a chyba II.druhu (FN)? Co hrozí pokud na základě testu rozhodneme určíme špatně, že něco je pravda, pokud to ve skutečnosti pravda není (FP) a co hrozí, pokud určíme špatně, že něco pravda není, pokud to ve skutečnosti pravda je (FN)? To, jak závažné důsledky mají FP a FN závisí na situaci, v které test aplikujeme. Uvažujme příklad, kdy pacientovy odebereme vzorky krve a sledujeme hodnoty určitých látek. Na základě statistického testu potom vyhodnotíme, zda množství látek indikuje nějakou nemoc. Důsledek FP je, že pacientovi řekneme, že má nemoc, pokud ji ve skutečnosti nemá. Pokud léčení takové nemoci není nákladné a nemá žádné vedlejší účinky, pak se nic tak velkého nestalo. Důsledek FN ve stejném příkladu znamená, že pacientovi řekneme, že nemoc nemá, ale on ji ve skutečnosti má. Pokud má nemoc závažné důsledky, pak může taková chyba způsobit pacientovi závažné zdravotní komplikace. V takovém případě bychom chtěli, aby chyba FN ($\beta$) byla poměrně malá. Nyní si představme situaci, v které používáme statistický test, abychom určili, zda někdo podvádí ve výkazu nákladů na pracovní cestu. Na kontrolu máme zhruba 14 dní, protože náklady musíme zaměstnanci uhradit v příští výplatě. Řekněme, že testujeme určitou kombinaci čísel, které se ve výkazu opakují. Pokud označíme nějaké daňové přiznání za podvodné, musíme podrobně zkontrolovat všechny faktury a účtenky v daném výkazu a to je velmi pracné. Protože máme jenom omezený počet dní, v kterých můžeme výkazy kontrolovat, budume chtít, abychom si byli docela jisti, že někdo podvádí. V takovém případě je důsledek FP velmi náročný na čas a budeme se proto snažit $\alpha$ určit tak, aby nebylo mnoho FP.
+
+## Velikost výběru
+Teorii statistického testování můžeme využít při designu výzkumu k tomu, abychom stanovili nutnou velikost výběru. Vycházíme přitom z toho, že velikost výběru je jednou z proměnných při výpočtu směrodatné chyby odhadu parametru $\frac{s}{\sqrt{n}}$. Zpravidla stanovíme, jakou chybu odhadu jsme schopni akceptovat $\delta$ a podle toho určíme velikost výběru $n$. Velikost výběru potom vypočítáme jako $n=(\frac{z_{1-\alpha * \sigma}}{\delta})^2$, tedy jako hodnotu kvantilu $z$ rozdělení na hladině spolehlivosti $1-\alpha$ vynásobenou populační směrodatnou odchylkou náhodné proměnné $\sigma$. Pokud populační směrodatnou odchylku neznáme, můžeme ji odhadnout pomocí dostupných znalostí o zkoumané proměnné, nebo simulovat různá rozdělení a vybrat takové $s$, které nejvíce odpovídá našim předpokladům.
+```{r}
+delta <- 0.01
+smer_odchylka <- sqrt(0.05 * (1-0.05))
+z <- qnorm(0.975)
+# vypocitame n
+n <- (z*smer_odchylka / delta)^2
+# zaokrouhlime 
+n <- round(n)
+```
+Při odhadu volebních preferencí bychom chtěli, aby chyba odhadu u malých stran (preference okolo 5%) při $\alpha=0.05$ byla +/- 1 p.b. Pak bychom počítali $n=(\frac{z_{0.975}*\sqrt{0.05(1-0.05)}}{0.01})^2$. K tomu, abychom u malých stran měli interval spolehlivosti pro hladinu spolehlivosti $1-\alpha=$ `r 1-0.05` s +/- 1 p.b, pak bychom potřebovali výběr o velikosti `r n`. 
+
+## Mnoho testů{#tests-many}
+Jak jsme zmínili v \@ref(test-h0), $H_0$ a $H_1$ je potřeba zvolit před použitím statistického testu. V případě, že používáme statistické testy pro nalezení vztahů mezi více proměnnými, narazíme na problém s FP. Abychom si tento případ ukázali, vytvoříme data, kde jsou na sobě všechny proměnné nezávislé. Každá proměnná pochází z rozdělení $N(0, 1)$. U každé proměnné budeme testovat, zda platí $H_0: \mu = 0$ a $H_1: \mu \ne 0$. Zajímá nás, kolik statisticky významných vztahů bychom v našich datech našli.
+```{r}
+# vytvorime nahodna data o 1000 pozorovanich a 200 promennych
+n <- 1000
+k <- 200
+M <- sapply(1:k, function(x) rnorm(n))
+alpha <- 0.05
+# budeme ukaladat p hodnotu
+p_hodnota <- rep(NA, k)
+for(i in 1:k) {
+  # provedeme test test
+  t_test <- t.test(x = M[, i], 
+                   alternative = "two.sided", 
+                   conf.level = 1-alpha,
+                   mu = 0)
+  # ulozime p-hodnotu
+  p_hodnota[i] <- t_test$p.value
+}
+# pocet false positive
+FP <- sum(p_hodnota <= alpha)
+# bonferroniho korekce
+p_new <- alpha / k
+FP_new <- sum(p_hodnota <= p_new)
+```
+
+Při počtu proměnných `r k` provádíme `r k` statistických testů. V našich datech jsme našli `r FP` statisticky významných výsledků (`r round(FP/k, 2)`% ze všech provedených testů). Tedy `r FP` false positive testů. Samozřejmě, v našich datech pocházejí všechny proměnné z rozdělení s průměrem 0 a jakýkoliv vztah je pouze v důsledku náhody. Podíl FP testů bude zhruba odpovídat zvolené chybě $\alpha$. Jedním ze způsobů, jak se s tímto problémem vypořádat je pomocí **Bonferroniho korekce**, která bere v potaz počet provedených testů a upraví statisticky významnou p-hodnotu na novou hodnotu $p_i \le \frac{\alpha}{m}$, kde $m$ je počet provedených testů. Pokud bychom bonferroniho korekci provedli na našem případu, pak by nová hodnota $p_i$, za kterou zamítáme $H_0$ byla `r round(p_new, 3)`. Počet statisticky významných testů by tak byl `r FP_new`. Jak ale víme z kapitoly \@ref(test-power), snižování chyby I. druhu $\alpha$ vedek nárůstu FN, tedy chyby II. druhu $\beta$^[Řekneme, že nelze vyvrátit $H_0$, i když ve skutečnosti neplatí.]. Pokud je cílem pouze exploratorní analýza velkého počtu dat, je možné použít očekávanou hodnotu pozitivních testů jako kritérium pro určení toho, zda některé z pozitivních testů jsou TP. Počet pozitivních testů je náhodná proměnná a lze ji modelovat poissonových rozdělením \@ref(pois-dist). V našem případě při $\alpha=$ `r alpha` bychom z `r k` testů očekávali `r round(alpha*k)` pozitivních testů jenom vlivem náhody. Graf \@ref(fig:test-pois) ukazuje očekávané rozdělení pro $Poisson($ `r alpha*k` $)$. Můžeme potom vyučít CDF, abychom vypočítali pravděpodobnost, že z `r k` testů jich bude právě $q$ pozitivních, tedy $P(x > q)$. 
+```{r test-pois, fig.cap='Očekávaný počet pozitivních testů z 200'}
+x <- 0:30
+lambda <- alpha*k
+pmf <- dpois(x, lambda)
+plot(x, pmf,
+  type = "h", lwd = 5,
+  col = "#1f77b4",
+  xlab = "s",
+  ylab = "PMF",
+  main = paste0("Poisson(", round(lambda, 2), ")")
+)
+cdf <- ppois(FP, lambda, lower.tail = FALSE)
+```
+
+V našem případě, kdy máme `r FP` pozitivních testů, je $P(x >$ `r FP` $)=$ `r round(cdf, 2)`. V případě, že by některé pozitivní testy byly TP, by tato pravděpodobnost byla malá. My bychom potom například mohli vybrat testy s nejmenší p-hodnotou a tyto proměnné dále prozkoumat.
