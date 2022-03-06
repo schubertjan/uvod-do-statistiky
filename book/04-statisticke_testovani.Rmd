@@ -30,7 +30,7 @@ hist(ess_bez_na$int_use_day_mins,
 )
 ```
 
-Jak je vidět z \@ref(fig:tests-hist), většina lidí tráví na internetu mezi 100 a 150 minutami týdně. Průměrný počet minut na internetu je `rround(mean(ess_bez_na$int_use_day_mins), 2)`. Jak je obvyklé u proměnných, které mají hranici na levé straně^[Nelze trávit méně než 0 minut.], rozložení náhodné proměnné je zešikmené pozitivně, tedy má více odlehlých hodnot na pravo od průměru. Jak ale víme z CLV \@ref(clv-mean) výběrové rozdělení parametru (v našem případě budeme zkoumat průměr) náhodné proměnné bude normálně rozděleno, i když samotná náhodná proměnná normálně rozložená není.
+Jak je vidět z \@ref(fig:tests-hist), většina lidí tráví na internetu mezi 100 a 150 minutami týdně. Průměrný počet minut na internetu je `r round(mean(ess_bez_na$int_use_day_mins), 2)`. Jak je obvyklé u proměnných, které mají hranici na levé straně^[Nelze trávit méně než 0 minut.], rozložení náhodné proměnné je zešikmené pozitivně, tedy má více odlehlých hodnot na pravo od průměru. Jak ale víme z CLV \@ref(clv-mean) výběrové rozdělení parametru (v našem případě budeme zkoumat průměr) náhodné proměnné bude normálně rozděleno, i když samotná náhodná proměnná normálně rozložená není.
 
 ### Formulace nulové a alternativní hypotézy{#test-h0}
 
@@ -73,8 +73,9 @@ smerodatna_chyba_odhadu <- sd(ess_bez_na$int_use_day_mins) / sqrt(n)
 testovaci_statistika <- (bodovy_odhad - nulova_hypoteza) / smerodatna_chyba_odhadu
 ```
 
+Bodový odhad je výběrov průměr $\overline{x}=$ `r round(bodovy_odhad, 2)`. Směrodatná chyba odhadu $s_{\overline{x}}=$ `r round(smerodatna_chyba_odhadu, 2)`. Testovací statistika je $t=$ `r round(testovaci_statistika, 2)`.
 
-U každého statistického testu si zvolíme nějakou kritickou mez, která je určení hladinou pravděpodobnosti $\alpha$. $\alpha$ nám udává pravděpodobnost, že nesprávně zamítneme nulovou hypotézu. Konvenčně se udává hladina $\alpha = 0.05$, ale my si zvolíme nějakou jinou, například $\alpha=0.11$, abychom si ukázali, že tato hladina je do jisté míry arbitrární a záleží na více věcech (jako je síla testu, typ chyby, kterou chcete akceptovat - I.druhu vs II.druhu. Více viz \@ref(test-power)). Protože t-skór pochází ze studentova t standardního rozdělení s $n-1$ stupni volnosti, můžeme ho vypočítat pomocí funkcí, které již známe (stejně jako jsme určovali u intervalů spolehlivosti). Kritická mez bude záležet na typu nulové a alternativní hypotézy. Pojďme si ukázat, jak bude kritická mez vypadat na grafu rozdělení testovací statistiky za předpokladu $H_0$. Zároveň si do grafu zakreslíme hodnotu naší testovací statistiky.
+U každého statistického testu si zvolíme nějakou kritickou mez, která je určena chybou I. druhu $\alpha$. $\alpha$ nám udává pravděpodobnost, že nesprávně zamítneme nulovou hypotézu. Konvenčně se udává hladina $\alpha = 0.05$, ale my si zvolíme nějakou jinou, například $\alpha=0.11$, abychom si ukázali, že tato hladina je do jisté míry arbitrární a záleží na více věcech (jako je síla testu, typ chyby, kterou chcete akceptovat - I.druhu vs II.druhu. Více viz \@ref(test-power)). Protože t-skór pochází ze studentova t standardního rozdělení s $n-1$ stupni volnosti, můžeme ho vypočítat pomocí funkcí, které již známe (stejně jako jsme určovali u intervalů spolehlivosti). Kritická mez bude záležet na typu nulové a alternativní hypotézy. Pojďme si ukázat, jak bude kritická mez vypadat na grafu rozdělení testovací statistiky za předpokladu $H_0$. Zároveň si do grafu zakreslíme hodnotu naší testovací statistiky.
 
 
 ### Interpretace výsledku
@@ -207,12 +208,12 @@ x <- seq(80, 250, length.out = 1000)
 df <- nrow(ess_bez_na) - 1
 # vypocitame pdf
 pdf_vyber <- dt((x - bodovy_odhad) / smerodatna_chyba_odhadu,
-     df = df
+                df = df
 ) * 1 / smerodatna_chyba_odhadu
 h0 <- 180
 # spocitame vyberove rozdeleni za predpokladu H0
 pdf_h0 <- dt((x - h0) / smerodatna_chyba_odhadu,
-     df = df
+             df = df
 ) * 1 / smerodatna_chyba_odhadu
 # vypocitame p hodnotu jako cdf za predpokladu h0
 p_hodnota <- pt((bodovy_odhad - h0) / smerodatna_chyba_odhadu, df = df)
@@ -226,12 +227,23 @@ plot(x, pdf_vyber,
 )
 lines(x, pdf_h0, col = "grey", lwd = 2)
 abline(v = bodovy_odhad, lty = 2)
+abline(v = h0, lty = 2, col = "grey")
+
 legend("topright",
-     legend = c("Výběr. rozděl. průměru", "Výběr. rozděl. H0", "Bodový odhad"),
-     col = c("#1f77b4", "grey", "black"),
-     lwd = c(2, 2, 1),
-     lty = c(1, 1, 2),
-     cex = 0.7
+       legend = c(paste0("Výběr. rozděl. průměru; \n T(", 
+                         round(bodovy_odhad, 2), ", ", 
+                         round(smerodatna_chyba_odhadu, 2), ", ",
+                         df, ")"), 
+                  "Bodový odhad",
+                  paste0("Výběr. rozděl. H0; \n T(", 
+                         h0, ", ", 
+                         round(smerodatna_chyba_odhadu, 2),  ", ",
+                         df, ")"), 
+                  paste0("H0: ", h0)),
+       col = c("#1f77b4", "black", "grey", "grey"),
+       lwd = c(2, 1, 2, 1),
+       lty = c(1, 2, 1, 2),
+       cex = 0.7
 )
 ```
 
