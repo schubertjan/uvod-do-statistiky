@@ -24,6 +24,9 @@ RUN apt-get update \
     # libgeos-dev \
     # libproj-dev
 
+# set locale
+ENV LC_ALL=C.UTF-8
+
 # Start installation of package
 RUN echo "Install Dependencies for ${PKG_NAME}" \
     && R -e "install.packages(c('png', 'jpeg', 'git2r','devtools', 'zoo', 'lubridate', 'testthat', 'roxygen2', 'bookdown', 'tinytex'))" \ 
