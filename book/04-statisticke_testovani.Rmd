@@ -26,7 +26,8 @@ hist(ess_bez_na$int_use_day_mins,
      col = "#1f77b4",
      main = "",
      xlab = "Počet min na internetu (týdně)",
-     ylab = "Četnost")
+     ylab = "Četnost"
+)
 ```
 
 Jak je vidět z \@ref(fig:tests-hist), většina lidí tráví na internetu mezi 100 a 150 minutami týdně. Průměrný počet minut na internetu je `rround(mean(ess_bez_na$int_use_day_mins), 2)`. Jak je obvyklé u proměnných, které mají hranici na levé straně^[Nelze trávit méně než 0 minut.], rozložení náhodné proměnné je zešikmené pozitivně, tedy má více odlehlých hodnot na pravo od průměru. Jak ale víme z CLV \@ref(clv-mean) výběrové rozdělení parametru (v našem případě budeme zkoumat průměr) náhodné proměnné bude normálně rozděleno, i když samotná náhodná proměnná normálně rozložená není.
@@ -81,53 +82,59 @@ Modrá vertikální přímka značí kritickou mez, za kterou bychom zamítali $
 
 ```{r tests-inter-left, fig.cap='Rozdělení výběrového průměru za platnosti H0: levostranný'}
 alpha <- 0.11
-kritickou_mez_levostranny <- qt(alpha, df = n-1)
-x <- seq(-4,4,by=0.001)
-pdf <- dt(x, df = n-1)
+kritickou_mez_levostranny <- qt(alpha, df = n - 1)
+x <- seq(-4, 4, by = 0.001)
+pdf <- dt(x, df = n - 1)
 
 # levostranna
-plot(x, pdf, 
-     xlab = "Výběrový průměr (standardizovaný)", 
-     ylab = "PDF", 
+plot(x, pdf,
+     xlab = "Výběrový průměr (standardizovaný)",
+     ylab = "PDF",
      main = "",
      type = "l", lwd = 2,
-     col = "grey")
-lines(x[x < kritickou_mez_levostranny], pdf[x < kritickou_mez_levostranny], 
-      type= "h", 
-      col = "#1f77b4")
+     col = "grey"
+)
+lines(x[x < kritickou_mez_levostranny], pdf[x < kritickou_mez_levostranny],
+     type = "h",
+     col = "#1f77b4"
+)
 abline(v = kritickou_mez_levostranny, col = "#1f77b4")
 abline(v = testovaci_statistika, lty = 2)
 ```
 
 ```{r tests-inter-right, fig.cap='Rozdělení výběrového průměru za platnosti H0: pravostranný'}
 # pravostrannou
-kritickou_mez_pravostranny <- qt(1-alpha, df = n-1)
-plot(x, pdf, 
-     xlab = "Výběrový průměr (standardizovaný)", 
-     ylab = "PDF", 
+kritickou_mez_pravostranny <- qt(1 - alpha, df = n - 1)
+plot(x, pdf,
+     xlab = "Výběrový průměr (standardizovaný)",
+     ylab = "PDF",
      main = "",
      type = "l", lwd = 2,
-     col = "grey")
-lines(x[x > kritickou_mez_pravostranny], pdf[x > kritickou_mez_pravostranny], 
-      type= "h", 
-      col = "#1f77b4")
+     col = "grey"
+)
+lines(x[x > kritickou_mez_pravostranny], pdf[x > kritickou_mez_pravostranny],
+     type = "h",
+     col = "#1f77b4"
+)
 abline(v = kritickou_mez_pravostranny, col = "#1f77b4")
 abline(v = testovaci_statistika, lty = 2)
 ```
 
 ```{r tests-inter-both, fig.cap='Rozdělení výběrového průměru za platnosti H0: oboustranný'}
 # oboustranny
-kritickou_mez_oboustranny <- qt(c(alpha/2, 1-alpha/2), df = n-1)
-plot(x, pdf, 
-     xlab = "Výběrový průměr (standardizovaný)", 
-     ylab = "PDF", 
+kritickou_mez_oboustranny <- qt(c(alpha / 2, 1 - alpha / 2), df = n - 1)
+plot(x, pdf,
+     xlab = "Výběrový průměr (standardizovaný)",
+     ylab = "PDF",
      main = "",
      type = "l", lwd = 2,
-     col = "grey")
-lines(x[x < kritickou_mez_oboustranny[1] | x > kritickou_mez_oboustranny[2]], 
-      pdf[x < kritickou_mez_oboustranny[1] | x > kritickou_mez_oboustranny[2]], 
-      type= "h", 
-      col = "#1f77b4")
+     col = "grey"
+)
+lines(x[x < kritickou_mez_oboustranny[1] | x > kritickou_mez_oboustranny[2]],
+     pdf[x < kritickou_mez_oboustranny[1] | x > kritickou_mez_oboustranny[2]],
+     type = "h",
+     col = "#1f77b4"
+)
 abline(v = kritickou_mez_oboustranny, col = "#1f77b4")
 abline(v = testovaci_statistika, lty = 2)
 ```
@@ -141,9 +148,9 @@ Při pravostranné hypotéze: $H_0 \le 180$ a $H_1 > 180$ je kritické mez `r kr
 
 Abychom nemuseli stále počítat hodnoty kritické meze, které se mohou lišit v závislosti na rozdělení výběrové statistiky a chybě prvního druhu ($alpha$), používá se tzv p-hodnota, což vyjadřuje pravděpodobnost, že uvidíme pozorovanou hodnotu nebo ještě extrémnější (za předpokladu $H_0$). P-hodnotu můžeme vypočítat jako distribuční funkci (CDF) podle toho, jaký typ $H_0$ jsme zvolili.
 ```{r}
-p_levostranny <- pt(testovaci_statistika, df = n-1)
-p_pravostranny <- 1-pt(testovaci_statistika, df = n-1)
-p_oboustrany <- (1-pt(abs(testovaci_statistika), df = n-1)) * 2
+p_levostranny <- pt(testovaci_statistika, df = n - 1)
+p_pravostranny <- 1 - pt(testovaci_statistika, df = n - 1)
+p_oboustrany <- (1 - pt(abs(testovaci_statistika), df = n - 1)) * 2
 ```
 
 P-hodnota levostranného testu při alpha `r alpha` je `r round(p_levostranny, 2)`. P-hodnota pravostranného testu při alpha `r alpha` je `r round(p_pravostranny, 2)`. P-hodnota oboustranného testu při alpha `r alpha` je `r round(p_oboustrany, 2)`. 
@@ -156,18 +163,21 @@ Pokud byste chtěli počítat jednovýběrový z-test pro průměr místo t-test
 
 V R existuje na vypočítání t-testu funkce `t.test`, který má argumenty `x` náhodnou proměnnou, kterou testujeme, `alternative` určení typu $H_0$ a $H_1$, `conf.level` určení spolehlivosti testu a `mu` hodnotu $H_0$, vůči které test provádíme. 
 ```{r}
-t_test_levostranna <- t.test(ess_bez_na$int_use_day_mins, 
-                             alternative = "less", 
-                             conf.level = 1-alpha,
-                             mu = nulova_hypoteza)
-t_test_pravostranny <- t.test(ess_bez_na$int_use_day_mins, 
-                             alternative = "greater", 
-                             conf.level = 1-alpha,
-                             mu = nulova_hypoteza)
-t_test_oboustranny <- t.test(ess_bez_na$int_use_day_mins, 
-                             alternative = "two.sided", 
-                             conf.level = 1-alpha,
-                             mu = nulova_hypoteza)
+t_test_levostranna <- t.test(ess_bez_na$int_use_day_mins,
+     alternative = "less",
+     conf.level = 1 - alpha,
+     mu = nulova_hypoteza
+)
+t_test_pravostranny <- t.test(ess_bez_na$int_use_day_mins,
+     alternative = "greater",
+     conf.level = 1 - alpha,
+     mu = nulova_hypoteza
+)
+t_test_oboustranny <- t.test(ess_bez_na$int_use_day_mins,
+     alternative = "two.sided",
+     conf.level = 1 - alpha,
+     mu = nulova_hypoteza
+)
 ```
 
 
@@ -196,12 +206,14 @@ x <- seq(80, 250, length.out = 1000)
 # stpne volnosti
 df <- nrow(ess_bez_na) - 1
 # vypocitame pdf
-pdf_vyber <- dt((x - bodovy_odhad) / smerodatna_chyba_odhadu, 
-          df = df) * 1/smerodatna_chyba_odhadu
+pdf_vyber <- dt((x - bodovy_odhad) / smerodatna_chyba_odhadu,
+     df = df
+) * 1 / smerodatna_chyba_odhadu
 h0 <- 180
 # spocitame vyberove rozdeleni za predpokladu H0
-pdf_h0 <- dt((x - h0) / smerodatna_chyba_odhadu, 
-          df = df) * 1/smerodatna_chyba_odhadu
+pdf_h0 <- dt((x - h0) / smerodatna_chyba_odhadu,
+     df = df
+) * 1 / smerodatna_chyba_odhadu
 # vypocitame p hodnotu jako cdf za predpokladu h0
 p_hodnota <- pt((bodovy_odhad - h0) / smerodatna_chyba_odhadu, df = df)
 
@@ -210,17 +222,17 @@ plot(x, pdf_vyber,
      ylab = "PDF",
      col = "#1f77b4",
      main = paste0("Za platnosti H0: P(x<", round(bodovy_odhad, 2), ")=", round(p_hodnota, 2)),
-     type = "l", lwd = 2)
+     type = "l", lwd = 2
+)
 lines(x, pdf_h0, col = "grey", lwd = 2)
 abline(v = bodovy_odhad, lty = 2)
 legend("topright",
-       legend = c("Výběr. rozděl. průměru", "Výběr. rozděl. H0", "Bodový odhad"),
-       col = c("#1f77b4", "grey", "black"),
-       lwd = c(2, 2, 1),
-       lty = c(1, 1, 2),
-       cex = 0.7)
-
-
+     legend = c("Výběr. rozděl. průměru", "Výběr. rozděl. H0", "Bodový odhad"),
+     col = c("#1f77b4", "grey", "black"),
+     lwd = c(2, 2, 1),
+     lty = c(1, 1, 2),
+     cex = 0.7
+)
 ```
 
 
@@ -244,14 +256,14 @@ knitr::include_app("https://shiny.rit.albany.edu/stat/betaprob/")
 Jakým způsobem vybrat velikost $\alpha$ bude záležet na problému, v kterém test provádíme. Jaké důsledky má chyba I. druhu (FP) a chyba II.druhu (FN)? Co hrozí pokud na základě testu rozhodneme určíme špatně, že něco je pravda, pokud to ve skutečnosti pravda není (FP) a co hrozí, pokud určíme špatně, že něco pravda není, pokud to ve skutečnosti pravda je (FN)? To, jak závažné důsledky mají FP a FN závisí na situaci, v které test aplikujeme. Uvažujme příklad, kdy pacientovy odebereme vzorky krve a sledujeme hodnoty určitých látek. Na základě statistického testu potom vyhodnotíme, zda množství látek indikuje nějakou nemoc. Důsledek FP je, že pacientovi řekneme, že má nemoc, pokud ji ve skutečnosti nemá. Pokud léčení takové nemoci není nákladné a nemá žádné vedlejší účinky, pak se nic tak velkého nestalo. Důsledek FN ve stejném příkladu znamená, že pacientovi řekneme, že nemoc nemá, ale on ji ve skutečnosti má. Pokud má nemoc závažné důsledky, pak může taková chyba způsobit pacientovi závažné zdravotní komplikace. V takovém případě bychom chtěli, aby chyba FN ($\beta$) byla poměrně malá. Nyní si představme situaci, v které používáme statistický test, abychom určili, zda někdo podvádí ve výkazu nákladů na pracovní cestu. Na kontrolu máme zhruba 14 dní, protože náklady musíme zaměstnanci uhradit v příští výplatě. Řekněme, že testujeme určitou kombinaci čísel, které se ve výkazu opakují. Pokud označíme nějaké daňové přiznání za podvodné, musíme podrobně zkontrolovat všechny faktury a účtenky v daném výkazu a to je velmi pracné. Protože máme jenom omezený počet dní, v kterých můžeme výkazy kontrolovat, budume chtít, abychom si byli docela jisti, že někdo podvádí. V takovém případě je důsledek FP velmi náročný na čas a budeme se proto snažit $\alpha$ určit tak, aby nebylo mnoho FP.
 
 ## Velikost výběru
-Teorii statistického testování můžeme využít při designu výzkumu k tomu, abychom stanovili nutnou velikost výběru. Vycházíme přitom z toho, že velikost výběru je jednou z proměnných při výpočtu směrodatné chyby odhadu parametru $\frac{s}{\sqrt{n}}$. Zpravidla stanovíme, jakou chybu odhadu jsme schopni akceptovat $\delta$ a podle toho určíme velikost výběru $n$. Velikost výběru potom vypočítáme jako $n=(\frac{z_{1-\alpha * \sigma}}{\delta})^2$, tedy jako hodnotu kvantilu $z$ rozdělení na hladině spolehlivosti $1-\alpha$ vynásobenou populační směrodatnou odchylkou náhodné proměnné $\sigma$. Pokud populační směrodatnou odchylku neznáme, můžeme ji odhadnout pomocí dostupných znalostí o zkoumané proměnné, nebo simulovat různá rozdělení a vybrat takové $s$, které nejvíce odpovídá našim předpokladům.
+Teorii statistického testování můžeme využít při designu výzkumu k tomu, abychom stanovili nutnou velikost výběru. Vycházíme přitom z toho, že velikost výběru je jednou z proměnných při výpočtu směrodatné chyby odhadu parametru $\frac{s}{\sqrt{n}}$. Zpravidla stanovíme, jakou chybu odhadu jsme schopni akceptovat $\delta$ a podle toho určíme velikost výběru $n$. Velikost výběru potom vypočítáme jako $n=(\frac{z_{1-\alpha} * \sigma}{\delta})^2$, tedy jako hodnotu kvantilu $z$ rozdělení na hladině spolehlivosti $1-\alpha$ vynásobenou populační směrodatnou odchylkou náhodné proměnné $\sigma$. Pokud populační směrodatnou odchylku neznáme, můžeme ji odhadnout pomocí dostupných znalostí o zkoumané proměnné, nebo simulovat různá rozdělení a vybrat takové $s$, které nejvíce odpovídá našim předpokladům.
 ```{r}
 delta <- 0.01
-smer_odchylka <- sqrt(0.05 * (1-0.05))
+smer_odchylka <- sqrt(0.05 * (1 - 0.05))
 z <- qnorm(0.975)
 # vypocitame n
-n <- (z*smer_odchylka / delta)^2
-# zaokrouhlime 
+n <- (z * smer_odchylka / delta)^2
+# zaokrouhlime
 n <- round(n)
 ```
 Při odhadu volebních preferencí bychom chtěli, aby chyba odhadu u malých stran (preference okolo 5%) při $\alpha=0.05$ byla +/- 1 p.b. Pak bychom počítali $n=(\frac{z_{0.975}*\sqrt{0.05(1-0.05)}}{0.01})^2$. K tomu, abychom u malých stran měli interval spolehlivosti pro hladinu spolehlivosti $1-\alpha=$ `r 1-0.05` s +/- 1 p.b, pak bychom potřebovali výběr o velikosti `r n`. 
@@ -266,14 +278,16 @@ M <- sapply(1:k, function(x) rnorm(n))
 alpha <- 0.05
 # budeme ukaladat p hodnotu
 p_hodnota <- rep(NA, k)
-for(i in 1:k) {
-  # provedeme test test
-  t_test <- t.test(x = M[, i], 
-                   alternative = "two.sided", 
-                   conf.level = 1-alpha,
-                   mu = 0)
-  # ulozime p-hodnotu
-  p_hodnota[i] <- t_test$p.value
+for (i in 1:k) {
+     # provedeme test test
+     t_test <- t.test(
+          x = M[, i],
+          alternative = "two.sided",
+          conf.level = 1 - alpha,
+          mu = 0
+     )
+     # ulozime p-hodnotu
+     p_hodnota[i] <- t_test$p.value
 }
 # pocet false positive
 FP <- sum(p_hodnota <= alpha)
@@ -285,14 +299,14 @@ FP_new <- sum(p_hodnota <= p_new)
 Při počtu proměnných `r k` provádíme `r k` statistických testů. V našich datech jsme našli `r FP` statisticky významných výsledků (`r round(FP/k, 2)`% ze všech provedených testů). Tedy `r FP` false positive testů. Samozřejmě, v našich datech pocházejí všechny proměnné z rozdělení s průměrem 0 a jakýkoliv vztah je pouze v důsledku náhody. Podíl FP testů bude zhruba odpovídat zvolené chybě $\alpha$. Jedním ze způsobů, jak se s tímto problémem vypořádat je pomocí **Bonferroniho korekce**, která bere v potaz počet provedených testů a upraví statisticky významnou p-hodnotu na novou hodnotu $p_i \le \frac{\alpha}{m}$, kde $m$ je počet provedených testů. Pokud bychom bonferroniho korekci provedli na našem případu, pak by nová hodnota $p_i$, za kterou zamítáme $H_0$ byla `r round(p_new, 3)`. Počet statisticky významných testů by tak byl `r FP_new`. Jak ale víme z kapitoly \@ref(test-power), snižování chyby I. druhu $\alpha$ vedek nárůstu FN, tedy chyby II. druhu $\beta$^[Řekneme, že nelze vyvrátit $H_0$, i když ve skutečnosti neplatí.]. Pokud je cílem pouze exploratorní analýza velkého počtu dat, je možné použít očekávanou hodnotu pozitivních testů jako kritérium pro určení toho, zda některé z pozitivních testů jsou TP. Počet pozitivních testů je náhodná proměnná a lze ji modelovat poissonových rozdělením \@ref(pois-dist). V našem případě při $\alpha=$ `r alpha` bychom z `r k` testů očekávali `r round(alpha*k)` pozitivních testů jenom vlivem náhody. Graf \@ref(fig:test-pois) ukazuje očekávané rozdělení pro $Poisson($ `r alpha*k` $)$. Můžeme potom vyučít CDF, abychom vypočítali pravděpodobnost, že z `r k` testů jich bude právě $q$ pozitivních, tedy $P(x > q)$. 
 ```{r test-pois, fig.cap='Očekávaný počet pozitivních testů z 200'}
 x <- 0:30
-lambda <- alpha*k
+lambda <- alpha * k
 pmf <- dpois(x, lambda)
 plot(x, pmf,
-  type = "h", lwd = 5,
-  col = "#1f77b4",
-  xlab = "s",
-  ylab = "PMF",
-  main = paste0("Poisson(", round(lambda, 2), ")")
+     type = "h", lwd = 5,
+     col = "#1f77b4",
+     xlab = "s",
+     ylab = "PMF",
+     main = paste0("Poisson(", round(lambda, 2), ")")
 )
 cdf <- ppois(FP, lambda, lower.tail = FALSE)
 ```
