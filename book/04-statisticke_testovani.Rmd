@@ -17,12 +17,19 @@ Každý statistický test má čtyři fáze:
 ### Zvolení testu
 
 Pro toto cvičení budeme používat jednovýběrový t-test pro průměr. Tedy, budeme testovat hodnotu průměru jednoho výběru. Bude nás zajímat průměrná doba, kterou dospělí jedinci v České republice stráví denně na internetu (v minutách). Následující data pocházejí z European Social Study, která byla provedena v roce 2018. První sloupec obsahuje id respondenta a druhý počet minut kolik strávil denně na internetu. Pojďme se podívat na data.
-```{r}
-ess <- read.csv("../dats/int_use.csv")
+```{r tests-hist, fig.cap='Histogram týdenného počtu minut na internetu'}
+ess <- read.csv("https://raw.githubusercontent.com/schubertjan/uvod-do-statistiky/master/dats/int_use.csv")
 summary(ess)
 # odstranit chybejici hodnoty
 ess_bez_na <- ess[!is.na(ess$int_use_day_mins), ]
+hist(ess_bez_na$int_use_day_mins,
+     col = "#1f77b4",
+     main = "",
+     xlab = "Počet min na internetu (týdně)",
+     ylab = "Četnost")
 ```
+
+Jak je vidět z \@ref(fig:tests-hist), většina lidí tráví na internetu mezi 100 a 150 minutami týdně. Průměrný počet minut na internetu je `rround(mean(ess_bez_na$int_use_day_mins), 2)`. Jak je obvyklé u proměnných, které mají hranici na levé straně^[Nelze trávit méně než 0 minut.], rozložení náhodné proměnné je zešikmené pozitivně, tedy má více odlehlých hodnot na pravo od průměru. Jak ale víme z CLV \@ref(clv-mean) výběrové rozdělení parametru (v našem případě budeme zkoumat průměr) náhodné proměnné bude normálně rozděleno, i když samotná náhodná proměnná normálně rozložená není.
 
 ### Formulace nulové a alternativní hypotézy{#test-h0}
 
@@ -57,12 +64,12 @@ Výpočet testovací statistiky bude záležet na tom, který test zvolíme. Rů
 
 V našem případě jednovýběrového t-testu pro průměr je naší testovací statistikou t-skór. T-skór vypočítáme jako $t = \frac{\overline{x} - \mu_0}{\frac{s}{\sqrt{n}}}$, kde $\overline{x}$ je náš výběrový průměr, $\mu_0$ je hodnota z nulové hypotézy a $\frac{s}{\sqrt{n}}$ je směrodatná chyba odhadu. Výběrový průměr spočítáme snadno a směrodatnou chybu odhadu výběrového průměru známe z centrální limitní věty a intervalů spolehlivosti. Testovací statistiku $t$ budeme počítat s $n-1$ stupni volnosti.
 ```{r}
-# testovaci_statistika = bodovy_odhad - nulova_hypoteza / smerodatou_chyba_odhadu
+# testovaci_statistika = bodovy_odhad - nulova_hypoteza / smerodatna_chyba_odhadu
 bodovy_odhad <- mean(ess_bez_na$int_use_day_mins)
 nulova_hypoteza <- 180
 n <- nrow(ess_bez_na)
-smerodatou_chyba_odhadu <- sd(ess_bez_na$int_use_day_mins) / sqrt(n)
-testovaci_statistika <- (bodovy_odhad - nulova_hypoteza) / smerodatou_chyba_odhadu
+smerodatna_chyba_odhadu <- sd(ess_bez_na$int_use_day_mins) / sqrt(n)
+testovaci_statistika <- (bodovy_odhad - nulova_hypoteza) / smerodatna_chyba_odhadu
 ```
 
 
@@ -80,7 +87,7 @@ pdf <- dt(x, df = n-1)
 
 # levostranna
 plot(x, pdf, 
-     xlab = "Výběrový průměr", 
+     xlab = "Výběrový průměr (standardizovaný)", 
      ylab = "PDF", 
      main = "",
      type = "l", lwd = 2,
@@ -96,7 +103,7 @@ abline(v = testovaci_statistika, lty = 2)
 # pravostrannou
 kritickou_mez_pravostranny <- qt(1-alpha, df = n-1)
 plot(x, pdf, 
-     xlab = "Výběrový průměr", 
+     xlab = "Výběrový průměr (standardizovaný)", 
      ylab = "PDF", 
      main = "",
      type = "l", lwd = 2,
@@ -112,7 +119,7 @@ abline(v = testovaci_statistika, lty = 2)
 # oboustranny
 kritickou_mez_oboustranny <- qt(c(alpha/2, 1-alpha/2), df = n-1)
 plot(x, pdf, 
-     xlab = "Výběrový průměr", 
+     xlab = "Výběrový průměr (standardizovaný)", 
      ylab = "PDF", 
      main = "",
      type = "l", lwd = 2,
@@ -139,7 +146,7 @@ p_pravostranny <- 1-pt(testovaci_statistika, df = n-1)
 p_oboustrany <- (1-pt(abs(testovaci_statistika), df = n-1)) * 2
 ```
 
-P-hodnota levostranného testu při alpha `r alpha` je`r round(p_levostranny, 2)`. P-hodnota pravostranného testu při alpha `r alpha` je`r round(p_pravostranny, 2)`. P-hodnota oboustranného testu při alpha `r alpha` je`r round(p_oboustrany, 2)`. 
+P-hodnota levostranného testu při alpha `r alpha` je `r round(p_levostranny, 2)`. P-hodnota pravostranného testu při alpha `r alpha` je `r round(p_pravostranny, 2)`. P-hodnota oboustranného testu při alpha `r alpha` je `r round(p_oboustrany, 2)`. 
 
 Vidíme, že hodnota p je menší, než zvolená $\alpha$ pouze u levostranného testu, takže bychom zde zamítli $H_0$ ve prospěch $H_1$. Jak vidíme, výsledek se shoduje s porovnáním testovací statistiky k vypočtené kritické hladině. Výhodou je, že můžeme výpočet kritické hladiny přeskočit, rovnou vypočítat p-hodnotu a porovnat k námi zvolené $\alpha$. 
 
@@ -178,6 +185,44 @@ d <- abs(bodovy_odhad - nulova_hypoteza) / sd(ess_bez_na$int_use_day_mins)
 ```
 
 Velikost účinku je `r round(d, 2)`, což odpovídá spíše malému efektu.
+
+
+## Souvislost s intervalem spolehlivosti
+Konstrukt intervalu spolehlivosti a statistických testů vychází ze stejné matematické teorie a to sice, že nejistota ohledně bodového výběrového odhadu se dá modelovat pomocí standardní chyby odhadu $\frac{s}{\sqrt{n}}$. Graf \@ref(fig:test-h0-is) ukazuje výběrové rozdělení průměru, které jsme počítali v \@ref(dist-params) a výběrové rozdělení za platnosti $H_0$. Všimněte si, že p-hodnota je vlastně $P(x_i \le \overline{x})$ za platnosti H0. Tedy, pokud platí rozdělení parametru za H0 (pokud je průměr roven naší $H_0$), jaká je pravděpodobnost, že bychom v našem výběru sledovali tuto hodnotu nebo extrémnější. Matematicky to je tento výpočet stejný, jako levostranný test, který jsme počítali nahoře^[V případě pravostranného testu bychom počítali $P(x_i \ge \overline{x})$. V případě oboustranného testu bychom počítali $P(x_i \le \overline{x})$ & $P(x_i \ge \overline{x})$.]. Statistické testování tedy z matematického hlediska nepřináší žádné nové koncepty a používá teorii CLV \@ref(dist-params) a pravděpodobnostních rozdělení \@ref(norm-dist).  
+```{r test-h0-is, fig.cap='Výběrové rozdělení průměru a výběrové rozdělení za platnosti H0'}
+# vypocitame vyberove rozdeleni parametru...
+# ..pomoci zobecneneho t rozdeleni
+x <- seq(80, 250, length.out = 1000)
+# stpne volnosti
+df <- nrow(ess_bez_na) - 1
+# vypocitame pdf
+pdf_vyber <- dt((x - bodovy_odhad) / smerodatna_chyba_odhadu, 
+          df = df) * 1/smerodatna_chyba_odhadu
+h0 <- 180
+# spocitame vyberove rozdeleni za predpokladu H0
+pdf_h0 <- dt((x - h0) / smerodatna_chyba_odhadu, 
+          df = df) * 1/smerodatna_chyba_odhadu
+# vypocitame p hodnotu jako cdf za predpokladu h0
+p_hodnota <- pt((bodovy_odhad - h0) / smerodatna_chyba_odhadu, df = df)
+
+plot(x, pdf_vyber,
+     xlab = "Počet min na internetu (týdně)",
+     ylab = "PDF",
+     col = "#1f77b4",
+     main = paste0("Za platnosti H0: P(x<", round(bodovy_odhad, 2), ")=", round(p_hodnota, 2)),
+     type = "l", lwd = 2)
+lines(x, pdf_h0, col = "grey", lwd = 2)
+abline(v = bodovy_odhad, lty = 2)
+legend("topright",
+       legend = c("Výběr. rozděl. průměru", "Výběr. rozděl. H0", "Bodový odhad"),
+       col = c("#1f77b4", "grey", "black"),
+       lwd = c(2, 2, 1),
+       lty = c(1, 1, 2),
+       cex = 0.7)
+
+
+```
+
 
 ## Síla testu{#test-power}
 Proč nezvolit chybu I. druhu $\alpha$ vždy velmi malou, abychom si byli jisti, že pravděpodobnost našich dat při platnosti $H_0$ je velmi malá? K tomu, abychom pochopili, jakou $\alpha$ zvolit si musíme představit i chybu II. druhu $\beta$. Chyba I. druhu $\alpha$ nám určuje pravděpodobnost, že zamítneme $H_0$, pokud ve skutečnosti $H_0$ je platná. Někdy se taková chyba označuje jako false positive (FP). Situace, kdy správně zamítneme $H_0$ a ona ve skutečnosti neplatí, se někdy označuje jako tru positive (TP). Teď si představme situaci, v které $H_0$ nezamítneme, ale ona ve skutečnosti neplatí (tedy platí $H_1$). Takové situace se někdy říká false negative (FN). A právě tuto chybu vyjadřuje chyba II. druhu $\beta$. Síla testu se vypočítá jako $1-\beta$ a označuje se tedy TP. Síla testu nám říká pravděpodobnost, s kterým test správně určí $H_1$, pokud ve skutečnosti rozdíl existuje. Tabulka dole ukazuje všechny situace, které mohou nastat a jak se tyto situace vztahují na chyby I. a II. druhu^[TP = true positive, TN = true negative, FP = false positive, FN = false negative.].

@@ -44,9 +44,11 @@ fig:bootstrap-ukazka
 fig:clv-unif
 fig:clv-prumer-sd
 fig:clv-sim-t
+fig:tests-hist
 fig:tests-inter-left
 fig:tests-inter-right
 fig:tests-inter-both
+fig:test-h0-is
 fig:test-app
 fig:test-pois
 úvod
@@ -73,7 +75,7 @@ dist-params
 clv-procento
 clv-is
 bootstrap
-průměr
+clv-mean
 rozptyl
 cvičení-2
 statistické-testování
@@ -83,6 +85,7 @@ test-h0
 výpočet-testovací-statistiky
 interpretace-výsledku
 velikost-účinku
+souvislost-s-intervalem-spolehlivosti
 test-power
 velikost-výběru
 tests-many

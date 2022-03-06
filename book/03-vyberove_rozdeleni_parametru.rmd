@@ -323,7 +323,7 @@ i_s <- quantile(p_hat,
 `r (1-alpha)*100`% interval spolehlivosti pro $\frac{p_{5}}{p_{7}}$ je [`r round(i_s[1], 2)`, `r round(i_s[2], 2)`].
 
 
-## Průměr
+## Průměr{#clv-mean}
 Jak jsme uvedli v \@ref(clv-procento), CLV říká, že průměr nezávislých proměnných $\theta$ bude normálně rozložen se směrodatnou chybou rovnou $\frac{s}{\sqrt(n)}$^[Směrodatnou odchylku parametru nazýváme směrodatná chyba, aby nedocházelo k záměně se směrodatnou odchylkou výběru.], tedy $\theta \sim N(\theta, \frac{s}{\sqrt(n)})$. U procent $p$ jsme směrodatnou odchylku počítali jako $\sqrt{p(1-p)}$. U průměru počítáme směrodatnou odchylku jako $s = \sqrt{\frac{1}{n-1}\sum_{i=1}^n (x_i - \overline{x})^2}$, tedy jak jsme si ukazovali v \@ref(desc-vars). rozdělení výběrového průměru náhodné proměnné $x$, tedy bude $$\overline{x} \sim T(\overline{x}, \frac{s}{\sqrt{n}}, n-1)$$Platí přitom, že nezáleží na tom, zda náhodné proměnná pochází z normálního rozdělení. CLV se týká průměru této proměnné. Jako příklad si ukážeme hypotetickou situaci, v které budeme vědět populační rozdělení náhodné proměnné $x_i$, která pochází z uniformního rozdělení $x_i \sim U(-10, 10)$. Provedeme 5000 výběrů o velikosti $n=100$ z této populace, u každého spočítáme průměr a poté zobrazíme rozdělení těchto průměrů histogramem.
 
 ```{r clv-unif, fig.cap='Průměr 5000 výběrů o velikosti n=100 z x~U(-10, 10)'}
