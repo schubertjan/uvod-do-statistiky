@@ -11,7 +11,7 @@ směrodatná odchylka | $s$ | $\sigma$
 procento | $p$ | $\pi$
 
 
-## Procenta{#clv-procento}
+## Relativní četnost{#clv-procento}
 Vraťme se zpět ke Galtonově boxu. My jsme tento proces simulovali jako $x_i \sim B(12, 0.5)$. Řekněme, že nás zajímá zjistit jaké procento míčků skončí v prostředním (sedmém) sloupci $p$. Procento je nějaký parametr naší proměnné, který jsme zvolili, ale mohli bychom si zvolit například medián. Toto procento bude pokaždé když kuličky spustíme znova trochu jiné. Centrální limitní věta nám pomůže kvantifikovat, jak jiné toto procento bude.
 ```{r}
 set.seed(42)

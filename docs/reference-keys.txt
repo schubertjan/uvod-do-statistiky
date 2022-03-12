@@ -56,7 +56,7 @@ příklad-popisné-statistiky
 příklad-inferenční-statistiky
 simulace
 o-modelech
-popisná-statistika
+desc-stats
 central-tend
 desc-vars
 kvantily

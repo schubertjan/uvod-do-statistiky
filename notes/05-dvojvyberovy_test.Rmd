@@ -1,0 +1,91 @@
+# Porovnání dvou průměrů a relativních četností
+
+## Dva průměry
+
+Při zkoušce máme připravené dvě verze testu. Studentům náhodně přiřadíme jednu z verzí. Tabulka dole ukazuje popisné statistiky našich dat.
+```{r test-dats}
+dats <- read.csv("../dats/test.csv", stringsAsFactors = TRUE)
+summary(dats)
+```
+
+Testu se celkem zúčastnilo `r nrow(dats)` studentů. `r table(dats$verze)[1]` obrželo verzi 1 a `r table(dats$verze)[2]` obdrželo verzi 2. Zajímá nás, zda byly obě verze testu stejně obtížné. Obtížnost testů budeme měřit průměrným počtem bodů pro každou verzi testu. Počet bodů je náhodná proměnná. Závisí na studentech, kterým byla verze náhodně přiřazena. Studenti mají různou úroveň znalostí, ale průměrný počet bodů bude ovlivněn i tím, že např. některý student ráno zaspal a byl ve stresu nebo tím, že se někdo špatně vyspal. Protože přiřazujeme verze testu náhodně jsou i tyto efekty náhodně rozptýleny do obou skupin. Pokud jsou obě verze stejně obtížné, očekávali bychom, že studenti v obou skupinách budou mít stejný průměrný počet bodů. Jak víme z \@ref(dist-params), rozložení průměru náhodné proměnné $x_i$ lze popsat pomocí $T(\overline{x}, \frac{s}{\sqrt{n}}, n-1)$. V našem případě máme  $T(\overline{x_1}, \frac{s_1}{\sqrt{n_1}}, n_1-1)$ a $T(\overline{x_2}, \frac{s_2}{\sqrt{n_2}}, n_2-1)$. Pojďme se tedy podívat na výběrové rozdělení obou průměrů. Abychom nemuseli výběrové statistiky počítat samostatně pro každou skupinu, použijeme k výpčtu funkce `sapply`, která je zkrácenou formou `for` loop^[Používali jsme ji už v \@ref(desc-stats).] a funkci `aggregate`, která vypočítá zadanou funkci pro zvolené skupiny.
+
+
+```{r test2-prumery, fig.cap='Výběrové rozdělení průměrů pro každou skupinu'}
+# vyvorime si funkci na vypocet smerodatne chyby odhadu
+se <- function(x) {
+  n <- length(x)
+  sd(x) / sqrt(n)
+}
+
+# pro kazdou funkci vypocitame aggregate
+vyber_stats <- sapply(c(length, mean, sd, se), function(f) aggregate(body ~ verze, FUN = f, data = dats)[, 2])
+# pojmenujeme sloupce
+colnames(vyber_stats) <- c("n", "mu", "sd", "se")
+
+# zvolime x pro ktere budeme pocitat PDF
+x <- seq(from = 20, to = 65, length.out = 1000)
+# vypocitame PDF vyberoveho rozdeleni prumeru 1 podle zobecneneho t-rozdeleni
+pdf_prumer_1 <- dt((x-vyber_stats[1, "mu"]) / 
+                     vyber_stats[1, "se"], 
+                   df = vyber_stats[1, "n"]-1) * 1/vyber_stats[1, "se"]
+# vypocitame PDF vyberoveho rozdeleni prumeru 2 podle zobecneneho t-rozdeleni
+pdf_prumer_2 <- dt((x-vyber_stats[2, "mu"]) / 
+                     vyber_stats[2, "se"], 
+                   df = vyber_stats[2, "n"]-1) * 1/vyber_stats[2, "se"]
+
+# vytvorime barvy
+cols <- rev(RColorBrewer::brewer.pal(3, name = "Blues"))
+
+# zobrazime PDF
+plot(x, pdf_prumer_1, 
+     type = "l", lwd = 2,
+     xlab = "Body",
+     ylab = "PDF",
+     col = cols[1],
+     main = "")
+lines(x, pdf_prumer_2, 
+      type = "l", lwd = 2, col = cols[2])
+# pridame legendu
+legend("topright",
+       legend = c(paste0("Verze 1 ~ T(", round(vyber_stats[1, "mu"], 2), ", ", 
+                         round(vyber_stats[1, "se"], 2), ", ",vyber_stats[1, "n"]-1,")"),
+                  paste0("Verze 2 ~ T(", round(vyber_stats[2, "mu"], 2), ", ", 
+                         round(vyber_stats[2, "se"], 2), ", ", vyber_stats[2, "n"]-1, ")")),
+       col = cols[1:2],
+       lwd = c(2, 2),
+       cex = 0.7)
+```
+
+Graf \@ref(fig:test2-prumery) zobrazuje výběrové rozdělení průměrů obou skupin. Průměrný počet bodů první verze je `r round(vyber_stats[1, "mu"], 2)`. Průměrný počet bodů druhé verze je `r round(vyber_stats[2, "mu"], 2)`, tedy rozdíl `r round(vyber_stats[1, "mu"], 2) - round(vyber_stats[2, "mu"], 2)`. Jak je ale zřejmé z grafu \@ref(fig:test2-prumery) ohledně obou výběrových průměrů panuje hodně nejistoty, což bychom očekávali vzhledem k tomu, že máme malý počet pozorování v každé skupině a vzhledem k tomu, že existuje velké množství faktorů, které počet bodů ovlivňují. My jsme díky náhodnému přiřazení verzí tyto faktory rozdělili do obou skupin a to se projevuje na velké směrodatné odchylce počtu bodů v obou skupinách. 
+
+Abychom zjistili, zda jsou rozdíly v průměrech skutečné a ne pouze díky náhodě, musíme zjistit, zda je jejich populační rozdíl rovný nule^[V tomto případě je populační průěrný počet bodů teoretická hodnota, které bychom dosáhli, kdybychom verzi test dali nekonečně (nebo hodně velkému) počtu studentů.], tedy $\mu_1 = \mu_2$ nebo $\mu_1 - \mu_2 = 0$. Protože populační průměry obou verzí neznáme počítáme s výběrovým průměrným počtem bodů, tedy $N(\overline{x_1}, \frac{s_1}{\sqrt{n_1}}) - N(\overline{x_2}, \frac{s_2}{\sqrt{n_2}})$. Z kapitoly \@ref(norm-dist) víme, že když odečítáme dvě normálně rozložené proměnné, pak bude nové proměnná mít normální rozložení s parametry $N(\overline{x_1} - \overline{x_2}, \sqrt{(\frac{s_1}{\sqrt{n_1}})^2 + (\frac{s_2}{\sqrt{n_2}})^2})$. Pokud je náhodná proměnná rozdělena podle t-rozdělení (jako v našem případě), pak bude počet stupňů volnosti $\upsilon = n_1 + n_2 - 2$.
+```{r test-rozdil-dist, fig.cap='Výběrové rozdělení rozdílů v průměre verze 1 a verze 2'}
+prumer_d <- vyber_stats[1, "mu"] - vyber_stats[2, "mu"]
+se_d <- sqrt(vyber_stats[1, "se"]^2 + vyber_stats[2, "se"]^2)
+df <- vyber_stats[1, "n"] + vyber_stats[2, "n"] - 2
+
+x <- seq(-32, 15, length.out = 1000)
+pdf_d <- dt((x-prumer_d)/se_d, df = df) * 1/se_d
+p_0 <- pt((0-prumer_d)/se_d, df = df, lower.tail = FALSE)
+
+plot(x, pdf_d, 
+     type = "l", lwd = 2,
+     xlab = "Rozdíl v průměru bodů",
+     ylab = "PDF",
+     col = "#1f77b4",
+     main = paste0("P(x > 0)=", round(p_0, 2)))
+
+legend("topright",
+       legend = paste0("T(", round(prumer_d, 2), ", ", 
+                         round(se_d, 2), ", ",df,")"),
+       col = "#1f77b4",
+       lwd = 2,
+       cex = 0.7)
+```
+
+ Graf \@ref(fig:test-rozdil-dist) ukazuje výběrové rozdělení rozdílu. Protože při odečetení dvou normálně rozdělených proměnných se jejich směrodatná odchylka sčítá, promítá se původní nejistota výběrových průměrů i do výběrověho rozdělení rozdílu obou průměrů. Směrodatná chyba odhadu je `r round(se_d, 2)`. Pravděpodobnost, že náš výběrový rozdíl nabyde hodnot větších než 0 je $P(x_i > 0)=$ `r round(p_0, 2)`. Přestože je tato pravděpodobnost malá, rozhodně není zanedbatelná. Je možné, že verze 1 byla těžší, ale na základě našich dat je těžké určit, zda tomu opravdu tak je, nebo zda je to pouze náhoda.  
+
+
+
+

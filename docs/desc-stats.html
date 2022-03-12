@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Kapitola 2 Popisná statistika | Úvod do statistiky</title>
+  <meta name="description" content="Tato kniha obsahuje materiál ke cvičení kurzu Úvod do statistiky (JSB535)." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Kapitola 2 Popisná statistika | Úvod do statistiky" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Tato kniha obsahuje materiál ke cvičení kurzu Úvod do statistiky (JSB535)." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Kapitola 2 Popisná statistika | Úvod do statistiky" />
+  
+  <meta name="twitter:description" content="Tato kniha obsahuje materiál ke cvičení kurzu Úvod do statistiky (JSB535)." />
+  
+
+<meta name="author" content="Jan Schubert" />
+
+
+<meta name="date" content="2022-03-12" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="prob-dist.html"/>
+<script src="libs/header-attrs-2.12/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Úvod do statistiky</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Úvod<span></span></a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#příklad-popisné-statistiky"><i class="fa fa-check"></i><b>1.1</b> Příklad popisné statistiky<span></span></a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#příklad-inferenční-statistiky"><i class="fa fa-check"></i><b>1.2</b> Příklad inferenční statistiky<span></span></a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#simulace"><i class="fa fa-check"></i><b>1.3</b> Simulace<span></span></a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#o-modelech"><i class="fa fa-check"></i><b>1.4</b> O modelech<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="desc-stats.html"><a href="desc-stats.html"><i class="fa fa-check"></i><b>2</b> Popisná statistika<span></span></a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="desc-stats.html"><a href="desc-stats.html#central-tend"><i class="fa fa-check"></i><b>2.1</b> Míry centrální tendence<span></span></a></li>
+<li class="chapter" data-level="2.2" data-path="desc-stats.html"><a href="desc-stats.html#desc-vars"><i class="fa fa-check"></i><b>2.2</b> Míry rozptýlenosti<span></span></a></li>
+<li class="chapter" data-level="2.3" data-path="desc-stats.html"><a href="desc-stats.html#kvantily"><i class="fa fa-check"></i><b>2.3</b> Míry polohy<span></span></a></li>
+<li class="chapter" data-level="2.4" data-path="desc-stats.html"><a href="desc-stats.html#cvičení"><i class="fa fa-check"></i><b>2.4</b> Cvičení<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="prob-dist.html"><a href="prob-dist.html"><i class="fa fa-check"></i><b>3</b> Pravděpodobnostní rozdělení<span></span></a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="prob-dist.html"><a href="prob-dist.html#stats-lang"><i class="fa fa-check"></i><b>3.1</b> Pravděpodobnostní rozdělení jako jazyk statistiky<span></span></a></li>
+<li class="chapter" data-level="3.2" data-path="prob-dist.html"><a href="prob-dist.html#binom-dist"><i class="fa fa-check"></i><b>3.2</b> Binomické<span></span></a></li>
+<li class="chapter" data-level="3.3" data-path="prob-dist.html"><a href="prob-dist.html#norm-dist"><i class="fa fa-check"></i><b>3.3</b> Normální<span></span></a></li>
+<li class="chapter" data-level="3.4" data-path="prob-dist.html"><a href="prob-dist.html#t-dist"><i class="fa fa-check"></i><b>3.4</b> T<span></span></a></li>
+<li class="chapter" data-level="3.5" data-path="prob-dist.html"><a href="prob-dist.html#unif-dist"><i class="fa fa-check"></i><b>3.5</b> Uniformní<span></span></a></li>
+<li class="chapter" data-level="3.6" data-path="prob-dist.html"><a href="prob-dist.html#pois-dist"><i class="fa fa-check"></i><b>3.6</b> Poisson<span></span></a></li>
+<li class="chapter" data-level="3.7" data-path="prob-dist.html"><a href="prob-dist.html#chi-kvadrát"><i class="fa fa-check"></i><b>3.7</b> Chi-kvadrát<span></span></a></li>
+<li class="chapter" data-level="3.8" data-path="prob-dist.html"><a href="prob-dist.html#jak-vybrat-správný-model-pro-data"><i class="fa fa-check"></i><b>3.8</b> Jak vybrat správný model pro data<span></span></a></li>
+<li class="chapter" data-level="3.9" data-path="prob-dist.html"><a href="prob-dist.html#cvičení-1"><i class="fa fa-check"></i><b>3.9</b> Cvičení<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="dist-params.html"><a href="dist-params.html"><i class="fa fa-check"></i><b>4</b> Výběrové rozdělení parametrů<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="dist-params.html"><a href="dist-params.html#clv-procento"><i class="fa fa-check"></i><b>4.1</b> Relativní četnost<span></span></a></li>
+<li class="chapter" data-level="4.2" data-path="dist-params.html"><a href="dist-params.html#clv-is"><i class="fa fa-check"></i><b>4.2</b> Interval spolehlivosti<span></span></a></li>
+<li class="chapter" data-level="4.3" data-path="dist-params.html"><a href="dist-params.html#bootstrap"><i class="fa fa-check"></i><b>4.3</b> Bootstrap<span></span></a></li>
+<li class="chapter" data-level="4.4" data-path="dist-params.html"><a href="dist-params.html#clv-mean"><i class="fa fa-check"></i><b>4.4</b> Průměr<span></span></a></li>
+<li class="chapter" data-level="4.5" data-path="dist-params.html"><a href="dist-params.html#rozptyl"><i class="fa fa-check"></i><b>4.5</b> Rozptyl<span></span></a></li>
+<li class="chapter" data-level="4.6" data-path="dist-params.html"><a href="dist-params.html#cvičení-2"><i class="fa fa-check"></i><b>4.6</b> Cvičení<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="statistické-testování.html"><a href="statistické-testování.html"><i class="fa fa-check"></i><b>5</b> Statistické testování<span></span></a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="statistické-testování.html"><a href="statistické-testování.html#postup-statistického-testování"><i class="fa fa-check"></i><b>5.1</b> Postup statistického testování<span></span></a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="statistické-testování.html"><a href="statistické-testování.html#zvolení-testu"><i class="fa fa-check"></i><b>5.1.1</b> Zvolení testu<span></span></a></li>
+<li class="chapter" data-level="5.1.2" data-path="statistické-testování.html"><a href="statistické-testování.html#test-h0"><i class="fa fa-check"></i><b>5.1.2</b> Formulace nulové a alternativní hypotézy<span></span></a></li>
+<li class="chapter" data-level="5.1.3" data-path="statistické-testování.html"><a href="statistické-testování.html#výpočet-testovací-statistiky"><i class="fa fa-check"></i><b>5.1.3</b> Výpočet testovací statistiky<span></span></a></li>
+<li class="chapter" data-level="5.1.4" data-path="statistické-testování.html"><a href="statistické-testování.html#interpretace-výsledku"><i class="fa fa-check"></i><b>5.1.4</b> Interpretace výsledku<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="statistické-testování.html"><a href="statistické-testování.html#velikost-účinku"><i class="fa fa-check"></i><b>5.2</b> Velikost účinku<span></span></a></li>
+<li class="chapter" data-level="5.3" data-path="statistické-testování.html"><a href="statistické-testování.html#souvislost-s-intervalem-spolehlivosti"><i class="fa fa-check"></i><b>5.3</b> Souvislost s intervalem spolehlivosti<span></span></a></li>
+<li class="chapter" data-level="5.4" data-path="statistické-testování.html"><a href="statistické-testování.html#test-power"><i class="fa fa-check"></i><b>5.4</b> Síla testu<span></span></a></li>
+<li class="chapter" data-level="5.5" data-path="statistické-testování.html"><a href="statistické-testování.html#velikost-výběru"><i class="fa fa-check"></i><b>5.5</b> Velikost výběru<span></span></a></li>
+<li class="chapter" data-level="5.6" data-path="statistické-testování.html"><a href="statistické-testování.html#tests-many"><i class="fa fa-check"></i><b>5.6</b> Mnoho testů<span></span></a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a>
+<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />Tato kniha podléhá <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
+</li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Úvod do statistiky</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="desc-stats" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Kapitola 2</span> Popisná statistika<a href="desc-stats.html#desc-stats" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Jak jsme zmínili v úvodu popisná statistika je jeden z hlavních cílů statistiky. Úkolem popisné statistiky je shrnout informace o našem výběru do pár čísel, které nám pomohou pochopit jaké má náš výběr vlastnosti. Hlavními vlastnostmi, které nás zajímají je:</p>
+<ol style="list-style-type: decimal">
+<li><p>Jaká je typická hodnota měřené proměnné (míra centrální tendence)</p></li>
+<li><p>Na kolik se liší hodnoty jendotlivých pozorování (míra rozptýlenosti)</p></li>
+</ol>
+<p>Abychom si popisnou statistiku představili, budeme používat Novoroční/Vánoční projev prezidenta republiky.</p>
+<p>Nejdříve si data načteme. Text můžeme načíst různými způsoby, my použijeme funkci <code>readLines</code>, která vrátí zpět vektor.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="desc-stats.html#cb9-1" aria-hidden="true" tabindex="-1"></a>prezident <span class="ot">&lt;-</span> <span class="fu">readLines</span>(<span class="st">&quot;https://raw.githubusercontent.com/schubertjan/uvod-do-statistiky/master/dats/prezident.txt&quot;</span>, <span class="at">encoding =</span> <span class="st">&quot;UTF-8&quot;</span>)</span></code></pre></div>
+<p>Nejdříve text očistíme o mezery a čárky, přeneseme vše do malých písmen, rozdělíme na věty a potom na slova. Protože tuto proceduru budeme dělat vícekrát, uděláme si na to funkci. Výstupem této funkce bude list, jehož každý element reprezentuje jednu větu a v rámci této věty jaká obsahuje slova.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="desc-stats.html#cb10-1" aria-hidden="true" tabindex="-1"></a>vycistit_text <span class="ot">&lt;-</span> <span class="cf">function</span>(.text) {</span>
+<span id="cb10-2"><a href="desc-stats.html#cb10-2" aria-hidden="true" tabindex="-1"></a>     <span class="co"># vse malym pismem</span></span>
+<span id="cb10-3"><a href="desc-stats.html#cb10-3" aria-hidden="true" tabindex="-1"></a>     .text <span class="ot">&lt;-</span> <span class="fu">tolower</span>(.text)</span>
+<span id="cb10-4"><a href="desc-stats.html#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="desc-stats.html#cb10-5" aria-hidden="true" tabindex="-1"></a>     <span class="co"># odstranime prazdne radky</span></span>
+<span id="cb10-6"><a href="desc-stats.html#cb10-6" aria-hidden="true" tabindex="-1"></a>     .text <span class="ot">&lt;-</span> .text[.text <span class="sc">!=</span> <span class="st">&quot;&quot;</span>]</span>
+<span id="cb10-7"><a href="desc-stats.html#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="desc-stats.html#cb10-8" aria-hidden="true" tabindex="-1"></a>     <span class="co"># odstranime carky</span></span>
+<span id="cb10-9"><a href="desc-stats.html#cb10-9" aria-hidden="true" tabindex="-1"></a>     .text <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="at">pattern =</span> <span class="st">&quot;,&quot;</span>, <span class="at">replacement =</span> <span class="st">&quot;&quot;</span>, <span class="at">x =</span> .text)</span>
+<span id="cb10-10"><a href="desc-stats.html#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="desc-stats.html#cb10-11" aria-hidden="true" tabindex="-1"></a>     <span class="co"># rozdelit na vety, pokud najdeme &quot;.&quot; nebo &quot;!&quot; nebo &quot;?&quot;</span></span>
+<span id="cb10-12"><a href="desc-stats.html#cb10-12" aria-hidden="true" tabindex="-1"></a>     .text <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">strsplit</span>(.text, <span class="at">split =</span> <span class="st">&quot;</span><span class="sc">\\</span><span class="st">.|</span><span class="sc">\\</span><span class="st">!|</span><span class="sc">\\</span><span class="st">?&quot;</span>))</span>
+<span id="cb10-13"><a href="desc-stats.html#cb10-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-14"><a href="desc-stats.html#cb10-14" aria-hidden="true" tabindex="-1"></a>     <span class="co"># vymazeme mezery na zacatku a konci</span></span>
+<span id="cb10-15"><a href="desc-stats.html#cb10-15" aria-hidden="true" tabindex="-1"></a>     .text <span class="ot">&lt;-</span> <span class="fu">trimws</span>(.text, <span class="at">which =</span> <span class="fu">c</span>(<span class="st">&quot;left&quot;</span>))</span>
+<span id="cb10-16"><a href="desc-stats.html#cb10-16" aria-hidden="true" tabindex="-1"></a>     .text <span class="ot">&lt;-</span> <span class="fu">trimws</span>(.text, <span class="at">which =</span> <span class="fu">c</span>(<span class="st">&quot;right&quot;</span>))</span>
+<span id="cb10-17"><a href="desc-stats.html#cb10-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-18"><a href="desc-stats.html#cb10-18" aria-hidden="true" tabindex="-1"></a>     <span class="co"># odstranime prazdne prvky, ktere vznikly protoze po tecce neni zadny text</span></span>
+<span id="cb10-19"><a href="desc-stats.html#cb10-19" aria-hidden="true" tabindex="-1"></a>     .text <span class="ot">&lt;-</span> .text[.text <span class="sc">!=</span> <span class="st">&quot;&quot;</span>]</span>
+<span id="cb10-20"><a href="desc-stats.html#cb10-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-21"><a href="desc-stats.html#cb10-21" aria-hidden="true" tabindex="-1"></a>     <span class="co"># rozdelime na slova</span></span>
+<span id="cb10-22"><a href="desc-stats.html#cb10-22" aria-hidden="true" tabindex="-1"></a>     slova <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb10-23"><a href="desc-stats.html#cb10-23" aria-hidden="true" tabindex="-1"></a>     <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(.text)) {</span>
+<span id="cb10-24"><a href="desc-stats.html#cb10-24" aria-hidden="true" tabindex="-1"></a>          slova[[i]] <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">strsplit</span>(.text[i], <span class="at">split =</span> <span class="st">&quot; &quot;</span>))</span>
+<span id="cb10-25"><a href="desc-stats.html#cb10-25" aria-hidden="true" tabindex="-1"></a>     }</span>
+<span id="cb10-26"><a href="desc-stats.html#cb10-26" aria-hidden="true" tabindex="-1"></a>     <span class="fu">return</span>(slova)</span>
+<span id="cb10-27"><a href="desc-stats.html#cb10-27" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="desc-stats.html#cb11-1" aria-hidden="true" tabindex="-1"></a>prezident_clean <span class="ot">&lt;-</span> <span class="fu">vycistit_text</span>(prezident)</span></code></pre></div>
+<div id="central-tend" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Míry centrální tendence<a href="desc-stats.html#central-tend" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Míry centrální tendence se snaží popsat nějakou typickou hodnotu proměnné. My si představíme modus, medián, průměr, absolutní a relativní četnost. Jaké míry centrální tendence můžeme na proměnné vypočítat se liší podle typu proměnné. Nominální proměnná je taková proměnná, u které nemůžeme hodnoty seřadit od nejmenšího po největší a nemůžeme ani určit o kolik je jedna hodnota větší než jiná. Tou nejzákladnější popisnou statistikou je četnost nějakého jevu a z ní odvozená míra centrální tendence <strong>modus</strong>. Modus proměnné <span class="math inline">\(x_i\)</span>, který označujeme <span class="math inline">\(\hat{x}\)</span>, je tedy nejčastější hodnota proměnné. Když se zamyslíte, tak u proměnné u které nemůžeme hodnoty seřadit ani jinak matematicky porovnat je nejčastější hodnota nejvíce vypovídající o typické hodnotě proměnné. Pojďme si jako příklad vypočítat nejčastější slovo z projevu.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="desc-stats.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># nejprve prevedeme list na vekor</span></span>
+<span id="cb12-2"><a href="desc-stats.html#cb12-2" aria-hidden="true" tabindex="-1"></a>slova <span class="ot">&lt;-</span> <span class="fu">unlist</span>(prezident_clean)</span>
+<span id="cb12-3"><a href="desc-stats.html#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># vypocitame cetnost hodnot</span></span>
+<span id="cb12-4"><a href="desc-stats.html#cb12-4" aria-hidden="true" tabindex="-1"></a>tabulka_slov <span class="ot">&lt;-</span> <span class="fu">table</span>(slova)</span></code></pre></div>
+<p>Naše tabulka četností je velká, obsahuje 651 hodnot. To mimo jiné znamená, že v projevu bylo použito 651 unikátních slov. Abychom získali nejčastější hodnotu musíme si tabulku seřadit od největší četnost po nejmenší a zobrazit první hodnotu. Jméno nejčastější hodnoty nám prozradí, modus této proměnné.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="desc-stats.html#cb13-1" aria-hidden="true" tabindex="-1"></a>tabulka_slov_serazena <span class="ot">&lt;-</span> <span class="fu">sort</span>(tabulka_slov, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb13-2"><a href="desc-stats.html#cb13-2" aria-hidden="true" tabindex="-1"></a>modus <span class="ot">&lt;-</span> <span class="fu">names</span>(tabulka_slov_serazena)[<span class="dv">1</span>]</span></code></pre></div>
+<p>Modus této proměnné je hodnota “a”, která se vyskytla 45x. To je v textové analýze typické a tato slova se označují jako “stopwords” a jsou zpravidla a textové analýzy vyřazena.</p>
+<p>Další mírou centrální tendence je <strong>medián</strong>. Medián nám značí prostřední hodnotu nějaké proměnné. Můžeme si jeho výpočet představit tak, že hodnoty proměnné seřadíme od nejmenší po největší a vyberete hodnotu, která bude přesně uprostřed. Tato hodnota je medián. Matematicky se medián u proměnné <span class="math inline">\(x_i\)</span> vypočítá jako <span class="math display">\[\tilde{x} = x_{(n + 1)/2}\]</span> Pokud má naše proměnná sudý počet čísel, vypočítá se medián zpravidla jako průměr dvou prostředních hodnot, tedy <span class="math display">\[\tilde{x} = \frac{x_{n/2} + x_{n/2+1}}{2}\]</span>Řekněme, že bychom chtěli vědět medián počtu slov ve větě. Nejdříve si musíme pro každou větu (prvek listu <code>prezident_clean</code>) vypočítat počet slov.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="desc-stats.html#cb14-1" aria-hidden="true" tabindex="-1"></a>pocet_slov <span class="ot">&lt;-</span> <span class="fu">sapply</span>(prezident_clean, length)</span></code></pre></div>
+<p>Velmi dobrým zvykem je si rozdělení hodnot proměnné zobrazit graficky. Grafické zobrzení nám vždy poví nejenom o typické hodnotě proměnné, ale i o tom, jak se hodnoty liší (viz Míry rozptýlenosti <a href="desc-stats.html#desc-vars">2.2</a>). Pokud máme číselnou proměnnou je nejčastějším způsobem, jak zobrazit hodnoty proměnné histogram. Histogram je:</p>
+<blockquote>
+<p>…grafické znázornění distribuce dat pomocí sloupcového grafu se sloupci stejné šířky, vyjadřující šířku intervalů
+(tříd), přičemž výška sloupců vyjadřuje četnost sledované veličiny v daném intervalu.
+Zdroj: <a href="https://cs.wikipedia.org/wiki/Histogram">Wikipedia</a></p>
+</blockquote>
+<p>Můžeme ho vytvořit pomocí funkce <code>hist</code>. Na grafu <a href="desc-stats.html#fig:slova-hist">2.1</a> vidíme, že nejčastěji věta obsahuje mezi 5 až 25 slovy, ale některé věty obsahují i více než 35 slov.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="desc-stats.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(pocet_slov,</span>
+<span id="cb15-2"><a href="desc-stats.html#cb15-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>,</span>
+<span id="cb15-3"><a href="desc-stats.html#cb15-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Počet slov ve větě&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Četnost&quot;</span>,</span>
+<span id="cb15-4"><a href="desc-stats.html#cb15-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Histogram počtu slov ve větě&quot;</span></span>
+<span id="cb15-5"><a href="desc-stats.html#cb15-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:slova-hist"></span>
+<img src="book_files/figure-html/slova-hist-1.png" alt="Příklad histogramu na číselné (kardinální) proměnné" width="672" />
+<p class="caption">
+Graf 2.1: Příklad histogramu na číselné (kardinální) proměnné
+</p>
+</div>
+<p>Funkce <code>hist</code> automaticky zvolí vhodné intervaly pro sloupce v grafu. Pokud bychom je chtěli změnit, můžeme tak udělat pomocí argumentu <code>breaks</code>.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="desc-stats.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(pocet_slov,</span>
+<span id="cb16-2"><a href="desc-stats.html#cb16-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>,</span>
+<span id="cb16-3"><a href="desc-stats.html#cb16-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Počet slov ve větě&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Četnost&quot;</span>,</span>
+<span id="cb16-4"><a href="desc-stats.html#cb16-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Histogram počtu slov ve větě&quot;</span>,</span>
+<span id="cb16-5"><a href="desc-stats.html#cb16-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">breaks =</span> <span class="dv">15</span></span>
+<span id="cb16-6"><a href="desc-stats.html#cb16-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-14"></span>
+<img src="book_files/figure-html/unnamed-chunk-14-1.png" alt="Histogram s 15 intervaly" width="672" />
+<p class="caption">
+Graf 2.2: Histogram s 15 intervaly
+</p>
+</div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="desc-stats.html#cb17-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(pocet_slov)</span>
+<span id="cb17-2"><a href="desc-stats.html#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># protoze mame sudy pocet slov vypocitame prumer dvou prostrednich hodnot</span></span>
+<span id="cb17-3"><a href="desc-stats.html#cb17-3" aria-hidden="true" tabindex="-1"></a>i1 <span class="ot">&lt;-</span> n <span class="sc">/</span> <span class="dv">2</span></span>
+<span id="cb17-4"><a href="desc-stats.html#cb17-4" aria-hidden="true" tabindex="-1"></a>i2 <span class="ot">&lt;-</span> i1 <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb17-5"><a href="desc-stats.html#cb17-5" aria-hidden="true" tabindex="-1"></a>.median <span class="ot">&lt;-</span> <span class="fu">mean</span>(pocet_slov[<span class="fu">c</span>(i1, i2)])</span>
+<span id="cb17-6"><a href="desc-stats.html#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co"># nebo pomoci funkce median(pocet_slov)</span></span></code></pre></div>
+<p>Medián můžeme také vypočítat pomocí funkce <code>median</code>. Mediánový počet slov ve větě je 15.5.</p>
+<p>Pojďme si výpočet zobrazit graficky a seřadit si počet slov od nejmenšího po největší a zobrazit si medián na grafu.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="desc-stats.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span>n,</span>
+<span id="cb18-2"><a href="desc-stats.html#cb18-2" aria-hidden="true" tabindex="-1"></a>     <span class="fu">sort</span>(pocet_slov),</span>
+<span id="cb18-3"><a href="desc-stats.html#cb18-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>,</span>
+<span id="cb18-4"><a href="desc-stats.html#cb18-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Počet slov ve větě&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Pořadí&quot;</span>, </span>
+<span id="cb18-5"><a href="desc-stats.html#cb18-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Počet slov ve větě seřazený podle velikosti&quot;</span>,</span>
+<span id="cb18-6"><a href="desc-stats.html#cb18-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">&quot;h&quot;</span>,</span>
+<span id="cb18-7"><a href="desc-stats.html#cb18-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="dv">5</span></span>
+<span id="cb18-8"><a href="desc-stats.html#cb18-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-9"><a href="desc-stats.html#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co"># pridame prostredni hodnoty</span></span>
+<span id="cb18-10"><a href="desc-stats.html#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(i1, pocet_slov[i1], <span class="at">col =</span> <span class="st">&quot;grey&quot;</span>, <span class="at">type =</span> <span class="st">&quot;h&quot;</span>, <span class="at">lwd =</span> <span class="dv">5</span>)</span>
+<span id="cb18-11"><a href="desc-stats.html#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(i2, pocet_slov[i2], <span class="at">col =</span> <span class="st">&quot;grey&quot;</span>, <span class="at">type =</span> <span class="st">&quot;h&quot;</span>, <span class="at">lwd =</span> <span class="dv">5</span>)</span>
+<span id="cb18-12"><a href="desc-stats.html#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-13"><a href="desc-stats.html#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="co"># pridame median</span></span>
+<span id="cb18-14"><a href="desc-stats.html#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">mean</span>(<span class="fu">c</span>(i1, i2)), .median, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">type =</span> <span class="st">&quot;h&quot;</span>, <span class="at">lwd =</span> <span class="dv">1</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb18-15"><a href="desc-stats.html#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="fu">mean</span>(<span class="fu">c</span>(i1, i2))), <span class="fu">c</span>(.median, .median), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">lwd =</span> <span class="dv">1</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb18-16"><a href="desc-stats.html#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>,</span>
+<span id="cb18-17"><a href="desc-stats.html#cb18-17" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;grey&quot;</span>, <span class="st">&quot;red&quot;</span>),</span>
+<span id="cb18-18"><a href="desc-stats.html#cb18-18" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>),</span>
+<span id="cb18-19"><a href="desc-stats.html#cb18-19" aria-hidden="true" tabindex="-1"></a>     <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;Prostřední hodnoty&quot;</span>, <span class="st">&quot;Median&quot;</span>),</span>
+<span id="cb18-20"><a href="desc-stats.html#cb18-20" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex =</span> <span class="fl">0.7</span></span>
+<span id="cb18-21"><a href="desc-stats.html#cb18-21" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-16"></span>
+<img src="book_files/figure-html/unnamed-chunk-16-1.png" alt="Seřazení proměnné pro ilustraci výpočtu mediánu" width="672" />
+<p class="caption">
+Graf 2.3: Seřazení proměnné pro ilustraci výpočtu mediánu
+</p>
+</div>
+<p>Asi nejčastější mírou centrální tendence, která se používá je <strong>průměr</strong>. Průměr je možné vypočítat pouze pro kardinální proměnné. Technicky kardinální proměnné rozlišujeme na diskrétní a spojitou. Diskrétní nabývá celých čísel (1,2,3,4 etc., například počet dětí), tedy <span class="math inline">\(\in Z\)</span>. Spojitá proměnná pak teoreticky nebývá nekonečně mnoho hodnot, prakticky je ale omezena tím, jak přesně dokážeme danou metriku měřit. Platí ale, že spojité proměnné nabývají racionálních čísel, tedy <span class="math inline">\(\in R\)</span>. Průměr proměnné <span class="math inline">\(x_i\)</span> vypočítáme jako <span class="math display">\[\overline{x} = \frac{1}{n}\sum_{i=1}^{n} x_i\]</span></p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="desc-stats.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prumer</span></span>
+<span id="cb19-2"><a href="desc-stats.html#cb19-2" aria-hidden="true" tabindex="-1"></a>x_prumer <span class="ot">&lt;-</span> <span class="fu">sum</span>(pocet_slov) <span class="sc">/</span> <span class="fu">length</span>(pocet_slov)</span>
+<span id="cb19-3"><a href="desc-stats.html#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># nebo pomci funkce mean(pocet_slov)</span></span>
+<span id="cb19-4"><a href="desc-stats.html#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="desc-stats.html#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co"># vazeny prumer</span></span>
+<span id="cb19-6"><a href="desc-stats.html#cb19-6" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">length</span>(pocet_slov)<span class="sc">:</span><span class="dv">1</span></span>
+<span id="cb19-7"><a href="desc-stats.html#cb19-7" aria-hidden="true" tabindex="-1"></a>x_prumer_w <span class="ot">&lt;-</span> <span class="fu">sum</span>(w <span class="sc">*</span> pocet_slov) <span class="sc">/</span> <span class="fu">sum</span>(w)</span>
+<span id="cb19-8"><a href="desc-stats.html#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co"># nebo pomci funkce weighted.mean(pocet_slov, w)</span></span></code></pre></div>
+<p>Průměrný počet slov ve větě je 16.56. Někdy nechceme všem pozorováním při výpočtu průměru dát stejnou váhu. V takovém případě vypočítáme <strong>vážený průměr</strong>. Jeho vzorec je <span class="math display">\[\overline{x} = \frac{\sum_{i=1}^{n} w_ix_i}{\sum_{i=1}^{n}w_i}\]</span> Řekněme například, že bychom průměrný počet slov chtěli vážit pozicí v textu a dát slovům v první větě větší váhu, než slovům, které se objevily později v textu. Takovýto vážený průměr je 17.</p>
+<p>Důležitý rozdíl mezi mediánem a průměr nastává pokud nejsou data symetricky rozdělena. Symetricky rozdělená data jsou taková, která mají podobný počet hodnot nalevo a napravo od průměru. V našem případě rozdělení počtu slov ve větě je medián menší než průměr. To je typické pro rozdělení, která mají delší konec napravo od průměru. Průměr je totiž náchylný na extrémní pozorování. Medián je založený na pořadí, takže ho extrémní pozorování tolik neovlivní. Většina proměnných, která je ohraničená zleva (nemůže mít menší hodnotu než nějaká hranice) má asymetrické rozdělení s více hodnotami napravo od průměru, např. příjem. V takových případech může být medián lepší mírou centrální tendence, ale výběr bude vždy záležet na otázce, kterou daty chceme zodpovědět.</p>
+<p>I pomocí měr centrální tendence se dají dělat zajívé analýzy. Řekněme, že nás zajímá rozdíl v relativní četnosti slov v projevu prezidenta a premiéra<a href="statistické-testování.html#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. Graf <a href="desc-stats.html#fig:desc-rozdil">2.4</a> zobrazuje 20 slov<a href="statistické-testování.html#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>, které mají největší relativní četnost. Jak je vidět projev premiéra se zaměřoval častěji na <em>problémy</em> ČR, kdežto projev prezidenta se častěji zaměřoval na <em>rozpočet</em> a <em>očkování</em><a href="statistické-testování.html#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="desc-stats.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># nacteme text projevu premiera</span></span>
+<span id="cb20-2"><a href="desc-stats.html#cb20-2" aria-hidden="true" tabindex="-1"></a>premier <span class="ot">&lt;-</span> <span class="fu">readLines</span>(<span class="st">&quot;https://raw.githubusercontent.com/schubertjan/uvod-do-statistiky/master/dats/vlada.txt&quot;</span>)</span>
+<span id="cb20-3"><a href="desc-stats.html#cb20-3" aria-hidden="true" tabindex="-1"></a>premier_clean <span class="ot">&lt;-</span> <span class="fu">vycistit_text</span>(premier)</span>
+<span id="cb20-4"><a href="desc-stats.html#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="desc-stats.html#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co"># extrahujeme slova z vet do vektoru</span></span>
+<span id="cb20-6"><a href="desc-stats.html#cb20-6" aria-hidden="true" tabindex="-1"></a>slova_premier <span class="ot">&lt;-</span> <span class="fu">unlist</span>(premier_clean)</span>
+<span id="cb20-7"><a href="desc-stats.html#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-8"><a href="desc-stats.html#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co"># nacteme a odstranime stopwords</span></span>
+<span id="cb20-9"><a href="desc-stats.html#cb20-9" aria-hidden="true" tabindex="-1"></a>stopwords <span class="ot">&lt;-</span> <span class="fu">readLines</span>(<span class="st">&quot;https://raw.githubusercontent.com/schubertjan/uvod-do-statistiky/master/dats/stopwords.txt&quot;</span>, <span class="at">encoding =</span> <span class="st">&quot;UTF-8&quot;</span>)</span>
+<span id="cb20-10"><a href="desc-stats.html#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-11"><a href="desc-stats.html#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="co"># vybereme pouze slova, ktera nejsou ve stopwords</span></span>
+<span id="cb20-12"><a href="desc-stats.html#cb20-12" aria-hidden="true" tabindex="-1"></a>slova_premier <span class="ot">&lt;-</span> slova_premier[<span class="sc">!</span>slova_premier <span class="sc">%in%</span> stopwords]</span>
+<span id="cb20-13"><a href="desc-stats.html#cb20-13" aria-hidden="true" tabindex="-1"></a>slova <span class="ot">&lt;-</span> slova[<span class="sc">!</span>slova <span class="sc">%in%</span> stopwords]</span>
+<span id="cb20-14"><a href="desc-stats.html#cb20-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-15"><a href="desc-stats.html#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="co"># vypocitame absolutni cetnost slov</span></span>
+<span id="cb20-16"><a href="desc-stats.html#cb20-16" aria-hidden="true" tabindex="-1"></a>cetnost_premier <span class="ot">&lt;-</span> <span class="fu">table</span>(slova_premier)</span>
+<span id="cb20-17"><a href="desc-stats.html#cb20-17" aria-hidden="true" tabindex="-1"></a>cetnost_prezident <span class="ot">&lt;-</span> <span class="fu">table</span>(slova)</span>
+<span id="cb20-18"><a href="desc-stats.html#cb20-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-19"><a href="desc-stats.html#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="co"># vypocitame relativni cetnost</span></span>
+<span id="cb20-20"><a href="desc-stats.html#cb20-20" aria-hidden="true" tabindex="-1"></a>cetnost_premier <span class="ot">&lt;-</span> cetnost_premier <span class="sc">/</span> <span class="fu">sum</span>(cetnost_premier)</span>
+<span id="cb20-21"><a href="desc-stats.html#cb20-21" aria-hidden="true" tabindex="-1"></a>cetnost_prezident <span class="ot">&lt;-</span> cetnost_prezident <span class="sc">/</span> <span class="fu">sum</span>(cetnost_prezident)</span>
+<span id="cb20-22"><a href="desc-stats.html#cb20-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-23"><a href="desc-stats.html#cb20-23" aria-hidden="true" tabindex="-1"></a><span class="co"># vypocitame relativni cetnost</span></span>
+<span id="cb20-24"><a href="desc-stats.html#cb20-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-25"><a href="desc-stats.html#cb20-25" aria-hidden="true" tabindex="-1"></a><span class="co"># ted slouzime obe tabulky</span></span>
+<span id="cb20-26"><a href="desc-stats.html#cb20-26" aria-hidden="true" tabindex="-1"></a>rel_cetnost <span class="ot">&lt;-</span> <span class="fu">merge</span>(<span class="fu">data.frame</span>(cetnost_premier),</span>
+<span id="cb20-27"><a href="desc-stats.html#cb20-27" aria-hidden="true" tabindex="-1"></a>     <span class="fu">data.frame</span>(cetnost_prezident),</span>
+<span id="cb20-28"><a href="desc-stats.html#cb20-28" aria-hidden="true" tabindex="-1"></a>     <span class="at">by.x =</span> <span class="st">&quot;slova_premier&quot;</span>, <span class="at">by.y =</span> <span class="st">&quot;slova&quot;</span></span>
+<span id="cb20-29"><a href="desc-stats.html#cb20-29" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb20-30"><a href="desc-stats.html#cb20-30" aria-hidden="true" tabindex="-1"></a><span class="co"># prejmenuje sloupce, aby davaly vice smysl</span></span>
+<span id="cb20-31"><a href="desc-stats.html#cb20-31" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(rel_cetnost) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;slova&quot;</span>, <span class="st">&quot;premier&quot;</span>, <span class="st">&quot;prezident&quot;</span>)</span>
+<span id="cb20-32"><a href="desc-stats.html#cb20-32" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(rel_cetnost)</span></code></pre></div>
+<pre><code>##          slova     premier   prezident
+## 1      alespoň 0.001686341 0.001547988
+## 2 bezpečnostní 0.001686341 0.001547988
+## 3      bojovat 0.001686341 0.001547988
+## 4         ceny 0.003372681 0.001547988
+## 5        české 0.006745363 0.001547988
+## 6        cesta 0.005059022 0.003095975</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="desc-stats.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># vybereme nejcastejsich 20 slov pro každého</span></span>
+<span id="cb22-2"><a href="desc-stats.html#cb22-2" aria-hidden="true" tabindex="-1"></a>top_premier <span class="ot">&lt;-</span> <span class="fu">order</span>(rel_cetnost<span class="sc">$</span>premier, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>]</span>
+<span id="cb22-3"><a href="desc-stats.html#cb22-3" aria-hidden="true" tabindex="-1"></a>top_prezident <span class="ot">&lt;-</span> <span class="fu">order</span>(rel_cetnost<span class="sc">$</span>prezident, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>]</span>
+<span id="cb22-4"><a href="desc-stats.html#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># vyfiltrujeme</span></span>
+<span id="cb22-5"><a href="desc-stats.html#cb22-5" aria-hidden="true" tabindex="-1"></a>top_index <span class="ot">&lt;-</span> <span class="fu">unique</span>(<span class="fu">c</span>(top_premier, top_prezident))</span>
+<span id="cb22-6"><a href="desc-stats.html#cb22-6" aria-hidden="true" tabindex="-1"></a>rel_cetnost_top <span class="ot">&lt;-</span> rel_cetnost[top_index, ]</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="desc-stats.html#cb23-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(rel_cetnost_top)</span>
+<span id="cb23-2"><a href="desc-stats.html#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x,</span>
+<span id="cb23-3"><a href="desc-stats.html#cb23-3" aria-hidden="true" tabindex="-1"></a>     rel_cetnost_top<span class="sc">$</span>premier,</span>
+<span id="cb23-4"><a href="desc-stats.html#cb23-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">&quot;h&quot;</span>,</span>
+<span id="cb23-5"><a href="desc-stats.html#cb23-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xaxt =</span> <span class="st">&quot;n&quot;</span>,</span>
+<span id="cb23-6"><a href="desc-stats.html#cb23-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb23-7"><a href="desc-stats.html#cb23-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Relativní četnost&quot;</span>,</span>
+<span id="cb23-8"><a href="desc-stats.html#cb23-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span></span>
+<span id="cb23-9"><a href="desc-stats.html#cb23-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-10"><a href="desc-stats.html#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x <span class="sc">+</span> <span class="fl">0.3</span>,</span>
+<span id="cb23-11"><a href="desc-stats.html#cb23-11" aria-hidden="true" tabindex="-1"></a>     rel_cetnost_top<span class="sc">$</span>prezident,</span>
+<span id="cb23-12"><a href="desc-stats.html#cb23-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">&quot;h&quot;</span>,</span>
+<span id="cb23-13"><a href="desc-stats.html#cb23-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span></span>
+<span id="cb23-14"><a href="desc-stats.html#cb23-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-15"><a href="desc-stats.html#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at =</span> x, <span class="at">labels =</span> rel_cetnost_top<span class="sc">$</span>slova, <span class="at">las =</span> <span class="dv">3</span>, <span class="at">cex.axis =</span> <span class="fl">0.8</span>)</span>
+<span id="cb23-16"><a href="desc-stats.html#cb23-16" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;Premiér&quot;</span>, <span class="st">&quot;Prezident&quot;</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;#1f77b4&quot;</span>), <span class="at">lwd =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">3</span>), <span class="at">cex =</span> <span class="fl">0.8</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:desc-rozdil"></span>
+<img src="book_files/figure-html/desc-rozdil-1.png" alt="Top 20 slov podle relativní četnosti v projevu prezidenta a premiéra" width="672" />
+<p class="caption">
+Graf 2.4: Top 20 slov podle relativní četnosti v projevu prezidenta a premiéra
+</p>
+</div>
+</div>
+<div id="desc-vars" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Míry rozptýlenosti<a href="desc-stats.html#desc-vars" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Míry centrální tendence nám udávájí hodnotu typického pozorování proměnné. Míry rozptýlenosti nám říkají, jak jsou hodnoty rozptýleny okolo nějaké typické hodnoty. Nejjednodušší mírou rozptýlenosti je <strong>variační rozptyl</strong>, kdy nás zajímá rozdíl mezi největší a nejmenší hodnotou proměnní <span class="math inline">\(x_i\)</span>, tedy <span class="math inline">\(VR = max(x_i) - min(x_i)\)</span>.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="desc-stats.html#cb24-1" aria-hidden="true" tabindex="-1"></a>vr <span class="ot">&lt;-</span> <span class="fu">max</span>(pocet_slov) <span class="sc">-</span> <span class="fu">min</span>(pocet_slov)</span></code></pre></div>
+<p>Minimální počet slov ve větě je 3, nejdelší věta má 43 slov. Variační rozpětí je tedy 40.</p>
+<p>Pro kardinální proměnné se nejčastěji používá <strong>rozptyl</strong>, který vypočítáme tak, že každou hodnotu proměnné odečteme od průměru a umocníme. Tyto hodnoty sečteme a vydělíme počtem pozorování. Matematicky bychom rozptyl <span class="math inline">\(s^2\)</span> proměnné <span class="math inline">\(x_i\)</span> vypočítali jako <span class="math display">\[s^2 = \frac{1}{n-1}\sum_{i=1}^n (x_i - \overline{x})^2\]</span><a href="statistické-testování.html#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>Ve statistice se také používá pro výpočet rozptýlenosti <strong>směrodatná odchylka</strong> <span class="math inline">\(s\)</span>, které se vypočítá jako <span class="math display">\[s = \sqrt{s^2}\]</span>Protože umocněné vzdálenosti od průměru opět odmocníme, vrátíme je tím na stejnou škálu jako <span class="math inline">\(x_i\)</span>. Směrodatná odchylka tedy představuje typickou vzdálenost pozorování od průměru. Ukažme si příklad na počtu slov.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="desc-stats.html#cb25-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(pocet_slov)</span>
+<span id="cb25-2"><a href="desc-stats.html#cb25-2" aria-hidden="true" tabindex="-1"></a>rozptyl <span class="ot">&lt;-</span> <span class="fu">sum</span>((pocet_slov <span class="sc">-</span> <span class="fu">mean</span>(pocet_slov))<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> n</span>
+<span id="cb25-3"><a href="desc-stats.html#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co"># nebo v R pomoci var</span></span>
+<span id="cb25-4"><a href="desc-stats.html#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="desc-stats.html#cb25-5" aria-hidden="true" tabindex="-1"></a>smerodatna_odchylka <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(rozptyl)</span>
+<span id="cb25-6"><a href="desc-stats.html#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co"># nebo v R pomoci sd</span></span></code></pre></div>
+<p>Rozptyl počtu slov ve větě je tedy 93.67 a směrodatná odchylka je 9.68. Typická vzdálenost od průměrného počtu slov ve větě, který je 16.56, je tedy zhruba 10 slov.</p>
+<p>Ukažme si princip rozptylu/směrodatné odchylky na imaginárních datech. Na ukázku si vytvoříme proměnnou, která má 10 pozorování a zobrazíme je do grafu <a href="desc-stats.html#fig:rozptyl-princip">2.5</a> jako body. Červená čára označuje průměr těchto bodů. Horizontální čáry potom označují vzdálenost každého pozorování od průměrné hodnoty. Nejdříve si ukážeme příklad s menším rozptylem hodnot a pod ním příklad rozdělení s větším rozptylem hodnot. Protože mají oba příklady stejný počet pozorování (10), můžete si rozdíl v jejich směrodatné odhylce představit jako rozdíl vertikálních úseček, které vedou od průměru.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="desc-stats.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>))</span>
+<span id="cb26-2"><a href="desc-stats.html#cb26-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="fl">1e4</span>, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb26-3"><a href="desc-stats.html#cb26-3" aria-hidden="true" tabindex="-1"></a>prumer <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)</span>
+<span id="cb26-4"><a href="desc-stats.html#cb26-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>)</span>
+<span id="cb26-5"><a href="desc-stats.html#cb26-5" aria-hidden="true" tabindex="-1"></a>smerodatna_odchylka <span class="ot">&lt;-</span> <span class="fu">sd</span>(x)</span>
+<span id="cb26-6"><a href="desc-stats.html#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="desc-stats.html#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co"># prvni graf</span></span>
+<span id="cb26-8"><a href="desc-stats.html#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x[n], n,</span>
+<span id="cb26-9"><a href="desc-stats.html#cb26-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">paste0</span>(<span class="st">&quot;Směrodatná odchylka: &quot;</span>, <span class="fu">round</span>(smerodatna_odchylka, <span class="dv">2</span>)),</span>
+<span id="cb26-10"><a href="desc-stats.html#cb26-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>),</span>
+<span id="cb26-11"><a href="desc-stats.html#cb26-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Číslo pozorovaní&quot;</span>,</span>
+<span id="cb26-12"><a href="desc-stats.html#cb26-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">19</span>,</span>
+<span id="cb26-13"><a href="desc-stats.html#cb26-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span></span>
+<span id="cb26-14"><a href="desc-stats.html#cb26-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-15"><a href="desc-stats.html#cb26-15" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> prumer, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb26-16"><a href="desc-stats.html#cb26-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> n) {</span>
+<span id="cb26-17"><a href="desc-stats.html#cb26-17" aria-hidden="true" tabindex="-1"></a>     <span class="fu">lines</span>(<span class="fu">c</span>(prumer, x[i]), <span class="fu">c</span>(i, i), <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb26-18"><a href="desc-stats.html#cb26-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb26-19"><a href="desc-stats.html#cb26-19" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>,</span>
+<span id="cb26-20"><a href="desc-stats.html#cb26-20" aria-hidden="true" tabindex="-1"></a>     <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;Průměr&quot;</span>, <span class="st">&quot;Vzdal. od průměru&quot;</span>),</span>
+<span id="cb26-21"><a href="desc-stats.html#cb26-21" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;#1f77b4&quot;</span>),</span>
+<span id="cb26-22"><a href="desc-stats.html#cb26-22" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="at">cex =</span> <span class="fl">0.7</span></span>
+<span id="cb26-23"><a href="desc-stats.html#cb26-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-24"><a href="desc-stats.html#cb26-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-25"><a href="desc-stats.html#cb26-25" aria-hidden="true" tabindex="-1"></a><span class="co"># druhy graf</span></span>
+<span id="cb26-26"><a href="desc-stats.html#cb26-26" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="fl">1e4</span>, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="fl">2.5</span>)</span>
+<span id="cb26-27"><a href="desc-stats.html#cb26-27" aria-hidden="true" tabindex="-1"></a>prumer <span class="ot">&lt;-</span> <span class="fu">mean</span>(x2)</span>
+<span id="cb26-28"><a href="desc-stats.html#cb26-28" aria-hidden="true" tabindex="-1"></a>smerodatna_odchylka <span class="ot">&lt;-</span> <span class="fu">sd</span>(x2)</span>
+<span id="cb26-29"><a href="desc-stats.html#cb26-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-30"><a href="desc-stats.html#cb26-30" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x2[n], n,</span>
+<span id="cb26-31"><a href="desc-stats.html#cb26-31" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">paste0</span>(<span class="st">&quot;Směrodatná odchylka: &quot;</span>, <span class="fu">round</span>(smerodatna_odchylka, <span class="dv">2</span>)),</span>
+<span id="cb26-32"><a href="desc-stats.html#cb26-32" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>),</span>
+<span id="cb26-33"><a href="desc-stats.html#cb26-33" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Číslo pozorovaní&quot;</span>,</span>
+<span id="cb26-34"><a href="desc-stats.html#cb26-34" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">19</span>,</span>
+<span id="cb26-35"><a href="desc-stats.html#cb26-35" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span></span>
+<span id="cb26-36"><a href="desc-stats.html#cb26-36" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-37"><a href="desc-stats.html#cb26-37" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> prumer, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb26-38"><a href="desc-stats.html#cb26-38" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> n) {</span>
+<span id="cb26-39"><a href="desc-stats.html#cb26-39" aria-hidden="true" tabindex="-1"></a>     <span class="fu">lines</span>(<span class="fu">c</span>(prumer, x2[i]), <span class="fu">c</span>(i, i), <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb26-40"><a href="desc-stats.html#cb26-40" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb26-41"><a href="desc-stats.html#cb26-41" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>,</span>
+<span id="cb26-42"><a href="desc-stats.html#cb26-42" aria-hidden="true" tabindex="-1"></a>     <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;Průměr&quot;</span>, <span class="st">&quot;Vzdal. od průměru&quot;</span>),</span>
+<span id="cb26-43"><a href="desc-stats.html#cb26-43" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;#1f77b4&quot;</span>),</span>
+<span id="cb26-44"><a href="desc-stats.html#cb26-44" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="at">cex =</span> <span class="fl">0.7</span></span>
+<span id="cb26-45"><a href="desc-stats.html#cb26-45" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:rozptyl-princip"></span>
+<img src="book_files/figure-html/rozptyl-princip-1.png" alt="Ukázka výpočtu směrodatné odchylky" width="672" />
+<p class="caption">
+Graf 2.5: Ukázka výpočtu směrodatné odchylky
+</p>
+</div>
+<p>Pro úplnost, jak by vypadal histogram rozdělení obou proměnných. V tomto případě jsme data generovali z normálního rozdělení (viz kapitola pravděpodobnostní rozdělení <a href="prob-dist.html#prob-dist">3</a>).</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="desc-stats.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(x,</span>
+<span id="cb27-2"><a href="desc-stats.html#cb27-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="fu">adjustcolor</span>(<span class="st">&quot;#1f77b4&quot;</span>, <span class="fl">0.9</span>),</span>
+<span id="cb27-3"><a href="desc-stats.html#cb27-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">breaks =</span> <span class="dv">20</span>,</span>
+<span id="cb27-4"><a href="desc-stats.html#cb27-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Četnost&quot;</span>, <span class="at">main =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb27-5"><a href="desc-stats.html#cb27-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb27-6"><a href="desc-stats.html#cb27-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb27-7"><a href="desc-stats.html#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(x2,</span>
+<span id="cb27-8"><a href="desc-stats.html#cb27-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="fu">adjustcolor</span>(<span class="st">&quot;black&quot;</span>, <span class="fl">0.4</span>),</span>
+<span id="cb27-9"><a href="desc-stats.html#cb27-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">breaks =</span> <span class="dv">40</span>,</span>
+<span id="cb27-10"><a href="desc-stats.html#cb27-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">add =</span> <span class="cn">TRUE</span></span>
+<span id="cb27-11"><a href="desc-stats.html#cb27-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-21"></span>
+<img src="book_files/figure-html/unnamed-chunk-21-1.png" alt="Histogram bodů z normálního rozdělení o průměru 5 a směrodatné odchylce 1 (modrá) a 2.5 (černá)" width="672" />
+<p class="caption">
+Graf 2.6: Histogram bodů z normálního rozdělení o průměru 5 a směrodatné odchylce 1 (modrá) a 2.5 (černá)
+</p>
+</div>
+</div>
+<div id="kvantily" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Míry polohy<a href="desc-stats.html#kvantily" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Poslední popisnou statistikou, kterou si představíme, jsou míry polohy. Ty nám udávají polohy nějakého pozorování proměnné vůči ostatním pozorováním. První mírou polohy, kterou si představíme je <strong>kvantil</strong>. Kvantil proměnné <span class="math inline">\(x_i\)</span> se značí jako <span class="math inline">\(x_q\)</span> a je to číslo, které nám říká podíl případů proměnné <span class="math inline">\(x_i\)</span>, které leží pod danou hodnotou proměnné <span class="math inline">\(x_q\)</span>. Medián proměnné je tedy vlastně specifická hodnota kvantilu <span class="math inline">\(q=0.5\)</span>, tedy <span class="math inline">\(x_{0.5}\)</span>.</p>
+<p>Pokud chceme data rozdělit na stejně velké podíly, můžeme použít jeden ze standardně používaných způsobů dělení, které jsou:</p>
+<blockquote>
+<p><strong>Medián</strong>
+Kvantil rozdělující statistický soubor na dvě stejně početné množiny se nazývá medián, tzn. jedná se o kvantil <span class="math inline">\(Q_{0.5}\)</span>.</p>
+<p><strong>Tercil</strong>
+Dva tercily rozdělují statistický soubor na třetiny. 1/3 prvků má hodnoty menší nebo rovné hodnotě prvního tercilu <span class="math inline">\(Q_{1/3}\)</span>, 2/3 prvků mají hodnoty menší nebo rovné hodnotě tercilu druhého <span class="math inline">\(Q_{2/3}\)</span>.</p>
+<p><strong>Kvartil</strong>
+Tři kvartily rozdělují statistický soubor na čtvrtiny. 25 % prvků má hodnoty menší než dolní kvartil <span class="math inline">\(Q_{0.25}\)</span> a 75 % prvků hodnoty menší než horní kvartil <span class="math inline">\(Q_{0.75}\)</span>; někdy se označují <span class="math inline">\(Q_1\)</span> a <span class="math inline">\(Q_3\)</span>.</p>
+<p><strong>Kvintil</strong>
+Čtyři kvintily dělí statistický soubor na pět stejných dílů. 20 % prvků souboru má hodnoty menší (nebo rovné) hodnotě prvního kvintilu, 80 % hodnoty větší (nebo &gt;rovné).</p>
+<p><strong>Decil</strong>
+Decil dělí statistický soubor na desetiny. Jako k-tý decil označujeme <span class="math inline">\(Q_{10/k}\)</span>.</p>
+<p><strong>Percentil</strong>
+Percentil dělí statistický soubor na setiny. Jako k-tý percentil označujeme <span class="math inline">\(Q_{100/k}\)</span>. Používá se například při vyhodnocení testů: Pokud má účastník umístění na 85. percentilu, znamená to, že 85 % účastníků mělo horší výsledek (a 15 % účastníků je lepších nebo stejných jako on [včetně jeho samého]). Znamená to, že účastník s nejlepším umístěním nebude mít percentil 100 %, ale nižší (o část vyjadřující procento jeho vlastního &gt;podílu na výsledku). Percentil tak vypočteme:
+<span class="math inline">\(PR = \frac{CF - (0.5 * F)}{N} * 100\)</span>.
+Kde PR je hodnota percentilu, CF je kumulativní počet výsledků a F je počet výskytů počítaného výsledku (percentilu).</p>
+<p>Zdroj: <a href="https://cs.wikipedia.org/wiki/Kvantil">Wikipedia</a></p>
+</blockquote>
+<p>V <code>R</code> můžeme empirický kvantil vypočítat pomocí funkce <code>quantile</code>. V argumentu <code>prob</code> stanovíme jakou pravděpodobnost (podíl hodnot menších) chceme vypočítat. Například vypočítejme kvartily počtu slov.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="desc-stats.html#cb28-1" aria-hidden="true" tabindex="-1"></a>kvartil <span class="ot">&lt;-</span> <span class="fu">quantile</span>(pocet_slov, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>))</span>
+<span id="cb28-2"><a href="desc-stats.html#cb28-2" aria-hidden="true" tabindex="-1"></a>kvartil</span></code></pre></div>
+<pre><code>##   25%   50%   75% 
+##  9.00 15.50 22.75</code></pre>
+<p>Vidíme, že 25% vět má méně než 9 slov a že 25% vět má více než 23 slov (nebo že 75% vět má méně než 23 slov).</p>
+<p>Někdy se hodnoty kvantilů používají k výpočtu mezikvantilových rozpětí tak, že se honodty kvantilů odečtou mezi sebou. Například mazikvartilové rozpětí se vypočítá jako <span class="math inline">\(Q_{0.75} - Q_{0.25}\)</span>.</p>
+</div>
+<div id="cvičení" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Cvičení<a href="desc-stats.html#cvičení" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li>Vytvořte funkci na výpočet percentilu. Vstupem do funkce bude numerický vektor <span class="math inline">\(x\)</span> a hodnota kvantilu <span class="math inline">\(q\)</span>. Výstupem funkce bude hodnota percentilu.</li>
+<li>Načtěte projev <a href="https://raw.githubusercontent.com/schubertjan/uvod-do-statistiky/master/dats/senat.txt">Předsedy Senátu</a>, <a href="https://raw.githubusercontent.com/schubertjan/uvod-do-statistiky/master/dats/vlada.txt">Premiéra ČR</a> a projev Prezidenta ČR z kapitoly nahoře. Který projev je celkově nejdelší? Který ústavní činitel má v průměru nejdelší věty? Jak se liší směrodatná odchylka počtu slov ve větě a co to znamená? Zobrazte rozdělení dat pomocí histogramu.</li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="prob-dist.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection",
+"download": false
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

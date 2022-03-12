@@ -1,4 +1,4 @@
-# Popisná statistika
+# Popisná statistika{#desc-stats}
 
 Jak jsme zmínili v úvodu popisná statistika je jeden z hlavních cílů statistiky. Úkolem popisné statistiky je shrnout informace o našem výběru do pár čísel, které nám pomohou pochopit jaké má náš výběr vlastnosti. Hlavními vlastnostmi, které nás zajímají je:
 
