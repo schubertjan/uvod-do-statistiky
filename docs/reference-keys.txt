@@ -78,11 +78,11 @@ bootstrap
 clv-mean
 rozptyl
 cvičení-2
-statistické-testování
+stats-test-single
 postup-statistického-testování
 zvolení-testu
 test-h0
-výpočet-testovací-statistiky
+test-t-statistika
 interpretace-výsledku
 velikost-účinku
 souvislost-s-intervalem-spolehlivosti

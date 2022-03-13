@@ -1,14 +1,43 @@
 # Porovnání dvou průměrů a relativních četností
 
-## Dva průměry
+V této kapitole si představíme, jak porovnat dva průměry nebo relativní četnosti náhodných proměnných. Porovnání dvou průměrů je častou metodou při experimentech, kdy jsou pozorování rozdělena **náhodně do dvou skupin**, jedna ze skupin je vystavena nějaké intervenci, kterou zkoumáme (tzv. experimentální skupina), druhá je vystavena placebo (tzv. kontrolní skupina) a potom jsou výsledky měřené proměnné porovnány za obě skupiny^[Více například [zde](https://en.wikipedia.org/wiki/Random_assignment).]. Výsledné měření je náhodnou proměnnou, protože jsme pozorování náhodně rozřadili do kontrolní a experimentální skupiny. Náhodné rozřazení je přitom důležité, protože měřená proměnná může být ovlivněna různými faktory, které jsou díky náhodnému rozdělení přiřazeny do kontrolní a experiemntální skupiny zhruba ve stejném počtu. Typickým příkladem náhodného experimentu jsou klinické testy, v kterých se posuzuje účinnost léků. Kromě náhodnosti rozdělení do obou skupin předpokládáme také, že pozorování jsou na sobě **nezávislá**.      
 
+
+## Průměry
 Při zkoušce máme připravené dvě verze testu. Studentům náhodně přiřadíme jednu z verzí. Tabulka dole ukazuje popisné statistiky našich dat.
 ```{r test-dats}
 dats <- read.csv("../dats/test.csv", stringsAsFactors = TRUE)
 summary(dats)
 ```
 
-Testu se celkem zúčastnilo `r nrow(dats)` studentů. `r table(dats$verze)[1]` obrželo verzi 1 a `r table(dats$verze)[2]` obdrželo verzi 2. Zajímá nás, zda byly obě verze testu stejně obtížné. Obtížnost testů budeme měřit průměrným počtem bodů pro každou verzi testu. Počet bodů je náhodná proměnná. Závisí na studentech, kterým byla verze náhodně přiřazena. Studenti mají různou úroveň znalostí, ale průměrný počet bodů bude ovlivněn i tím, že např. některý student ráno zaspal a byl ve stresu nebo tím, že se někdo špatně vyspal. Protože přiřazujeme verze testu náhodně jsou i tyto efekty náhodně rozptýleny do obou skupin. Pokud jsou obě verze stejně obtížné, očekávali bychom, že studenti v obou skupinách budou mít stejný průměrný počet bodů. Jak víme z \@ref(dist-params), rozložení průměru náhodné proměnné $x_i$ lze popsat pomocí $T(\overline{x}, \frac{s}{\sqrt{n}}, n-1)$. V našem případě máme  $T(\overline{x_1}, \frac{s_1}{\sqrt{n_1}}, n_1-1)$ a $T(\overline{x_2}, \frac{s_2}{\sqrt{n_2}}, n_2-1)$. Pojďme se tedy podívat na výběrové rozdělení obou průměrů. Abychom nemuseli výběrové statistiky počítat samostatně pro každou skupinu, použijeme k výpčtu funkce `sapply`, která je zkrácenou formou `for` loop^[Používali jsme ji už v \@ref(desc-stats).] a funkci `aggregate`, která vypočítá zadanou funkci pro zvolené skupiny.
+Testu se celkem zúčastnilo `r nrow(dats)` studentů. `r table(dats$verze)[1]` obrželo verzi 1 a `r table(dats$verze)[2]` obdrželo verzi 2. Zajímá nás, zda byly obě verze testu stejně obtížné. Obtížnost testů budeme měřit průměrným počtem bodů pro každou verzi testu. Graf \@ref(fig:test-points) ukazuje rozdělení počtu bodů podle verze testu. Z grafu je zřejmé, že verze 2 bude mít vyšší průměrný počet bodů, ale také větší rozptyl ve výsledcích.
+
+
+```{r test-points, fig.cap='Rozdělení počtu bodů podle verze testu'}
+# vytvorime barvy
+cols <- rev(RColorBrewer::brewer.pal(3, name = "Blues"))
+
+
+plot(dats$body[dats$verze == "verze_1"], rep(1.5, sum(dats$verze == "verze_1")), 
+     xlim = c(10, 70),
+     ylim = c(0, 2),
+     pch = 19,
+     main = "", xlab = "", ylab = "",
+     yaxt = "n",
+     col = adjustcolor(cols[1], alpha.f = 0.8)
+     )
+points(dats$body[dats$verze == "verze_2"], rep(1, sum(dats$verze == "verze_2")), 
+     pch = 19,
+     col = adjustcolor(cols[2], alpha.f = 0.8))
+
+legend("topright",
+       legend = c("Verze 1", "Verze 2"),
+       col = cols[1:2],
+       pch = c(19, 19),
+       cex = 0.7)
+```
+
+Počet bodů je náhodná proměnná. Závisí na studentech, kterým byla verze náhodně přiřazena. Studenti mají různou úroveň znalostí, ale průměrný počet bodů bude ovlivněn i tím, že např. některý student ráno zaspal a byl ve stresu nebo tím, že se někdo špatně vyspal. Protože přiřazujeme verze testu náhodně jsou i tyto efekty náhodně rozptýleny do obou skupin. Pokud jsou obě verze stejně obtížné, očekávali bychom, že studenti v obou skupinách budou mít stejný průměrný počet bodů. Jak víme z \@ref(dist-params), rozložení průměru náhodné proměnné $x_i$ lze popsat pomocí $T(\overline{x}, \frac{s}{\sqrt{n}}, n-1)$. V našem případě máme  $T(\overline{x_1}, \frac{s_1}{\sqrt{n_1}}, n_1-1)$ a $T(\overline{x_2}, \frac{s_2}{\sqrt{n_2}}, n_2-1)$. Pojďme se tedy podívat na výběrové rozdělení obou průměrů. Abychom nemuseli výběrové statistiky počítat samostatně pro každou skupinu, použijeme k výpčtu funkce `sapply`, která je zkrácenou formou `for` loop^[Používali jsme ji už v \@ref(desc-stats).] a funkci `aggregate`, která vypočítá zadanou funkci pro zvolené skupiny.
 
 
 ```{r test2-prumery, fig.cap='Výběrové rozdělení průměrů pro každou skupinu'}
@@ -84,8 +113,26 @@ legend("topright",
        cex = 0.7)
 ```
 
- Graf \@ref(fig:test-rozdil-dist) ukazuje výběrové rozdělení rozdílu. Protože při odečetení dvou normálně rozdělených proměnných se jejich směrodatná odchylka sčítá, promítá se původní nejistota výběrových průměrů i do výběrověho rozdělení rozdílu obou průměrů. Směrodatná chyba odhadu je `r round(se_d, 2)`. Pravděpodobnost, že náš výběrový rozdíl nabyde hodnot větších než 0 je $P(x_i > 0)=$ `r round(p_0, 2)`. Přestože je tato pravděpodobnost malá, rozhodně není zanedbatelná. Je možné, že verze 1 byla těžší, ale na základě našich dat je těžké určit, zda tomu opravdu tak je, nebo zda je to pouze náhoda.  
+Graf \@ref(fig:test-rozdil-dist) ukazuje výběrové rozdělení rozdílu. Protože při odečetení dvou normálně rozdělených proměnných se jejich směrodatná odchylka sčítá, promítá se původní nejistota výběrových průměrů i do výběrověho rozdělení rozdílu obou průměrů. Směrodatná chyba odhadu je `r round(se_d, 2)`. Pravděpodobnost, že náš výběrový rozdíl nabyde hodnot větších než 0 je $P(x_i > 0)=$ `r round(p_0, 2)`. Přestože je tato pravděpodobnost malá, rozhodně není zanedbatelná. Je možné, že verze 1 byla těžší, ale na základě našich dat je těžké určit, zda tomu opravdu tak je, nebo zda je to pouze náhoda.  
+```{r}
+alpha <- 0.05
+p <- c(alpha/2, 1-alpha/2)
+i_s <- prumer_d + qt(p, df = df) * se_d
+```
+Interval spolehlivosti pro rozdíl v průměrném počtu bodů obou verzí na hladině spolehlivosti `r (1-alpha)*100`% je `r round(i_s, 2)`.
 
+Naši původní otázku o odlišnosti obou verzí bychom mohli formulovat pomocí statistického testu. Nulová hypotéza by v takovém případě byla, že oba průměrný počet bodů obou verzí je stejný $H_0: \mu_1 = \mu_2$ a alternativní hypotéza by byla, že stejné nejsou $H_1: \mu_1 \ne \mu_2$. Testovací statistiku vypočítáme podle principu vzorce z \@ref(test-t-statistika), pčičemž našim výběrovým parametrem není průměr, ale rodíl průměrů $\overline{d}$. Směrodatná chyba pdhadu je stejná jako v textu nahoře, tedy $se = \sqrt{(\frac{s_1}{\sqrt{n_1}})^2 + (\frac{s_2}{\sqrt{n_2}})^2}$. Testovací statistiku tedy vypočítáme $t = \frac{\overline{d} - H_0}{se}$.
+```{r}
+h0 <- 0
+t <- (prumer_d - h0) / se_d
+p <- pt(t, df = df) * 2
+```
 
+Testovací statistika je rovná `r round(t, 2)`, což při platnosti $H_0$ a oboustranném testu vychází na p-hodnotu `r round(p, 2)`. Tedy, pravděpodobnost, že bychom zaplatnosti $H_0$ (tedy žádného rozdílu mezi průměry) sledovali rozdíl `r round(prumer_d, 2)` nebo extrémnější^[V oběma směrech, protože počítáme oboustranný test.] je `r round(p, 2)`. Stejně jako v kapitole \@ref(stats-test-single) můžeme použít funkci `t.test`. Argumenty zůstavají stejné, pouze je potřeba definovat proměnné pro které počítáme průměrný rozdíl. To je možné pomocí `formula`.
 
+```{r}
+t.test(body ~ verze, data = dats)
+```
 
+## Relativní četnosti
+![Maxime Lorant, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons](https://upload.wikimedia.org/wikipedia/commons/2/2e/A-B_testing_example.png)

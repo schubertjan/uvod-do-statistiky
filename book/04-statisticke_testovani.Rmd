@@ -1,4 +1,4 @@
-# Statistické testování
+# Statistické testování{#stats-test-single}
 
 Statistické testy tvoří základní kámen moderní vědy. Jsou používány v klinických studiích na určení efektu léku, v A/B testech na určení toho, zda nějaká intervence funguje, nebo v analýze výběrových šetření na určení toho, zda je nějaký vztah důsledkem náhody. V Popperově filozofii vědeckého poznání jsou statistické testy používány k falzifikaci vědeckých teorií^[Více o tématu falzifikace např. [zde](https://cs.wikipedia.org/wiki/Falzifikovatelnost).].
 
@@ -58,7 +58,7 @@ $H_0 \le 180$
 $H_1 > 180$
 
 
-### Výpočet testovací statistiky
+### Výpočet testovací statistiky{#test-t-statistika}
 
 Výpočet testovací statistiky bude záležet na tom, který test zvolíme. Různé testy májí různé testovací statistiky a proto je důležité u zvoleného testu porozumět tomu, jakou testovací statistiku počítáme. Obecně ale platí, že každá testovací statistika se vypočítá jako $testovaci\;statistika = \frac{bodovy\;odhad - nulova\;hypoteza}{smerodatna\;chyba\;odhadu}$
 
