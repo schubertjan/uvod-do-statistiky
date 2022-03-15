@@ -338,5 +338,5 @@ Někdy se hodnoty kvantilů používají k výpočtu mezikvantilových rozpětí
 
 
 ## Cvičení 
-1. Vytvořte funkci na výpočet percentilu. Vstupem do funkce bude numerický vektor $x$ a hodnota kvantilu $q$. Výstupem funkce bude hodnota percentilu.
+1. Vytvořte funkci na výpočet percentilu. Vstupem do funkce bude numerický vektor $x$. Výstupem funkce bude hodnota percentilupro každou hodnotu vektoru $x$.
 2. Načtěte projev [Předsedy Senátu](https://raw.githubusercontent.com/schubertjan/uvod-do-statistiky/master/dats/senat.txt), [Premiéra ČR](https://raw.githubusercontent.com/schubertjan/uvod-do-statistiky/master/dats/vlada.txt) a projev Prezidenta ČR z kapitoly nahoře. Který projev je celkově nejdelší? Který ústavní činitel má v průměru nejdelší věty? Jak se liší směrodatná odchylka počtu slov ve větě a co to znamená? Zobrazte rozdělení dat pomocí histogramu. 

@@ -18,23 +18,25 @@ Testu se celkem zúčastnilo `r nrow(dats)` studentů. `r table(dats$verze)[1]` 
 cols <- rev(RColorBrewer::brewer.pal(3, name = "Blues"))
 
 
-plot(dats$body[dats$verze == "verze_1"], rep(1.5, sum(dats$verze == "verze_1")), 
+plot(dats$body[dats$verze == "verze_1"], rep(1.5, sum(dats$verze == "verze_1")),
      xlim = c(10, 70),
      ylim = c(0, 2),
      pch = 19,
      main = "", xlab = "", ylab = "",
      yaxt = "n",
      col = adjustcolor(cols[1], alpha.f = 0.8)
-     )
-points(dats$body[dats$verze == "verze_2"], rep(1, sum(dats$verze == "verze_2")), 
+)
+points(dats$body[dats$verze == "verze_2"], rep(1, sum(dats$verze == "verze_2")),
      pch = 19,
-     col = adjustcolor(cols[2], alpha.f = 0.8))
+     col = adjustcolor(cols[2], alpha.f = 0.8)
+)
 
 legend("topright",
-       legend = c("Verze 1", "Verze 2"),
-       col = cols[1:2],
-       pch = c(19, 19),
-       cex = 0.7)
+     legend = c("Verze 1", "Verze 2"),
+     col = cols[1:2],
+     pch = c(19, 19),
+     cex = 0.7
+)
 ```
 
 Počet bodů je náhodná proměnná. Závisí na studentech, kterým byla verze náhodně přiřazena. Studenti mají různou úroveň znalostí, ale průměrný počet bodů bude ovlivněn i tím, že např. některý student ráno zaspal a byl ve stresu nebo tím, že se někdo špatně vyspal. Protože přiřazujeme verze testu náhodně jsou i tyto efekty náhodně rozptýleny do obou skupin. Pokud jsou obě verze stejně obtížné, očekávali bychom, že studenti v obou skupinách budou mít stejný průměrný počet bodů. Jak víme z \@ref(dist-params), rozložení průměru náhodné proměnné $x_i$ lze popsat pomocí $T(\overline{x}, \frac{s}{\sqrt{n}}, n-1)$. V našem případě máme  $T(\overline{x_1}, \frac{s_1}{\sqrt{n_1}}, n_1-1)$ a $T(\overline{x_2}, \frac{s_2}{\sqrt{n_2}}, n_2-1)$. Pojďme se tedy podívat na výběrové rozdělení obou průměrů. Abychom nemuseli výběrové statistiky počítat samostatně pro každou skupinu, použijeme k výpčtu funkce `sapply`, která je zkrácenou formou `for` loop^[Používali jsme ji už v \@ref(desc-stats).] a funkci `aggregate`, která vypočítá zadanou funkci pro zvolené skupiny.
@@ -43,8 +45,8 @@ Počet bodů je náhodná proměnná. Závisí na studentech, kterým byla verze
 ```{r test2-prumery, fig.cap='Výběrové rozdělení průměrů pro každou skupinu'}
 # vyvorime si funkci na vypocet smerodatne chyby odhadu
 se <- function(x) {
-  n <- length(x)
-  sd(x) / sqrt(n)
+     n <- length(x)
+     sd(x) / sqrt(n)
 }
 
 # pro kazdou funkci vypocitame aggregate
@@ -55,35 +57,46 @@ colnames(vyber_stats) <- c("n", "mu", "sd", "se")
 # zvolime x pro ktere budeme pocitat PDF
 x <- seq(from = 20, to = 65, length.out = 1000)
 # vypocitame PDF vyberoveho rozdeleni prumeru 1 podle zobecneneho t-rozdeleni
-pdf_prumer_1 <- dt((x-vyber_stats[1, "mu"]) / 
-                     vyber_stats[1, "se"], 
-                   df = vyber_stats[1, "n"]-1) * 1/vyber_stats[1, "se"]
+pdf_prumer_1 <- dt((x - vyber_stats[1, "mu"]) /
+     vyber_stats[1, "se"],
+df = vyber_stats[1, "n"] - 1
+) * 1 / vyber_stats[1, "se"]
 # vypocitame PDF vyberoveho rozdeleni prumeru 2 podle zobecneneho t-rozdeleni
-pdf_prumer_2 <- dt((x-vyber_stats[2, "mu"]) / 
-                     vyber_stats[2, "se"], 
-                   df = vyber_stats[2, "n"]-1) * 1/vyber_stats[2, "se"]
+pdf_prumer_2 <- dt((x - vyber_stats[2, "mu"]) /
+     vyber_stats[2, "se"],
+df = vyber_stats[2, "n"] - 1
+) * 1 / vyber_stats[2, "se"]
 
 # vytvorime barvy
 cols <- rev(RColorBrewer::brewer.pal(3, name = "Blues"))
 
 # zobrazime PDF
-plot(x, pdf_prumer_1, 
+plot(x, pdf_prumer_1,
      type = "l", lwd = 2,
      xlab = "Body",
      ylab = "PDF",
      col = cols[1],
-     main = "")
-lines(x, pdf_prumer_2, 
-      type = "l", lwd = 2, col = cols[2])
+     main = ""
+)
+lines(x, pdf_prumer_2,
+     type = "l", lwd = 2, col = cols[2]
+)
 # pridame legendu
 legend("topright",
-       legend = c(paste0("Verze 1 ~ T(", round(vyber_stats[1, "mu"], 2), ", ", 
-                         round(vyber_stats[1, "se"], 2), ", ",vyber_stats[1, "n"]-1,")"),
-                  paste0("Verze 2 ~ T(", round(vyber_stats[2, "mu"], 2), ", ", 
-                         round(vyber_stats[2, "se"], 2), ", ", vyber_stats[2, "n"]-1, ")")),
-       col = cols[1:2],
-       lwd = c(2, 2),
-       cex = 0.7)
+     legend = c(
+          paste0(
+               "Verze 1 ~ T(", round(vyber_stats[1, "mu"], 2), ", ",
+               round(vyber_stats[1, "se"], 2), ", ", vyber_stats[1, "n"] - 1, ")"
+          ),
+          paste0(
+               "Verze 2 ~ T(", round(vyber_stats[2, "mu"], 2), ", ",
+               round(vyber_stats[2, "se"], 2), ", ", vyber_stats[2, "n"] - 1, ")"
+          )
+     ),
+     col = cols[1:2],
+     lwd = c(2, 2),
+     cex = 0.7
+)
 ```
 
 Graf \@ref(fig:test2-prumery) zobrazuje výběrové rozdělení průměrů obou skupin. Průměrný počet bodů první verze je `r round(vyber_stats[1, "mu"], 2)`. Průměrný počet bodů druhé verze je `r round(vyber_stats[2, "mu"], 2)`, tedy rozdíl `r round(vyber_stats[1, "mu"], 2) - round(vyber_stats[2, "mu"], 2)`. Jak je ale zřejmé z grafu \@ref(fig:test2-prumery) ohledně obou výběrových průměrů panuje hodně nejistoty, což bychom očekávali vzhledem k tomu, že máme malý počet pozorování v každé skupině a vzhledem k tomu, že existuje velké množství faktorů, které počet bodů ovlivňují. My jsme díky náhodnému přiřazení verzí tyto faktory rozdělili do obou skupin a to se projevuje na velké směrodatné odchylce počtu bodů v obou skupinách. 
@@ -95,28 +108,35 @@ se_d <- sqrt(vyber_stats[1, "se"]^2 + vyber_stats[2, "se"]^2)
 df <- vyber_stats[1, "n"] + vyber_stats[2, "n"] - 2
 
 x <- seq(-32, 15, length.out = 1000)
-pdf_d <- dt((x-prumer_d)/se_d, df = df) * 1/se_d
-p_0 <- pt((0-prumer_d)/se_d, df = df, lower.tail = FALSE)
+pdf_d <- dt((x - prumer_d) / se_d, df = df) * 1 / se_d
+q <- 0
+p_0 <- pt((q - prumer_d) / se_d, df = df, lower.tail = FALSE)
 
-plot(x, pdf_d, 
+plot(x, pdf_d,
      type = "l", lwd = 2,
      xlab = "Rozdíl v průměru bodů",
      ylab = "PDF",
-     col = "#1f77b4",
-     main = paste0("P(x > 0)=", round(p_0, 2)))
+     col = "grey",
+     main = paste0("P(x > 0)=", round(p_0, 2))
+)
+# pridame integral plochy pro P(X > 0)
+lines(x[x>q], pdf_d[x>q], type = "h", col = "#1f77b4", lwd = 1)
 
 legend("topright",
-       legend = paste0("T(", round(prumer_d, 2), ", ", 
-                         round(se_d, 2), ", ",df,")"),
-       col = "#1f77b4",
-       lwd = 2,
-       cex = 0.7)
+     legend = paste0(
+          "T(", round(prumer_d, 2), ", ",
+          round(se_d, 2), ", ", df, ")"
+     ),
+     col = "grey",
+     lwd = 2,
+     cex = 0.7
+)
 ```
 
 Graf \@ref(fig:test-rozdil-dist) ukazuje výběrové rozdělení rozdílu. Protože při odečetení dvou normálně rozdělených proměnných se jejich směrodatná odchylka sčítá, promítá se původní nejistota výběrových průměrů i do výběrověho rozdělení rozdílu obou průměrů. Směrodatná chyba odhadu je `r round(se_d, 2)`. Pravděpodobnost, že náš výběrový rozdíl nabyde hodnot větších než 0 je $P(x_i > 0)=$ `r round(p_0, 2)`. Přestože je tato pravděpodobnost malá, rozhodně není zanedbatelná. Je možné, že verze 1 byla těžší, ale na základě našich dat je těžké určit, zda tomu opravdu tak je, nebo zda je to pouze náhoda.  
 ```{r}
 alpha <- 0.05
-p <- c(alpha/2, 1-alpha/2)
+p <- c(alpha / 2, 1 - alpha / 2)
 i_s <- prumer_d + qt(p, df = df) * se_d
 ```
 Interval spolehlivosti pro rozdíl v průměrném počtu bodů obou verzí na hladině spolehlivosti `r (1-alpha)*100`% je `r round(i_s, 2)`.
@@ -134,5 +154,150 @@ Testovací statistika je rovná `r round(t, 2)`, což při platnosti $H_0$ a obo
 t.test(body ~ verze, data = dats)
 ```
 
+Výpočet velikosti účinku zůstává stejný, tedy $d = \frac{|(bodovy\;odhad - H_0)|}{smerodatna\;odchylka\;mereni}$. V případě porovnání dvou průměrů je směrodatnou odchylkou měření  $\sqrt{s_1^2 + s_2^2}$.
+
+|< 0.2 | 0.2 - 0.5 | 0.5 - 0.8 | 0.8 - 1.2 | > 1.2
+|------|------|------|------|------|
+|velmi malý|malý efekt|střední efekt|velký efekt|velmi velky|
+
+```{r}
+d <- abs(prumer_d - h0) / sqrt(vyber_stats[1, "sd"]^2 + vyber_stats[2, "sd"]^2)
+```
+V našem případě je Cohenovo d rovno `r round(d, 2)`, což odpovídá malému efektu.
+
+
 ## Relativní četnosti
+
+Stejně jako je tomu u porovnání dvou průměrů, je porovnání dvou relativních četností rozšířením konceptů, které jsme si ukazovali v předchozích kapitolách. My si porování dvou relativních četností ukážeme na příkladu A/B testování. 
+
+>A/B testování je klasická marketingová metoda (v souvislosti s počítačovými programy také testovací metoda >či metoda pro testování použitelnosti aplikací), jež má za cíl zvýšit konverze či konverzní poměry >projektu prostřednictvím změny jednoho funkčního či designového prvku. Tato metoda byla původně vyvinuta >pro účely testování direct mail, nicméně posléze byla přejata i pro účely testování např. bannerových >reklam nebo cílových stránek.
+>Zdrof: [Wikipedia](https://cs.wikipedia.org/wiki/A/B_testov%C3%A1n%C3%AD)
+
+Následující obrázek ukazuje princip využití A/B testování na příkladu webové stránky. Máme dvě verze stránky, které se liší barvou a tvarem tlačítka "Learn more". Příchozímu na webovou stránku náhodně nabídneme jednu z verzí stránky a měříme procento lidí, které klikne na dané tlačítko. Ať už jste si toho vědomi nebo ne, podobných A/B testů se účastníte pravidelně na stránkách jako Google nebo Facebook, které touto metodou testují nové prvky na jejich stránkách.  
+
 ![Maxime Lorant, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons](https://upload.wikimedia.org/wikipedia/commons/2/2e/A-B_testing_example.png)
+
+V našem případě se NGO snaží zjistit, jak nejlépe designovat tlačítko na darování peněz. Vedle současné verze tlačítka, které je hranaté vyvinuli verzi, kde má tlačítko oblé rohy. Po jeden den (od 4hod ráno dne 1 do 4hod ráno dne 2) náhodně příchozím na stránku nabízeli jednu z variant tlačítka na darování peněz. Nasbírali celkem stránku navštívilo za toto období 24519 návštěvníků. 12262 vidělo první variantu tlačítka (hranaté rohy), 12257 vidělo druhou variantu tlačítka (oblé rohy). 451 návštěvníků kliklo na tlačítko darovat v první verzi stránky a 479 kliklo na tlačítko darovat v druhé verzi stránky. 
+```{r}
+# pocet uzivatelu ve skupinach
+n1 <- 12262
+n2 <- 12257
+# pocet kliknuti
+y1 <- 451
+y2 <- 479
+# relativni cetnost ve skupinach
+p1 <- y1/n1
+p2 <- y2/n2
+```
+
+Očividně v našich datech kliklo více lidí na druhou verzi a to i pokud vezmem ev potaz počet lidi v každé skupině a vypočítáme relativní četnost. V první skupině kliklo na tlačítko `r round(p1, 3)`, v druhé skupině kliklo na tlačítko `r round(p2, 3)`. Zajímá nás, zda je tento rozdíl díky náhodě, nebo zda je pravděpodobné, že kdybyhom tento test opakovali, opět bychom uviděli vyšší podíl lidé v druhé skupině, který klik na tlačítko darovat. Rozdíl relativní četnosti bude mít rozložení $N(p_1-p_2, \sqrt{s_1^2 + s_2^2})$. Přičemž víme, že u relativní četnosti se směrodatná odchylka rovná $s = \sqrt{p (1-p)}$. Graf \@ref(fig:diff-rel-cet) ukazuje výběrové rozdělení rozdílu relativní četnosti. Protože náš výběr je hodné veliký, používáme normální rozdělení.
+
+```{r diff-rel-cet, fig.cap='Výběrové rozdělení rozdílu relativní četnosti'}
+# smerodatna odchylka
+s1 <- sqrt(p1 * (1-p1))
+s2 <- sqrt(p2 * (1-p2))
+
+# vyberove parametry rozdilu
+p_d <- p1 - p2
+# směrodatná odchylka rozdilu 
+sd_d <- sqrt(s1^2 + s2^2)
+# smerodatna chyba rozdilu
+se_d <- sd_d / sqrt(n1+n2-2)
+
+x <- seq(-0.008, 0.004, length.out = 1000)
+pdf_d <- dnorm(x, mean = p_d, sd = se_d)
+h0 <- 0
+p_0 <- pnorm(h0, mean = p_d, sd = se_d, lower.tail = FALSE)
+
+plot(x, pdf_d,
+     type = "l", lwd = 2,
+     xlab = "Rozdíl v relativní četnosti",
+     ylab = "PDF",
+     col = "grey",
+     main = paste0("P(x > 0)=", round(p_0, 2))
+)
+# pridame integral plochy pro P(X > 0)
+lines(x[x>h0], pdf_d[x>h0], type = "h", col = "#1f77b4", lwd = 1)
+
+legend("topright",
+     legend = paste0(
+          "N(", round(p_d, 3), ", ",
+          round(se_d, 3), ")"
+     ),
+     col = "grey",
+     lwd = 2,
+     cex = 0.7
+)
+
+# vypocitame inteval spolehlivosti
+alpha <- 0.05
+q <- qnorm(c(alpha/2, 1-alpha/2))
+i_s <- round(p_d + q * se_d, 3)
+```
+Výběrový rozdíl v relativních četnost je `r round(p_d, 3)`. Interval spolehlivosti na hladině spolehlivosti `r (1-alpha)*100`% je [`r i_s[1]`, `r i_s[2]`]. Nemůžeme tedy vyloučit, že pokud bychom experiment opakovali, rozdíl by mohl být pozitivní, což by znamenalo, že $p_1$ je větší než $p_2$.   
+
+
+Z hlediska statistické hypotézy nás zajímá zda $H_1: \pi_1 < \pi_2$, tedy zda $H_1: \pi_1 - \pi_2 < 0$ a tedy nulová hypotéza je $H_0:  \pi_1 - \pi_2 \ge 0$. Graf \@ref(fig:diff-rel-cet-h0) ukazuje výběrové rozdělení rozdílu relativních četností za předpokladu $H_0=0$. Modrá oblast potom ukazuje oblast zamítnutí $H_0$.
+```{r diff-rel-cet-h0, fig.cap='Výběrové rozdělení rozdílu relativní četnosti za předpokladu H0'}
+x <- seq(-0.006, 0.006, length.out = 1000)
+h0 <- 0
+pdf_d <- dnorm(x, mean = h0, sd = se_d)
+p_0 <- pnorm(p_d, mean = h0, sd = se_d, lower.tail = TRUE)
+
+plot(x, pdf_d,
+     type = "l", lwd = 2,
+     xlab = "Rozdíl v relativní četnosti",
+     ylab = "PDF",
+     col = "grey",
+     main = paste0("P(x < ", round(p_d, 3), "0)=", round(p_0, 2))
+)
+# pridame integral plochy pro P(X > 0)
+lines(x[x<p_d], pdf_d[x<p_d], type = "h", col = "#1f77b4", lwd = 1)
+
+legend("topright",
+     legend = paste0(
+          "N(", h0, ", ",
+          round(se_d, 3), ")"
+     ),
+     col = "grey",
+     lwd = 2,
+     cex = 0.7
+)
+```
+
+Pravděpodobnost, že za předpokladu $H_0$ bychom sledovali rozdíl `r round(p_d, 3)` nebo více extrémní je `r round(p_0, 2)`. Pokud zvolíme chybu I. druhu $\alpha=$ `r alpha`, pak je tato pravděpodobnost větší a proto nemůžeme zamítnou $H_0:  \pi_1 - \pi_2 \ge 0$.
+
+Ukážeme si ještě, že k výpočtu můžeme stejně tako použít bootstrap a to i pokud nemáme celá data (ale pouze parametry). Budeme dělat výběry z rozložení $B($ `r round(p1, 3)` $,$ `r n1` $)$ a z $B($ `r round(p2, 3)`  $,$ `r n2` $)$. Vždy vypočítáme rodíl mezi výběrovou relativní četnosti $p_{1Boot}$ a výběrovou relativní četnost $p_{2Boot}$. Nakonec zobrazíme rozdělení těchto rozdílů.
+```{r diff-rel-cet-boot, fig.cap='Boostrapované rozdělení rozdílu v relativní četnosti'}
+# počet simulaci
+s <- 1e4
+p_d_boostrap <- rep(NA, s)
+for(i in 1:s) {
+  vyber_1 <- rbinom(n = 1, size = n1, prob = p1)
+  vyber_2 <- rbinom(n = 1, size = n2, prob = p2)
+  p_d_boostrap[i] <- vyber_1/n1 - vyber_2/n2
+}
+
+hist(p_d_boostrap, col = "#1f77b4", 
+     xlab = "Rozdíl v relativní četnosti", ylab = "Četnost", main = "")
+
+i_s <- quantile(p_d_boostrap, probs = c(alpha/2, 1-alpha/2))
+i_s <- round(i_s, 3)
+i_s
+```
+
+```{r}
+x_1 <- c(rep(1, y1), rep(0, n1-y1))
+x_2 <- c(rep(1, y2), rep(0, n2-y2))
+
+for(i in 1:s) {
+  vyber_1 <- sample(x_1, size = n1, replace = TRUE)
+  vyber_2 <- sample(x_2, size = n2, replace = TRUE)
+  p_d_boostrap[i] <- mean(vyber_1) - mean(vyber_2)
+}
+quantile(p_d_boostrap, probs = c(alpha/2, 1-alpha/2))
+```
+
+
+`r alpha/2` kvantil a `r  1-alpha/2` kvantil jsou [`r i_s[1]`, `r i_s[2]`].
+
