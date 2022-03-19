@@ -51,6 +51,13 @@ fig:tests-inter-both
 fig:test-h0-is
 fig:test-app
 fig:test-pois
+fig:test-points
+fig:test2-prumery
+fig:test-rozdil-dist
+fig:t2-test-dep
+fig:diff-rel-cet
+fig:diff-rel-cet-h0
+fig:diff-rel-cet-boot
 úvod
 příklad-popisné-statistiky
 příklad-inferenční-statistiky
@@ -60,7 +67,6 @@ desc-stats
 central-tend
 desc-vars
 kvantily
-cvičení
 prob-dist
 stats-lang
 binom-dist
@@ -70,14 +76,12 @@ unif-dist
 pois-dist
 chi-kvadrát
 jak-vybrat-správný-model-pro-data
-cvičení-1
 dist-params
 clv-procento
 clv-is
 bootstrap
 clv-mean
 rozptyl
-cvičení-2
 stats-test-single
 postup-statistického-testování
 zvolení-testu
@@ -89,3 +93,8 @@ souvislost-s-intervalem-spolehlivosti
 test-power
 velikost-výběru
 tests-many
+porovnání-dvou-průměrů-a-relativních-četností
+průměry
+t2-test-ind
+dva-závislé-výběry
+relativní-četnosti

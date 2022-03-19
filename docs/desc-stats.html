@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Kapitola 2 Popisná statistika | Úvod do statistiky</title>
   <meta name="description" content="Tato kniha obsahuje materiál ke cvičení kurzu Úvod do statistiky (JSB535)." />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Kapitola 2 Popisná statistika | Úvod do statistiky" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Tato kniha obsahuje materiál ke cvičení kurzu Úvod do statistiky (JSB535)." />
   
@@ -24,7 +23,7 @@
 <meta name="author" content="Jan Schubert" />
 
 
-<meta name="date" content="2022-03-15" />
+<meta name="date" content="2022-03-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +32,6 @@
   
 <link rel="prev" href="index.html"/>
 <link rel="next" href="prob-dist.html"/>
-<script src="libs/header-attrs-2.12/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -150,7 +148,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1" data-path="desc-stats.html"><a href="desc-stats.html#central-tend"><i class="fa fa-check"></i><b>2.1</b> Míry centrální tendence<span></span></a></li>
 <li class="chapter" data-level="2.2" data-path="desc-stats.html"><a href="desc-stats.html#desc-vars"><i class="fa fa-check"></i><b>2.2</b> Míry rozptýlenosti<span></span></a></li>
 <li class="chapter" data-level="2.3" data-path="desc-stats.html"><a href="desc-stats.html#kvantily"><i class="fa fa-check"></i><b>2.3</b> Míry polohy<span></span></a></li>
-<li class="chapter" data-level="2.4" data-path="desc-stats.html"><a href="desc-stats.html#cvičení"><i class="fa fa-check"></i><b>2.4</b> Cvičení<span></span></a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="prob-dist.html"><a href="prob-dist.html"><i class="fa fa-check"></i><b>3</b> Pravděpodobnostní rozdělení<span></span></a>
 <ul>
@@ -162,7 +159,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.6" data-path="prob-dist.html"><a href="prob-dist.html#pois-dist"><i class="fa fa-check"></i><b>3.6</b> Poisson<span></span></a></li>
 <li class="chapter" data-level="3.7" data-path="prob-dist.html"><a href="prob-dist.html#chi-kvadrát"><i class="fa fa-check"></i><b>3.7</b> Chi-kvadrát<span></span></a></li>
 <li class="chapter" data-level="3.8" data-path="prob-dist.html"><a href="prob-dist.html#jak-vybrat-správný-model-pro-data"><i class="fa fa-check"></i><b>3.8</b> Jak vybrat správný model pro data<span></span></a></li>
-<li class="chapter" data-level="3.9" data-path="prob-dist.html"><a href="prob-dist.html#cvičení-1"><i class="fa fa-check"></i><b>3.9</b> Cvičení<span></span></a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="dist-params.html"><a href="dist-params.html"><i class="fa fa-check"></i><b>4</b> Výběrové rozdělení parametrů<span></span></a>
 <ul>
@@ -171,7 +167,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3" data-path="dist-params.html"><a href="dist-params.html#bootstrap"><i class="fa fa-check"></i><b>4.3</b> Bootstrap<span></span></a></li>
 <li class="chapter" data-level="4.4" data-path="dist-params.html"><a href="dist-params.html#clv-mean"><i class="fa fa-check"></i><b>4.4</b> Průměr<span></span></a></li>
 <li class="chapter" data-level="4.5" data-path="dist-params.html"><a href="dist-params.html#rozptyl"><i class="fa fa-check"></i><b>4.5</b> Rozptyl<span></span></a></li>
-<li class="chapter" data-level="4.6" data-path="dist-params.html"><a href="dist-params.html#cvičení-2"><i class="fa fa-check"></i><b>4.6</b> Cvičení<span></span></a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="stats-test-single.html"><a href="stats-test-single.html"><i class="fa fa-check"></i><b>5</b> Statistické testování<span></span></a>
 <ul>
@@ -187,6 +182,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.4" data-path="stats-test-single.html"><a href="stats-test-single.html#test-power"><i class="fa fa-check"></i><b>5.4</b> Síla testu<span></span></a></li>
 <li class="chapter" data-level="5.5" data-path="stats-test-single.html"><a href="stats-test-single.html#velikost-výběru"><i class="fa fa-check"></i><b>5.5</b> Velikost výběru<span></span></a></li>
 <li class="chapter" data-level="5.6" data-path="stats-test-single.html"><a href="stats-test-single.html#tests-many"><i class="fa fa-check"></i><b>5.6</b> Mnoho testů<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="porovnání-dvou-průměrů-a-relativních-četností.html"><a href="porovnání-dvou-průměrů-a-relativních-četností.html"><i class="fa fa-check"></i><b>6</b> Porovnání dvou průměrů a relativních četností<span></span></a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="porovnání-dvou-průměrů-a-relativních-četností.html"><a href="porovnání-dvou-průměrů-a-relativních-četností.html#průměry"><i class="fa fa-check"></i><b>6.1</b> Průměry<span></span></a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="porovnání-dvou-průměrů-a-relativních-četností.html"><a href="porovnání-dvou-průměrů-a-relativních-četností.html#t2-test-ind"><i class="fa fa-check"></i><b>6.1.1</b> Dva nezávislé výběry<span></span></a></li>
+<li class="chapter" data-level="6.1.2" data-path="porovnání-dvou-průměrů-a-relativních-četností.html"><a href="porovnání-dvou-průměrů-a-relativních-četností.html#dva-závislé-výběry"><i class="fa fa-check"></i><b>6.1.2</b> Dva závislé výběry<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="porovnání-dvou-průměrů-a-relativních-četností.html"><a href="porovnání-dvou-průměrů-a-relativních-četností.html#relativní-četnosti"><i class="fa fa-check"></i><b>6.2</b> Relativní četnosti<span></span></a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a>
@@ -339,7 +343,7 @@ Graf 2.3: Seřazení proměnné pro ilustraci výpočtu mediánu
 <span id="cb19-8"><a href="desc-stats.html#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co"># nebo pomci funkce weighted.mean(pocet_slov, w)</span></span></code></pre></div>
 <p>Průměrný počet slov ve větě je 16.56. Někdy nechceme všem pozorováním při výpočtu průměru dát stejnou váhu. V takovém případě vypočítáme <strong>vážený průměr</strong>. Jeho vzorec je <span class="math display">\[\overline{x} = \frac{\sum_{i=1}^{n} w_ix_i}{\sum_{i=1}^{n}w_i}\]</span> Řekněme například, že bychom průměrný počet slov chtěli vážit pozicí v textu a dát slovům v první větě větší váhu, než slovům, které se objevily později v textu. Takovýto vážený průměr je 17.</p>
 <p>Důležitý rozdíl mezi mediánem a průměr nastává pokud nejsou data symetricky rozdělena. Symetricky rozdělená data jsou taková, která mají podobný počet hodnot nalevo a napravo od průměru. V našem případě rozdělení počtu slov ve větě je medián menší než průměr. To je typické pro rozdělení, která mají delší konec napravo od průměru. Průměr je totiž náchylný na extrémní pozorování. Medián je založený na pořadí, takže ho extrémní pozorování tolik neovlivní. Většina proměnných, která je ohraničená zleva (nemůže mít menší hodnotu než nějaká hranice) má asymetrické rozdělení s více hodnotami napravo od průměru, např. příjem. V takových případech může být medián lepší mírou centrální tendence, ale výběr bude vždy záležet na otázce, kterou daty chceme zodpovědět.</p>
-<p>I pomocí měr centrální tendence se dají dělat zajívé analýzy. Řekněme, že nás zajímá rozdíl v relativní četnosti slov v projevu prezidenta a premiéra<a href="stats-test-single.html#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. Graf <a href="desc-stats.html#fig:desc-rozdil">2.4</a> zobrazuje 20 slov<a href="stats-test-single.html#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>, které mají největší relativní četnost. Jak je vidět projev premiéra se zaměřoval častěji na <em>problémy</em> ČR, kdežto projev prezidenta se častěji zaměřoval na <em>rozpočet</em> a <em>očkování</em><a href="stats-test-single.html#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>.</p>
+<p>I pomocí měr centrální tendence se dají dělat zajívé analýzy. Řekněme, že nás zajímá rozdíl v relativní četnosti slov v projevu prezidenta a premiéra<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. Graf <a href="desc-stats.html#fig:desc-rozdil">2.4</a> zobrazuje 20 slov<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>, které mají největší relativní četnost. Jak je vidět projev premiéra se zaměřoval častěji na <em>problémy</em> ČR, kdežto projev prezidenta se častěji zaměřoval na <em>rozpočet</em> a <em>očkování</em><a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>.</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="desc-stats.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># nacteme text projevu premiera</span></span>
 <span id="cb20-2"><a href="desc-stats.html#cb20-2" aria-hidden="true" tabindex="-1"></a>premier <span class="ot">&lt;-</span> <span class="fu">readLines</span>(<span class="st">&quot;https://raw.githubusercontent.com/schubertjan/uvod-do-statistiky/master/dats/vlada.txt&quot;</span>)</span>
 <span id="cb20-3"><a href="desc-stats.html#cb20-3" aria-hidden="true" tabindex="-1"></a>premier_clean <span class="ot">&lt;-</span> <span class="fu">vycistit_text</span>(premier)</span>
@@ -413,7 +417,7 @@ Graf 2.4: Top 20 slov podle relativní četnosti v projevu prezidenta a premiér
 <p>Míry centrální tendence nám udávájí hodnotu typického pozorování proměnné. Míry rozptýlenosti nám říkají, jak jsou hodnoty rozptýleny okolo nějaké typické hodnoty. Nejjednodušší mírou rozptýlenosti je <strong>variační rozptyl</strong>, kdy nás zajímá rozdíl mezi největší a nejmenší hodnotou proměnní <span class="math inline">\(x_i\)</span>, tedy <span class="math inline">\(VR = max(x_i) - min(x_i)\)</span>.</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="desc-stats.html#cb24-1" aria-hidden="true" tabindex="-1"></a>vr <span class="ot">&lt;-</span> <span class="fu">max</span>(pocet_slov) <span class="sc">-</span> <span class="fu">min</span>(pocet_slov)</span></code></pre></div>
 <p>Minimální počet slov ve větě je 3, nejdelší věta má 43 slov. Variační rozpětí je tedy 40.</p>
-<p>Pro kardinální proměnné se nejčastěji používá <strong>rozptyl</strong>, který vypočítáme tak, že každou hodnotu proměnné odečteme od průměru a umocníme. Tyto hodnoty sečteme a vydělíme počtem pozorování. Matematicky bychom rozptyl <span class="math inline">\(s^2\)</span> proměnné <span class="math inline">\(x_i\)</span> vypočítali jako <span class="math display">\[s^2 = \frac{1}{n-1}\sum_{i=1}^n (x_i - \overline{x})^2\]</span><a href="stats-test-single.html#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>Ve statistice se také používá pro výpočet rozptýlenosti <strong>směrodatná odchylka</strong> <span class="math inline">\(s\)</span>, které se vypočítá jako <span class="math display">\[s = \sqrt{s^2}\]</span>Protože umocněné vzdálenosti od průměru opět odmocníme, vrátíme je tím na stejnou škálu jako <span class="math inline">\(x_i\)</span>. Směrodatná odchylka tedy představuje typickou vzdálenost pozorování od průměru. Ukažme si příklad na počtu slov.</p>
+<p>Pro kardinální proměnné se nejčastěji používá <strong>rozptyl</strong>, který vypočítáme tak, že každou hodnotu proměnné odečteme od průměru a umocníme. Tyto hodnoty sečteme a vydělíme počtem pozorování. Matematicky bychom rozptyl <span class="math inline">\(s^2\)</span> proměnné <span class="math inline">\(x_i\)</span> vypočítali jako <span class="math display">\[s^2 = \frac{1}{n-1}\sum_{i=1}^n (x_i - \overline{x})^2\]</span><a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>Ve statistice se také používá pro výpočet rozptýlenosti <strong>směrodatná odchylka</strong> <span class="math inline">\(s\)</span>, které se vypočítá jako <span class="math display">\[s = \sqrt{s^2}\]</span>Protože umocněné vzdálenosti od průměru opět odmocníme, vrátíme je tím na stejnou škálu jako <span class="math inline">\(x_i\)</span>. Směrodatná odchylka tedy představuje typickou vzdálenost pozorování od průměru. Ukažme si příklad na počtu slov.</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="desc-stats.html#cb25-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(pocet_slov)</span>
 <span id="cb25-2"><a href="desc-stats.html#cb25-2" aria-hidden="true" tabindex="-1"></a>rozptyl <span class="ot">&lt;-</span> <span class="fu">sum</span>((pocet_slov <span class="sc">-</span> <span class="fu">mean</span>(pocet_slov))<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> n</span>
 <span id="cb25-3"><a href="desc-stats.html#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co"># nebo v R pomoci var</span></span>
@@ -520,15 +524,17 @@ Kde PR je hodnota percentilu, CF je kumulativní počet výsledků a F je počet
 ##  9.00 15.50 22.75</code></pre>
 <p>Vidíme, že 25% vět má méně než 9 slov a že 25% vět má více než 23 slov (nebo že 75% vět má méně než 23 slov).</p>
 <p>Někdy se hodnoty kvantilů používají k výpočtu mezikvantilových rozpětí tak, že se honodty kvantilů odečtou mezi sebou. Například mazikvartilové rozpětí se vypočítá jako <span class="math inline">\(Q_{0.75} - Q_{0.25}\)</span>.</p>
-</div>
-<div id="cvičení" class="section level2 hasAnchor" number="2.4">
-<h2><span class="header-section-number">2.4</span> Cvičení<a href="desc-stats.html#cvičení" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ol style="list-style-type: decimal">
-<li>Vytvořte funkci na výpočet percentilu. Vstupem do funkce bude numerický vektor <span class="math inline">\(x\)</span>. Výstupem funkce bude hodnota percentilupro každou hodnotu vektoru <span class="math inline">\(x\)</span>.</li>
-<li>Načtěte projev <a href="https://raw.githubusercontent.com/schubertjan/uvod-do-statistiky/master/dats/senat.txt">Předsedy Senátu</a>, <a href="https://raw.githubusercontent.com/schubertjan/uvod-do-statistiky/master/dats/vlada.txt">Premiéra ČR</a> a projev Prezidenta ČR z kapitoly nahoře. Který projev je celkově nejdelší? Který ústavní činitel má v průměru nejdelší věty? Jak se liší směrodatná odchylka počtu slov ve větě a co to znamená? Zobrazte rozdělení dat pomocí histogramu.</li>
-</ol>
 
 </div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>Pro relativní četnost slov v dokumentu se používá termín term-frequency nebo také “tf”. Více informací <a href="https://cs.wikipedia.org/wiki/Tf-idf">zde</a>.<a href="desc-stats.html#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>Očištěných o stopwords.<a href="desc-stats.html#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>Při textové analýze bychom potom dále využili nástroje jako <a href="https://cs.wikipedia.org/wiki/Vno%C5%99en%C3%AD_slov">bag-of-words</a> abychom získali pouze kořeny slov apod.<a href="desc-stats.html#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>V případě populačního rozptylu <span class="math inline">\(\sigma^2 = \frac{1}{N}\sum_{i=1}^n (x_i - \mu_x)^2\)</span>.<a href="desc-stats.html#fnref4" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
             </section>
 

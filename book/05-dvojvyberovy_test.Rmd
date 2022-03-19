@@ -4,9 +4,11 @@ V této kapitole si představíme, jak porovnat dva průměry nebo relativní č
 
 
 ## Průměry
+
+### Dva nezávislé výběry{#t2-test-ind}
 Při zkoušce máme připravené dvě verze testu. Studentům náhodně přiřadíme jednu z verzí. Tabulka dole ukazuje popisné statistiky našich dat.
 ```{r test-dats}
-dats <- read.csv("../dats/test.csv", stringsAsFactors = TRUE)
+dats <- read.csv("https://raw.githubusercontent.com/schubertjan/uvod-do-statistiky/master/dats/test.csv", stringsAsFactors = TRUE)
 summary(dats)
 ```
 
@@ -166,6 +168,84 @@ d <- abs(prumer_d - h0) / sqrt(vyber_stats[1, "sd"]^2 + vyber_stats[2, "sd"]^2)
 V našem případě je Cohenovo d rovno `r round(d, 2)`, což odpovídá malému efektu.
 
 
+### Dva závislé výběry
+Pokud jsou pozorování v prvním a druhém výběru závislá, tedy většinou to jsou stejná pozorování, bude výpočet společného směrodatné odchylky rozdílu jiný než v \@ref(t2-test-ind). Protože pozorování v obou výběrech jsou stejná, jsou jejich směrodatné odchylky závislé a proto směrodatná odchylka nové proměnné rozdílu nebude součetem směrodatných odchylek prvního a druhého výběru. Pokud máme dva výběry se stejnými pozorováními a s proměnnými $x_i$ a $y_i$ můžeme vypočítat u každého pozorování rozdíl $d_i$ jako $d_i=x_i - y_i$. Směrodatnou chybu rozdílu vypočít jako $s_\overline{d} = \frac{s_d}{\sqrt{n}}$, kde $s_d$ je směrodatná odchylka $x_i - y_i$. Počet stupňů volnosti vypočítáme jako $\upsilon = n-1$. Tedy výběrový průměrný rozdíl bude $T(\overline{d}, \frac{s_d}{\sqrt{n}}, n-1)$. 
+
+Jako příklad si ukážeme data z výzkumu trhu. 20 respondentů bylo dotázáno, na jaké značky si vzpomenou. Poté jim bylo ukázáno několik reklam. Po 2 dnech byli stejní respondenti dotázáni opět na značky, které si pamatují. Sloupec `pre` označuje počet značek, které si respondent zapamatoval. `post` vyjadřuje počet značek, které si zapamatoval poté, co mu byly ukázány reklamy. Bude nás zajímat, zda reklamy, které respondent viděl měli pozitivní vliv na počet značek, na které si respondent vzpoměl.
+
+```{r}
+ads <- read.csv("../dats/ads.csv")
+```
+
+Průměrný počet značek, které si respendenti vybavili před shlédnutím reklam je `r mean(ads$pre)`, počet značek, které si respondenti vybavili po shlédnutí reklam je `r mean(ads$post)`. Zajímá nás, zda je tento rozdíl díky náhodě, nebo zda bychom podobný rozdíl viděli i při opakování experimentu. Graf \@ref(fig:t2-test-dep) zobrazuje výběrové rozdělení prům2rného rozdílu počtu značek, které respodenti zmínili před a po shlédnutí reklam.
+
+```{r t2-test-dep, fig.cap='Výběrové rozdělení průměru dvou závislých výběrů'}
+n <- nrow(ads)
+# rozdil 
+d_i <- ads$pre - ads$post
+# prumerny rozdil
+d <- mean(d_i)
+# smerodatna odchylka rozdilu
+sd_d <- sd(d_i)
+# smerodatna chyba rozdilu
+se_d <- sd_d / sqrt(n)
+
+# vypocitame pdf vyberového rozdeleni
+x <- seq(-3, 0, length.out = 1000)
+pdf_d <- dt((x-d)/se_d, df = n-1) * 1/se_d
+
+plot(x, pdf_d,
+     type = "l", lwd = 2,
+     xlab = "Rozdíl v počtu značek",
+     ylab = "PDF",
+     col = "#1f77b4",
+     main = ""
+)
+
+legend("topright",
+     legend = paste0(
+          "T(", round(d, 2), ", ",
+          round(se_d, 2), ", ", n-1, ")"
+     ),
+     col = "#1f77b4",
+     lwd = 2,
+     cex = 0.7
+)
+
+alpha <- 0.05
+q <- qt(c(alpha/2, 1-alpha/2), df = n-1)
+i_s <- d + q * se_d
+```
+
+Interval spolehlivosti pro výběrový rozdíl na hladině spolehlivosti `r (1-alpha)*100`% je [`r round(i_s[1], 2)`, `r round(i_s[2], 2)`]. Je tedy menší než 0 a můžeme usuzovat, že pokud bychom experimenty opakovali dokola, pak v `r  (1-alpha)*100`% případů by byl výběrový rozdíl v těchto mezích (a tedy zároveň menší než 0).
+
+Řekněme, že máme hypotézu, že průměrný počet značek se zvýší o 1 a více. Pak bychom mohli formulovat hypotézy: 
+
+$H_0: \mu_{pre} - \mu_{post} \ge -1$
+
+$H_1: \mu_{pre} - \mu_{post} < -1$
+
+```{r}
+# stanovime H0
+h0 <- -1
+# vypocitame t statistiku
+t <- (d-h0) / se_d
+# vypocitame p-hodnotu
+p_0 <- pt(t, df = n-1)
+```
+
+Za předpokladu výběrového rozdělení $H_0=$ `r h0` je pravděpodobnost, že bychom viděli  hodnotu průměrného rozdílu `r round(d, 2)` nebo extrémnější rovna `r round(p_0, 2)` a tedy není menší než námi zvolená hladina `r alpha` a nemohli bychom zamítnout $H_0$ ve prospěch $H_1$, že respondenti si po shlédnutí bloku reklam pamatují o jednu nebo více značek.
+
+Ještě si ukážeme, jak bychom tento příklad vypočítali pomocí funkce `t.test`.
+```{r}
+t.test(x = ads$pre, y = ads$post, 
+       conf.level = 1-alpha,
+       mu = h0,
+       paired = TRUE,
+       alternative = "less")
+```
+
+
 ## Relativní četnosti
 
 Stejně jako je tomu u porovnání dvou průměrů, je porovnání dvou relativních četností rozšířením konceptů, které jsme si ukazovali v předchozích kapitolách. My si porování dvou relativních četností ukážeme na příkladu A/B testování. 
@@ -199,12 +279,10 @@ s2 <- sqrt(p2 * (1-p2))
 
 # vyberove parametry rozdilu
 p_d <- p1 - p2
-# směrodatná odchylka rozdilu 
-sd_d <- sqrt(s1^2 + s2^2)
 # smerodatna chyba rozdilu
-se_d <- sd_d / sqrt(n1+n2-2)
+se_d <- sqrt(s1^2/n1 + s2^2/n2)
 
-x <- seq(-0.008, 0.004, length.out = 1000)
+x <- seq(-0.009, 0.005, length.out = 1000)
 pdf_d <- dnorm(x, mean = p_d, sd = se_d)
 h0 <- 0
 p_0 <- pnorm(h0, mean = p_d, sd = se_d, lower.tail = FALSE)
@@ -239,7 +317,7 @@ Výběrový rozdíl v relativních četnost je `r round(p_d, 3)`. Interval spole
 
 Z hlediska statistické hypotézy nás zajímá zda $H_1: \pi_1 < \pi_2$, tedy zda $H_1: \pi_1 - \pi_2 < 0$ a tedy nulová hypotéza je $H_0:  \pi_1 - \pi_2 \ge 0$. Graf \@ref(fig:diff-rel-cet-h0) ukazuje výběrové rozdělení rozdílu relativních četností za předpokladu $H_0=0$. Modrá oblast potom ukazuje oblast zamítnutí $H_0$.
 ```{r diff-rel-cet-h0, fig.cap='Výběrové rozdělení rozdílu relativní četnosti za předpokladu H0'}
-x <- seq(-0.006, 0.006, length.out = 1000)
+x <- seq(-0.007, 0.007, length.out = 1000)
 h0 <- 0
 pdf_d <- dnorm(x, mean = h0, sd = se_d)
 p_0 <- pnorm(p_d, mean = h0, sd = se_d, lower.tail = TRUE)
@@ -283,21 +361,9 @@ hist(p_d_boostrap, col = "#1f77b4",
 
 i_s <- quantile(p_d_boostrap, probs = c(alpha/2, 1-alpha/2))
 i_s <- round(i_s, 3)
-i_s
 ```
 
-```{r}
-x_1 <- c(rep(1, y1), rep(0, n1-y1))
-x_2 <- c(rep(1, y2), rep(0, n2-y2))
-
-for(i in 1:s) {
-  vyber_1 <- sample(x_1, size = n1, replace = TRUE)
-  vyber_2 <- sample(x_2, size = n2, replace = TRUE)
-  p_d_boostrap[i] <- mean(vyber_1) - mean(vyber_2)
-}
-quantile(p_d_boostrap, probs = c(alpha/2, 1-alpha/2))
-```
+`r alpha/2` kvantil a `r  1-alpha/2` kvantil výběrového rozdílu dvou relativních četností jsou [`r i_s[1]`, `r i_s[2]`]. Opět tedy naše data nepodporují hypotézu, že rozdíl je menší než 0 a na základě dostupných dat nedokážeme určit, že by druhá varianta tlačítka s oblými rohy zvyšovala pravděpodobnost darování peněz.
 
 
-`r alpha/2` kvantil a `r  1-alpha/2` kvantil jsou [`r i_s[1]`, `r i_s[2]`].
 

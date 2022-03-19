@@ -405,7 +405,7 @@ lines(x[x < q], pdf[x < q], col = "#1f77b4", type = "h")
 ```
 
 ## T{#t-dist}
-Dalším z rozdělení, které si představíme je tzv. t-rozdělení, nebo také někdy nazývané studentovo. Toto rozdělení vychází z normálního rozdělení, ale má větší varibilitu. PDF normálního rozdělení rapidně klesá se vzdáleností od průměru (viz \@ref(fig:z-norm)). Pokud potřebujeme popsat jev, který má více hodnot vzdálených od průměru, než bychom čekali u normálního rozdělení, je toho možné dosáhnout pomocí t-rozdělení. T-rozdělení je automaticky standardizované na $\mu = 0$ a má pouze jeden paramater - stupně volnosti (degrees of freedom) $\nu$, který určuje jak pravděpodobné jsou hodnoty více vzdálené od průměru. Čím je $\nu$ menší, tím je rozdělení více široké a naopak. Pokud je $\nu$ větší než 50, je t-rozdělení skoro totožné se standardizovaným normálním rozdělením $N(1, 0)$. Pojďme si nyní ukázat PDF při různých stupních volnosti $\nu$ a jejich podobnost k $N(1, 0)$. Ukážeme si $T(2)$, $T(4)$, $T(8)$, $T(16)$, $T(34)$ a $T(64)$. Jak je vidět z grafu \@ref(fig:t-dist), s rostoucím počtem stupňů volnosti se t-rozdělení přibližuje $N(1,0)$, $T(64)$ už skoro překrývá křivku PDF pro $N(1,0)$
+Dalším z rozdělení, které si představíme je tzv. t-rozdělení, nebo také někdy nazývané studentovo. Toto rozdělení vychází z normálního rozdělení, ale má větší varibilitu. PDF normálního rozdělení rapidně klesá se vzdáleností od průměru (viz \@ref(fig:z-norm)). Pokud potřebujeme popsat jev, který má více hodnot vzdálených od průměru, než bychom čekali u normálního rozdělení, je toho možné dosáhnout pomocí t-rozdělení. T-rozdělení je automaticky standardizované na $\mu = 0$ a má pouze jeden paramater - stupně volnosti (degrees of freedom) $\nu$, který určuje jak pravděpodobné jsou hodnoty více vzdálené od průměru. Čím je $\nu$ menší, tím je rozdělení více široké a naopak. Pokud je $\nu$ větší než 50, je t-rozdělení skoro totožné se standardizovaným normálním rozdělením $N(0, 1)$. Pojďme si nyní ukázat PDF při různých stupních volnosti $\nu$ a jejich podobnost k $N(0, 1)$. Ukážeme si $T(2)$, $T(4)$, $T(8)$, $T(16)$, $T(34)$ a $T(64)$. Jak je vidět z grafu \@ref(fig:t-dist), s rostoucím počtem stupňů volnosti se t-rozdělení přibližuje $N(1,0)$, $T(64)$ už skoro překrývá křivku PDF pro $N(1,0)$
 
 ```{r t-dist, fig.cap='Podobnost t-rozdělení k N(1,0)'}
 # stupne volnost
@@ -431,7 +431,7 @@ for (i in 1:length(sv)) {
   lines(x, pdf_t[[i]], type = "l", lwd = 2, col = cols[i])
 }
 legend("topright",
-  legend = c("N(1,0)", paste0("T(", sv, ")")),
+  legend = c("N(0,1)", paste0("T(", sv, ")")),
   col = c("black", cols),
   lwd = rep(2, length(sv) + 1),
   cex = 0.7
@@ -824,7 +824,3 @@ Nakonec představíme aplikaci, pomocí které si můžete vyzkoušet, jak různ
 ```{r dist-app, echo=FALSE, fig.cap='Zdroj: https://github.com/ShinyEd/intro-stats/tree/master/dist_calc'}
 knitr::include_app("https://gallery.shinyapps.io/dist_calc/")
 ```
-
-
-## Cvičení 
-Vymyslete náhodné proměnné, jejichž pravděpodobnostní rozdělení by se dalo popsat binomickým, normálním a poissonovým rozdělením.

@@ -335,8 +335,3 @@ kvartil
 Vidíme, že 25% vět má méně než `r round(kvartil[1], 0)` slov a že 25% vět má více než `r round(kvartil[3], 0)` slov (nebo že 75% vět má méně než 23 slov).
 
 Někdy se hodnoty kvantilů používají k výpočtu mezikvantilových rozpětí tak, že se honodty kvantilů odečtou mezi sebou. Například mazikvartilové rozpětí se vypočítá jako $Q_{0.75} - Q_{0.25}$.   
-
-
-## Cvičení 
-1. Vytvořte funkci na výpočet percentilu. Vstupem do funkce bude numerický vektor $x$. Výstupem funkce bude hodnota percentilupro každou hodnotu vektoru $x$.
-2. Načtěte projev [Předsedy Senátu](https://raw.githubusercontent.com/schubertjan/uvod-do-statistiky/master/dats/senat.txt), [Premiéra ČR](https://raw.githubusercontent.com/schubertjan/uvod-do-statistiky/master/dats/vlada.txt) a projev Prezidenta ČR z kapitoly nahoře. Který projev je celkově nejdelší? Který ústavní činitel má v průměru nejdelší věty? Jak se liší směrodatná odchylka počtu slov ve větě a co to znamená? Zobrazte rozdělení dat pomocí histogramu. 
