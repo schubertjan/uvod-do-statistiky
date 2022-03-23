@@ -58,6 +58,8 @@ fig:t2-test-dep
 fig:diff-rel-cet
 fig:diff-rel-cet-h0
 fig:diff-rel-cet-boot
+fig:x2-dobra-shoda
+fig:x2-indep
 úvod
 příklad-popisné-statistiky
 příklad-inferenční-statistiky
@@ -98,3 +100,6 @@ průměry
 t2-test-ind
 dva-závislé-výběry
 relativní-četnosti
+porovnání-více-relativních-četností
+test-dobré-shody
+chi-kvadrát-test-nezávislosti
