@@ -23,7 +23,7 @@
 <meta name="author" content="Jan Schubert" />
 
 
-<meta name="date" content="2022-03-23" />
+<meta name="date" content="2022-04-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="porovnání-dvou-průměrů-a-relativních-četností.html"/>
-
+<link rel="next" href="porovnání-více-průměrů.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -197,6 +197,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.1" data-path="porovnání-více-relativních-četností.html"><a href="porovnání-více-relativních-četností.html#test-dobré-shody"><i class="fa fa-check"></i><b>7.1</b> Test dobré shody<span></span></a></li>
 <li class="chapter" data-level="7.2" data-path="porovnání-více-relativních-četností.html"><a href="porovnání-více-relativních-četností.html#chi-kvadrát-test-nezávislosti"><i class="fa fa-check"></i><b>7.2</b> Chi-kvadrát test nezávislosti<span></span></a></li>
 </ul></li>
+<li class="chapter" data-level="8" data-path="porovnání-více-průměrů.html"><a href="porovnání-více-průměrů.html"><i class="fa fa-check"></i><b>8</b> Porovnání více průměrů<span></span></a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="porovnání-více-průměrů.html"><a href="porovnání-více-průměrů.html#problém-více-testů"><i class="fa fa-check"></i><b>8.1</b> Problém více testů<span></span></a></li>
+<li class="chapter" data-level="8.2" data-path="porovnání-více-průměrů.html"><a href="porovnání-více-průměrů.html#anova"><i class="fa fa-check"></i><b>8.2</b> ANOVA<span></span></a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a>
 <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />Tato kniha podléhá <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
@@ -282,7 +287,7 @@ Graf 7.1: Rozdělení výběrové statistiky X2 testu dobré shody za předpokla
 <p>Tento test použijeme, pokud máme dvě proměnné (například <span class="math inline">\(x\)</span> a <span class="math inline">\(y\)</span>), která nám tvoří kontingenční tabulku a zajímá nás, zda spolu tyto proměnné souvisí (jsou na sobě závislé). Nulová hypotéza je, že <span class="math inline">\(x\)</span> a <span class="math inline">\(y\)</span> na sobě nejsou závislé a alternativní, že <span class="math inline">\(x\)</span> a <span class="math inline">\(y\)</span> na sobě závislé jsou, tedy <span class="math inline">\(H_0: x \!\perp\!\!\!\perp y\)</span> a <span class="math inline">\(H_1: x \not\!\perp\!\!\!\perp y\)</span>. Testovací statistiku opět vypočítáme jako <span class="math inline">\(\chi^2 = \sum_{i=1}^k\frac{(O_i - E_i)^2}{E_i}\)</span>, kde <span class="math inline">\(O_i\)</span> značí pozorované četnosti v dané buňce kontingenční tabulky a <span class="math inline">\(E_i\)</span> očekávané četnosti za předpokladu <span class="math inline">\(H_0\)</span>. Očekávané četnosti <span class="math inline">\(O_i\)</span> pro danou buňku kontingenční tabulky můžeme vypočítat jako součet hodnot v řádku buňky <span class="math inline">\(n_i\)</span> * součet hodnot v sloupci buňky <span class="math inline">\(n_j\)</span> vydělené celkovým počtem pozorování ve všech buňkách <span class="math inline">\(n\)</span>, tedy <span class="math inline">\(E_{ij} = \frac{n_i*n_j}{n}\)</span>. Tato testovací statistika nabývá <span class="math inline">\(\chi^2\)</span> rozložení s <span class="math inline">\(k_x - 1 * k_y -1\)</span> stupni volnosti.</p>
 <p>Pojďme si tento test ukázat na následujícím příkladu. Dobrovonící jsou náhodně rozdělení do kontrolní (<code>0</code>) a experimentální skupiny (<code>1</code>). Experimentální skupině byla podána vakcína. Po nějaké době změříme u obou skupin počet lidí s danou nemocí (<code>0</code> pokud nemoc jedinec neprodělal a <code>1</code> pokud prodělal). Zajímá nás, zda existuje souvislost mezi podáním vakcíny a výskytem nemoci v populaci.</p>
 <div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="porovnání-více-relativních-četností.html#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="co"># nacteme data</span></span>
-<span id="cb118-2"><a href="porovnání-více-relativních-četností.html#cb118-2" aria-hidden="true" tabindex="-1"></a>vaccine <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../dats/vaccine.csv&quot;</span>)</span>
+<span id="cb118-2"><a href="porovnání-více-relativních-četností.html#cb118-2" aria-hidden="true" tabindex="-1"></a>vaccine <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/schubertjan/uvod-do-statistiky/master/dats/vaccine.csv&quot;</span>)</span>
 <span id="cb118-3"><a href="porovnání-více-relativních-četností.html#cb118-3" aria-hidden="true" tabindex="-1"></a><span class="co"># pomoci xtabs muzeme vytvorit kontingencni tabulku</span></span>
 <span id="cb118-4"><a href="porovnání-více-relativních-četností.html#cb118-4" aria-hidden="true" tabindex="-1"></a>t_o <span class="ot">&lt;-</span> <span class="fu">xtabs</span>(<span class="sc">~</span> group <span class="sc">+</span> disease, <span class="at">data =</span> vaccine)</span>
 <span id="cb118-5"><a href="porovnání-více-relativních-četností.html#cb118-5" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(t_o)</span></code></pre></div>
@@ -383,52 +388,13 @@ Graf 7.2: Rozdělení výběrové statistiky X2 testu nezávislosti za předpokl
 
 </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             </section>
 
           </div>
         </div>
       </div>
-<a href="porovnání-dvou-průměrů-a-relativních-četností.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="porovnání-dvou-průměrů-a-relativních-četností.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="porovnání-více-průměrů.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

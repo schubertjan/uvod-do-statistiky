@@ -60,6 +60,9 @@ fig:diff-rel-cet-h0
 fig:diff-rel-cet-boot
 fig:x2-dobra-shoda
 fig:x2-indep
+fig:unnamed-chunk-64
+fig:unnamed-chunk-65
+fig:unnamed-chunk-67
 úvod
 příklad-popisné-statistiky
 příklad-inferenční-statistiky
@@ -103,3 +106,6 @@ relativní-četnosti
 porovnání-více-relativních-četností
 test-dobré-shody
 chi-kvadrát-test-nezávislosti
+porovnání-více-průměrů
+problém-více-testů
+anova

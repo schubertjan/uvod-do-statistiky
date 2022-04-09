@@ -174,7 +174,7 @@ Pokud jsou pozorování v prvním a druhém výběru závislá, tedy většinou 
 Jako příklad si ukážeme data z výzkumu trhu. 20 respondentů bylo dotázáno, na jaké značky si vzpomenou. Poté jim bylo ukázáno několik reklam. Po 2 dnech byli stejní respondenti dotázáni opět na značky, které si pamatují. Sloupec `pre` označuje počet značek, které si respondent zapamatoval. `post` vyjadřuje počet značek, které si zapamatoval poté, co mu byly ukázány reklamy. Bude nás zajímat, zda reklamy, které respondent viděl měli pozitivní vliv na počet značek, na které si respondent vzpoměl.
 
 ```{r}
-ads <- read.csv("../dats/ads.csv")
+ads <- read.csv("https://raw.githubusercontent.com/schubertjan/uvod-do-statistiky/master/dats/ads.csv")
 ```
 
 Průměrný počet značek, které si respendenti vybavili před shlédnutím reklam je `r mean(ads$pre)`, počet značek, které si respondenti vybavili po shlédnutí reklam je `r mean(ads$post)`. Zajímá nás, zda je tento rozdíl díky náhodě, nebo zda bychom podobný rozdíl viděli i při opakování experimentu. Graf \@ref(fig:t2-test-dep) zobrazuje výběrové rozdělení prům2rného rozdílu počtu značek, které respodenti zmínili před a po shlédnutí reklam.

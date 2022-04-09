@@ -65,7 +65,7 @@ Pojďme si tento test ukázat na následujícím příkladu. Dobrovonící jsou 
 
 ```{r}
 # nacteme data
-vaccine <- read.csv("../dats/vaccine.csv")
+vaccine <- read.csv("https://raw.githubusercontent.com/schubertjan/uvod-do-statistiky/master/dats/vaccine.csv")
 # pomoci xtabs muzeme vytvorit kontingencni tabulku
 t_o <- xtabs(~ group + disease, data = vaccine)
 knitr::kable(t_o)
