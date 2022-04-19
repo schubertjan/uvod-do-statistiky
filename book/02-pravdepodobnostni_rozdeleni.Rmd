@@ -331,6 +331,47 @@ plot(density(k),
 )
 ```
 
+Je důležité zdůraznit, že zmíněná pravidla o rozptylu platí pouze za předpokladu, že jsou obě proměnné nezávislé. V grafu \@ref(fig:norm-dve-odecteni-dep) ukazujeme příklad odečtení proměnné $h_i \sim N(178, 8)$ a $l_i \sim N(h_i, 10)$. $l_i$ je tedy na $h_i$ zavislá, protože její průměr je roven $h_i$. Vypočítáme novou proměnnou $k_i=h_i - l_i$. Jak jsme ukázali nahoře, pokud by byly proměnné nezávislé, byla by směrodatná odchylka nové proměnné rovna $\sigma_k = \sqrt{\sigma_h^2 + \sigma_l^2}$. Protože jsou ale proměnné nezávislé, bude směrodatná odchylka nové proměnné rovna $\sigma_k = \sqrt{\frac{(d_i - \overline{d_i})^2}{n}}$, kde $d_i = h_i - l_i$.
+
+```{r norm-dve-odecteni-dep, fig.height=7, fig.cap='Efekt odečtení dvou závislých normálně rozdělených náhodných proměnných na rozdělení nové proměnné'}
+# abychom dosahli l~N(h_i, 10)m pak pro rnorm zvolime sd=6...
+# ...protoze sd nove promenne bude rovne sqrt(sd(h) + 6^2)
+l <- rnorm(n = n, mean = h, sd = 6)
+
+k <- h - l
+par(mfrow = c(3, 1))
+
+plot(density(h),
+  col = "#1f77b4", lwd = 2,
+  xlab = "h", ylab = "Hustota pravděp. (density)",
+  xlim = c(-30, 230),
+  main = paste0(
+    "h~N(", round(mean(h), 0),
+    ", ", round(sd(h), 0), ")"
+  )
+)
+plot(density(l),
+  col = "#1f77b4", lwd = 2,
+  xlab = "l", ylab = "Hustota pravděp. (density)",
+  xlim = c(-30, 230),
+  main = paste0(
+    "l~N(", round(mean(l), 0),
+    ", ", round(sd(l), 0), ")"
+  )
+)
+
+plot(density(k),
+  col = "#1f77b4", lwd = 2,
+  xlab = "k", ylab = "Hustota pravděp. (density)",
+  xlim = c(-30, 230),
+  main = paste0(
+    "k~N(", round(mean(k), 0),
+    ", ", round(sd(k), 0), ")"
+  )
+)
+```
+
+
 Poslední výpočetní operaci, kterou si ukážeme náhodnou proměnnou **standardizuje** tak, že její průměr bude rovný nule a směrodatná odchylka bude rovná jedné. Tento typ transformace je možné provést s proměnnou pocházející z jakéhokoliv rozdělení, ale my si ho zmiňujeme v kontextu normálního rozdělení, protože zde jej budem vídat nejčastěji. Tuto transformaci lze provést následujícím způsobem: $$z_i = \frac{(x_i - \mu_x)}{sd(x_i)}$$přičemž tedy platí, že pokud pochází $x_i$ z normálního rozdělení, tak $z_i \sim N(0, 1)$^[Pokud by $x_i$ pocházela z jiného rozdělení byl by průměr stále rovný 0 a směrodatná odchylka 1, ale použitá notace by odpovídala rozdělení, z kterého pochází (např. U pro uniformní rozdělení apod.).]. Pojďme si ukázat, jak by tato transofrmace vypadala pro náhodnou proměnnou $x_i \sim N(178, 8)$. Vzhledem k vlastnostem normálního rozdělení je tedy pro standardizovanou náhodnou proměnnou pocházející z normálního rozdělení snadné vypočítat kvantily (viz \@ref(fig:z-norm)):
 
 * $z_{0.023} = -2$

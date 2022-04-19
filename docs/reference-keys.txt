@@ -17,6 +17,7 @@ fig:norm-pricteni
 fig:norm-nasobeni
 fig:norm-dve-pricteni
 fig:norm-dve-odecteni
+fig:norm-dve-odecteni-dep
 fig:unnamed-chunk-29
 fig:unnamed-chunk-30
 fig:unnamed-chunk-31
@@ -63,6 +64,18 @@ fig:x2-indep
 fig:unnamed-chunk-64
 fig:unnamed-chunk-65
 fig:unnamed-chunk-67
+fig:unnamed-chunk-70
+fig:unnamed-chunk-71
+fig:unnamed-chunk-72
+fig:unnamed-chunk-73
+fig:unnamed-chunk-74
+fig:unnamed-chunk-75
+fig:unnamed-chunk-77
+fig:unnamed-chunk-78
+fig:unnamed-chunk-79
+fig:unnamed-chunk-80
+fig:unnamed-chunk-81
+fig:unnamed-chunk-84
 úvod
 příklad-popisné-statistiky
 příklad-inferenční-statistiky
@@ -109,3 +122,7 @@ chi-kvadrát-test-nezávislosti
 porovnání-více-průměrů
 problém-více-testů
 anova
+korelace
+kovariance
+korelační-koeficient
+statistické-testování-a-interval-spolehlivosti

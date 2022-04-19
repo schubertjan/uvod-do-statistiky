@@ -1,0 +1,6 @@
+# Neparametrické testy
+
+Neparametrické testy používáme, pokud jsou předopklady některých parametrických testů porušeny, nejčastěji normalita rozdělení nebo předpoklady o spojitosti proměnné. 
+
+## Znaménkový test
+Nejjednodušším testem je znaménkový test.

@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Kapitola 9 Korelace | Úvod do statistiky</title>
+  <meta name="description" content="Tato kniha obsahuje materiál ke cvičení kurzu Úvod do statistiky (JSB535)." />
+  <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Kapitola 9 Korelace | Úvod do statistiky" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Tato kniha obsahuje materiál ke cvičení kurzu Úvod do statistiky (JSB535)." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Kapitola 9 Korelace | Úvod do statistiky" />
+  
+  <meta name="twitter:description" content="Tato kniha obsahuje materiál ke cvičení kurzu Úvod do statistiky (JSB535)." />
+  
+
+<meta name="author" content="Jan Schubert" />
+
+
+<meta name="date" content="2022-04-19" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="porovnání-více-průměrů.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Úvod do statistiky</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Úvod<span></span></a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#příklad-popisné-statistiky"><i class="fa fa-check"></i><b>1.1</b> Příklad popisné statistiky<span></span></a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#příklad-inferenční-statistiky"><i class="fa fa-check"></i><b>1.2</b> Příklad inferenční statistiky<span></span></a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#simulace"><i class="fa fa-check"></i><b>1.3</b> Simulace<span></span></a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#o-modelech"><i class="fa fa-check"></i><b>1.4</b> O modelech<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="desc-stats.html"><a href="desc-stats.html"><i class="fa fa-check"></i><b>2</b> Popisná statistika<span></span></a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="desc-stats.html"><a href="desc-stats.html#central-tend"><i class="fa fa-check"></i><b>2.1</b> Míry centrální tendence<span></span></a></li>
+<li class="chapter" data-level="2.2" data-path="desc-stats.html"><a href="desc-stats.html#desc-vars"><i class="fa fa-check"></i><b>2.2</b> Míry rozptýlenosti<span></span></a></li>
+<li class="chapter" data-level="2.3" data-path="desc-stats.html"><a href="desc-stats.html#kvantily"><i class="fa fa-check"></i><b>2.3</b> Míry polohy<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="prob-dist.html"><a href="prob-dist.html"><i class="fa fa-check"></i><b>3</b> Pravděpodobnostní rozdělení<span></span></a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="prob-dist.html"><a href="prob-dist.html#stats-lang"><i class="fa fa-check"></i><b>3.1</b> Pravděpodobnostní rozdělení jako jazyk statistiky<span></span></a></li>
+<li class="chapter" data-level="3.2" data-path="prob-dist.html"><a href="prob-dist.html#binom-dist"><i class="fa fa-check"></i><b>3.2</b> Binomické<span></span></a></li>
+<li class="chapter" data-level="3.3" data-path="prob-dist.html"><a href="prob-dist.html#norm-dist"><i class="fa fa-check"></i><b>3.3</b> Normální<span></span></a></li>
+<li class="chapter" data-level="3.4" data-path="prob-dist.html"><a href="prob-dist.html#t-dist"><i class="fa fa-check"></i><b>3.4</b> T<span></span></a></li>
+<li class="chapter" data-level="3.5" data-path="prob-dist.html"><a href="prob-dist.html#unif-dist"><i class="fa fa-check"></i><b>3.5</b> Uniformní<span></span></a></li>
+<li class="chapter" data-level="3.6" data-path="prob-dist.html"><a href="prob-dist.html#pois-dist"><i class="fa fa-check"></i><b>3.6</b> Poisson<span></span></a></li>
+<li class="chapter" data-level="3.7" data-path="prob-dist.html"><a href="prob-dist.html#chi-kvadrát"><i class="fa fa-check"></i><b>3.7</b> Chi-kvadrát<span></span></a></li>
+<li class="chapter" data-level="3.8" data-path="prob-dist.html"><a href="prob-dist.html#jak-vybrat-správný-model-pro-data"><i class="fa fa-check"></i><b>3.8</b> Jak vybrat správný model pro data<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="dist-params.html"><a href="dist-params.html"><i class="fa fa-check"></i><b>4</b> Výběrové rozdělení parametrů<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="dist-params.html"><a href="dist-params.html#clv-procento"><i class="fa fa-check"></i><b>4.1</b> Relativní četnost<span></span></a></li>
+<li class="chapter" data-level="4.2" data-path="dist-params.html"><a href="dist-params.html#clv-is"><i class="fa fa-check"></i><b>4.2</b> Interval spolehlivosti<span></span></a></li>
+<li class="chapter" data-level="4.3" data-path="dist-params.html"><a href="dist-params.html#bootstrap"><i class="fa fa-check"></i><b>4.3</b> Bootstrap<span></span></a></li>
+<li class="chapter" data-level="4.4" data-path="dist-params.html"><a href="dist-params.html#clv-mean"><i class="fa fa-check"></i><b>4.4</b> Průměr<span></span></a></li>
+<li class="chapter" data-level="4.5" data-path="dist-params.html"><a href="dist-params.html#rozptyl"><i class="fa fa-check"></i><b>4.5</b> Rozptyl<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="stats-test-single.html"><a href="stats-test-single.html"><i class="fa fa-check"></i><b>5</b> Statistické testování<span></span></a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="stats-test-single.html"><a href="stats-test-single.html#postup-statistického-testování"><i class="fa fa-check"></i><b>5.1</b> Postup statistického testování<span></span></a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="stats-test-single.html"><a href="stats-test-single.html#zvolení-testu"><i class="fa fa-check"></i><b>5.1.1</b> Zvolení testu<span></span></a></li>
+<li class="chapter" data-level="5.1.2" data-path="stats-test-single.html"><a href="stats-test-single.html#test-h0"><i class="fa fa-check"></i><b>5.1.2</b> Formulace nulové a alternativní hypotézy<span></span></a></li>
+<li class="chapter" data-level="5.1.3" data-path="stats-test-single.html"><a href="stats-test-single.html#test-t-statistika"><i class="fa fa-check"></i><b>5.1.3</b> Výpočet testovací statistiky<span></span></a></li>
+<li class="chapter" data-level="5.1.4" data-path="stats-test-single.html"><a href="stats-test-single.html#interpretace-výsledku"><i class="fa fa-check"></i><b>5.1.4</b> Interpretace výsledku<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="stats-test-single.html"><a href="stats-test-single.html#velikost-účinku"><i class="fa fa-check"></i><b>5.2</b> Velikost účinku<span></span></a></li>
+<li class="chapter" data-level="5.3" data-path="stats-test-single.html"><a href="stats-test-single.html#souvislost-s-intervalem-spolehlivosti"><i class="fa fa-check"></i><b>5.3</b> Souvislost s intervalem spolehlivosti<span></span></a></li>
+<li class="chapter" data-level="5.4" data-path="stats-test-single.html"><a href="stats-test-single.html#test-power"><i class="fa fa-check"></i><b>5.4</b> Síla testu<span></span></a></li>
+<li class="chapter" data-level="5.5" data-path="stats-test-single.html"><a href="stats-test-single.html#velikost-výběru"><i class="fa fa-check"></i><b>5.5</b> Velikost výběru<span></span></a></li>
+<li class="chapter" data-level="5.6" data-path="stats-test-single.html"><a href="stats-test-single.html#tests-many"><i class="fa fa-check"></i><b>5.6</b> Mnoho testů<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="porovnání-dvou-průměrů-a-relativních-četností.html"><a href="porovnání-dvou-průměrů-a-relativních-četností.html"><i class="fa fa-check"></i><b>6</b> Porovnání dvou průměrů a relativních četností<span></span></a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="porovnání-dvou-průměrů-a-relativních-četností.html"><a href="porovnání-dvou-průměrů-a-relativních-četností.html#průměry"><i class="fa fa-check"></i><b>6.1</b> Průměry<span></span></a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="porovnání-dvou-průměrů-a-relativních-četností.html"><a href="porovnání-dvou-průměrů-a-relativních-četností.html#t2-test-ind"><i class="fa fa-check"></i><b>6.1.1</b> Dva nezávislé výběry<span></span></a></li>
+<li class="chapter" data-level="6.1.2" data-path="porovnání-dvou-průměrů-a-relativních-četností.html"><a href="porovnání-dvou-průměrů-a-relativních-četností.html#dva-závislé-výběry"><i class="fa fa-check"></i><b>6.1.2</b> Dva závislé výběry<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="porovnání-dvou-průměrů-a-relativních-četností.html"><a href="porovnání-dvou-průměrů-a-relativních-četností.html#relativní-četnosti"><i class="fa fa-check"></i><b>6.2</b> Relativní četnosti<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="porovnání-více-relativních-četností.html"><a href="porovnání-více-relativních-četností.html"><i class="fa fa-check"></i><b>7</b> Porovnání více relativních četností<span></span></a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="porovnání-více-relativních-četností.html"><a href="porovnání-více-relativních-četností.html#test-dobré-shody"><i class="fa fa-check"></i><b>7.1</b> Test dobré shody<span></span></a></li>
+<li class="chapter" data-level="7.2" data-path="porovnání-více-relativních-četností.html"><a href="porovnání-více-relativních-četností.html#chi-kvadrát-test-nezávislosti"><i class="fa fa-check"></i><b>7.2</b> Chi-kvadrát test nezávislosti<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="porovnání-více-průměrů.html"><a href="porovnání-více-průměrů.html"><i class="fa fa-check"></i><b>8</b> Porovnání více průměrů<span></span></a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="porovnání-více-průměrů.html"><a href="porovnání-více-průměrů.html#problém-více-testů"><i class="fa fa-check"></i><b>8.1</b> Problém více testů<span></span></a></li>
+<li class="chapter" data-level="8.2" data-path="porovnání-více-průměrů.html"><a href="porovnání-více-průměrů.html#anova"><i class="fa fa-check"></i><b>8.2</b> ANOVA<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="korelace.html"><a href="korelace.html"><i class="fa fa-check"></i><b>9</b> Korelace<span></span></a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="korelace.html"><a href="korelace.html#kovariance"><i class="fa fa-check"></i><b>9.1</b> Kovariance<span></span></a></li>
+<li class="chapter" data-level="9.2" data-path="korelace.html"><a href="korelace.html#korelační-koeficient"><i class="fa fa-check"></i><b>9.2</b> Korelační koeficient<span></span></a></li>
+<li class="chapter" data-level="9.3" data-path="korelace.html"><a href="korelace.html#statistické-testování-a-interval-spolehlivosti"><i class="fa fa-check"></i><b>9.3</b> Statistické testování a interval spolehlivosti<span></span></a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a>
+<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />Tato kniha podléhá <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
+</li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Úvod do statistiky</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="korelace" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">Kapitola 9</span> Korelace<a href="korelace.html#korelace" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Korelace se používá na měření vztahu dvou proměnných. My si přiblížíme výpočet a princip pearsonova korelačního koeficientu, který se používá na měření lineární závislosti dvou spojitých proměnných.</p>
+<div id="kovariance" class="section level2 hasAnchor" number="9.1">
+<h2><span class="header-section-number">9.1</span> Kovariance<a href="korelace.html#kovariance" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Kovariance je definována jako <span class="math inline">\(cov(X, Y) = E[(X-E[X])(Y-E[Y])]\)</span>. Pokud máme kardinální proměnnou pocházející z výběru o velikosti <span class="math inline">\(n\)</span>, pak lze kovarianci vypočítat jako <span class="math inline">\(cov(X, Y) = \frac{1}{n-1}\sum_i^n(x_i - \bar{x})(y_i-\bar{y})\)</span>. Kovariance tak představuje výpočet společné variability obou proměnných. Můžeme si ji také představit jako výpočet toho, jak moc se velké hodnoty jedné proměnné shodují s velkými hodnotami druhé proměnné. Jako “velkou hodnotu” rozumíme její kladnou odchylku od průměru a jako “malou hodnotu” rozumíme její negativní odchylku od průměru. Protože jako “velkou/malou hodnotu” měříme rozdíl od průměru měří kovariance míru lineární závislosti mezi dvěma proměnnými.</p>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="korelace.html#cb135-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">10</span>)</span>
+<span id="cb135-2"><a href="korelace.html#cb135-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb135-3"><a href="korelace.html#cb135-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb135-4"><a href="korelace.html#cb135-4" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> x)</span>
+<span id="cb135-5"><a href="korelace.html#cb135-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb135-6"><a href="korelace.html#cb135-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">main =</span> <span class="st">&quot;&quot;</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>)</span>
+<span id="cb135-7"><a href="korelace.html#cb135-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">mean</span>(x), <span class="at">col =</span> <span class="st">&quot;black&quot;</span>)</span>
+<span id="cb135-8"><a href="korelace.html#cb135-8" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">mean</span>(y), <span class="at">col =</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-70"></span>
+<img src="book_files/figure-html/unnamed-chunk-70-1.png" alt="X~N(0,1), Y~N(X,1)" width="672" />
+<p class="caption">
+Graf 9.1: X~N(0,1), Y~N(X,1)
+</p>
+</div>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="korelace.html#cb136-1" aria-hidden="true" tabindex="-1"></a>e_x <span class="ot">&lt;-</span> x <span class="sc">-</span> <span class="fu">mean</span>(x)</span>
+<span id="cb136-2"><a href="korelace.html#cb136-2" aria-hidden="true" tabindex="-1"></a>e_y <span class="ot">&lt;-</span> y <span class="sc">-</span> <span class="fu">mean</span>(y)</span>
+<span id="cb136-3"><a href="korelace.html#cb136-3" aria-hidden="true" tabindex="-1"></a>cov_xy <span class="ot">&lt;-</span> <span class="fu">sum</span>(e_x <span class="sc">*</span> e_y) <span class="sc">/</span> n <span class="co"># nebo take mean(e_x*e_y)</span></span>
+<span id="cb136-4"><a href="korelace.html#cb136-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb136-5"><a href="korelace.html#cb136-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(e_x <span class="sc">*</span> e_y, </span>
+<span id="cb136-6"><a href="korelace.html#cb136-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">&quot;h&quot;</span>, </span>
+<span id="cb136-7"><a href="korelace.html#cb136-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">paste0</span>(<span class="st">&quot;(X-E[X])(Y-E[Y])=&quot;</span>, <span class="fu">round</span>(cov_xy, <span class="dv">2</span>)), </span>
+<span id="cb136-8"><a href="korelace.html#cb136-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="dv">15</span>, </span>
+<span id="cb136-9"><a href="korelace.html#cb136-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-71"></span>
+<img src="book_files/figure-html/unnamed-chunk-71-1.png" alt="Příklad výpočtu kovariance" width="672" />
+<p class="caption">
+Graf 9.2: Příklad výpočtu kovariance
+</p>
+</div>
+<p>Zkuste odpovědět na následující otázky:</p>
+<ol style="list-style-type: decimal">
+<li>za jakých podmínek bude číslo pozitivní?</li>
+<li>za jakých podmínek bude číslo nezitivní?</li>
+<li>za jakých podmínek bude číslo zhruba 0?</li>
+</ol>
+<p>V R můžeme vypočítat <span class="math inline">\(cov(X,Y)\)</span> pomocí funkce <code>cov</code>. Podobně jako u směrodatné odchylky nebo rozptylu počítá R s populační kovariencí, tedy dělíme <span class="math inline">\(n-1\)</span> místo <span class="math inline">\(n\)</span>.</p>
+<p>Zkuste si nyní sami nasimulovat situace, v kterých bude kovariance:</p>
+<ol style="list-style-type: decimal">
+<li>negativní,</li>
+<li>zhruba rovná 0</li>
+</ol>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="korelace.html#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="co"># negativni</span></span>
+<span id="cb137-2"><a href="korelace.html#cb137-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb137-3"><a href="korelace.html#cb137-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb137-4"><a href="korelace.html#cb137-4" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">*</span> x)</span>
+<span id="cb137-5"><a href="korelace.html#cb137-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb137-6"><a href="korelace.html#cb137-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">main =</span> <span class="st">&quot;&quot;</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>)</span>
+<span id="cb137-7"><a href="korelace.html#cb137-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">mean</span>(x), <span class="at">col =</span> <span class="st">&quot;black&quot;</span>)</span>
+<span id="cb137-8"><a href="korelace.html#cb137-8" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">mean</span>(y), <span class="at">col =</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-72"></span>
+<img src="book_files/figure-html/unnamed-chunk-72-1.png" alt="X~N(0,1), Y~N(-X,1)" width="672" />
+<p class="caption">
+Graf 9.3: X~N(0,1), Y~N(-X,1)
+</p>
+</div>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="korelace.html#cb138-1" aria-hidden="true" tabindex="-1"></a>e_x <span class="ot">&lt;-</span> x <span class="sc">-</span> <span class="fu">mean</span>(x)</span>
+<span id="cb138-2"><a href="korelace.html#cb138-2" aria-hidden="true" tabindex="-1"></a>e_y <span class="ot">&lt;-</span> y <span class="sc">-</span> <span class="fu">mean</span>(y)</span>
+<span id="cb138-3"><a href="korelace.html#cb138-3" aria-hidden="true" tabindex="-1"></a>cov_xy <span class="ot">&lt;-</span> <span class="fu">sum</span>(e_x <span class="sc">*</span> e_y) <span class="sc">/</span> n <span class="co"># nebo take mean(e_x*e_y)</span></span>
+<span id="cb138-4"><a href="korelace.html#cb138-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb138-5"><a href="korelace.html#cb138-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(e_x <span class="sc">*</span> e_y, </span>
+<span id="cb138-6"><a href="korelace.html#cb138-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">&quot;h&quot;</span>, </span>
+<span id="cb138-7"><a href="korelace.html#cb138-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">paste0</span>(<span class="st">&quot;(X-E[X])(Y-E[Y])=&quot;</span>, <span class="fu">round</span>(cov_xy, <span class="dv">2</span>)), </span>
+<span id="cb138-8"><a href="korelace.html#cb138-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="dv">15</span>, </span>
+<span id="cb138-9"><a href="korelace.html#cb138-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-73"></span>
+<img src="book_files/figure-html/unnamed-chunk-73-1.png" alt="Příklad negativní kovariance" width="672" />
+<p class="caption">
+Graf 9.4: Příklad negativní kovariance
+</p>
+</div>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="korelace.html#cb139-1" aria-hidden="true" tabindex="-1"></a><span class="co"># zhruba 0</span></span>
+<span id="cb139-2"><a href="korelace.html#cb139-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb139-3"><a href="korelace.html#cb139-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">2</span>)</span>
+<span id="cb139-4"><a href="korelace.html#cb139-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb139-5"><a href="korelace.html#cb139-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">main =</span> <span class="st">&quot;&quot;</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>)</span>
+<span id="cb139-6"><a href="korelace.html#cb139-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">mean</span>(x), <span class="at">col =</span> <span class="st">&quot;black&quot;</span>)</span>
+<span id="cb139-7"><a href="korelace.html#cb139-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">mean</span>(y), <span class="at">col =</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-74"></span>
+<img src="book_files/figure-html/unnamed-chunk-74-1.png" alt="X~N(0,1), Y~N(2,1)" width="672" />
+<p class="caption">
+Graf 9.5: X~N(0,1), Y~N(2,1)
+</p>
+</div>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="korelace.html#cb140-1" aria-hidden="true" tabindex="-1"></a>e_x <span class="ot">&lt;-</span> x <span class="sc">-</span> <span class="fu">mean</span>(x)</span>
+<span id="cb140-2"><a href="korelace.html#cb140-2" aria-hidden="true" tabindex="-1"></a>e_y <span class="ot">&lt;-</span> y <span class="sc">-</span> <span class="fu">mean</span>(y)</span>
+<span id="cb140-3"><a href="korelace.html#cb140-3" aria-hidden="true" tabindex="-1"></a>cov_xy <span class="ot">&lt;-</span> <span class="fu">sum</span>(e_x <span class="sc">*</span> e_y) <span class="sc">/</span> n <span class="co"># nebo take mean(e_x*e_y)</span></span>
+<span id="cb140-4"><a href="korelace.html#cb140-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb140-5"><a href="korelace.html#cb140-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(e_x <span class="sc">*</span> e_y, </span>
+<span id="cb140-6"><a href="korelace.html#cb140-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">&quot;h&quot;</span>, </span>
+<span id="cb140-7"><a href="korelace.html#cb140-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">paste0</span>(<span class="st">&quot;(X-E[X])(Y-E[Y])=&quot;</span>, <span class="fu">round</span>(cov_xy, <span class="dv">2</span>)), </span>
+<span id="cb140-8"><a href="korelace.html#cb140-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="dv">15</span>, </span>
+<span id="cb140-9"><a href="korelace.html#cb140-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-75"></span>
+<img src="book_files/figure-html/unnamed-chunk-75-1.png" alt="Příklad kovariance blížící se nule" width="672" />
+<p class="caption">
+Graf 9.6: Příklad kovariance blížící se nule
+</p>
+</div>
+</div>
+<div id="korelační-koeficient" class="section level2 hasAnchor" number="9.2">
+<h2><span class="header-section-number">9.2</span> Korelační koeficient<a href="korelace.html#korelační-koeficient" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Hodnota kovariance není teoreticky ohraničena a tedy <span class="math inline">\(cov(X,Y) = (-\infty; \infty)\)</span>. Toto není moc praktické, pokud chceme kovariance porovnávat mezi sebou. Proto při výpočtu pearsonova korelačního koeficientu kovarianci standardizujeme tak, že ji vydělíme produktem směrodatné odchylky obou proměnných, tedy <span class="math inline">\(\rho_{xy} = \frac{\frac{\sum_i^n(x_i - \bar{x})(y_i-\bar{y})}{n}}{\sigma_x\sigma_y}\)</span>, nebo po pokrácení <span class="math inline">\(n\)</span> také, <span class="math inline">\(\rho_{xy} = \frac{\sum_i^n(x_i - \bar{x})(y_i-\bar{y})}{\sqrt{\sum_i^n(x_i - \bar{x})^2}\sqrt{\sum_i^n(y_i - \bar{y})^2}}\)</span>. Tento korelační koeficient <span class="math inline">\(\rho\)</span> je mezi -1 a 1. Přičemž -1 znamena perfektně lineárně negativní vztah a 1 znamena perfektně lineárně pozitivní vztah. Hodnota 0 znamena, že mezi proměnnými není žádný lineární vztah. Vypočítejme si korelační koeficient pro náš první příklad.</p>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="korelace.html#cb141-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb141-2"><a href="korelace.html#cb141-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb141-3"><a href="korelace.html#cb141-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> x)</span>
+<span id="cb141-4"><a href="korelace.html#cb141-4" aria-hidden="true" tabindex="-1"></a>e_x <span class="ot">&lt;-</span> x <span class="sc">-</span> <span class="fu">mean</span>(x)</span>
+<span id="cb141-5"><a href="korelace.html#cb141-5" aria-hidden="true" tabindex="-1"></a>e_y <span class="ot">&lt;-</span> y <span class="sc">-</span> <span class="fu">mean</span>(y)</span>
+<span id="cb141-6"><a href="korelace.html#cb141-6" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">sum</span>(e_x <span class="sc">*</span> e_y) <span class="sc">/</span> (<span class="fu">sqrt</span>(<span class="fu">sum</span>(e_x<span class="sc">^</span><span class="dv">2</span>)) <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(e_y<span class="sc">^</span><span class="dv">2</span>)))</span>
+<span id="cb141-7"><a href="korelace.html#cb141-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(r)</span></code></pre></div>
+<pre><code>## [1] 0.4976903</code></pre>
+<p>Můžeme také použít funkci <code>cor</code>.</p>
+<p>Jak jsme si ukázali u kovariance, tento výpočet měří míru lineární závislosti. Pokud tedy funkce (vztah), mezi proměnnými není lineární (ale očividně tam nějaký vztah je), pearsonův korelační koeficient není nejlepším způsobem jak vyjádřit vztah mezi proměnnými.</p>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="korelace.html#cb143-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb143-2"><a href="korelace.html#cb143-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb143-3"><a href="korelace.html#cb143-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(x <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="fu">rnorm</span>(n, x, <span class="at">sd =</span> <span class="fl">0.5</span>), <span class="fu">rnorm</span>(n, <span class="sc">-</span><span class="dv">1</span> <span class="sc">*</span> x, <span class="at">sd =</span> <span class="fl">0.5</span>))</span>
+<span id="cb143-4"><a href="korelace.html#cb143-4" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">cor</span>(x, y)</span>
+<span id="cb143-5"><a href="korelace.html#cb143-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y,</span>
+<span id="cb143-6"><a href="korelace.html#cb143-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="fu">paste0</span>(<span class="st">&quot;r = &quot;</span>, <span class="fu">round</span>(r, <span class="dv">2</span>)),</span>
+<span id="cb143-7"><a href="korelace.html#cb143-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch =</span> <span class="dv">19</span>,</span>
+<span id="cb143-8"><a href="korelace.html#cb143-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="fu">adjustcolor</span>(<span class="st">&quot;#1f77b4&quot;</span>, <span class="at">alpha.f =</span> <span class="fl">0.3</span>)</span>
+<span id="cb143-9"><a href="korelace.html#cb143-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-77"></span>
+<img src="book_files/figure-html/unnamed-chunk-77-1.png" alt="Příklad nelineárního vztahu" width="672" />
+<p class="caption">
+Graf 9.7: Příklad nelineárního vztahu
+</p>
+</div>
+<p>Pearsonův korelační koeficient je také velmi náchylný na odlehlá pozorování. To jsou taková pozorování, která nabývají výrazně jiných hodnot, než většina pozorování dané proměnné.</p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="korelace.html#cb144-1" aria-hidden="true" tabindex="-1"></a><span class="co"># vytvorime dve nezavisle promenne</span></span>
+<span id="cb144-2"><a href="korelace.html#cb144-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb144-3"><a href="korelace.html#cb144-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">10</span>)</span>
+<span id="cb144-4"><a href="korelace.html#cb144-4" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">10</span>, <span class="at">sd =</span> <span class="dv">5</span>)</span>
+<span id="cb144-5"><a href="korelace.html#cb144-5" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">cor</span>(x, y)</span>
+<span id="cb144-6"><a href="korelace.html#cb144-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb144-7"><a href="korelace.html#cb144-7" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb144-8"><a href="korelace.html#cb144-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y,</span>
+<span id="cb144-9"><a href="korelace.html#cb144-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="fu">paste0</span>(<span class="st">&quot;r = &quot;</span>, <span class="fu">round</span>(r, <span class="dv">2</span>)),</span>
+<span id="cb144-10"><a href="korelace.html#cb144-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch =</span> <span class="dv">19</span>,</span>
+<span id="cb144-11"><a href="korelace.html#cb144-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="fu">adjustcolor</span>(<span class="st">&quot;#1f77b4&quot;</span>, <span class="at">alpha.f =</span> <span class="fl">0.3</span>)</span>
+<span id="cb144-12"><a href="korelace.html#cb144-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb144-13"><a href="korelace.html#cb144-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb144-14"><a href="korelace.html#cb144-14" aria-hidden="true" tabindex="-1"></a><span class="co"># pridame jedno extremni pozorovani</span></span>
+<span id="cb144-15"><a href="korelace.html#cb144-15" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(x, <span class="dv">200</span>)</span>
+<span id="cb144-16"><a href="korelace.html#cb144-16" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(y, <span class="dv">50</span>)</span>
+<span id="cb144-17"><a href="korelace.html#cb144-17" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">cor</span>(x, y)</span>
+<span id="cb144-18"><a href="korelace.html#cb144-18" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y,</span>
+<span id="cb144-19"><a href="korelace.html#cb144-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="fu">paste0</span>(<span class="st">&quot;r = &quot;</span>, <span class="fu">round</span>(r, <span class="dv">2</span>)),</span>
+<span id="cb144-20"><a href="korelace.html#cb144-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch =</span> <span class="dv">19</span>,</span>
+<span id="cb144-21"><a href="korelace.html#cb144-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="fu">adjustcolor</span>(<span class="st">&quot;#1f77b4&quot;</span>, <span class="at">alpha.f =</span> <span class="fl">0.3</span>)</span>
+<span id="cb144-22"><a href="korelace.html#cb144-22" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb144-23"><a href="korelace.html#cb144-23" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(x[<span class="dv">101</span>], y[<span class="dv">101</span>], <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-78"></span>
+<img src="book_files/figure-html/unnamed-chunk-78-1.png" alt="Příklad vlivu odlehlého pozorování na r pro dvě nezávislé proměnné" width="960" />
+<p class="caption">
+Graf 9.8: Příklad vlivu odlehlého pozorování na r pro dvě nezávislé proměnné
+</p>
+</div>
+<p>Stejně tak může málo odlehlých hodnot “vymazat” existijící lineární vztah</p>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="korelace.html#cb145-1" aria-hidden="true" tabindex="-1"></a><span class="co"># vytvorime dve zavisle promenne</span></span>
+<span id="cb145-2"><a href="korelace.html#cb145-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb145-3"><a href="korelace.html#cb145-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">10</span>)</span>
+<span id="cb145-4"><a href="korelace.html#cb145-4" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, x, <span class="at">sd =</span> <span class="dv">10</span>)</span>
+<span id="cb145-5"><a href="korelace.html#cb145-5" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">cor</span>(x, y)</span>
+<span id="cb145-6"><a href="korelace.html#cb145-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb145-7"><a href="korelace.html#cb145-7" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb145-8"><a href="korelace.html#cb145-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y,</span>
+<span id="cb145-9"><a href="korelace.html#cb145-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="fu">paste0</span>(<span class="st">&quot;r = &quot;</span>, <span class="fu">round</span>(r, <span class="dv">2</span>)),</span>
+<span id="cb145-10"><a href="korelace.html#cb145-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch =</span> <span class="dv">19</span>,</span>
+<span id="cb145-11"><a href="korelace.html#cb145-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="fu">adjustcolor</span>(<span class="st">&quot;#1f77b4&quot;</span>, <span class="at">alpha.f =</span> <span class="fl">0.3</span>)</span>
+<span id="cb145-12"><a href="korelace.html#cb145-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb145-13"><a href="korelace.html#cb145-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb145-14"><a href="korelace.html#cb145-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb145-15"><a href="korelace.html#cb145-15" aria-hidden="true" tabindex="-1"></a><span class="co"># pridame jedno extremni pozorovani</span></span>
+<span id="cb145-16"><a href="korelace.html#cb145-16" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(x, <span class="dv">200</span>)</span>
+<span id="cb145-17"><a href="korelace.html#cb145-17" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(y, <span class="dv">50</span>)</span>
+<span id="cb145-18"><a href="korelace.html#cb145-18" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">cor</span>(x, y)</span>
+<span id="cb145-19"><a href="korelace.html#cb145-19" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y,</span>
+<span id="cb145-20"><a href="korelace.html#cb145-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="fu">paste0</span>(<span class="st">&quot;r = &quot;</span>, <span class="fu">round</span>(r, <span class="dv">2</span>)),</span>
+<span id="cb145-21"><a href="korelace.html#cb145-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch =</span> <span class="dv">19</span>,</span>
+<span id="cb145-22"><a href="korelace.html#cb145-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="fu">adjustcolor</span>(<span class="st">&quot;#1f77b4&quot;</span>, <span class="at">alpha.f =</span> <span class="fl">0.3</span>)</span>
+<span id="cb145-23"><a href="korelace.html#cb145-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb145-24"><a href="korelace.html#cb145-24" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(x[<span class="dv">101</span>], y[<span class="dv">101</span>], <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-79"></span>
+<img src="book_files/figure-html/unnamed-chunk-79-1.png" alt="Příklad vlivu odlehlého pozorování na r pro dvě závislé proměnné" width="960" />
+<p class="caption">
+Graf 9.9: Příklad vlivu odlehlého pozorování na r pro dvě závislé proměnné
+</p>
+</div>
+<p>Proto je vždy nutné si vztah obou proměnných zobrazit v grafu!</p>
+</div>
+<div id="statistické-testování-a-interval-spolehlivosti" class="section level2 hasAnchor" number="9.3">
+<h2><span class="header-section-number">9.3</span> Statistické testování a interval spolehlivosti<a href="korelace.html#statistické-testování-a-interval-spolehlivosti" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Nakonec si ukážeme jak můžeme zobecnit výběrový pearsonův korelační koeficient na celou populaci. Výběrový pearsonův korelační koeficient se označuje <span class="math inline">\(r\)</span>. Testovací statistika <span class="math inline">\(t\)</span> se vypočítá jako <span class="math inline">\(t = r\sqrt{\frac{n-2}{1-r^2}}\)</span> nabývá t-rozdělení s <span class="math inline">\(n-2\)</span> stupni volnosti (při velkém výběru, <span class="math inline">\(n&gt;30\)</span>). <span class="math inline">\(H_0: \rho=0\)</span> a <span class="math inline">\(H1: \rho\ne0\)</span>. Stejně tak ale můžeme mít pravostrannou a levostrannou <span class="math inline">\(H_1\)</span>. Pokud chcete testovat jinou nulovou hypotézu než 0, je potřeba k této inferenci použít interval spolehlivosti. Pojďme si tento výpočet ukázat na příkladu dat jedinců, u kterých známe výšku a váhu. Zajímá nás, zda mezi těmito dvěma proměnnými je pozitivní vztah.</p>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="korelace.html#cb146-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/schubertjan/cuni/master/stats/data/vyska_vaha.csv&quot;</span>)</span>
+<span id="cb146-2"><a href="korelace.html#cb146-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(d)</span></code></pre></div>
+<pre><code>##   vyska vaha pohlavi
+## 1 174.0 65.6       0
+## 2    NA   NA       0
+## 3 193.5 80.7       0
+## 4 186.5 72.6       0
+## 5    NA 78.8       0
+## 6 181.5 74.8       0</code></pre>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="korelace.html#cb148-1" aria-hidden="true" tabindex="-1"></a><span class="co"># nejprve se musime rozhodnout, co udelat s chybejicicmi hodnotami</span></span>
+<span id="cb148-2"><a href="korelace.html#cb148-2" aria-hidden="true" tabindex="-1"></a><span class="co"># vyradime vsechny, kde je vaha nebo vyska NA. To se rovna cor(d$vyska, d$vaha, use=&quot;complete.obs&quot;)</span></span>
+<span id="cb148-3"><a href="korelace.html#cb148-3" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> d[<span class="sc">!</span><span class="fu">is.na</span>(d<span class="sc">$</span>vyska) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(d<span class="sc">$</span>vaha), ]</span>
+<span id="cb148-4"><a href="korelace.html#cb148-4" aria-hidden="true" tabindex="-1"></a><span class="co"># kontrola</span></span>
+<span id="cb148-5"><a href="korelace.html#cb148-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(d))</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="korelace.html#cb150-1" aria-hidden="true" tabindex="-1"></a><span class="co"># vypocet r</span></span>
+<span id="cb150-2"><a href="korelace.html#cb150-2" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">cor</span>(d<span class="sc">$</span>vyska, d<span class="sc">$</span>vaha)</span>
+<span id="cb150-3"><a href="korelace.html#cb150-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(d)</span>
+<span id="cb150-4"><a href="korelace.html#cb150-4" aria-hidden="true" tabindex="-1"></a><span class="co"># zobrazime vztah</span></span>
+<span id="cb150-5"><a href="korelace.html#cb150-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(d<span class="sc">$</span>vyska, d<span class="sc">$</span>vaha,</span>
+<span id="cb150-6"><a href="korelace.html#cb150-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">&quot;Výška&quot;</span>,</span>
+<span id="cb150-7"><a href="korelace.html#cb150-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">&quot;Váha&quot;</span>,</span>
+<span id="cb150-8"><a href="korelace.html#cb150-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="fu">paste0</span>(<span class="st">&quot;r = &quot;</span>, <span class="fu">round</span>(r, <span class="dv">2</span>)),</span>
+<span id="cb150-9"><a href="korelace.html#cb150-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch =</span> <span class="dv">19</span>,</span>
+<span id="cb150-10"><a href="korelace.html#cb150-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="fu">adjustcolor</span>(<span class="st">&quot;#1f77b4&quot;</span>, <span class="at">alpha.f =</span> <span class="fl">0.3</span>)</span>
+<span id="cb150-11"><a href="korelace.html#cb150-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-80"></span>
+<img src="book_files/figure-html/unnamed-chunk-80-1.png" alt="Vztah mezi výškou a váhou" width="672" />
+<p class="caption">
+Graf 9.10: Vztah mezi výškou a váhou
+</p>
+</div>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="korelace.html#cb151-1" aria-hidden="true" tabindex="-1"></a><span class="co"># H0: r &lt;= 0</span></span>
+<span id="cb151-2"><a href="korelace.html#cb151-2" aria-hidden="true" tabindex="-1"></a><span class="co"># H1: r &gt; 0</span></span>
+<span id="cb151-3"><a href="korelace.html#cb151-3" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> r <span class="sc">*</span> <span class="fu">sqrt</span>((n <span class="sc">-</span> <span class="dv">2</span>) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> r<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb151-4"><a href="korelace.html#cb151-4" aria-hidden="true" tabindex="-1"></a>s_v <span class="ot">&lt;-</span> n <span class="sc">-</span> <span class="dv">2</span></span>
+<span id="cb151-5"><a href="korelace.html#cb151-5" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.01</span></span>
+<span id="cb151-6"><a href="korelace.html#cb151-6" aria-hidden="true" tabindex="-1"></a>kriticka_mez <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> alpha, <span class="at">df =</span> s_v)</span>
+<span id="cb151-7"><a href="korelace.html#cb151-7" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pt</span>(t, <span class="at">df =</span> s_v)</span>
+<span id="cb151-8"><a href="korelace.html#cb151-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb151-9"><a href="korelace.html#cb151-9" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">24</span>, <span class="at">length.out =</span> <span class="dv">1000</span>)</span>
+<span id="cb151-10"><a href="korelace.html#cb151-10" aria-hidden="true" tabindex="-1"></a>pdf <span class="ot">&lt;-</span> <span class="fu">dt</span>(x, <span class="at">df =</span> s_v)</span>
+<span id="cb151-11"><a href="korelace.html#cb151-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb151-12"><a href="korelace.html#cb151-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, pdf,</span>
+<span id="cb151-13"><a href="korelace.html#cb151-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">&quot;Testovací statistika&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;f(x)&quot;</span>,</span>
+<span id="cb151-14"><a href="korelace.html#cb151-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb151-15"><a href="korelace.html#cb151-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">sub =</span> <span class="fu">paste0</span>(<span class="st">&quot;p-hodnota: &quot;</span>, p, <span class="st">&quot; při alpha=&quot;</span>, alpha),</span>
+<span id="cb151-16"><a href="korelace.html#cb151-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">&quot;l&quot;</span></span>
+<span id="cb151-17"><a href="korelace.html#cb151-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb151-18"><a href="korelace.html#cb151-18" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> kriticka_mez, <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>)</span>
+<span id="cb151-19"><a href="korelace.html#cb151-19" aria-hidden="true" tabindex="-1"></a><span class="co"># oblast zamitnuti H0</span></span>
+<span id="cb151-20"><a href="korelace.html#cb151-20" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x[x<span class="sc">&gt;</span>kriticka_mez], pdf[x<span class="sc">&gt;</span>kriticka_mez], <span class="at">type =</span> <span class="st">&quot;h&quot;</span>, <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>)</span>
+<span id="cb151-21"><a href="korelace.html#cb151-21" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> t, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb151-22"><a href="korelace.html#cb151-22" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>,</span>
+<span id="cb151-23"><a href="korelace.html#cb151-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(<span class="st">&quot;kritická mez&quot;</span>, <span class="st">&quot;testovací statistika&quot;</span>),</span>
+<span id="cb151-24"><a href="korelace.html#cb151-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;#1f77b4&quot;</span>, <span class="st">&quot;black&quot;</span>),</span>
+<span id="cb151-25"><a href="korelace.html#cb151-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb151-26"><a href="korelace.html#cb151-26" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-81"></span>
+<img src="book_files/figure-html/unnamed-chunk-81-1.png" alt="Rozložení testovací statistiky za předpokladu H0" width="672" />
+<p class="caption">
+Graf 9.11: Rozložení testovací statistiky za předpokladu H0
+</p>
+</div>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="korelace.html#cb152-1" aria-hidden="true" tabindex="-1"></a><span class="co"># zamitame H0 ve prospech H1</span></span></code></pre></div>
+<p>Můžeme také použít funkci <code>cor.test</code>.</p>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="korelace.html#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(d<span class="sc">$</span>vyska, d<span class="sc">$</span>vaha, <span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span>, <span class="at">conf.level =</span> <span class="dv">1</span> <span class="sc">-</span> alpha)</span></code></pre></div>
+<pre><code>## 
+##  Pearson&#39;s product-moment correlation
+## 
+## data:  d$vyska and d$vaha
+## t = 23.088, df = 503, p-value &lt; 2.2e-16
+## alternative hypothesis: true correlation is greater than 0
+## 99 percent confidence interval:
+##  0.6630375 1.0000000
+## sample estimates:
+##      cor 
+## 0.717292</code></pre>
+<p>Interval spolehlivosti pro <span class="math inline">\(r\)</span> je poměrně těžké vypočítat analyticky a můžeme využít funkce <code>cor.test</code>, která ho vypočítá. Pokud chceme této funkce využít je z interpretačních důvodů lepší použít jako <span class="math inline">\(H_1\)</span> oboustranný test.</p>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="korelace.html#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(d<span class="sc">$</span>vyska, d<span class="sc">$</span>vaha, <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>, <span class="at">conf.level =</span> <span class="dv">1</span> <span class="sc">-</span> alpha)<span class="sc">$</span>conf.int</span></code></pre></div>
+<pre><code>## [1] 0.6567516 0.7686457
+## attr(,&quot;conf.level&quot;)
+## [1] 0.99</code></pre>
+<p>Pokud bychom chtěli přeci jenom vypočítat interval spolehlivosti bez pomoci funkce <code>cor.test</code> nabízí se použití metody bootstrap. Tuto metodu je možné použít k výpočtu intervalu spolehlivosti (nebo standardních chyb) jekékoliv výběrové statistiky. Zakládá se na principu toho, že opakujeme velké množství výběrů s opakováním z našeho výběru o velikosti <span class="math inline">\(n\)</span>. Obecně platí, že pokud můžeme vypočítat interval spolehlivosti analyticky, je to preferované.</p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="korelace.html#cb157-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pocet opakovani</span></span>
+<span id="cb157-2"><a href="korelace.html#cb157-2" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb157-3"><a href="korelace.html#cb157-3" aria-hidden="true" tabindex="-1"></a>r_bootstrap <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, k)</span>
+<span id="cb157-4"><a href="korelace.html#cb157-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb157-5"><a href="korelace.html#cb157-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>k) {</span>
+<span id="cb157-6"><a href="korelace.html#cb157-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># nahodny vyber s opakovanim</span></span>
+<span id="cb157-7"><a href="korelace.html#cb157-7" aria-hidden="true" tabindex="-1"></a>    ind <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>n, <span class="at">size =</span> n, <span class="at">replace =</span> <span class="cn">TRUE</span>) <span class="co"># jaka pozorovani vybereme</span></span>
+<span id="cb157-8"><a href="korelace.html#cb157-8" aria-hidden="true" tabindex="-1"></a>    r_bootstrap[i] <span class="ot">&lt;-</span> <span class="fu">cor</span>(d<span class="sc">$</span>vyska[ind], d<span class="sc">$</span>vaha[ind]) <span class="co"># spocitame korelacni koeficient</span></span>
+<span id="cb157-9"><a href="korelace.html#cb157-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb157-10"><a href="korelace.html#cb157-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb157-11"><a href="korelace.html#cb157-11" aria-hidden="true" tabindex="-1"></a><span class="co"># zobrazime</span></span>
+<span id="cb157-12"><a href="korelace.html#cb157-12" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(r_bootstrap, <span class="at">main =</span> <span class="st">&quot;&quot;</span>, <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-84"></span>
+<img src="book_files/figure-html/unnamed-chunk-84-1.png" alt="Bootsrapované rozložení r" width="672" />
+<p class="caption">
+Graf 9.12: Bootsrapované rozložení r
+</p>
+</div>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="korelace.html#cb158-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pokud chceme zjistit 99% interval spolehlivosti</span></span>
+<span id="cb158-2"><a href="korelace.html#cb158-2" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(r_bootstrap, <span class="at">probs =</span> <span class="fu">c</span>(alpha <span class="sc">/</span> <span class="dv">2</span>, <span class="dv">1</span> <span class="sc">-</span> alpha <span class="sc">/</span> <span class="dv">2</span>))</span></code></pre></div>
+<pre><code>##      0.5%     99.5% 
+## 0.6567594 0.7673308</code></pre>
+
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="porovnání-více-průměrů.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection",
+"download": false
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

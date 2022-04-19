@@ -1,0 +1,255 @@
+# Korelace
+Korelace se používá na měření vztahu dvou proměnných. My si přiblížíme výpočet a princip pearsonova korelačního koeficientu, který se používá na měření lineární závislosti dvou spojitých proměnných.
+
+## Kovariance
+Kovariance je definována jako $cov(X, Y) = E[(X-E[X])(Y-E[Y])]$. Pokud máme  kardinální proměnnou pocházející z výběru o velikosti $n$, pak lze kovarianci vypočítat jako $cov(X, Y) = \frac{1}{n-1}\sum_i^n(x_i - \bar{x})(y_i-\bar{y})$. Kovariance tak představuje výpočet společné variability obou proměnných. Můžeme si ji také představit jako výpočet toho, jak moc se velké hodnoty jedné proměnné shodují s velkými hodnotami druhé proměnné. Jako "velkou hodnotu" rozumíme její kladnou odchylku od průměru a jako "malou hodnotu" rozumíme její negativní odchylku od průměru. Protože jako "velkou/malou hodnotu" měříme rozdíl od průměru měří kovariance míru lineární závislosti mezi dvěma proměnnými. 
+
+```{r, fig.cap='X~N(0,1), Y~N(X,1)'}
+set.seed(10)
+n <- 10
+x <- rnorm(n)
+y <- rnorm(n, mean = x)
+
+plot(x, y, main = "", pch = 19, col = "#1f77b4")
+abline(v = mean(x), col = "black")
+abline(h = mean(y), col = "black")
+```
+
+
+```{r, fig.cap='Příklad výpočtu kovariance'}
+e_x <- x - mean(x)
+e_y <- y - mean(y)
+cov_xy <- sum(e_x * e_y) / n # nebo take mean(e_x*e_y)
+
+plot(e_x * e_y, 
+     type = "h", 
+     main = paste0("(X-E[X])(Y-E[Y])=", round(cov_xy, 2)), 
+     lwd = 15, 
+     col = "#1f77b4")
+```
+
+Zkuste odpovědět na následující otázky:
+
+1. za jakých podmínek bude číslo pozitivní?
+2. za jakých podmínek bude číslo nezitivní?
+3. za jakých podmínek bude číslo zhruba 0?
+
+V R můžeme vypočítat $cov(X,Y)$ pomocí funkce `cov`. Podobně jako u směrodatné odchylky nebo rozptylu počítá R s populační kovariencí, tedy dělíme $n-1$ místo $n$.
+
+Zkuste si nyní sami nasimulovat situace, v kterých bude kovariance:
+
+1. negativní,
+2. zhruba rovná 0
+
+```{r, fig.cap="X~N(0,1), Y~N(-X,1)"}
+# negativni
+n <- 10
+x <- rnorm(n)
+y <- rnorm(n, mean = -1 * x)
+
+plot(x, y, main = "", pch = 19, col = "#1f77b4")
+abline(v = mean(x), col = "black")
+abline(h = mean(y), col = "black")
+```
+
+```{r, fig.cap="Příklad negativní kovariance"}
+e_x <- x - mean(x)
+e_y <- y - mean(y)
+cov_xy <- sum(e_x * e_y) / n # nebo take mean(e_x*e_y)
+
+plot(e_x * e_y, 
+     type = "h", 
+     main = paste0("(X-E[X])(Y-E[Y])=", round(cov_xy, 2)), 
+     lwd = 15, 
+     col = "#1f77b4")
+```
+
+```{r, fig.cap="X~N(0,1), Y~N(2,1)"}
+# zhruba 0
+x <- rnorm(n)
+y <- rnorm(n, mean = 2)
+
+plot(x, y, main = "", pch = 19, col = "#1f77b4")
+abline(v = mean(x), col = "black")
+abline(h = mean(y), col = "black")
+```
+
+```{r, fig.cap="Příklad kovariance blížící se nule"}
+e_x <- x - mean(x)
+e_y <- y - mean(y)
+cov_xy <- sum(e_x * e_y) / n # nebo take mean(e_x*e_y)
+
+plot(e_x * e_y, 
+     type = "h", 
+     main = paste0("(X-E[X])(Y-E[Y])=", round(cov_xy, 2)), 
+     lwd = 15, 
+     col = "#1f77b4")
+```
+
+## Korelační koeficient
+Hodnota kovariance není teoreticky ohraničena a tedy $cov(X,Y) = (-\infty; \infty)$. Toto není moc praktické, pokud chceme kovariance porovnávat mezi sebou. Proto při výpočtu pearsonova korelačního koeficientu kovarianci standardizujeme tak, že ji vydělíme produktem směrodatné odchylky obou proměnných, tedy $\rho_{xy} = \frac{\frac{\sum_i^n(x_i - \bar{x})(y_i-\bar{y})}{n}}{\sigma_x\sigma_y}$, nebo po pokrácení $n$ také, $\rho_{xy} = \frac{\sum_i^n(x_i - \bar{x})(y_i-\bar{y})}{\sqrt{\sum_i^n(x_i - \bar{x})^2}\sqrt{\sum_i^n(y_i - \bar{y})^2}}$. Tento korelační koeficient $\rho$ je mezi -1 a 1. Přičemž -1 znamena perfektně lineárně negativní vztah a 1 znamena perfektně lineárně pozitivní vztah. Hodnota 0 znamena, že mezi proměnnými není žádný lineární vztah. Vypočítejme si korelační koeficient pro náš první příklad.
+```{r}
+n <- 10
+x <- rnorm(n)
+y <- rnorm(n, mean = x)
+e_x <- x - mean(x)
+e_y <- y - mean(y)
+r <- sum(e_x * e_y) / (sqrt(sum(e_x^2)) * sqrt(sum(e_y^2)))
+print(r)
+```
+
+Můžeme také použít funkci `cor`.
+
+
+Jak jsme si ukázali u kovariance, tento výpočet měří míru lineární závislosti. Pokud tedy funkce (vztah), mezi proměnnými není lineární (ale očividně tam nějaký vztah je), pearsonův korelační koeficient není nejlepším způsobem jak vyjádřit vztah mezi proměnnými.
+```{r, fig.cap="Příklad nelineárního vztahu"}
+n <- 1000
+x <- rnorm(n)
+y <- ifelse(x > 0, rnorm(n, x, sd = 0.5), rnorm(n, -1 * x, sd = 0.5))
+r <- cor(x, y)
+plot(x, y,
+    main = paste0("r = ", round(r, 2)),
+    pch = 19,
+    col = adjustcolor("#1f77b4", alpha.f = 0.3)
+)
+```
+
+
+Pearsonův korelační koeficient je také velmi náchylný na odlehlá pozorování. To jsou taková pozorování, která nabývají výrazně jiných hodnot, než většina pozorování dané proměnné.
+```{r, fig.cap="Příklad vlivu odlehlého pozorování na r pro dvě nezávislé proměnné", fig.width=10}
+# vytvorime dve nezavisle promenne
+n <- 100
+x <- rnorm(n, mean = 100, sd = 10)
+y <- rnorm(n, mean = 10, sd = 5)
+r <- cor(x, y)
+
+par(mfrow = c(1,2))
+plot(x, y,
+    main = paste0("r = ", round(r, 2)),
+    pch = 19,
+    col = adjustcolor("#1f77b4", alpha.f = 0.3)
+)
+
+# pridame jedno extremni pozorovani
+x <- c(x, 200)
+y <- c(y, 50)
+r <- cor(x, y)
+plot(x, y,
+    main = paste0("r = ", round(r, 2)),
+    pch = 19,
+    col = adjustcolor("#1f77b4", alpha.f = 0.3)
+)
+points(x[101], y[101], col = "red", pch = 19)
+```
+
+
+Stejně tak může málo odlehlých hodnot "vymazat" existijící lineární vztah
+```{r, fig.cap="Příklad vlivu odlehlého pozorování na r pro dvě závislé proměnné", fig.width=10}
+# vytvorime dve zavisle promenne
+n <- 100
+x <- rnorm(n, mean = 100, sd = 10)
+y <- rnorm(n, x, sd = 10)
+r <- cor(x, y)
+
+par(mfrow = c(1,2))
+plot(x, y,
+    main = paste0("r = ", round(r, 2)),
+    pch = 19,
+    col = adjustcolor("#1f77b4", alpha.f = 0.3)
+)
+
+
+# pridame jedno extremni pozorovani
+x <- c(x, 200)
+y <- c(y, 50)
+r <- cor(x, y)
+plot(x, y,
+    main = paste0("r = ", round(r, 2)),
+    pch = 19,
+    col = adjustcolor("#1f77b4", alpha.f = 0.3)
+)
+points(x[101], y[101], col = "red", pch = 19)
+```
+Proto je vždy nutné si vztah obou proměnných zobrazit v grafu!
+
+## Statistické testování a interval spolehlivosti
+Nakonec si ukážeme jak můžeme zobecnit výběrový pearsonův korelační koeficient na celou populaci. Výběrový pearsonův korelační koeficient se označuje $r$. Testovací statistika $t$ se vypočítá jako $t = r\sqrt{\frac{n-2}{1-r^2}}$ nabývá t-rozdělení s $n-2$ stupni volnosti (při velkém výběru, $n>30$). $H_0: \rho=0$ a $H1: \rho\ne0$. Stejně tak ale můžeme mít pravostrannou a levostrannou $H_1$. Pokud chcete testovat jinou nulovou hypotézu než 0, je potřeba k této inferenci použít interval spolehlivosti. Pojďme si tento výpočet ukázat na příkladu dat jedinců, u kterých známe výšku a váhu. Zajímá nás, zda mezi těmito dvěma proměnnými je pozitivní vztah. 
+```{r, fig.cap="Vztah mezi výškou a váhou"}
+d <- read.csv("https://raw.githubusercontent.com/schubertjan/cuni/master/stats/data/vyska_vaha.csv")
+head(d)
+# nejprve se musime rozhodnout, co udelat s chybejicicmi hodnotami
+# vyradime vsechny, kde je vaha nebo vyska NA. To se rovna cor(d$vyska, d$vaha, use="complete.obs")
+d <- d[!is.na(d$vyska) & !is.na(d$vaha), ]
+# kontrola
+sum(is.na(d))
+
+# vypocet r
+r <- cor(d$vyska, d$vaha)
+n <- nrow(d)
+# zobrazime vztah
+plot(d$vyska, d$vaha,
+    xlab = "Výška",
+    ylab = "Váha",
+    main = paste0("r = ", round(r, 2)),
+    pch = 19,
+    col = adjustcolor("#1f77b4", alpha.f = 0.3)
+)
+```
+
+```{r, fig.cap="Rozložení testovací statistiky za předpokladu H0"}
+# H0: r <= 0
+# H1: r > 0
+t <- r * sqrt((n - 2) / (1 - r^2))
+s_v <- n - 2
+alpha <- 0.01
+kriticka_mez <- qt(1 - alpha, df = s_v)
+p <- 1 - pt(t, df = s_v)
+
+x <- seq(-4, 24, length.out = 1000)
+pdf <- dt(x, df = s_v)
+
+plot(x, pdf,
+    xlab = "Testovací statistika", ylab = "f(x)",
+    main = "",
+    sub = paste0("p-hodnota: ", p, " při alpha=", alpha),
+    type = "l"
+)
+abline(v = kriticka_mez, col = "#1f77b4")
+# oblast zamitnuti H0
+lines(x[x>kriticka_mez], pdf[x>kriticka_mez], type = "h", col = "#1f77b4")
+abline(v = t, lty = 2)
+legend("topleft",
+    c("kritická mez", "testovací statistika"),
+    col = c("#1f77b4", "black"),
+    lty = c(1, 2)
+)
+# zamitame H0 ve prospech H1
+```
+
+Můžeme také použít funkci `cor.test`.
+```{r}
+cor.test(d$vyska, d$vaha, alternative = "greater", conf.level = 1 - alpha)
+```
+
+Interval spolehlivosti pro $r$ je poměrně těžké vypočítat analyticky a můžeme využít funkce `cor.test`, která ho vypočítá. Pokud chceme této funkce využít je z interpretačních důvodů lepší použít jako $H_1$ oboustranný test. 
+```{r}
+cor.test(d$vyska, d$vaha, alternative = "two.sided", conf.level = 1 - alpha)$conf.int
+```
+Pokud bychom chtěli přeci jenom vypočítat interval spolehlivosti bez pomoci funkce `cor.test` nabízí se použití metody bootstrap. Tuto metodu je možné použít k výpočtu intervalu spolehlivosti (nebo standardních chyb) jekékoliv výběrové statistiky. Zakládá se na principu toho, že opakujeme velké množství výběrů s opakováním z našeho výběru o velikosti $n$. Obecně platí, že pokud můžeme vypočítat interval spolehlivosti analyticky, je to preferované.
+```{r, fig.cap="Bootsrapované rozložení r"}
+# pocet opakovani
+k <- 1000
+r_bootstrap <- rep(NA, k)
+
+for (i in 1:k) {
+    # nahodny vyber s opakovanim
+    ind <- sample(1:n, size = n, replace = TRUE) # jaka pozorovani vybereme
+    r_bootstrap[i] <- cor(d$vyska[ind], d$vaha[ind]) # spocitame korelacni koeficient
+}
+
+# zobrazime
+hist(r_bootstrap, main = "", col = "#1f77b4")
+
+# pokud chceme zjistit 99% interval spolehlivosti
+quantile(r_bootstrap, probs = c(alpha / 2, 1 - alpha / 2))
+```
