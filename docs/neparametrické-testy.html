@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Kapitola 10 Neparametrické testy | Úvod do statistiky</title>
+  <meta name="description" content="Tato kniha obsahuje materiál ke cvičení kurzu Úvod do statistiky (JSB535)." />
+  <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Kapitola 10 Neparametrické testy | Úvod do statistiky" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Tato kniha obsahuje materiál ke cvičení kurzu Úvod do statistiky (JSB535)." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Kapitola 10 Neparametrické testy | Úvod do statistiky" />
+  
+  <meta name="twitter:description" content="Tato kniha obsahuje materiál ke cvičení kurzu Úvod do statistiky (JSB535)." />
+  
+
+<meta name="author" content="Jan Schubert" />
+
+
+<meta name="date" content="2022-04-20" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="korelace.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Úvod do statistiky</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Úvod<span></span></a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#příklad-popisné-statistiky"><i class="fa fa-check"></i><b>1.1</b> Příklad popisné statistiky<span></span></a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#příklad-inferenční-statistiky"><i class="fa fa-check"></i><b>1.2</b> Příklad inferenční statistiky<span></span></a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#simulace"><i class="fa fa-check"></i><b>1.3</b> Simulace<span></span></a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#o-modelech"><i class="fa fa-check"></i><b>1.4</b> O modelech<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="desc-stats.html"><a href="desc-stats.html"><i class="fa fa-check"></i><b>2</b> Popisná statistika<span></span></a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="desc-stats.html"><a href="desc-stats.html#central-tend"><i class="fa fa-check"></i><b>2.1</b> Míry centrální tendence<span></span></a></li>
+<li class="chapter" data-level="2.2" data-path="desc-stats.html"><a href="desc-stats.html#desc-vars"><i class="fa fa-check"></i><b>2.2</b> Míry rozptýlenosti<span></span></a></li>
+<li class="chapter" data-level="2.3" data-path="desc-stats.html"><a href="desc-stats.html#kvantily"><i class="fa fa-check"></i><b>2.3</b> Míry polohy<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="prob-dist.html"><a href="prob-dist.html"><i class="fa fa-check"></i><b>3</b> Pravděpodobnostní rozdělení<span></span></a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="prob-dist.html"><a href="prob-dist.html#stats-lang"><i class="fa fa-check"></i><b>3.1</b> Pravděpodobnostní rozdělení jako jazyk statistiky<span></span></a></li>
+<li class="chapter" data-level="3.2" data-path="prob-dist.html"><a href="prob-dist.html#binom-dist"><i class="fa fa-check"></i><b>3.2</b> Binomické<span></span></a></li>
+<li class="chapter" data-level="3.3" data-path="prob-dist.html"><a href="prob-dist.html#norm-dist"><i class="fa fa-check"></i><b>3.3</b> Normální<span></span></a></li>
+<li class="chapter" data-level="3.4" data-path="prob-dist.html"><a href="prob-dist.html#t-dist"><i class="fa fa-check"></i><b>3.4</b> T<span></span></a></li>
+<li class="chapter" data-level="3.5" data-path="prob-dist.html"><a href="prob-dist.html#unif-dist"><i class="fa fa-check"></i><b>3.5</b> Uniformní<span></span></a></li>
+<li class="chapter" data-level="3.6" data-path="prob-dist.html"><a href="prob-dist.html#pois-dist"><i class="fa fa-check"></i><b>3.6</b> Poisson<span></span></a></li>
+<li class="chapter" data-level="3.7" data-path="prob-dist.html"><a href="prob-dist.html#chi-kvadrát"><i class="fa fa-check"></i><b>3.7</b> Chi-kvadrát<span></span></a></li>
+<li class="chapter" data-level="3.8" data-path="prob-dist.html"><a href="prob-dist.html#jak-vybrat-správný-model-pro-data"><i class="fa fa-check"></i><b>3.8</b> Jak vybrat správný model pro data<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="dist-params.html"><a href="dist-params.html"><i class="fa fa-check"></i><b>4</b> Výběrové rozdělení parametrů<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="dist-params.html"><a href="dist-params.html#clv-procento"><i class="fa fa-check"></i><b>4.1</b> Relativní četnost<span></span></a></li>
+<li class="chapter" data-level="4.2" data-path="dist-params.html"><a href="dist-params.html#clv-is"><i class="fa fa-check"></i><b>4.2</b> Interval spolehlivosti<span></span></a></li>
+<li class="chapter" data-level="4.3" data-path="dist-params.html"><a href="dist-params.html#bootstrap"><i class="fa fa-check"></i><b>4.3</b> Bootstrap<span></span></a></li>
+<li class="chapter" data-level="4.4" data-path="dist-params.html"><a href="dist-params.html#clv-mean"><i class="fa fa-check"></i><b>4.4</b> Průměr<span></span></a></li>
+<li class="chapter" data-level="4.5" data-path="dist-params.html"><a href="dist-params.html#rozptyl"><i class="fa fa-check"></i><b>4.5</b> Rozptyl<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="stats-test-single.html"><a href="stats-test-single.html"><i class="fa fa-check"></i><b>5</b> Statistické testování<span></span></a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="stats-test-single.html"><a href="stats-test-single.html#postup-statistického-testování"><i class="fa fa-check"></i><b>5.1</b> Postup statistického testování<span></span></a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="stats-test-single.html"><a href="stats-test-single.html#zvolení-testu"><i class="fa fa-check"></i><b>5.1.1</b> Zvolení testu<span></span></a></li>
+<li class="chapter" data-level="5.1.2" data-path="stats-test-single.html"><a href="stats-test-single.html#test-h0"><i class="fa fa-check"></i><b>5.1.2</b> Formulace nulové a alternativní hypotézy<span></span></a></li>
+<li class="chapter" data-level="5.1.3" data-path="stats-test-single.html"><a href="stats-test-single.html#test-t-statistika"><i class="fa fa-check"></i><b>5.1.3</b> Výpočet testovací statistiky<span></span></a></li>
+<li class="chapter" data-level="5.1.4" data-path="stats-test-single.html"><a href="stats-test-single.html#interpretace-výsledku"><i class="fa fa-check"></i><b>5.1.4</b> Interpretace výsledku<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="stats-test-single.html"><a href="stats-test-single.html#velikost-účinku"><i class="fa fa-check"></i><b>5.2</b> Velikost účinku<span></span></a></li>
+<li class="chapter" data-level="5.3" data-path="stats-test-single.html"><a href="stats-test-single.html#souvislost-s-intervalem-spolehlivosti"><i class="fa fa-check"></i><b>5.3</b> Souvislost s intervalem spolehlivosti<span></span></a></li>
+<li class="chapter" data-level="5.4" data-path="stats-test-single.html"><a href="stats-test-single.html#test-power"><i class="fa fa-check"></i><b>5.4</b> Síla testu<span></span></a></li>
+<li class="chapter" data-level="5.5" data-path="stats-test-single.html"><a href="stats-test-single.html#velikost-výběru"><i class="fa fa-check"></i><b>5.5</b> Velikost výběru<span></span></a></li>
+<li class="chapter" data-level="5.6" data-path="stats-test-single.html"><a href="stats-test-single.html#tests-many"><i class="fa fa-check"></i><b>5.6</b> Mnoho testů<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="porovnání-dvou-průměrů-a-relativních-četností.html"><a href="porovnání-dvou-průměrů-a-relativních-četností.html"><i class="fa fa-check"></i><b>6</b> Porovnání dvou průměrů a relativních četností<span></span></a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="porovnání-dvou-průměrů-a-relativních-četností.html"><a href="porovnání-dvou-průměrů-a-relativních-četností.html#průměry"><i class="fa fa-check"></i><b>6.1</b> Průměry<span></span></a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="porovnání-dvou-průměrů-a-relativních-četností.html"><a href="porovnání-dvou-průměrů-a-relativních-četností.html#t2-test-ind"><i class="fa fa-check"></i><b>6.1.1</b> Dva nezávislé výběry<span></span></a></li>
+<li class="chapter" data-level="6.1.2" data-path="porovnání-dvou-průměrů-a-relativních-četností.html"><a href="porovnání-dvou-průměrů-a-relativních-četností.html#dva-závislé-výběry"><i class="fa fa-check"></i><b>6.1.2</b> Dva závislé výběry<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="porovnání-dvou-průměrů-a-relativních-četností.html"><a href="porovnání-dvou-průměrů-a-relativních-četností.html#relativní-četnosti"><i class="fa fa-check"></i><b>6.2</b> Relativní četnosti<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="porovnání-více-relativních-četností.html"><a href="porovnání-více-relativních-četností.html"><i class="fa fa-check"></i><b>7</b> Porovnání více relativních četností<span></span></a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="porovnání-více-relativních-četností.html"><a href="porovnání-více-relativních-četností.html#test-dobré-shody"><i class="fa fa-check"></i><b>7.1</b> Test dobré shody<span></span></a></li>
+<li class="chapter" data-level="7.2" data-path="porovnání-více-relativních-četností.html"><a href="porovnání-více-relativních-četností.html#chi-kvadrát-test-nezávislosti"><i class="fa fa-check"></i><b>7.2</b> Chi-kvadrát test nezávislosti<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="porovnání-více-průměrů.html"><a href="porovnání-více-průměrů.html"><i class="fa fa-check"></i><b>8</b> Porovnání více průměrů<span></span></a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="porovnání-více-průměrů.html"><a href="porovnání-více-průměrů.html#problém-více-testů"><i class="fa fa-check"></i><b>8.1</b> Problém více testů<span></span></a></li>
+<li class="chapter" data-level="8.2" data-path="porovnání-více-průměrů.html"><a href="porovnání-více-průměrů.html#anova"><i class="fa fa-check"></i><b>8.2</b> ANOVA<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="korelace.html"><a href="korelace.html"><i class="fa fa-check"></i><b>9</b> Korelace<span></span></a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="korelace.html"><a href="korelace.html#kovariance"><i class="fa fa-check"></i><b>9.1</b> Kovariance<span></span></a></li>
+<li class="chapter" data-level="9.2" data-path="korelace.html"><a href="korelace.html#korelační-koeficient"><i class="fa fa-check"></i><b>9.2</b> Korelační koeficient<span></span></a></li>
+<li class="chapter" data-level="9.3" data-path="korelace.html"><a href="korelace.html#statistické-testování-a-interval-spolehlivosti"><i class="fa fa-check"></i><b>9.3</b> Statistické testování a interval spolehlivosti<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="neparametrické-testy.html"><a href="neparametrické-testy.html"><i class="fa fa-check"></i><b>10</b> Neparametrické testy<span></span></a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="neparametrické-testy.html"><a href="neparametrické-testy.html#znaménkový-test"><i class="fa fa-check"></i><b>10.1</b> Znaménkový test<span></span></a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a>
+<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />Tato kniha podléhá <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
+</li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Úvod do statistiky</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="neparametrické-testy" class="section level1 hasAnchor" number="10">
+<h1><span class="header-section-number">Kapitola 10</span> Neparametrické testy<a href="neparametrické-testy.html#neparametrické-testy" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Neparametrické testy používáme, pokud jsou předopklady některých parametrických testů porušeny, nejčastěji normalita rozdělení nebo předpoklady o spojitosti proměnné.</p>
+<div id="znaménkový-test" class="section level2 hasAnchor" number="10.1">
+<h2><span class="header-section-number">10.1</span> Znaménkový test<a href="neparametrické-testy.html#znaménkový-test" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Nejjednodušším testem je znaménkový test. Tento test používáme, když chceme porovnat medián proměnné k populační hodnotě. Jde tedy o ekvivalement jednovýběrového t-testu (viz <a href="stats-test-single.html#stats-test-single">5</a>. Pojďme si znaménkový test ukázat na následujícím příkladu. Na filmové databázi IMDb mohou registrovaní uživatelé a uživatelky hodnotit filmy na škále od 1 do 10. Víte, že daný film na této databázi hodnotilo více než půl milionu uživatelů. Správce databáze vám při pracovním pohovoru na pozici datového analytika náhodně vygeneruje 14 hodnocení tohoto filmu:
+<span class="math inline">\(x = [3, 7, 4, 10, 1, 6, 9, 8, 3, 6, 7, 5, 9, 8]\)</span>. Vedoucí analytického týmu databáze IMDb vám při pracovním pohovoru stanoví následující úlohu: Jaká je pravděpodobnost, že se jedná o zcela výjimečný film, který dostal od poloviny hodnotících uživatelů databáze známky 9 nebo 10 (tedy medián všech hodnocení je 9 nebo větší)? Graf <a href="neparametrické-testy.html#fig:znam-data">10.1</a> ukazuje hodnocení od nejmenší po největší hodnotu. Horizontální přímka vyjadřuje teoretickou hodnotu 9.</p>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="neparametrické-testy.html#cb160-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">4</span>, <span class="dv">10</span>, <span class="dv">1</span>, <span class="dv">6</span>, <span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">5</span>, <span class="dv">9</span>, <span class="dv">8</span>)</span>
+<span id="cb160-2"><a href="neparametrické-testy.html#cb160-2" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span><span class="fu">length</span>(X)</span>
+<span id="cb160-3"><a href="neparametrické-testy.html#cb160-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb160-4"><a href="neparametrické-testy.html#cb160-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">sort</span>(X), </span>
+<span id="cb160-5"><a href="neparametrické-testy.html#cb160-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>, </span>
+<span id="cb160-6"><a href="neparametrické-testy.html#cb160-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Pořadí&quot;</span>,</span>
+<span id="cb160-7"><a href="neparametrické-testy.html#cb160-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Hodnocení&quot;</span>,</span>
+<span id="cb160-8"><a href="neparametrické-testy.html#cb160-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">&quot;h&quot;</span>, <span class="at">lwd =</span> <span class="dv">15</span>)</span>
+<span id="cb160-9"><a href="neparametrické-testy.html#cb160-9" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">9</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:znam-data"></span>
+<img src="book_files/figure-html/znam-data-1.png" alt="Sloupcový graf 14 hodnocení filmů" width="672" />
+<p class="caption">
+Graf 10.1: Sloupcový graf 14 hodnocení filmů
+</p>
+</div>
+<p>V tomto případě tedy testujeme, zda <span class="math inline">\(H_0: \eta \le 8\)</span>, <span class="math inline">\(H_1: \eta &gt; 8\)</span> (tedy 9 a více). Začněme tím, že se podíváme, kolik hodnot je vyšších, než testovaná hodnota <span class="math inline">\(8\)</span>. Znaménko <code>"-"</code> značí hodnotu menší než 8 a znaménko <code>"+"</code> hodnotu větší než 8.</p>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="neparametrické-testy.html#cb161-1" aria-hidden="true" tabindex="-1"></a>h0 <span class="ot">&lt;-</span> <span class="dv">8</span></span>
+<span id="cb161-2"><a href="neparametrické-testy.html#cb161-2" aria-hidden="true" tabindex="-1"></a>znamenka <span class="ot">&lt;-</span> X<span class="sc">&gt;</span>h0</span>
+<span id="cb161-3"><a href="neparametrické-testy.html#cb161-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb161-4"><a href="neparametrické-testy.html#cb161-4" aria-hidden="true" tabindex="-1"></a>znamenka_table <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(znamenka, <span class="st">&quot;+&quot;</span>, <span class="st">&quot;-&quot;</span>)</span>
+<span id="cb161-5"><a href="neparametrické-testy.html#cb161-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(znamenka_table) <span class="ot">&lt;-</span> X</span>
+<span id="cb161-6"><a href="neparametrické-testy.html#cb161-6" aria-hidden="true" tabindex="-1"></a>znamenka_table</span></code></pre></div>
+<pre><code>##   3   7   4  10   1   6   9   8   3   6   7   5   9   8 
+## &quot;-&quot; &quot;-&quot; &quot;-&quot; &quot;+&quot; &quot;-&quot; &quot;-&quot; &quot;+&quot; &quot;-&quot; &quot;-&quot; &quot;-&quot; &quot;-&quot; &quot;-&quot; &quot;+&quot; &quot;-&quot;</code></pre>
+<p>Pokud by populační hodnota byla rovna <span class="math inline">\(\eta=8\)</span>, z 14 hodnot bychom očekávali 7 vyšších než <span class="math inline">\(\eta=8\)</span> a 7 menších než <span class="math inline">\(\eta=8\)</span>. Jedná se tedy vlastně o příklad binomického rozložení (<a href="prob-dist.html#binom-dist">3.2</a>) s <span class="math inline">\(k=14\)</span> pokusy a pravděpodobností úspěchu <span class="math inline">\(p=0.5\)</span>, tedy <span class="math inline">\(B(14, 0.5)\)</span>. V našem případě je celkem 3 vyšších než testovaná hodnota 8.</p>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="neparametrické-testy.html#cb163-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">14</span></span>
+<span id="cb163-2"><a href="neparametrické-testy.html#cb163-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
+<span id="cb163-3"><a href="neparametrické-testy.html#cb163-3" aria-hidden="true" tabindex="-1"></a>plusova_znamenka <span class="ot">&lt;-</span> <span class="fu">sum</span>(znamenka)</span>
+<span id="cb163-4"><a href="neparametrické-testy.html#cb163-4" aria-hidden="true" tabindex="-1"></a>pmf <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(x, <span class="at">size =</span> k, <span class="at">prob =</span> p)</span>
+<span id="cb163-5"><a href="neparametrické-testy.html#cb163-5" aria-hidden="true" tabindex="-1"></a>p_hodnota <span class="ot">&lt;-</span> <span class="fu">sum</span>(pmf[x<span class="sc">&gt;=</span>plusova_znamenka])</span>
+<span id="cb163-6"><a href="neparametrické-testy.html#cb163-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb163-7"><a href="neparametrické-testy.html#cb163-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb163-8"><a href="neparametrické-testy.html#cb163-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, pmf,</span>
+<span id="cb163-9"><a href="neparametrické-testy.html#cb163-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>,</span>
+<span id="cb163-10"><a href="neparametrické-testy.html#cb163-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;PMF&quot;</span>,</span>
+<span id="cb163-11"><a href="neparametrické-testy.html#cb163-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;grey&quot;</span>,</span>
+<span id="cb163-12"><a href="neparametrické-testy.html#cb163-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">&quot;h&quot;</span>, <span class="at">lwd =</span> <span class="dv">15</span>,</span>
+<span id="cb163-13"><a href="neparametrické-testy.html#cb163-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, k),</span>
+<span id="cb163-14"><a href="neparametrické-testy.html#cb163-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">paste0</span>(<span class="st">&quot;p=&quot;</span>, <span class="fu">round</span>(p_hodnota, <span class="dv">2</span>))</span>
+<span id="cb163-15"><a href="neparametrické-testy.html#cb163-15" aria-hidden="true" tabindex="-1"></a>     )</span>
+<span id="cb163-16"><a href="neparametrické-testy.html#cb163-16" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x[x<span class="sc">&gt;=</span>plusova_znamenka], pmf[x<span class="sc">&gt;=</span>plusova_znamenka], <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>, <span class="at">type =</span> <span class="st">&quot;h&quot;</span>, <span class="at">lwd =</span> <span class="dv">15</span>)</span>
+<span id="cb163-17"><a href="neparametrické-testy.html#cb163-17" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="dv">0</span><span class="sc">:</span>k, <span class="dv">0</span><span class="sc">:</span>k)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:znam-chart"></span>
+<img src="book_files/figure-html/znam-chart-1.png" alt="Distribuce pozorování větších než teoretická hodnota za předpokladu H0. příklad jednosměrného testu." width="672" />
+<p class="caption">
+Graf 10.2: Distribuce pozorování větších než teoretická hodnota za předpokladu H0. příklad jednosměrného testu.
+</p>
+</div>
+<p>Graf <a href="neparametrické-testy.html#fig:znam-chart">10.2</a> ukazuje rozdělení počtu hodnot větších než teoretická hodnota 8, pokud by v populaci platila <span class="math inline">\(H_0\)</span>. V našem případě jsme měli 3 hodnoty větší než teoretická hodnota 8. Pokud platí <span class="math inline">\(H_0\)</span>, pak je pravděpodobnost, že bychom z 14 pozorování viděli 3 nebo více větších hodnot než <span class="math inline">\(H_0\)</span> je 0.99. Tedy nemůžeme zamítnout <span class="math inline">\(H_0: \eta \le 8\)</span> ve prospěch <span class="math inline">\(H_1\)</span>. Nelze tedy říci, že by byl medián hodnocení větší nebo roven 9.</p>
+<p>Dále na stejných datech formulujeme hypotézu, že medián všech hodnocení tohoto filmu se nerovná 5. Formulujte odpovídající nulovou a alternativní hypotézu. Tedy <span class="math inline">\(H_0: \eta = 5\)</span>, <span class="math inline">\(H_1: \eta \ne 5\)</span>. Opět spočítáme počet případů, kdy je hodnocení vyšší než teoretická hodnota.</p>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="neparametrické-testy.html#cb164-1" aria-hidden="true" tabindex="-1"></a>h0 <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb164-2"><a href="neparametrické-testy.html#cb164-2" aria-hidden="true" tabindex="-1"></a>znamenka <span class="ot">&lt;-</span> X<span class="sc">&gt;</span>h0</span>
+<span id="cb164-3"><a href="neparametrické-testy.html#cb164-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb164-4"><a href="neparametrické-testy.html#cb164-4" aria-hidden="true" tabindex="-1"></a>znamenka_table <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(znamenka, <span class="st">&quot;+&quot;</span>, <span class="st">&quot;-&quot;</span>)</span>
+<span id="cb164-5"><a href="neparametrické-testy.html#cb164-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(znamenka_table) <span class="ot">&lt;-</span> X</span>
+<span id="cb164-6"><a href="neparametrické-testy.html#cb164-6" aria-hidden="true" tabindex="-1"></a>znamenka_table</span></code></pre></div>
+<pre><code>##   3   7   4  10   1   6   9   8   3   6   7   5   9   8 
+## &quot;-&quot; &quot;+&quot; &quot;-&quot; &quot;+&quot; &quot;-&quot; &quot;+&quot; &quot;+&quot; &quot;+&quot; &quot;-&quot; &quot;+&quot; &quot;+&quot; &quot;-&quot; &quot;+&quot; &quot;+&quot;</code></pre>
+<p>Pokud by populační hodnota byla rovna 5, pak bychom opět v našem výběru čekali 7 pozorování menších, než teoretická hodnota a 7 větších, než teoretická hodnota. Opět tedy modelujele <span class="math inline">\(B(14,0.5)\)</span>. Graf <a href="neparametrické-testy.html#fig:znam-chart2">10.3</a> ukazuje toto binomické rozložení. Modře je opět vyznačena oblast zamítnutí <span class="math inline">\(H_0\)</span>. Protože používáme oboustranný test, pak je oblast zamítnutí symetricky na obou strannách od očekávané hodnoty.</p>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="neparametrické-testy.html#cb166-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">14</span></span>
+<span id="cb166-2"><a href="neparametrické-testy.html#cb166-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
+<span id="cb166-3"><a href="neparametrické-testy.html#cb166-3" aria-hidden="true" tabindex="-1"></a>plusova_znamenka <span class="ot">&lt;-</span> <span class="fu">sum</span>(znamenka)</span>
+<span id="cb166-4"><a href="neparametrické-testy.html#cb166-4" aria-hidden="true" tabindex="-1"></a>pmf <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(x, <span class="at">size =</span> k, <span class="at">prob =</span> p)</span>
+<span id="cb166-5"><a href="neparametrické-testy.html#cb166-5" aria-hidden="true" tabindex="-1"></a><span class="co"># *2, protože  máme oboustranný test</span></span>
+<span id="cb166-6"><a href="neparametrické-testy.html#cb166-6" aria-hidden="true" tabindex="-1"></a>p_hodnota <span class="ot">&lt;-</span> <span class="fu">sum</span>(pmf[x<span class="sc">&gt;=</span>plusova_znamenka])<span class="sc">*</span><span class="dv">2</span></span>
+<span id="cb166-7"><a href="neparametrické-testy.html#cb166-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb166-8"><a href="neparametrické-testy.html#cb166-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, pmf,</span>
+<span id="cb166-9"><a href="neparametrické-testy.html#cb166-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>,</span>
+<span id="cb166-10"><a href="neparametrické-testy.html#cb166-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;PMF&quot;</span>,</span>
+<span id="cb166-11"><a href="neparametrické-testy.html#cb166-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;grey&quot;</span>,</span>
+<span id="cb166-12"><a href="neparametrické-testy.html#cb166-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">&quot;h&quot;</span>, <span class="at">lwd =</span> <span class="dv">15</span>,</span>
+<span id="cb166-13"><a href="neparametrické-testy.html#cb166-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, k),</span>
+<span id="cb166-14"><a href="neparametrické-testy.html#cb166-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">paste0</span>(<span class="st">&quot;p=&quot;</span>, <span class="fu">round</span>(p_hodnota, <span class="dv">2</span>))</span>
+<span id="cb166-15"><a href="neparametrické-testy.html#cb166-15" aria-hidden="true" tabindex="-1"></a>     )</span>
+<span id="cb166-16"><a href="neparametrické-testy.html#cb166-16" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x[x<span class="sc">&gt;=</span>plusova_znamenka], pmf[x<span class="sc">&gt;=</span>plusova_znamenka], <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>, <span class="at">type =</span> <span class="st">&quot;h&quot;</span>, <span class="at">lwd =</span> <span class="dv">15</span>)</span>
+<span id="cb166-17"><a href="neparametrické-testy.html#cb166-17" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x[x<span class="sc">&lt;=</span>(k<span class="sc">-</span>plusova_znamenka)], pmf[x<span class="sc">&lt;=</span>(k<span class="sc">-</span>plusova_znamenka)], <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>, <span class="at">type =</span> <span class="st">&quot;h&quot;</span>, <span class="at">lwd =</span> <span class="dv">15</span>)</span>
+<span id="cb166-18"><a href="neparametrické-testy.html#cb166-18" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="dv">0</span><span class="sc">:</span>k, <span class="dv">0</span><span class="sc">:</span>k)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:znam-chart2"></span>
+<img src="book_files/figure-html/znam-chart2-1.png" alt="Distribuce pozorování větších než teoretická hodnota za předpokladu H0. Příklad obousměrného testu." width="672" />
+<p class="caption">
+Graf 10.3: Distribuce pozorování větších než teoretická hodnota za předpokladu H0. Příklad obousměrného testu.
+</p>
+</div>
+<p>Jak je vidět, pravděpodobnost, že bychom za předpokladu <span class="math inline">\(H_0: \eta=5\)</span> sledovali více než 9 hodnot větších než teoretická hodnota nebo 5 menších než teoretická hodnota je 0.42. Nemůžeme tedy zamítnout <span class="math inline">\(H_0\)</span> ve prospěch <span class="math inline">\(H_1\)</span>. V <code>R</code> je možné tento test provést pomocí funkce <code>binom.test</code>.</p>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="neparametrické-testy.html#cb167-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prvni priklad (H0: eta&lt;=8, H1: eta &gt; 8)</span></span>
+<span id="cb167-2"><a href="neparametrické-testy.html#cb167-2" aria-hidden="true" tabindex="-1"></a><span class="co"># binom.test(3, 14, alternative = &quot;greater&quot;)</span></span>
+<span id="cb167-3"><a href="neparametrické-testy.html#cb167-3" aria-hidden="true" tabindex="-1"></a><span class="co"># druhy priklad (H0: eta=5, H1: eta != 5)</span></span>
+<span id="cb167-4"><a href="neparametrické-testy.html#cb167-4" aria-hidden="true" tabindex="-1"></a><span class="co"># binom.test(9, 14, alternative = &quot;two.sided&quot;)</span></span></code></pre></div>
+
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="korelace.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection",
+"download": false
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,99 @@
+# Neparametrické testy
+
+Neparametrické testy používáme, pokud jsou předopklady některých parametrických testů porušeny, nejčastěji normalita rozdělení nebo předpoklady o spojitosti proměnné. 
+
+## Znaménkový test
+
+Nejjednodušším testem je znaménkový test. Tento test používáme, když chceme porovnat medián proměnné k populační hodnotě. Jde tedy o ekvivalement jednovýběrového t-testu (viz \@ref(stats-test-single). Pojďme si znaménkový test ukázat na následujícím příkladu. Na filmové databázi IMDb mohou registrovaní uživatelé a uživatelky hodnotit filmy na škále od 1 do 10. Víte, že daný film na této databázi hodnotilo více než půl milionu uživatelů. Správce databáze vám při pracovním pohovoru na pozici datového analytika náhodně vygeneruje 14 hodnocení tohoto filmu: 
+$x = [3, 7, 4, 10, 1, 6, 9, 8, 3, 6, 7, 5, 9, 8]$. Vedoucí analytického týmu databáze IMDb vám při pracovním pohovoru stanoví následující úlohu: Jaká je pravděpodobnost, že se jedná o zcela výjimečný film, který dostal od poloviny hodnotících uživatelů databáze známky 9 nebo 10 (tedy medián všech hodnocení je 9 nebo větší)? Graf \@ref(fig:znam-data) ukazuje hodnocení od nejmenší po největší hodnotu. Horizontální přímka vyjadřuje teoretickou hodnotu 9.
+
+```{r znam-data, fig.cap='Sloupcový graf 14 hodnocení filmů'}
+X <- c(3, 7, 4, 10, 1, 6, 9, 8, 3, 6, 7, 5, 9, 8)
+k <-length(X)
+
+plot(sort(X), 
+     col = "#1f77b4", 
+     xlab = "Pořadí",
+     ylab = "Hodnocení",
+     type = "h", lwd = 15)
+abline(h = 9)
+```
+
+V tomto případě tedy testujeme, zda $H_0: \eta \le 8$, $H_1: \eta > 8$ (tedy 9 a více). Začněme tím, že se podíváme, kolik hodnot je vyšších, než testovaná hodnota $8$. Znaménko `"-"` značí hodnotu menší než 8 a znaménko `"+"` hodnotu větší než 8.
+
+```{r}
+h0 <- 8
+znamenka <- X>h0
+
+znamenka_table <- ifelse(znamenka, "+", "-")
+names(znamenka_table) <- X
+znamenka_table
+```
+
+Pokud by populační hodnota byla rovna $\eta=8$, z 14 hodnot bychom očekávali 7 vyšších než $\eta=8$ a 7 menších než $\eta=8$. Jedná se tedy vlastně o příklad binomického rozložení (\@ref(binom-dist)) s $k=14$ pokusy a pravděpodobností úspěchu $p=0.5$, tedy $B(14, 0.5)$. V našem případě je celkem `r sum(znamenka)` vyšších než testovaná hodnota 8. 
+
+```{r znam-chart, fig.cap="Distribuce pozorování větších než teoretická hodnota za předpokladu H0. příklad jednosměrného testu."}
+x <- 0:14
+p <- 0.5
+plusova_znamenka <- sum(znamenka)
+pmf <- dbinom(x, size = k, prob = p)
+p_hodnota <- sum(pmf[x>=plusova_znamenka])
+
+
+plot(x, pmf,
+     xlab = "x",
+     ylab = "PMF",
+     col = "grey",
+     type = "h", lwd = 15,
+     xlim = c(0, k),
+     main = paste0("p=", round(p_hodnota, 2))
+     )
+lines(x[x>=plusova_znamenka], pmf[x>=plusova_znamenka], col = "#1f77b4", type = "h", lwd = 15)
+axis(1, 0:k, 0:k)
+```
+
+Graf \@ref(fig:znam-chart) ukazuje rozdělení počtu hodnot větších než teoretická hodnota 8, pokud by v populaci platila $H_0$. V našem případě jsme měli `r sum(znamenka)` hodnoty větší než teoretická hodnota 8. Pokud platí $H_0$, pak je pravděpodobnost, že bychom z `r k` pozorování viděli `r plusova_znamenka` nebo více větších hodnot než $H_0$ je `r round(p_hodnota, 2)`. Tedy nemůžeme zamítnout $H_0: \eta \le 8$ ve prospěch $H_1$. Nelze tedy říci, že by byl medián hodnocení větší nebo roven 9.
+
+Dále na stejných datech formulujeme hypotézu, že medián všech hodnocení tohoto filmu se nerovná 5. Formulujte odpovídající nulovou a alternativní hypotézu. Tedy $H_0: \eta = 5$, $H_1: \eta \ne 5$. Opět spočítáme počet případů, kdy je hodnocení vyšší než teoretická hodnota.  
+
+```{r}
+h0 <- 5
+znamenka <- X>h0
+
+znamenka_table <- ifelse(znamenka, "+", "-")
+names(znamenka_table) <- X
+znamenka_table
+```
+
+Pokud by populační hodnota byla rovna 5, pak bychom opět v našem výběru čekali 7 pozorování menších, než teoretická hodnota a 7 větších, než teoretická hodnota. Opět tedy modelujele $B(14,0.5)$. Graf \@ref(fig:znam-chart2) ukazuje toto binomické rozložení. Modře je opět vyznačena oblast zamítnutí $H_0$. Protože používáme oboustranný test, pak je oblast zamítnutí symetricky na obou strannách od očekávané hodnoty. 
+
+```{r znam-chart2, fig.cap="Distribuce pozorování větších než teoretická hodnota za předpokladu H0. Příklad obousměrného testu."}
+x <- 0:14
+p <- 0.5
+plusova_znamenka <- sum(znamenka)
+pmf <- dbinom(x, size = k, prob = p)
+# *2, protože  máme oboustranný test
+p_hodnota <- sum(pmf[x>=plusova_znamenka])*2
+
+plot(x, pmf,
+     xlab = "x",
+     ylab = "PMF",
+     col = "grey",
+     type = "h", lwd = 15,
+     xlim = c(0, k),
+     main = paste0("p=", round(p_hodnota, 2))
+     )
+lines(x[x>=plusova_znamenka], pmf[x>=plusova_znamenka], col = "#1f77b4", type = "h", lwd = 15)
+lines(x[x<=(k-plusova_znamenka)], pmf[x<=(k-plusova_znamenka)], col = "#1f77b4", type = "h", lwd = 15)
+axis(1, 0:k, 0:k)
+```
+
+Jak je vidět, pravděpodobnost, že bychom za předpokladu $H_0: \eta=5$ sledovali více než `r plusova_znamenka` hodnot větších než teoretická hodnota nebo `r k-plusova_znamenka` menších než teoretická hodnota je `r round(p_hodnota, 2)`. Nemůžeme tedy zamítnout $H_0$ ve prospěch $H_1$. V `R` je možné tento test provést pomocí funkce `binom.test`.
+
+```{r}
+# prvni priklad (H0: eta<=8, H1: eta > 8)
+# binom.test(3, 14, alternative = "greater")
+# druhy priklad (H0: eta=5, H1: eta != 5)
+# binom.test(9, 14, alternative = "two.sided")
+```
+

@@ -76,6 +76,9 @@ fig:unnamed-chunk-79
 fig:unnamed-chunk-80
 fig:unnamed-chunk-81
 fig:unnamed-chunk-84
+fig:znam-data
+fig:znam-chart
+fig:znam-chart2
 úvod
 příklad-popisné-statistiky
 příklad-inferenční-statistiky
@@ -126,3 +129,5 @@ korelace
 kovariance
 korelační-koeficient
 statistické-testování-a-interval-spolehlivosti
+neparametrické-testy
+znaménkový-test
