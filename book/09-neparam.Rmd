@@ -70,11 +70,12 @@ Pokud by populační hodnota byla rovna 5, pak bychom opět v našem výběru č
 ```{r znam-chart2, fig.cap="Distribuce pozorování větších než teoretická hodnota za předpokladu H0. Příklad obousměrného testu."}
 x <- 0:14
 p <- 0.5
-plusova_znamenka <- sum(znamenka)
+t <- sum(znamenka)
 pmf <- dbinom(x, size = k, prob = p)
 # *2, protože  máme oboustranný test
-p_hodnota <- sum(pmf[x>=plusova_znamenka])*2
-
+p_hodnota <- sum(pmf[x>=t])*2
+alpha <- 0.05
+kriticka_hodnota <- qbinom(c(alpha/2, 1-alpha/2), size = k, prob = p)
 plot(x, pmf,
      xlab = "x",
      ylab = "PMF",
@@ -82,10 +83,22 @@ plot(x, pmf,
      type = "h", lwd = 15,
      xlim = c(0, k),
      main = paste0("p=", round(p_hodnota, 2))
-     )
-lines(x[x>=plusova_znamenka], pmf[x>=plusova_znamenka], col = "#1f77b4", type = "h", lwd = 15)
-lines(x[x<=(k-plusova_znamenka)], pmf[x<=(k-plusova_znamenka)], col = "#1f77b4", type = "h", lwd = 15)
+)
+
+lines(x[x<kriticka_hodnota[1]], pmf[x<kriticka_hodnota[1]], col = "#1f77b4", type = "h", lwd = 15)
+lines(x[x>kriticka_hodnota[2]], pmf[x>kriticka_hodnota[2]], col = "#1f77b4", type = "h", lwd = 15)
+abline(v = t, lty = 2)
 axis(1, 0:k, 0:k)
+legend("topright",
+       legend = c(
+         "B(14,0.5)",
+         "Oblast zamítnutí",
+         "Testovací statistika"),
+       col = c("grey", "#1f77b4", "black"),
+       lwd = c(5, 5, 1),
+       lty = c(1,1, 2),
+       cex = 0.7
+)
 ```
 
 Jak je vidět, pravděpodobnost, že bychom za předpokladu $H_0: \eta=5$ sledovali více než `r plusova_znamenka` hodnot větších než teoretická hodnota nebo `r k-plusova_znamenka` menších než teoretická hodnota je `r round(p_hodnota, 2)`. Nemůžeme tedy zamítnout $H_0$ ve prospěch $H_1$. V `R` je možné tento test provést pomocí funkce `binom.test`.
@@ -96,4 +109,79 @@ Jak je vidět, pravděpodobnost, že bychom za předpokladu $H_0: \eta=5$ sledov
 # druhy priklad (H0: eta=5, H1: eta != 5)
 # binom.test(9, 14, alternative = "two.sided")
 ```
+
+## Mann-Whitney U test
+Tento typ testu se používá, pokud chceme porovnat medián dvou nezávislých výběrů. Narozdíl od t-testu nemusí být proměnné normálně rozděleny. 
+
+Pětadvacet studentů angličtiny bylo na začátku školního roku náhodně rozděleno do dvou seminárních skupin. V první skupině probíhala výuka standardním způsobem a ve druhé skupině byla v průběhu roku aplikována nová metoda výuky angličtiny. Na konci školního roku absolvovali obě skupiny studentů jazykovou zkoušku TOEFL (skládající se čtyř částí: reading, listening, speaking a writing). Souhrnné výsledky obou skupin shrnuje následující tabulka:
+
+|          | | | | | | | | | | | | | |
+|----------|-|-|-|-|-|-|-|-|-|-|-|-|-|
+|Standardní metoda výuky |96|65|67|72|63|55|56|64|84|80|52|51| |
+|Nová metoda výuky |76|80|88|70|83|94|87|90|73|89|79|69|97|
+
+Zajímá nás, zda jsou mezi oběma metodami rozdíly u standardizované jazykové zkoušky TOEFL? Tedy $H_0: \eta_1 = \eta_2$ a $H_1: \eta_1 \ne \eta_2$.
+
+```{r}
+standard <- c(96, 65, 67, 72, 63, 55, 56, 64, 84, 80, 52, 51)
+experiment <- c(76, 80, 88, 70, 83, 94, 87, 90, 73, 89, 79, 69, 97)
+eta_1 <- median(standard)
+eta_2 <- median(experiment)
+```
+
+Medián v prvním výběru standardní výuky je `r eta_1`. Medián v druhém výběru experimentální výuky je `r eta_2`. Jako první vypočítáme pořadí všech hodnot, od nejmenšího po největší hodnotu a sečteme pořadí hodnot pro každou skupinu do $R_1$ a $R_2$.
+
+```{r}
+n1 <- length(standard)
+n2 <- length(experiment)
+r <- rank(c(standard, experiment))
+R1 <- sum(r[1:n1])
+R2 <- sum(r[(n1+1):(n1+n2)])
+```
+
+Součet pořadí hodnot ve standardní skupině je `r R1`. Součet pořadí hodnot v experimentální skupině je `r R2`. Nyní vypočítáme testovací statistiku $U$ pro oba výběry. $U_1 = R_1-\frac{n_1(n_1+1)}{2}$ a $U_2 = R_2-\frac{n_2(n_2+1)}{2}$.
+```{r}
+U1 <- R1 - (n1*(n1+1)/2)
+U2 <- R2 - (n2*(n2+1)/2)
+U <- min(U1, U2)
+
+mu_U <- n1*n2/2
+sigma_U <- sqrt((n1*n2*(n1+n2+1))/12)
+z <- (U-mu_U) / sigma_U
+```
+
+Testovací statistika pro výběr standardní výuky je `r U1` a pro výběr experimentální výuky je `r U2`. Jako testovací statistiku $U$ vybereme menší z obou hodnot, tedy $U=min(U_1, U_2)$. V našem případě je tedy $U$ rovno `r U`. Protože testovací statistika nabývá normálního rozdělení, abyhcom ji mohli porovnat k očekávanému rozdělní za platnosti $H_0$, musíme vypočítat průměr a směrodatbou odchylku rozdělení této testovací statistiky. Průměr výběrového rozdělení testovací statistiku $U$ vypočítáme jako $\mu_U=\frac{n_1n_2}{2}$. V našem případě je tato hodnota rovna `r mu_U`. Směrodatná chyba odhadu $U$ se vypočítá jako $\sigma_U = \sqrt{\frac{n_1n_2(n_1+n_2+1)}{12}}$. Hodnotu kvantilu testovací statistiky vypočítáme jako $z=\frac{U-\mu_U}{\sigma_U}$.
+
+```{r, fig.cap='Výběrové rozdělení U za předpokladu H0'}
+x <- seq(10,150, length.out=1000)
+pdf <- dnorm(x, mu_U, sigma_U)
+alpha <- 0.05
+kriticka_mez <- qnorm(c(alpha/2, 1-alpha/2), mean = mu_U, sigma_U)
+p_hodnota <- pnorm(z) *2
+# p_hodnota <- pnorm(U, mu_U, sigma_U) *2 # nebo take
+
+plot(x, pdf, 
+     type = "l", 
+     lwd = 2,
+     col = "grey",
+     xlab = "U", ylab = "PDF")
+abline(v = U, lty = 2)
+lines(x[x<kriticka_mez[1]], pdf[x<kriticka_mez[1]], type = "h", col = "#1f77b4", lwd = 1)
+lines(x[x>kriticka_mez[2]], pdf[x>kriticka_mez[2]], type = "h", col = "#1f77b4", lwd = 1)
+
+legend("topright",
+       legend = c(
+         paste0(
+           "N(", mu_U, ", ",
+           round(sigma_U, 3), ")"
+         ),
+         "Testovací statistika"),
+       col = c("grey", "black"),
+       lwd = c(2, 1),
+       lty = c(1,2),
+       cex = 0.7
+)
+```
+
+Pravděpodobnost, že bychom za předpokladu $H_0: \eta_1 = \eta_2$ sledovali testovací statistiku takovou nebo extrémnější je `r round(p_hodnota, 3)`, tedy pod hranicí zvolené $\alpha=0.05$. Zamítáme tedy $H_0$ ve prospěch $H_1$.
 
