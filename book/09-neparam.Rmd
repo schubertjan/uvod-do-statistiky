@@ -1,6 +1,6 @@
 # Neparametrické testy
 
-Neparametrické testy používáme, pokud jsou předopklady některých parametrických testů porušeny, nejčastěji normalita rozdělení nebo předpoklady o spojitosti proměnné. 
+Neparametrické testy používáme, pokud jsou předpoklady některých parametrických testů porušeny, nejčastěji normalita rozdělení nebo předpoklady o spojitosti proměnné. Alternativně bychom na vypočtení výběrových rozdělení statistik mohli použít metodu bootstrapu.
 
 ## Znaménkový test
 
@@ -150,14 +150,14 @@ sigma_U <- sqrt((n1*n2*(n1+n2+1))/12)
 z <- (U-mu_U) / sigma_U
 ```
 
-Testovací statistika pro výběr standardní výuky je `r U1` a pro výběr experimentální výuky je `r U2`. Jako testovací statistiku $U$ vybereme menší z obou hodnot, tedy $U=min(U_1, U_2)$. V našem případě je tedy $U$ rovno `r U`. Protože testovací statistika nabývá normálního rozdělení, abyhcom ji mohli porovnat k očekávanému rozdělní za platnosti $H_0$, musíme vypočítat průměr a směrodatbou odchylku rozdělení této testovací statistiky. Průměr výběrového rozdělení testovací statistiku $U$ vypočítáme jako $\mu_U=\frac{n_1n_2}{2}$. V našem případě je tato hodnota rovna `r mu_U`. Směrodatná chyba odhadu $U$ se vypočítá jako $\sigma_U = \sqrt{\frac{n_1n_2(n_1+n_2+1)}{12}}$. Hodnotu kvantilu testovací statistiky vypočítáme jako $z=\frac{U-\mu_U}{\sigma_U}$.
+Testovací statistika pro výběr standardní výuky je `r U1` a pro výběr experimentální výuky je `r U2`. Jako testovací statistiku $U$ vybereme menší z obou hodnot, tedy $U=min(U_1, U_2)$. V našem případě je tedy $U$ rovno `r U`. Protože testovací statistika nabývá normálního rozdělení, abyhcom ji mohli porovnat k očekávanému rozdělní za platnosti $H_0$, musíme vypočítat průměr a směrodatbou odchylku rozdělení této testovací statistiky. Průměr výběrového rozdělení testovací statistiku $U$ vypočítáme jako $\mu_U=\frac{n_1n_2}{2}$. V našem případě je tato hodnota rovna `r mu_U`. Směrodatná chyba odhadu $U$ se vypočítá jako $\sigma_U = \sqrt{\frac{n_1n_2(n_1+n_2+1)}{12}}$. Hodnotu kvantilu testovací statistiky vypočítáme jako $z=\frac{U-\mu_U}{\sigma_U}$. Graf \@ref(fig:h0-u) ukazuje rozdělení testovací statistiky $U$ za předpokladu $H_0$.
 
-```{r, fig.cap='Výběrové rozdělení U za předpokladu H0'}
+```{r h0-u, fig.cap='Výběrové rozdělení U za předpokladu H0'}
 x <- seq(10,150, length.out=1000)
 pdf <- dnorm(x, mu_U, sigma_U)
 alpha <- 0.05
 kriticka_mez <- qnorm(c(alpha/2, 1-alpha/2), mean = mu_U, sigma_U)
-p_hodnota <- pnorm(z) *2
+p_hodnota <- (1-pnorm(abs(z))) *2
 # p_hodnota <- pnorm(U, mu_U, sigma_U) *2 # nebo take
 
 plot(x, pdf, 
@@ -185,3 +185,69 @@ legend("topright",
 
 Pravděpodobnost, že bychom za předpokladu $H_0: \eta_1 = \eta_2$ sledovali testovací statistiku takovou nebo extrémnější je `r round(p_hodnota, 3)`, tedy pod hranicí zvolené $\alpha=0.05$. Zamítáme tedy $H_0$ ve prospěch $H_1$.
 
+
+## Wilcoxon Rank Test
+Tento test je neparametrickou obdobou párového t-testu. Používáme ho tedy, když chceme porovnat medián dvou závislých výběrů. Příklad výpočtu tohoto testu si ukážeme na následujícím příkladu:
+Máme náhodný výběr 21 studentů, kteří se v přijímacím řízení hlásí na FSV UK. Všichni studenti dvakrát psali test obecných studijních předpokladů (OSP). Jejich výsledky v podobě percentilů z obou pokusů OSP zobrazuje následující tabulka:
+
+|          | | | | | | | | | | | | | | | | | | | | | |
+|----------|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|
+|První test |67|80|55|90|71|81|31|72|96|79|82|39|28|65|47|77|17|98|64|43|59|
+|Druhý test |83|82|67|96|64|95|31|89|95|83|93|37|31|69|42|67|32|97|51|52|67|
+
+Dochází mezi uchazeči o studium na FSV UK při druhém pokusu ke zlepšení jejich výsledku testu OSP? Tedy $H_0: \eta_1 = \eta_2$ a $H_1: \eta_1 \ne \eta_2$.
+
+```{r}
+prvni <- c(67, 80, 55, 90, 71, 81, 31, 72, 96, 79, 82, 39, 28, 65, 47, 77, 17, 98, 64, 43, 59)
+druhy <- c(83, 82, 67, 96, 64, 95, 31, 89, 95, 83, 93, 37, 31, 69, 42, 67, 32, 97, 51, 52, 67)
+```
+
+Medián v prvním výběru standardní výuky je `r median(prvni)`. Medián v druhém výběru experimentální výuky je `r median(druhy)`.
+
+```{r}
+d <- druhy - prvni
+# vyradime stejne vysledky, protoze to tvori komplikaci pri vypoctu rozdeleni testovaci statistiky
+d <- d[d!=0]
+R <- rank(abs(d))
+W <- sum(R * sign(d))
+n <- length(d)
+
+mu_W <- 0
+sigma_W <- sqrt((n*(n+1)*(2*n+1)) / 6)
+z <- (W - mu_W) / sigma_W 
+```
+
+Nejdříve vypočítáme rozdíly mezi hodnotami z obou výběrů a poté vypočítáme pořadí těchto rozdílů $R$. Poté pořadí přidáme znaménko podle toho, zda byl původní rozdíl záporný nebo kladný. Součet těchto hodnot nám dá testovací statistiku $W$, která se tedy vypočítá jako $W=\sum_{i=1}^{n}{sgn(x_i-y_i)R_i}$. V našem případě je $W$ rovno `r W`. Testovací statistika $W$ nabývá normálního rozdělení, které má za předpokladu $H_0$ průměr $\mu_w=0$^[Pokud není mezi prvním a druhým výběrem rozdíl, jsou rozdíly náhodně kladná a záporná čísla a jejich součet je roven 0.] a směrodatnou odchylku $\sigma_W=\sqrt{\frac{n(n+1)(2n+1)}{6}}$. Hodnotu kvantilu testovací statistiky vypočítáme jako $z=\frac{U-\mu_W}{\sigma_W}$. V našem případě je $\mu_W$ rovno `r mu_W` a směrodatná chyba odhadu $W$ je rovna `r round(sigma_W, 3)`.Graf \@ref(fig:h0-w) ukazuje rozdělení testovací statistiky $W$ za předpokladu $H_0$.
+
+```{r h0-w, fig.cap='Výběrové rozdělení W za předpokladu H0'}
+x <- seq(-200,200, length.out=1000)
+pdf <- dnorm(x, mu_W, sigma_W)
+alpha <- 0.05
+kriticka_mez <- qnorm(c(alpha/2, 1-alpha/2), mean = mu_W, sigma_W)
+p_hodnota <- (1-pnorm(abs(z))) *2
+# p_hodnota <- (1-pnorm(W, mu_W, sigma_W)) *2 # nebo take
+
+plot(x, pdf, 
+     type = "l", 
+     lwd = 2,
+     col = "grey",
+     xlab = "U", ylab = "PDF")
+abline(v = W, lty = 2)
+lines(x[x<kriticka_mez[1]], pdf[x<kriticka_mez[1]], type = "h", col = "#1f77b4", lwd = 1)
+lines(x[x>kriticka_mez[2]], pdf[x>kriticka_mez[2]], type = "h", col = "#1f77b4", lwd = 1)
+
+legend("topright",
+       legend = c(
+         paste0(
+           "N(", mu_W, ", ",
+           round(sigma_W, 3), ")"
+         ),
+         "Testovací statistika"),
+       col = c("grey", "black"),
+       lwd = c(2, 1),
+       lty = c(1,2),
+       cex = 0.7
+)
+```
+
+Pravděpodobnost, že bychom za předpokladu $H_0: \eta_1 = \eta_2$ sledovali testovací statistiku takovou nebo extrémnější je `r round(p_hodnota, 3)`, tedy těsně nad hranicí zvolené $\alpha=0.05$. Nezamítáme tedy $H_0$ ve prospěch $H_1$.

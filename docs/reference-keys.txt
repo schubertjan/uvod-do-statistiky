@@ -79,7 +79,8 @@ fig:unnamed-chunk-84
 fig:znam-data
 fig:znam-chart
 fig:znam-chart2
-fig:unnamed-chunk-91
+fig:h0-u
+fig:h0-w
 úvod
 příklad-popisné-statistiky
 příklad-inferenční-statistiky
@@ -133,3 +134,4 @@ statistické-testování-a-interval-spolehlivosti
 neparametrické-testy
 znaménkový-test
 mann-whitney-u-test
+wilcoxon-rank-test

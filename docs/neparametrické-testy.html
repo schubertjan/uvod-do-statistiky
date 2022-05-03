@@ -23,7 +23,7 @@
 <meta name="author" content="Jan Schubert" />
 
 
-<meta name="date" content="2022-05-02" />
+<meta name="date" content="2022-05-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -212,6 +212,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="10.1" data-path="neparametrické-testy.html"><a href="neparametrické-testy.html#znaménkový-test"><i class="fa fa-check"></i><b>10.1</b> Znaménkový test<span></span></a></li>
 <li class="chapter" data-level="10.2" data-path="neparametrické-testy.html"><a href="neparametrické-testy.html#mann-whitney-u-test"><i class="fa fa-check"></i><b>10.2</b> Mann-Whitney U test<span></span></a></li>
+<li class="chapter" data-level="10.3" data-path="neparametrické-testy.html"><a href="neparametrické-testy.html#wilcoxon-rank-test"><i class="fa fa-check"></i><b>10.3</b> Wilcoxon Rank Test<span></span></a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a>
@@ -237,7 +238,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="neparametrické-testy" class="section level1 hasAnchor" number="10">
 <h1><span class="header-section-number">Kapitola 10</span> Neparametrické testy<a href="neparametrické-testy.html#neparametrické-testy" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Neparametrické testy používáme, pokud jsou předopklady některých parametrických testů porušeny, nejčastěji normalita rozdělení nebo předpoklady o spojitosti proměnné.</p>
+<p>Neparametrické testy používáme, pokud jsou předpoklady některých parametrických testů porušeny, nejčastěji normalita rozdělení nebo předpoklady o spojitosti proměnné. Alternativně bychom na vypočtení výběrových rozdělení statistik mohli použít metodu bootstrapu.</p>
 <div id="znaménkový-test" class="section level2 hasAnchor" number="10.1">
 <h2><span class="header-section-number">10.1</span> Znaménkový test<a href="neparametrické-testy.html#znaménkový-test" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Nejjednodušším testem je znaménkový test. Tento test používáme, když chceme porovnat medián proměnné k populační hodnotě. Jde tedy o ekvivalement jednovýběrového t-testu (viz <a href="stats-test-single.html#stats-test-single">5</a>. Pojďme si znaménkový test ukázat na následujícím příkladu. Na filmové databázi IMDb mohou registrovaní uživatelé a uživatelky hodnotit filmy na škále od 1 do 10. Víte, že daný film na této databázi hodnotilo více než půl milionu uživatelů. Správce databáze vám při pracovním pohovoru na pozici datového analytika náhodně vygeneruje 14 hodnocení tohoto filmu:
@@ -403,12 +404,12 @@ Graf 10.3: Distribuce pozorování větších než teoretická hodnota za předp
 <span id="cb170-5"><a href="neparametrické-testy.html#cb170-5" aria-hidden="true" tabindex="-1"></a>mu_U <span class="ot">&lt;-</span> n1<span class="sc">*</span>n2<span class="sc">/</span><span class="dv">2</span></span>
 <span id="cb170-6"><a href="neparametrické-testy.html#cb170-6" aria-hidden="true" tabindex="-1"></a>sigma_U <span class="ot">&lt;-</span> <span class="fu">sqrt</span>((n1<span class="sc">*</span>n2<span class="sc">*</span>(n1<span class="sc">+</span>n2<span class="sc">+</span><span class="dv">1</span>))<span class="sc">/</span><span class="dv">12</span>)</span>
 <span id="cb170-7"><a href="neparametrické-testy.html#cb170-7" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> (U<span class="sc">-</span>mu_U) <span class="sc">/</span> sigma_U</span></code></pre></div>
-<p>Testovací statistika pro výběr standardní výuky je 26.5 a pro výběr experimentální výuky je 129.5. Jako testovací statistiku <span class="math inline">\(U\)</span> vybereme menší z obou hodnot, tedy <span class="math inline">\(U=min(U_1, U_2)\)</span>. V našem případě je tedy <span class="math inline">\(U\)</span> rovno 26.5. Protože testovací statistika nabývá normálního rozdělení, abyhcom ji mohli porovnat k očekávanému rozdělní za platnosti <span class="math inline">\(H_0\)</span>, musíme vypočítat průměr a směrodatbou odchylku rozdělení této testovací statistiky. Průměr výběrového rozdělení testovací statistiku <span class="math inline">\(U\)</span> vypočítáme jako <span class="math inline">\(\mu_U=\frac{n_1n_2}{2}\)</span>. V našem případě je tato hodnota rovna 78. Směrodatná chyba odhadu <span class="math inline">\(U\)</span> se vypočítá jako <span class="math inline">\(\sigma_U = \sqrt{\frac{n_1n_2(n_1+n_2+1)}{12}}\)</span>. Hodnotu kvantilu testovací statistiky vypočítáme jako <span class="math inline">\(z=\frac{U-\mu_U}{\sigma_U}\)</span>.</p>
+<p>Testovací statistika pro výběr standardní výuky je 26.5 a pro výběr experimentální výuky je 129.5. Jako testovací statistiku <span class="math inline">\(U\)</span> vybereme menší z obou hodnot, tedy <span class="math inline">\(U=min(U_1, U_2)\)</span>. V našem případě je tedy <span class="math inline">\(U\)</span> rovno 26.5. Protože testovací statistika nabývá normálního rozdělení, abyhcom ji mohli porovnat k očekávanému rozdělní za platnosti <span class="math inline">\(H_0\)</span>, musíme vypočítat průměr a směrodatbou odchylku rozdělení této testovací statistiky. Průměr výběrového rozdělení testovací statistiku <span class="math inline">\(U\)</span> vypočítáme jako <span class="math inline">\(\mu_U=\frac{n_1n_2}{2}\)</span>. V našem případě je tato hodnota rovna 78. Směrodatná chyba odhadu <span class="math inline">\(U\)</span> se vypočítá jako <span class="math inline">\(\sigma_U = \sqrt{\frac{n_1n_2(n_1+n_2+1)}{12}}\)</span>. Hodnotu kvantilu testovací statistiky vypočítáme jako <span class="math inline">\(z=\frac{U-\mu_U}{\sigma_U}\)</span>. Graf <a href="neparametrické-testy.html#fig:h0-u">10.4</a> ukazuje rozdělení testovací statistiky <span class="math inline">\(U\)</span> za předpokladu <span class="math inline">\(H_0\)</span>.</p>
 <div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="neparametrické-testy.html#cb171-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">10</span>,<span class="dv">150</span>, <span class="at">length.out=</span><span class="dv">1000</span>)</span>
 <span id="cb171-2"><a href="neparametrické-testy.html#cb171-2" aria-hidden="true" tabindex="-1"></a>pdf <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(x, mu_U, sigma_U)</span>
 <span id="cb171-3"><a href="neparametrické-testy.html#cb171-3" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
 <span id="cb171-4"><a href="neparametrické-testy.html#cb171-4" aria-hidden="true" tabindex="-1"></a>kriticka_mez <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fu">c</span>(alpha<span class="sc">/</span><span class="dv">2</span>, <span class="dv">1</span><span class="sc">-</span>alpha<span class="sc">/</span><span class="dv">2</span>), <span class="at">mean =</span> mu_U, sigma_U)</span>
-<span id="cb171-5"><a href="neparametrické-testy.html#cb171-5" aria-hidden="true" tabindex="-1"></a>p_hodnota <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(z) <span class="sc">*</span><span class="dv">2</span></span>
+<span id="cb171-5"><a href="neparametrické-testy.html#cb171-5" aria-hidden="true" tabindex="-1"></a>p_hodnota <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">-</span><span class="fu">pnorm</span>(<span class="fu">abs</span>(z))) <span class="sc">*</span><span class="dv">2</span></span>
 <span id="cb171-6"><a href="neparametrické-testy.html#cb171-6" aria-hidden="true" tabindex="-1"></a><span class="co"># p_hodnota &lt;- pnorm(U, mu_U, sigma_U) *2 # nebo take</span></span>
 <span id="cb171-7"><a href="neparametrické-testy.html#cb171-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb171-8"><a href="neparametrické-testy.html#cb171-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, pdf, </span>
@@ -432,13 +433,144 @@ Graf 10.3: Distribuce pozorování větších než teoretická hodnota za předp
 <span id="cb171-26"><a href="neparametrické-testy.html#cb171-26" aria-hidden="true" tabindex="-1"></a>       <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),</span>
 <span id="cb171-27"><a href="neparametrické-testy.html#cb171-27" aria-hidden="true" tabindex="-1"></a>       <span class="at">cex =</span> <span class="fl">0.7</span></span>
 <span id="cb171-28"><a href="neparametrické-testy.html#cb171-28" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-91"></span>
-<img src="book_files/figure-html/unnamed-chunk-91-1.png" alt="Výběrové rozdělení U za předpokladu H0" width="672" />
+<div class="figure"><span style="display:block;" id="fig:h0-u"></span>
+<img src="book_files/figure-html/h0-u-1.png" alt="Výběrové rozdělení U za předpokladu H0" width="672" />
 <p class="caption">
 Graf 10.4: Výběrové rozdělení U za předpokladu H0
 </p>
 </div>
 <p>Pravděpodobnost, že bychom za předpokladu <span class="math inline">\(H_0: \eta_1 = \eta_2\)</span> sledovali testovací statistiku takovou nebo extrémnější je 0.005, tedy pod hranicí zvolené <span class="math inline">\(\alpha=0.05\)</span>. Zamítáme tedy <span class="math inline">\(H_0\)</span> ve prospěch <span class="math inline">\(H_1\)</span>.</p>
+</div>
+<div id="wilcoxon-rank-test" class="section level2 hasAnchor" number="10.3">
+<h2><span class="header-section-number">10.3</span> Wilcoxon Rank Test<a href="neparametrické-testy.html#wilcoxon-rank-test" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Tento test je neparametrickou obdobou párového t-testu. Používáme ho tedy, když chceme porovnat medián dvou závislých výběrů. Příklad výpočtu tohoto testu si ukážeme na následujícím příkladu:
+Máme náhodný výběr 21 studentů, kteří se v přijímacím řízení hlásí na FSV UK. Všichni studenti dvakrát psali test obecných studijních předpokladů (OSP). Jejich výsledky v podobě percentilů z obou pokusů OSP zobrazuje následující tabulka:</p>
+<table style="width:100%;">
+<colgroup>
+<col width="32%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>První test</td>
+<td>67</td>
+<td>80</td>
+<td>55</td>
+<td>90</td>
+<td>71</td>
+<td>81</td>
+<td>31</td>
+<td>72</td>
+<td>96</td>
+<td>79</td>
+<td>82</td>
+<td>39</td>
+<td>28</td>
+<td>65</td>
+<td>47</td>
+<td>77</td>
+<td>17</td>
+<td>98</td>
+<td>64</td>
+<td>43</td>
+<td>59</td>
+</tr>
+<tr class="even">
+<td>Druhý test</td>
+<td>83</td>
+<td>82</td>
+<td>67</td>
+<td>96</td>
+<td>64</td>
+<td>95</td>
+<td>31</td>
+<td>89</td>
+<td>95</td>
+<td>83</td>
+<td>93</td>
+<td>37</td>
+<td>31</td>
+<td>69</td>
+<td>42</td>
+<td>67</td>
+<td>32</td>
+<td>97</td>
+<td>51</td>
+<td>52</td>
+<td>67</td>
+</tr>
+</tbody>
+</table>
+<p>Dochází mezi uchazeči o studium na FSV UK při druhém pokusu ke zlepšení jejich výsledku testu OSP? Tedy <span class="math inline">\(H_0: \eta_1 = \eta_2\)</span> a <span class="math inline">\(H_1: \eta_1 \ne \eta_2\)</span>.</p>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="neparametrické-testy.html#cb172-1" aria-hidden="true" tabindex="-1"></a>prvni <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">67</span>, <span class="dv">80</span>, <span class="dv">55</span>, <span class="dv">90</span>, <span class="dv">71</span>, <span class="dv">81</span>, <span class="dv">31</span>, <span class="dv">72</span>, <span class="dv">96</span>, <span class="dv">79</span>, <span class="dv">82</span>, <span class="dv">39</span>, <span class="dv">28</span>, <span class="dv">65</span>, <span class="dv">47</span>, <span class="dv">77</span>, <span class="dv">17</span>, <span class="dv">98</span>, <span class="dv">64</span>, <span class="dv">43</span>, <span class="dv">59</span>)</span>
+<span id="cb172-2"><a href="neparametrické-testy.html#cb172-2" aria-hidden="true" tabindex="-1"></a>druhy <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">83</span>, <span class="dv">82</span>, <span class="dv">67</span>, <span class="dv">96</span>, <span class="dv">64</span>, <span class="dv">95</span>, <span class="dv">31</span>, <span class="dv">89</span>, <span class="dv">95</span>, <span class="dv">83</span>, <span class="dv">93</span>, <span class="dv">37</span>, <span class="dv">31</span>, <span class="dv">69</span>, <span class="dv">42</span>, <span class="dv">67</span>, <span class="dv">32</span>, <span class="dv">97</span>, <span class="dv">51</span>, <span class="dv">52</span>, <span class="dv">67</span>)</span></code></pre></div>
+<p>Medián v prvním výběru standardní výuky je 67. Medián v druhém výběru experimentální výuky je 67.</p>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="neparametrické-testy.html#cb173-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> druhy <span class="sc">-</span> prvni</span>
+<span id="cb173-2"><a href="neparametrické-testy.html#cb173-2" aria-hidden="true" tabindex="-1"></a><span class="co"># vyradime stejne vysledky, protoze to tvori komplikaci pri vypoctu rozdeleni testovaci statistiky</span></span>
+<span id="cb173-3"><a href="neparametrické-testy.html#cb173-3" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> d[d<span class="sc">!=</span><span class="dv">0</span>]</span>
+<span id="cb173-4"><a href="neparametrické-testy.html#cb173-4" aria-hidden="true" tabindex="-1"></a>R <span class="ot">&lt;-</span> <span class="fu">rank</span>(<span class="fu">abs</span>(d))</span>
+<span id="cb173-5"><a href="neparametrické-testy.html#cb173-5" aria-hidden="true" tabindex="-1"></a>W <span class="ot">&lt;-</span> <span class="fu">sum</span>(R <span class="sc">*</span> <span class="fu">sign</span>(d))</span>
+<span id="cb173-6"><a href="neparametrické-testy.html#cb173-6" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(d)</span>
+<span id="cb173-7"><a href="neparametrické-testy.html#cb173-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb173-8"><a href="neparametrické-testy.html#cb173-8" aria-hidden="true" tabindex="-1"></a>mu_W <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb173-9"><a href="neparametrické-testy.html#cb173-9" aria-hidden="true" tabindex="-1"></a>sigma_W <span class="ot">&lt;-</span> <span class="fu">sqrt</span>((n<span class="sc">*</span>(n<span class="sc">+</span><span class="dv">1</span>)<span class="sc">*</span>(<span class="dv">2</span><span class="sc">*</span>n<span class="sc">+</span><span class="dv">1</span>)) <span class="sc">/</span> <span class="dv">6</span>)</span>
+<span id="cb173-10"><a href="neparametrické-testy.html#cb173-10" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> (W <span class="sc">-</span> mu_W) <span class="sc">/</span> sigma_W </span></code></pre></div>
+<p>Nejdříve vypočítáme rozdíly mezi hodnotami z obou výběrů a poté vypočítáme pořadí těchto rozdílů <span class="math inline">\(R\)</span>. Poté pořadí přidáme znaménko podle toho, zda byl původní rozdíl záporný nebo kladný. Součet těchto hodnot nám dá testovací statistiku <span class="math inline">\(W\)</span>, která se tedy vypočítá jako <span class="math inline">\(W=\sum_{i=1}^{n}{sgn(x_i-y_i)R_i}\)</span>. V našem případě je <span class="math inline">\(W\)</span> rovno 103. Testovací statistika <span class="math inline">\(W\)</span> nabývá normálního rozdělení, které má za předpokladu <span class="math inline">\(H_0\)</span> průměr <span class="math inline">\(\mu_w=0\)</span><a href="#fn35" class="footnote-ref" id="fnref35"><sup>35</sup></a> a směrodatnou odchylku <span class="math inline">\(\sigma_W=\sqrt{\frac{n(n+1)(2n+1)}{6}}\)</span>. Hodnotu kvantilu testovací statistiky vypočítáme jako <span class="math inline">\(z=\frac{U-\mu_W}{\sigma_W}\)</span>. V našem případě je <span class="math inline">\(\mu_W\)</span> rovno 0 a směrodatná chyba odhadu <span class="math inline">\(W\)</span> je rovna 53.572.Graf <a href="neparametrické-testy.html#fig:h0-w">10.5</a> ukazuje rozdělení testovací statistiky <span class="math inline">\(W\)</span> za předpokladu <span class="math inline">\(H_0\)</span>.</p>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="neparametrické-testy.html#cb174-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">200</span>,<span class="dv">200</span>, <span class="at">length.out=</span><span class="dv">1000</span>)</span>
+<span id="cb174-2"><a href="neparametrické-testy.html#cb174-2" aria-hidden="true" tabindex="-1"></a>pdf <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(x, mu_W, sigma_W)</span>
+<span id="cb174-3"><a href="neparametrické-testy.html#cb174-3" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb174-4"><a href="neparametrické-testy.html#cb174-4" aria-hidden="true" tabindex="-1"></a>kriticka_mez <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fu">c</span>(alpha<span class="sc">/</span><span class="dv">2</span>, <span class="dv">1</span><span class="sc">-</span>alpha<span class="sc">/</span><span class="dv">2</span>), <span class="at">mean =</span> mu_W, sigma_W)</span>
+<span id="cb174-5"><a href="neparametrické-testy.html#cb174-5" aria-hidden="true" tabindex="-1"></a>p_hodnota <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">-</span><span class="fu">pnorm</span>(<span class="fu">abs</span>(z))) <span class="sc">*</span><span class="dv">2</span></span>
+<span id="cb174-6"><a href="neparametrické-testy.html#cb174-6" aria-hidden="true" tabindex="-1"></a><span class="co"># p_hodnota &lt;- (1-pnorm(W, mu_W, sigma_W)) *2 # nebo take</span></span>
+<span id="cb174-7"><a href="neparametrické-testy.html#cb174-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb174-8"><a href="neparametrické-testy.html#cb174-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, pdf, </span>
+<span id="cb174-9"><a href="neparametrické-testy.html#cb174-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, </span>
+<span id="cb174-10"><a href="neparametrické-testy.html#cb174-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb174-11"><a href="neparametrické-testy.html#cb174-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;grey&quot;</span>,</span>
+<span id="cb174-12"><a href="neparametrické-testy.html#cb174-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;U&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;PDF&quot;</span>)</span>
+<span id="cb174-13"><a href="neparametrické-testy.html#cb174-13" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> W, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb174-14"><a href="neparametrické-testy.html#cb174-14" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x[x<span class="sc">&lt;</span>kriticka_mez[<span class="dv">1</span>]], pdf[x<span class="sc">&lt;</span>kriticka_mez[<span class="dv">1</span>]], <span class="at">type =</span> <span class="st">&quot;h&quot;</span>, <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>, <span class="at">lwd =</span> <span class="dv">1</span>)</span>
+<span id="cb174-15"><a href="neparametrické-testy.html#cb174-15" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x[x<span class="sc">&gt;</span>kriticka_mez[<span class="dv">2</span>]], pdf[x<span class="sc">&gt;</span>kriticka_mez[<span class="dv">2</span>]], <span class="at">type =</span> <span class="st">&quot;h&quot;</span>, <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>, <span class="at">lwd =</span> <span class="dv">1</span>)</span>
+<span id="cb174-16"><a href="neparametrické-testy.html#cb174-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb174-17"><a href="neparametrické-testy.html#cb174-17" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>,</span>
+<span id="cb174-18"><a href="neparametrické-testy.html#cb174-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend =</span> <span class="fu">c</span>(</span>
+<span id="cb174-19"><a href="neparametrické-testy.html#cb174-19" aria-hidden="true" tabindex="-1"></a>         <span class="fu">paste0</span>(</span>
+<span id="cb174-20"><a href="neparametrické-testy.html#cb174-20" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;N(&quot;</span>, mu_W, <span class="st">&quot;, &quot;</span>,</span>
+<span id="cb174-21"><a href="neparametrické-testy.html#cb174-21" aria-hidden="true" tabindex="-1"></a>           <span class="fu">round</span>(sigma_W, <span class="dv">3</span>), <span class="st">&quot;)&quot;</span></span>
+<span id="cb174-22"><a href="neparametrické-testy.html#cb174-22" aria-hidden="true" tabindex="-1"></a>         ),</span>
+<span id="cb174-23"><a href="neparametrické-testy.html#cb174-23" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;Testovací statistika&quot;</span>),</span>
+<span id="cb174-24"><a href="neparametrické-testy.html#cb174-24" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;grey&quot;</span>, <span class="st">&quot;black&quot;</span>),</span>
+<span id="cb174-25"><a href="neparametrické-testy.html#cb174-25" aria-hidden="true" tabindex="-1"></a>       <span class="at">lwd =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>),</span>
+<span id="cb174-26"><a href="neparametrické-testy.html#cb174-26" aria-hidden="true" tabindex="-1"></a>       <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),</span>
+<span id="cb174-27"><a href="neparametrické-testy.html#cb174-27" aria-hidden="true" tabindex="-1"></a>       <span class="at">cex =</span> <span class="fl">0.7</span></span>
+<span id="cb174-28"><a href="neparametrické-testy.html#cb174-28" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:h0-w"></span>
+<img src="book_files/figure-html/h0-w-1.png" alt="Výběrové rozdělení W za předpokladu H0" width="672" />
+<p class="caption">
+Graf 10.5: Výběrové rozdělení W za předpokladu H0
+</p>
+</div>
+<p>Pravděpodobnost, že bychom za předpokladu <span class="math inline">\(H_0: \eta_1 = \eta_2\)</span> sledovali testovací statistiku takovou nebo extrémnější je 0.055, tedy těsně nad hranicí zvolené <span class="math inline">\(\alpha=0.05\)</span>. Nezamítáme tedy <span class="math inline">\(H_0\)</span> ve prospěch <span class="math inline">\(H_1\)</span>.</p>
 
 </div>
 </div>
@@ -481,6 +613,13 @@ Graf 10.4: Výběrové rozdělení U za předpokladu H0
 
 
 
+
+<div class="footnotes">
+<hr />
+<ol start="35">
+<li id="fn35"><p>Pokud není mezi prvním a druhým výběrem rozdíl, jsou rozdíly náhodně kladná a záporná čísla a jejich součet je roven 0.<a href="neparametrické-testy.html#fnref35" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
             </section>
 
           </div>
